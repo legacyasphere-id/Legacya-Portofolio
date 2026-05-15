@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#F7F4ED" />
+
+  <!-- Primary SEO -->
+  <title>Legacya Sphere — Premium Creative Web Studio | Yoga Pratama Effendi</title>
+  <meta name="description" content="Legacya Sphere is a premium creative studio crafting refined websites and intelligent automations. Founded by Yoga Pratama Effendi. Selective engagements only — consultation by application." />
+  <meta name="author" content="Yoga Pratama Effendi · Legacya Sphere" />
+  <meta name="keywords" content="legacya sphere, creative studio, web design, landing page, ai automation, indonesia, premium portfolio" />
+  <link rel="canonical" href="https://legacyasphere.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Legacya Sphere — Premium Creative Web Studio" />
+  <meta property="og:description" content="Refined websites and intelligent automations for thoughtful brands." />
+  <meta property="og:url" content="https://legacyasphere.com/" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Legacya Sphere — Premium Creative Web Studio" />
+  <meta name="twitter:description" content="Refined websites and intelligent automations for thoughtful brands." />
+
+  <!-- Favicon: Legacya logo (sphere SVG) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23F7F4ED'/%3E%3Ctext x='50' y='62' font-family='Georgia,serif' font-size='38' font-weight='400' fill='%231C1A17' text-anchor='middle'%3ELS%3C/text%3E%3C/svg%3E" />
+
+  <!-- Tailwind config FIRST (robust pattern) -->
+  <script>
+    window.tailwind = window.tailwind || {};
+    window.tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bg:       "#F7F4ED",  /* canvas */
+            cream:    "#FAF8F2",  /* card surface */
+            sand:     "#EDE6D6",  /* accent section */
+            ink:      "#1C1A17",  /* primary text */
+            "ink-soft": "#5A5650",
+            mute:     "#8A847A",
+            line:     "#E6DFD0",
+            gold:     "#B8956A",  /* champagne accent */
+            silver:   "#9C9A95",
+            clay:     "#C9A582",
+            sage:     "#7A8B6A",  /* status badge */
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            serif: ['"Fraunces"', 'Georgia', 'serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+          },
+          letterSpacing: {
+            tightest: '-0.035em',
+          },
+          animation: {
+            'pulse-soft': 'pulseSoft 2.4s ease-in-out infinite',
+            'float-slow': 'float 16s ease-in-out infinite',
+          },
+          keyframes: {
+            pulseSoft: {
+              '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+              '50%': { opacity: '0.55', transform: 'scale(0.85)' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-14px)' },
+            },
+          },
+        },
+      },
+    };
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fonts: Fraunces (display serif), Inter (body), JetBrains Mono (accents) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Custom CSS -->
+  <style>
+    /* FOUC prevention — body stays hidden until Tailwind + fonts ready */
+    html { visibility: hidden; }
+    html.ready { visibility: visible; transition: opacity 0.15s ease; }
+
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body {
+      background: #F7F4ED;
+      color: #1C1A17;
+      font-family: 'Inter', system-ui, sans-serif;
+      overflow-x: hidden;
+      /* Subtle paper grain — premium "Aesop" feel */
+      background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.108 0 0 0 0 0.102 0 0 0 0 0.090 0 0 0 0.025 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    ::selection { background: rgba(184, 149, 106, 0.28); color: #1C1A17; }
+
+    /* Modern light scrollbar */
+    html { scrollbar-color: #C9A582 #F7F4ED; scrollbar-width: thin; }
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-track { background: #F7F4ED; }
+    ::-webkit-scrollbar-thumb {
+      background: #D6CDB9;
+      border-radius: 8px;
+      border: 2px solid #F7F4ED;
+      transition: background-color .25s;
+    }
+    ::-webkit-scrollbar-thumb:hover { background: #B8956A; }
+
+    /* Display headlines pakai Fraunces */
+    .font-display {
+      font-family: 'Fraunces', Georgia, serif;
+      font-optical-sizing: auto;
+      font-variation-settings: "opsz" 144;
+      letter-spacing: -0.025em;
+    }
+
+    /* Section eyebrow label */
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      color: #8A847A;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .section-label::before {
+      content: '';
+      width: 28px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, #B8956A);
+    }
+
+    /* Buttons */
+    .btn-primary {
+      background: #1C1A17;
+      color: #FAF8F2;
+      border: 1px solid #1C1A17;
+      transition: transform .25s, background-color .3s, box-shadow .3s;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.06) inset, 0 6px 20px -8px rgba(28,26,23,0.35);
+    }
+    .btn-primary:hover {
+      background: #2A2722;
+      transform: translateY(-1px);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.08) inset, 0 12px 28px -10px rgba(28,26,23,0.45);
+    }
+    .btn-ghost {
+      background: rgba(250, 248, 242, 0.6);
+      border: 1px solid #E6DFD0;
+      color: #1C1A17;
+      transition: border-color .3s, background-color .3s, transform .25s;
+    }
+    .btn-ghost:hover {
+      border-color: #B8956A;
+      background: #FAF8F2;
+      transform: translateY(-1px);
+    }
+
+    /* Card surface — warm soft shadow, NOT black */
+    .card {
+      background: #FAF8F2;
+      border: 1px solid #E6DFD0;
+      border-radius: 18px;
+      transition: transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s, border-color .4s;
+      box-shadow: 0 1px 2px rgba(124, 105, 70, 0.04);
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: #D6CDB9;
+      box-shadow:
+        0 14px 30px -12px rgba(124, 105, 70, 0.18),
+        0 4px 8px -2px rgba(124, 105, 70, 0.08);
+    }
+
+    /* Gold serif italic accent */
+    .accent-italic {
+      font-family: 'Fraunces', Georgia, serif;
+      font-style: italic;
+      font-weight: 400;
+      color: #B8956A;
+    }
+
+    /* Brush underline (gold) - SVG-based, kelihatan organic */
+    .brush-underline {
+      position: relative;
+      display: inline-block;
+    }
+    .brush-underline::after {
+      content: '';
+      position: absolute;
+      left: -4%;
+      right: -4%;
+      bottom: -8px;
+      height: 6px;
+      background: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 8' preserveAspectRatio='none'%3E%3Cpath d='M0,4 Q50,1 100,3 T200,4' stroke='%23B8956A' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+      opacity: 0.85;
+    }
+
+    /* Reveal animation */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 1s cubic-bezier(.2,.7,.2,1), transform 1s cubic-bezier(.2,.7,.2,1); }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .reveal.delay-1 { transition-delay: .08s; }
+    .reveal.delay-2 { transition-delay: .16s; }
+    .reveal.delay-3 { transition-delay: .24s; }
+    .reveal.delay-4 { transition-delay: .32s; }
+    .reveal.delay-5 { transition-delay: .40s; }
+    .reveal.delay-6 { transition-delay: .48s; }
+
+    /* ===== Tools ticker — native CSS animation (Tailwind CDN unreliable for this) ===== */
+    @keyframes marqueeScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .marquee-track {
+      display: flex;
+      gap: 3rem;
+      white-space: nowrap;
+      animation: marqueeScroll 22s linear infinite;
+      will-change: transform;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .marquee-track { animation: none; }
+    }
+
+    /* Marquee mask */
+    .marquee-mask {
+      mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+    }
+
+    /* Navbar — light blur */
+    .nav-blur {
+      backdrop-filter: blur(14px) saturate(150%);
+      -webkit-backdrop-filter: blur(14px) saturate(150%);
+      background: rgba(247, 244, 237, 0.78);
+      border-bottom: 1px solid rgba(230, 223, 208, 0.6);
+    }
+
+    /* Status badge */
+    .status-dot {
+      width: 8px; height: 8px; border-radius: 9999px; background: #7A8B6A;
+      box-shadow: 0 0 0 3px rgba(122, 139, 106, 0.18);
+    }
+
+    /* ===== Mobile menu — smooth slide ===== */
+    .mobile-menu {
+      max-height: 0;
+      opacity: 0;
+      transform: translateY(-8px);
+      visibility: hidden;
+      overflow: hidden;
+      pointer-events: none;
+      transition: max-height .35s cubic-bezier(.2,.7,.2,1), opacity .25s, transform .25s, visibility 0s linear .35s;
+    }
+    .mobile-menu.is-open {
+      max-height: 480px;
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
+      pointer-events: auto;
+      transition: max-height .35s cubic-bezier(.2,.7,.2,1), opacity .25s, transform .25s, visibility 0s linear 0s;
+    }
+
+    /* ===== Brand-flip card (kept) ===== */
+    .flip-section {
+      position: relative;
+      height: 180vh;
+    }
+    .flip-sticky {
+      position: sticky; top: 0; height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 28px;
+    }
+    .flip-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #8A847A;
+      font-weight: 500;
+    }
+    .flip-eyebrow .sep {
+      display: inline-block; width: 18px; height: 1px; background: #B8956A;
+      vertical-align: middle; margin: 0 12px;
+    }
+    .flip-card-wrapper { perspective: 1600px; width: 270px; height: 480px; }
+    .flip-card-inner {
+      position: relative; width: 100%; height: 100%;
+      transform-style: preserve-3d; transform: rotateY(0deg); will-change: transform;
+    }
+    .flip-face {
+      position: absolute; inset: 0;
+      backface-visibility: hidden; -webkit-backface-visibility: hidden;
+      border-radius: 24px; overflow: hidden;
+      border: 1px solid #E6DFD0;
+      box-shadow:
+        0 24px 50px -16px rgba(124, 105, 70, 0.28),
+        0 0 0 1px rgba(255,255,255,0.5) inset;
+    }
+    .flip-face-front {
+      background: linear-gradient(180deg, #FAF8F2 0%, #F2EBDA 100%);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .flip-face-front img {
+      width: 78%; height: auto; max-height: 78%; object-fit: contain;
+    }
+    .flip-face-back { transform: rotateY(180deg); background: #F0E9D8; }
+    .flip-face-back img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center;
+    }
+    .flip-hint {
+      font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em;
+      text-transform: uppercase; color: #8A847A;
+      display: flex; align-items: center; gap: 8px; opacity: 0.75;
+    }
+    .flip-hint svg { animation: bounceY 1.8s ease-in-out infinite; }
+    @keyframes bounceY { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+    @media (max-width: 640px) {
+      .flip-card-wrapper { width: 240px; height: 427px; }
+      .flip-section { height: 170vh; }
+    }
+
+    /* ===== Project slideshow ===== */
+    .project-slideshow {
+      position: relative; overflow: hidden;
+      background: linear-gradient(135deg, #EDE6D6 0%, #E0D7C0 100%);
+      cursor: pointer; outline: none;
+    }
+    .project-slideshow:focus-visible { box-shadow: inset 0 0 0 2px #B8956A; }
+    .project-slideshow .slide {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: contain; object-position: center center;
+      padding: 18px;
+      opacity: 0; transform: scale(1.02);
+      transition: opacity .6s, transform .8s cubic-bezier(.2,.7,.2,1);
+      pointer-events: none;
+      filter: drop-shadow(0 12px 24px rgba(28, 26, 23, 0.12));
+    }
+    .project-slideshow .slide.active { opacity: 1; transform: scale(1); }
+    .project-slideshow::after {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(to bottom, transparent 80%, rgba(28,26,23,0.06) 100%);
+    }
+    @media (max-width: 640px) {
+      .project-slideshow .slide { padding: 12px; }
+    }
+    .slide-dots {
+      position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 6px; z-index: 2;
+    }
+    .slide-dots .dot {
+      width: 6px; height: 6px; border-radius: 9999px;
+      background: rgba(255,255,255,0.55);
+      transition: background-color .3s, width .3s;
+    }
+    .slide-dots .dot.active { background: #FFF; width: 18px; }
+
+    /* Form */
+    .input-field {
+      background: #FAF8F2;
+      border: 1px solid #E6DFD0;
+      color: #1C1A17;
+      transition: border-color .25s, background-color .25s, box-shadow .25s;
+    }
+    .input-field::placeholder { color: #8A847A; }
+    .input-field:focus {
+      outline: none;
+      border-color: #B8956A;
+      background: #FFFDF8;
+      box-shadow: 0 0 0 4px rgba(184, 149, 106, 0.14);
+    }
+    .input-field.error {
+      border-color: #B8485E;
+      box-shadow: 0 0 0 4px rgba(184, 72, 94, 0.10);
+    }
+    .hp-field {
+      position: absolute !important;
+      left: -9999px !important;
+      width: 1px !important; height: 1px !important;
+      overflow: hidden !important; opacity: 0 !important;
+      pointer-events: none !important;
+    }
+
+    /* Below-fold paint optimization */
+    .lazy-paint {
+      content-visibility: auto;
+      contain-intrinsic-size: 1px 800px;
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1; transform: none; }
+      .flip-section { height: auto; padding: 6rem 0; }
+      .flip-sticky { position: static; height: auto; }
+      .flip-card-inner { transform: none !important; }
+    }
+  </style>
+
+  <!-- Schema.org Person + LocalBusiness blend for trust signals -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Yoga Pratama Effendi",
+    "alternateName": "Founder of Legacya Sphere",
+    "url": "https://legacyasphere.com",
+    "email": "legacyasphere@gmail.com",
+    "jobTitle": "Founder & Creative Director",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Legacya Sphere",
+      "description": "Premium creative web studio crafting refined websites and intelligent automations.",
+      "foundingDate": "2025",
+      "address": { "@type": "PostalAddress", "addressLocality": "Bekasi", "addressCountry": "ID" }
+    },
+    "sameAs": [
+      "https://www.fiverr.com/yogapratama",
+      "https://www.linkedin.com/in/yoga-pratamaeffendi-59b376245"
+    ]
+  }
+  </script>
+</head>
+
+<body class="font-sans antialiased">
+
+  <!-- ========== INSTAGRAM IN-APP BROWSER PROMPT ========== -->
+  <div id="iab-prompt" style="
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(28, 26, 23, 0.72);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0 0 32px 0;
+    font-family: 'Inter', system-ui, sans-serif;
+  ">
+    <div style="
+      background: #FAF8F2;
+      border: 1px solid #E6DFD0;
+      border-radius: 24px;
+      padding: 28px 24px 24px;
+      max-width: 360px;
+      width: calc(100% - 32px);
+      box-shadow: 0 24px 60px -12px rgba(28,26,23,0.35);
+      text-align: center;
+    ">
+      <!-- Icon -->
+      <div style="
+        width: 52px; height: 52px; border-radius: 14px;
+        background: #F7F4ED; border: 1px solid #E6DFD0;
+        display: flex; align-items: center; justify-content: center;
+        margin: 0 auto 16px;
+      ">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B8956A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+          <polyline points="15 3 21 3 21 9"/>
+          <line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>
+      </div>
+
+      <!-- Text -->
+      <p style="font-size: 17px; font-weight: 600; color: #1C1A17; margin: 0 0 8px; letter-spacing: -0.02em;">
+        Open in your browser
+      </p>
+      <p style="font-size: 14px; color: #5A5650; line-height: 1.55; margin: 0 0 6px;">
+        For the full experience, open this site in Chrome or Safari.
+      </p>
+      <p id="iab-instruction" style="font-size: 13px; color: #8A847A; line-height: 1.5; margin: 0 0 22px;"></p>
+
+      <!-- Buttons -->
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <a id="iab-open-btn" href="#" style="
+          display: block;
+          background: #1C1A17; color: #FAF8F2;
+          border-radius: 100px; padding: 13px 20px;
+          font-size: 14px; font-weight: 500;
+          text-decoration: none; letter-spacing: -0.01em;
+          box-shadow: 0 6px 20px -6px rgba(28,26,23,0.4);
+        ">Open in Browser</a>
+        <button onclick="document.getElementById('iab-prompt').style.display='none'" style="
+          background: transparent; border: 1px solid #E6DFD0;
+          border-radius: 100px; padding: 12px 20px;
+          font-size: 14px; color: #8A847A;
+          cursor: pointer; font-family: inherit;
+        ">Continue anyway</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Detect Instagram / Facebook in-app browser
+    (function() {
+      var ua = navigator.userAgent || '';
+      var isIAB = /Instagram|FBAN|FBAV|FB_IAB|FB4A|FBIOS|Line|Twitter|Snapchat/i.test(ua);
+      if (!isIAB) return;
+
+      var prompt = document.getElementById('iab-prompt');
+      var instruction = document.getElementById('iab-instruction');
+      var openBtn = document.getElementById('iab-open-btn');
+      var pageUrl = window.location.href;
+
+      // Platform-specific instruction text
+      var isIOS = /iPhone|iPad|iPod/i.test(ua);
+      if (isIOS) {
+        instruction.textContent = 'Tap the ··· menu at the bottom right → "Open in Browser"';
+        // iOS: try to open via Safari
+        openBtn.href = pageUrl;
+        openBtn.setAttribute('target', '_blank');
+      } else {
+        // Android: use Chrome intent
+        instruction.textContent = 'Tap the ⋮ menu at the top right → "Open in Chrome"';
+        var intentUrl = 'intent://' + pageUrl.replace(/^https?:\/\//, '') + '#Intent;scheme=https;package=com.android.chrome;end';
+        openBtn.href = intentUrl;
+      }
+
+      prompt.style.display = 'flex';
+    })();
+  </script>
+
+  <!-- ========== NAVBAR ========== -->
+  <header id="navbar" class="fixed top-0 inset-x-0 z-50 nav-blur">
+    <nav class="max-w-7xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+      <!-- Brand -->
+      <a href="#hero" class="flex items-center gap-2.5 group" aria-label="Legacya Sphere — Home">
+        <img src="img-15.webp" alt="Legacya Sphere logo" class="w-8 h-8 object-contain" />
+        <span class="font-display text-[17px] font-medium tracking-tight text-ink group-hover:text-gold transition-colors">Legacya<span class="text-gold">.</span></span>
+      </a>
+
+      <!-- Desktop nav -->
+      <ul class="hidden md:flex items-center gap-8 text-[14px] text-ink-soft">
+        <li><a href="#about" class="hover:text-ink transition-colors">About</a></li>
+        <li><a href="#services" class="hover:text-ink transition-colors">Services</a></li>
+        <li><a href="#why" class="hover:text-ink transition-colors">Promise</a></li>
+        <li><a href="#work" class="hover:text-ink transition-colors">Work</a></li>
+        <li><a href="#contact" class="hover:text-ink transition-colors">Contact</a></li>
+      </ul>
+
+      <!-- CTA -->
+      <a href="#contact" class="hidden md:inline-flex items-center gap-2 btn-primary text-[13px] font-medium px-4 py-2 rounded-full">
+        Start a project
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+
+      <!-- Mobile toggle -->
+      <button id="menuBtn" class="md:hidden w-10 h-10 flex items-center justify-center rounded-lg border border-line"
+              aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileMenu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </nav>
+
+    <div id="mobileMenu" class="mobile-menu md:hidden border-t border-line bg-bg/95 backdrop-blur" aria-hidden="true">
+      <ul class="px-5 py-5 flex flex-col gap-1 text-[15px]">
+        <li><a href="#about" class="block py-2.5 text-ink-soft hover:text-ink">About</a></li>
+        <li><a href="#services" class="block py-2.5 text-ink-soft hover:text-ink">Services</a></li>
+        <li><a href="#why" class="block py-2.5 text-ink-soft hover:text-ink">Promise</a></li>
+        <li><a href="#work" class="block py-2.5 text-ink-soft hover:text-ink">Work</a></li>
+        <li><a href="#contact" class="block py-2.5 text-ink-soft hover:text-ink">Contact</a></li>
+        <li class="pt-3"><a href="#contact" class="btn-primary inline-flex items-center gap-2 text-[14px] font-medium px-4 py-2.5 rounded-full">Start a project →</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ========== HERO ========== -->
+  <section id="hero" class="relative pt-32 pb-24 sm:pt-40 sm:pb-28 overflow-hidden">
+    <div class="relative max-w-5xl mx-auto px-5 sm:px-8 text-center">
+      <!-- Status -->
+      <div class="reveal inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-line bg-cream/60 text-xs font-mono text-ink-soft backdrop-blur">
+        <span class="status-dot animate-pulse-soft"></span>
+        Currently onboarding 1 new partner for Q3 · By application only
+      </div>
+
+      <!-- Logo -->
+      <div class="reveal delay-1 mt-9 flex justify-center">
+        <img src="img-15.webp" alt="Legacya Sphere — premium creative studio mark" class="w-24 h-24 sm:w-28 sm:h-28 object-contain" loading="eager" />
+      </div>
+
+      <!-- Wordmark -->
+      <p class="reveal delay-2 mt-5 font-mono text-[11px] tracking-[0.34em] uppercase text-mute">— Legacya Sphere —</p>
+
+      <!-- Headline -->
+      <h1 class="reveal delay-3 mt-7 font-display text-[clamp(2.4rem,6.8vw,4.8rem)] leading-[1.04] font-light tracking-tightest text-ink">
+        Crafting digital legacies <br class="hidden sm:block" />
+        for thoughtful <span class="brush-underline">brands</span><span class="accent-italic">.</span>
+      </h1>
+
+      <!-- Bilingual sub -->
+      <div class="reveal delay-4 mt-7 max-w-2xl mx-auto space-y-3">
+        <p class="text-[16px] sm:text-[17px] leading-relaxed text-ink-soft">
+          A premium creative studio designing refined websites and intelligent automations — where strategy meets craftsmanship.
+        </p>
+        <p class="text-[14.5px] leading-relaxed text-mute italic">
+          Studio kreatif premium yang membangun website elegan dan automasi cerdas — di mana strategi bertemu dengan ketekunan.
+        </p>
+      </div>
+
+      <!-- CTAs -->
+      <div class="reveal delay-5 mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
+        <a href="#work" class="btn-primary inline-flex items-center gap-2 text-[14px] font-medium px-6 py-3 rounded-full">
+          View our work
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#contact" class="btn-ghost inline-flex items-center gap-2 text-[14px] font-medium px-6 py-3 rounded-full">
+          Begin a conversation
+        </a>
+      </div>
+
+      <!-- AI tools ticker -->
+      <div class="reveal delay-6 mt-20">
+        <p class="text-[10.5px] font-mono uppercase tracking-[0.24em] text-mute mb-5">Powered by leading AI</p>
+        <div class="marquee-mask overflow-hidden">
+          <div class="marquee-track text-mute text-sm font-mono">
+            <span>Claude Opus</span><span class="text-gold">·</span><span>GPT-5.5</span><span class="text-gold">·</span><span>Gemini 3 Flash</span><span class="text-gold">·</span><span>Claude Opus</span><span class="text-gold">·</span><span>GPT-5.5</span><span class="text-gold">·</span><span>Gemini 3 Flash</span><span class="text-gold">·</span><span>Claude Opus</span><span class="text-gold">·</span><span>GPT-5.5</span><span class="text-gold">·</span><span>Gemini 3 Flash</span><span class="text-gold">·</span>
+            <span>Claude Opus</span><span class="text-gold">·</span><span>GPT-5.5</span><span class="text-gold">·</span><span>Gemini 3 Flash</span><span class="text-gold">·</span><span>Claude Opus</span><span class="text-gold">·</span><span>GPT-5.5</span><span class="text-gold">·</span><span>Gemini 3 Flash</span><span class="text-gold">·</span><span>Claude Opus</span><span class="text-gold">·</span><span>GPT-5.5</span><span class="text-gold">·</span><span>Gemini 3 Flash</span><span class="text-gold">·</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== BRAND-FLIP (kept) ========== -->
+  <section id="brand-flip" class="flip-section border-t border-line" aria-label="The brand and the founder">
+    <div class="flip-sticky">
+      <div class="flip-eyebrow">
+        <span>The brand</span><span class="sep" aria-hidden="true"></span><span>The founder</span>
+      </div>
+
+      <div class="flip-card-wrapper">
+        <div class="flip-card-inner" id="flipCardInner">
+          <div class="flip-face flip-face-front">
+            <img src="img-15.webp" alt="Legacya Sphere logo mark" />
+          </div>
+          <div class="flip-face flip-face-back">
+            <img src="img-04.webp" alt="Yoga Pratama Effendi — Founder of Legacya Sphere" />
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-hint" aria-hidden="true">
+        <span>Scroll to reveal</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT ========== -->
+  <section id="about" class="relative py-24 sm:py-32 border-t border-line">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="reveal section-label">01 — About</div>
+
+      <div class="mt-10 grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        <div class="lg:col-span-7">
+          <h2 class="reveal font-display text-[clamp(1.9rem,3.6vw,2.8rem)] leading-[1.1] font-light tracking-tightest text-ink">
+            A studio built on <br />
+            <span class="accent-italic">discipline</span> and <span class="accent-italic">care</span>.
+          </h2>
+
+          <div class="reveal delay-1 mt-8 space-y-5 text-[15.5px] leading-relaxed text-ink-soft max-w-xl">
+            <p>
+              Legacya Sphere is a one-person creative studio founded by <span class="text-ink font-medium">Yoga Pratama Effendi</span>, building refined websites and intelligent automations for brands that value quiet precision over noise.
+            </p>
+            <p class="italic text-mute text-[14.5px] leading-relaxed">
+              Legacya Sphere adalah studio kreatif yang didirikan oleh Yoga Pratama Effendi, membangun website elegan dan automasi cerdas untuk brand yang menghargai presisi yang tenang lebih dari sekadar bising.
+            </p>
+            <p>
+              Every project starts with the same question: <span class="text-ink">"what does this brand deserve to feel like?"</span> Then comes the work — typography weighed letter by letter, motion timed by feel, code shaped to last.
+            </p>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 lg:pl-8 lg:border-l lg:border-line">
+          <!-- Trust signals grid -->
+          <div class="grid grid-cols-2 gap-4">
+            <div class="reveal delay-1 card p-5">
+              <div class="font-display text-3xl font-light tracking-tightest text-ink">2025</div>
+              <div class="mt-1 text-[11px] font-mono uppercase tracking-wider text-mute">Founded</div>
+            </div>
+            <div class="reveal delay-2 card p-5">
+              <div class="font-display text-3xl font-light tracking-tightest text-ink">100<span class="text-gold">%</span></div>
+              <div class="mt-1 text-[11px] font-mono uppercase tracking-wider text-mute">On-time delivery</div>
+            </div>
+            <div class="reveal delay-3 card p-5">
+              <div class="font-display text-3xl font-light tracking-tightest text-ink">20<span class="text-gold">m</span></div>
+              <div class="mt-1 text-[11px] font-mono uppercase tracking-wider text-mute">Discovery call</div>
+            </div>
+            <div class="reveal delay-4 card p-5">
+              <div class="font-display text-3xl font-light tracking-tightest text-ink">EN/ID</div>
+              <div class="mt-1 text-[11px] font-mono uppercase tracking-wider text-mute">Bilingual service</div>
+            </div>
+          </div>
+
+          <!-- Skills as quiet chips -->
+          <div class="reveal delay-5 mt-6 flex flex-wrap gap-2">
+            <span class="px-3 py-1.5 rounded-full border border-line bg-cream text-[12px] font-mono text-ink-soft">Brand-led design</span>
+            <span class="px-3 py-1.5 rounded-full border border-line bg-cream text-[12px] font-mono text-ink-soft">Typography</span>
+            <span class="px-3 py-1.5 rounded-full border border-line bg-cream text-[12px] font-mono text-ink-soft">No-code</span>
+            <span class="px-3 py-1.5 rounded-full border border-line bg-cream text-[12px] font-mono text-ink-soft">AI workflows</span>
+          </div>
+
+          <!-- Verified credential — Anthropic Claude 101 -->
+          <div class="reveal delay-6 mt-6 card p-5">
+            <!-- Header label -->
+            <div class="flex items-center justify-between gap-2 mb-4">
+              <div class="flex items-center gap-2">
+                <div class="w-7 h-7 rounded-full bg-cream border border-line flex items-center justify-center text-gold shrink-0" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                  </svg>
+                </div>
+                <span class="font-mono text-[10px] uppercase tracking-wider text-mute">Verified Credential</span>
+              </div>
+              <a href="assets/certificates/claude-101-anthropic.pdf" target="_blank" rel="noopener" class="text-[10.5px] font-mono uppercase tracking-wider text-gold hover:text-ink transition-colors" aria-label="Open original PDF certificate">PDF →</a>
+            </div>
+
+            <!-- Certificate image (clickable to open PDF) -->
+            <a href="assets/certificates/claude-101-anthropic.pdf" target="_blank" rel="noopener" class="block overflow-hidden rounded-lg border border-line bg-sand group">
+              <img
+                src="img-05.webp"
+                alt="Claude 101 — Certificate of Completion issued to Yoga Effendi by Anthropic, May 11 2026"
+                decoding="async"
+                width="2200"
+                height="1700"
+                class="w-full h-auto block transition-transform duration-500 group-hover:scale-[1.02]"
+              />
+            </a>
+
+            <!-- Description -->
+            <div class="mt-5">
+              <h3 class="font-display text-[17px] font-medium text-ink leading-tight">
+                Claude 101 — by <span class="accent-italic">Anthropic</span>
+              </h3>
+              <p class="mt-2 text-[13.5px] leading-relaxed text-ink-soft">
+                Certified practitioner of Claude AI, issued directly by Anthropic — the lab behind Claude. The foundation under every AI workflow we ship.
+              </p>
+              <p class="mt-1 text-[12.5px] italic leading-relaxed text-mute">
+                Sertifikasi resmi Claude AI dari Anthropic — fondasi di balik setiap automasi yang kami bangun.
+              </p>
+              <div class="mt-4 pt-3 border-t border-line flex items-center justify-between text-[10.5px] font-mono uppercase tracking-wider text-mute">
+                <span class="truncate">ID · hv8dnv6of7et</span>
+                <span class="whitespace-nowrap">May 2026</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SERVICES ========== -->
+  <section id="services" class="relative py-24 sm:py-32 border-t border-line">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="reveal section-label">02 — Services</div>
+
+      <div class="mt-10 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+        <h2 class="reveal font-display text-[clamp(1.9rem,3.6vw,2.8rem)] leading-[1.1] font-light tracking-tightest max-w-2xl text-ink">
+          Three disciplines, <br />
+          one <span class="accent-italic">standard</span>.
+        </h2>
+        <p class="reveal delay-1 max-w-md text-[15px] leading-relaxed text-ink-soft">
+          Selective engagements only. Every project begins with a complimentary 20-minute discovery call.
+        </p>
+      </div>
+
+      <!-- 3 services -->
+      <div class="mt-14 grid md:grid-cols-3 gap-5">
+        <article class="reveal delay-1 card p-7 flex flex-col h-full">
+          <div class="w-11 h-11 rounded-xl bg-sand border border-line flex items-center justify-center text-gold">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          </div>
+          <h3 class="mt-5 font-display text-[20px] font-medium text-ink">Landing Page Design</h3>
+          <p class="mt-2 text-[14px] leading-relaxed text-ink-soft flex-1">
+            Single-page sites built for clarity and conversion. Pixel-perfect across every device, with copy that earns the click.
+          </p>
+          <p class="mt-2 text-[13px] italic leading-relaxed text-mute">
+            Halaman tunggal yang dibangun untuk konversi.
+          </p>
+          <div class="mt-5 pt-5 border-t border-line flex items-center justify-between">
+            <span class="font-mono text-[11px] uppercase tracking-wider text-mute">From $80</span>
+            <span class="text-gold text-sm">→</span>
+          </div>
+        </article>
+
+        <article class="reveal delay-2 card p-7 flex flex-col h-full">
+          <div class="w-11 h-11 rounded-xl bg-sand border border-line flex items-center justify-center text-gold">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
+          </div>
+          <h3 class="mt-5 font-display text-[20px] font-medium text-ink">Website Development</h3>
+          <p class="mt-2 text-[14px] leading-relaxed text-ink-soft flex-1">
+            Multi-page brand websites that build trust, rank organically, and grow with you. SEO-ready from line one.
+          </p>
+          <p class="mt-2 text-[13px] italic leading-relaxed text-mute">
+            Website premium yang membangun kepercayaan dan tumbuh bersama brand Anda.
+          </p>
+          <div class="mt-5 pt-5 border-t border-line flex items-center justify-between">
+            <span class="font-mono text-[11px] uppercase tracking-wider text-mute">From $250</span>
+            <span class="text-gold text-sm">→</span>
+          </div>
+        </article>
+
+        <article class="reveal delay-3 card p-7 flex flex-col h-full">
+          <div class="w-11 h-11 rounded-xl bg-sand border border-line flex items-center justify-center text-gold">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          </div>
+          <h3 class="mt-5 font-display text-[20px] font-medium text-ink">AI Automation</h3>
+          <p class="mt-2 text-[14px] leading-relaxed text-ink-soft flex-1">
+            Make.com & n8n workflows that connect your tools, eliminate repetitive tasks, and run quietly while you build the business.
+          </p>
+          <p class="mt-2 text-[13px] italic leading-relaxed text-mute">
+            Otomasi cerdas yang bekerja diam-diam untuk Anda.
+          </p>
+          <div class="mt-5 pt-5 border-t border-line flex items-center justify-between">
+            <span class="font-mono text-[11px] uppercase tracking-wider text-mute">From $50</span>
+            <span class="text-gold text-sm">→</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PROCESS (Trust signal) ========== -->
+  <section class="lazy-paint relative py-24 sm:py-32 border-t border-line bg-cream/40">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="reveal section-label">03 — The Sphere Protocol</div>
+
+      <h2 class="reveal mt-10 font-display text-[clamp(1.9rem,3.6vw,2.8rem)] leading-[1.1] font-light tracking-tightest max-w-2xl text-ink">
+        Calm work, <br />
+        <span class="accent-italic">clear steps</span>.
+      </h2>
+      <p class="reveal delay-1 mt-4 text-[15px] leading-relaxed text-ink-soft max-w-md">
+        Every engagement follows the same considered path. No surprises. No "we'll figure it out".
+      </p>
+      <p class="reveal delay-1 mt-2 text-[14px] italic text-mute leading-relaxed max-w-md">
+        Setiap project mengikuti alur yang sama. Anda tahu persis apa yang terjadi setelah DP.
+      </p>
+
+      <!-- 5 steps — The Sphere Protocol -->
+      <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-10 relative">
+        <div class="reveal delay-1">
+          <div class="font-display text-[56px] font-light text-gold/40 leading-none">01</div>
+          <h3 class="mt-3 font-display text-[18px] font-medium text-ink">Discovery</h3>
+          <p class="mt-2 text-[13.5px] leading-relaxed text-ink-soft">
+            A 20-minute conversation. Brand, audience, goals. Scope and timeline agreed in writing before anything else.
+          </p>
+          <p class="mt-2 text-[12.5px] italic text-mute leading-relaxed">
+            Memahami brand dan tujuan.
+          </p>
+        </div>
+
+        <div class="reveal delay-2">
+          <div class="font-display text-[56px] font-light text-gold/40 leading-none">02</div>
+          <h3 class="mt-3 font-display text-[18px] font-medium text-ink">Strategy</h3>
+          <p class="mt-2 text-[13.5px] leading-relaxed text-ink-soft">
+            Information architecture, positioning, and content strategy. We define <span class="text-ink">why</span> before <span class="text-ink">what</span>.
+          </p>
+          <p class="mt-2 text-[12.5px] italic text-mute leading-relaxed">
+            Menentukan arah dan pesan.
+          </p>
+        </div>
+
+        <div class="reveal delay-3">
+          <div class="font-display text-[56px] font-light text-gold/40 leading-none">03</div>
+          <h3 class="mt-3 font-display text-[18px] font-medium text-ink">Design</h3>
+          <p class="mt-2 text-[13.5px] leading-relaxed text-ink-soft">
+            Typography, layout, motion. Two rounds of revisions included. Daily progress shared — always.
+          </p>
+          <p class="mt-2 text-[12.5px] italic text-mute leading-relaxed">
+            Desain dengan progress harian.
+          </p>
+        </div>
+
+        <div class="reveal delay-4">
+          <div class="font-display text-[56px] font-light text-gold/40 leading-none">04</div>
+          <h3 class="mt-3 font-display text-[18px] font-medium text-ink">Development</h3>
+          <p class="mt-2 text-[13.5px] leading-relaxed text-ink-soft">
+            Clean, semantic code. Performance-first. SEO-ready. Mobile-tested across real devices, not just emulators.
+          </p>
+          <p class="mt-2 text-[12.5px] italic text-mute leading-relaxed">
+            Implementasi dengan kode yang bersih.
+          </p>
+        </div>
+
+        <div class="reveal delay-5">
+          <div class="font-display text-[56px] font-light text-gold/40 leading-none">05</div>
+          <h3 class="mt-3 font-display text-[18px] font-medium text-ink">Launch</h3>
+          <p class="mt-2 text-[13.5px] leading-relaxed text-ink-soft">
+            We deploy together. Full source files, handover documentation, and 14 days of post-launch support — gratis.
+          </p>
+          <p class="mt-2 text-[12.5px] italic text-mute leading-relaxed">
+            Deploy bersama, dengan dukungan 14 hari.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== WHY / PROMISE ========== -->
+  <section id="why" class="lazy-paint relative py-24 sm:py-32 border-t border-line">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="reveal section-label">04 — Our Promise</div>
+
+      <h2 class="reveal mt-10 font-display text-[clamp(1.9rem,3.6vw,2.8rem)] leading-[1.1] font-light tracking-tightest max-w-2xl text-ink">
+        Six commitments <br />
+        we keep — <span class="accent-italic">always</span>.
+      </h2>
+
+      <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-line rounded-2xl overflow-hidden border border-line">
+        <div class="reveal delay-1 bg-bg p-8 hover:bg-cream transition-colors">
+          <div class="w-10 h-10 rounded-lg bg-sand flex items-center justify-center text-gold">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          </div>
+          <h3 class="mt-5 font-display text-[18px] font-medium text-ink">Pixel-perfect work</h3>
+          <p class="mt-2 text-[14px] leading-relaxed text-ink-soft">Designs that match the spec down to the last padding value — never &quot;close enough&quot;.</p>
+        </div>
+        <div class="reveal delay-2 bg-bg p-8 hover:bg-cream transition-colors">
+          <div class="w-10 h-10 rounded-lg bg-sand flex items-center justify-center text-gold">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+          </div>
+          <h3 class="mt-5 font-display text-[18px] font-medium text-ink">Mobile-first thinking</h3>
+          <p class="mt-2 text-[14px] leading-relaxed text-ink-soft">Most of your visitors are on a phone. Designed for the small screen first, scaled up gracefully.</p>
+        </div>
+        <div class="reveal delay-3 bg-bg p-8 hover:bg-cream transition-colors">
+          <div class="w-10 h-10 rounded-lg bg-sand flex items-center justify-center text-gold">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <h3 class="mt-5 font-display text-[18px] font-medium text-ink">Performance optimized</h3>
+          <p class="mt-2 text-[14px] leading-relaxed text-ink-soft">Lighthouse scores above 90 across the board. Fast sites convert — slow sites bleed.</p>
+        </div>
+        <div class="reveal delay-4 bg-bg p-8 hover:bg-cream transition-colors">
+          <div class="w-10 h-10 rounded-lg bg-sand flex items-center justify-center text-gold">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          </div>
+          <h3 class="mt-5 font-display text-[18px] font-medium text-ink">SEO from day one</h3>
+          <p class="mt-2 text-[14px] leading-relaxed text-ink-soft">Semantic HTML, proper heading hierarchy, schema markup — built right into the foundation.</p>
+        </div>
+        <div class="reveal delay-5 bg-bg p-8 hover:bg-cream transition-colors">
+          <div class="w-10 h-10 rounded-lg bg-sand flex items-center justify-center text-gold">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h3 class="mt-5 font-display text-[18px] font-medium text-ink">Honest communication</h3>
+          <p class="mt-2 text-[14px] leading-relaxed text-ink-soft">Daily progress updates. No jargon. No ghosting. You'll always know where we stand.</p>
+        </div>
+        <div class="reveal delay-6 bg-bg p-8 hover:bg-cream transition-colors">
+          <div class="w-10 h-10 rounded-lg bg-sand flex items-center justify-center text-gold">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3 class="mt-5 font-display text-[18px] font-medium text-ink">Delivered when promised</h3>
+          <p class="mt-2 text-[14px] leading-relaxed text-ink-soft">If we commit to Friday, it ships Friday. If we miss — you get a refund of 10% per day late. Written into every contract.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PORTFOLIO ========== -->
+  <section id="work" class="lazy-paint relative py-24 sm:py-32 border-t border-line">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="reveal section-label">05 — Selected Work</div>
+
+      <div class="mt-10 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+        <h2 class="reveal font-display text-[clamp(1.9rem,3.6vw,2.8rem)] leading-[1.1] font-light tracking-tightest max-w-2xl text-ink">
+          Recent projects, <br />
+          <span class="accent-italic">quietly proud</span>.
+        </h2>
+        <a href="#contact" class="reveal delay-1 inline-flex items-center gap-2 text-[14px] text-ink-soft hover:text-ink transition-colors">
+          Have a project? Begin here →
+        </a>
+      </div>
+
+      <div class="mt-14 grid lg:grid-cols-2 gap-5">
+        <!-- Project 1: PromptFlow with slideshow -->
+        <article class="reveal delay-1 card overflow-hidden group">
+          <div class="project-slideshow aspect-[4/3]" data-slideshow tabindex="0" role="button"
+               aria-label="PromptFlow Premium project — tap to cycle screenshots">
+            <img src="img-06.webp" alt="PromptFlow Labs — prompt editor and team workspace UI" class="slide active" data-slide="0" />
+            <img src="img-07.webp" alt="PromptFlow Labs — main landing page hero" class="slide" data-slide="1" />
+            <img src="img-08.webp" alt="PromptFlow Labs — features grid: collaboration, integration, multi-model" class="slide" data-slide="2" />
+            <div class="slide-dots" role="tablist" aria-label="Project screenshots navigation">
+              <span class="dot active" data-dot="0" role="tab" aria-label="Show screenshot 1 of 3"></span>
+              <span class="dot" data-dot="1" role="tab" aria-label="Show screenshot 2 of 3"></span>
+              <span class="dot" data-dot="2" role="tab" aria-label="Show screenshot 3 of 3"></span>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-[11px] uppercase tracking-wider text-mute">Landing Page · 2025</span>
+              <span class="text-gold text-sm group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+            <h3 class="mt-3 font-display text-[19px] font-medium text-ink">High-Conversion Landing for an AI Platform</h3>
+            <p class="mt-1.5 text-[14px] leading-relaxed text-ink-soft"><span class="text-mute">Challenge —</span> A new AI prompt platform needed to convert technical visitors into paid users without sounding gimmicky. <span class="text-mute">Solution —</span> Editorial typography, tiered pricing transparency, and motion that earns attention. <span class="text-ink font-medium">Result: clear hierarchy, decisive CTAs, premium positioning.</span></p>
+            <div class="mt-5 flex flex-wrap gap-2">
+              <span class="px-3 py-1 rounded-full bg-sand border border-line font-mono text-[10px] uppercase tracking-wider text-mute">HTML / CSS</span>
+              <span class="px-3 py-1 rounded-full bg-sand border border-line font-mono text-[10px] uppercase tracking-wider text-mute">Tailwind</span>
+              <span class="px-3 py-1 rounded-full bg-sand border border-line font-mono text-[10px] uppercase tracking-wider text-mute">Motion</span>
+              <span class="px-3 py-1 rounded-full bg-sand border border-line font-mono text-[10px] uppercase tracking-wider text-mute">Mobile First</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 2: Alat Jualan — free toolkit for Indonesian sellers -->
+        <article class="reveal delay-2 card overflow-hidden group">
+          <div class="project-slideshow aspect-[4/3]" data-slideshow tabindex="0" role="button"
+               aria-label="Alat Jualan — free seller toolkit, tap to cycle screenshots">
+            <img src="img-09.webp" alt="Alat Jualan — hero with three core tools for Indonesian sellers" class="slide active" data-slide="0" />
+            <img src="img-10.webp" alt="Alat Jualan — benefits section: faster, more orders" class="slide" data-slide="1" />
+            <img src="img-11.webp" alt="Alat Jualan — bottom CTA, no signup needed" class="slide" data-slide="2" />
+            <div class="slide-dots" role="tablist" aria-label="Project screenshots navigation">
+              <span class="dot active" data-dot="0" role="tab" aria-label="Show screenshot 1 of 3"></span>
+              <span class="dot" data-dot="1" role="tab" aria-label="Show screenshot 2 of 3"></span>
+              <span class="dot" data-dot="2" role="tab" aria-label="Show screenshot 3 of 3"></span>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-[11px] uppercase tracking-wider text-mute">Standalone Tool · 2026</span>
+              <span class="text-gold text-sm group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+            <h3 class="mt-3 font-display text-[19px] font-medium text-ink">Alat Jualan — <span class="accent-italic">Free Toolkit for UMKM Sellers</span></h3>
+            <p class="mt-1.5 text-[14px] leading-relaxed text-ink-soft"><span class="text-mute">The brief —</span> Indonesian UMKM and reseller sellers were losing hours daily on calculator math, SEO product titles, and writing captions from scratch. Existing tools target enterprise — nothing built for the warung-scale operator. <span class="text-mute">The approach —</span> A single-page, zero-friction toolkit bundling three workhorses: profit calculator, SEO title generator, and a 5-voice caption writer (promo, soft, hard, WA, live). <span class="text-ink font-medium">Outcome: from open-URL to first usable result in under 8 seconds — no signup, no login, 100% client-side.</span></p>
+            <div class="mt-5 flex flex-wrap gap-2">
+              <span class="px-3 py-1 rounded-full bg-sand border border-line font-mono text-[10px] uppercase tracking-wider text-mute">Vanilla JS</span>
+              <span class="px-3 py-1 rounded-full bg-sand border border-line font-mono text-[10px] uppercase tracking-wider text-mute">Zero Backend</span>
+              <span class="px-3 py-1 rounded-full bg-sand border border-line font-mono text-[10px] uppercase tracking-wider text-mute">Single Page</span>
+              <span class="px-3 py-1 rounded-full bg-sand border border-line font-mono text-[10px] uppercase tracking-wider text-mute">Mobile First</span>
+            </div>
+          </div>
+        </article>
+
+
+        <!-- Project 4: Website Modernization — Meridian Advisory (featured, full-width) -->
+        <article class="reveal delay-4 card overflow-hidden group lg:col-span-2 lg:grid lg:grid-cols-2">
+          <!-- Slideshow panel -->
+          <div class="project-slideshow relative overflow-hidden bg-[#F7F4ED]" style="min-height:320px;" data-slideshow tabindex="0" role="button"
+               aria-label="Meridian Advisory — website modernization screenshots, tap to cycle">
+            <img src="img-12.png" alt="Meridian Advisory — cream hero variant" class="slide active w-full h-full object-contain" data-slide="0" />
+            <img src="img-13.png" alt="Meridian Advisory — brand trust bar and services section" class="slide w-full h-full object-contain" data-slide="1" />
+            <img src="img-14.png" alt="Meridian Advisory — engagement progress tracker component" class="slide w-full h-full object-contain" data-slide="2" />
+            <div class="slide-dots" role="tablist" aria-label="Project screenshots navigation">
+              <span class="dot active" data-dot="0" role="tab" aria-label="Show screenshot 1 of 3"></span>
+              <span class="dot" data-dot="1" role="tab" aria-label="Show screenshot 2 of 3"></span>
+              <span class="dot" data-dot="2" role="tab" aria-label="Show screenshot 3 of 3"></span>
+            </div>
+          </div>
+          <!-- Text panel -->
+          <div class="p-8 lg:p-10 flex flex-col justify-center">
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-mono text-[11px] uppercase tracking-wider text-mute">Website Modernization · 2025</span>
+              <span class="text-gold text-sm group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+            <h3 class="font-display text-[22px] sm:text-[26px] font-medium text-ink leading-tight mt-2">Meridian Advisory — <span class="accent-italic">Boardroom, Not Brochure</span></h3>
+            <p class="mt-4 text-[14px] leading-relaxed text-ink-soft"><span class="text-mute">Challenge —</span> A strategic advisory firm with a strong track record, but a website that read like a generic consultancy template. <span class="text-mute">Solution —</span> Full modernization around quiet-authority positioning: editorial typography, warm cream palette, and a single decisive CTA at every decision point. <span class="text-ink font-medium">Result: a profile that matches the boardroom — turning passive visitors into scheduled consultations.</span></p>
+            <div class="mt-6 flex flex-wrap gap-2">
+              <span class="px-3 py-1 rounded-full bg-sand border border-line font-mono text-[10px] uppercase tracking-wider text-mute">HTML / CSS</span>
+              <span class="px-3 py-1 rounded-full bg-sand border border-line font-mono text-[10px] uppercase tracking-wider text-mute">Tailwind</span>
+              <span class="px-3 py-1 rounded-full bg-sand border border-line font-mono text-[10px] uppercase tracking-wider text-mute">Repositioning</span>
+              <span class="px-3 py-1 rounded-full bg-sand border border-line font-mono text-[10px] uppercase tracking-wider text-mute">Mobile First</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA SECTION ========== -->
+  <section class="lazy-paint relative py-24 sm:py-32 border-t border-line bg-sand/50">
+    <div class="relative max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="reveal section-label">06 — Begin</div>
+
+      <div class="mt-10 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+        <div class="lg:max-w-2xl">
+          <h2 class="reveal font-display text-[clamp(1.9rem,3.6vw,2.8rem)] leading-[1.1] font-light tracking-tightest text-ink">
+            Have a project worth <br />
+            <span class="accent-italic">making well</span>?
+          </h2>
+
+          <p class="reveal delay-1 mt-6 max-w-xl text-[15px] leading-relaxed text-ink-soft">
+            Whether it's a landing page that needs to convert or an automation that needs to run quietly — let's build something you'll be proud to ship.
+          </p>
+          <p class="reveal delay-2 mt-3 max-w-xl text-[14px] italic leading-relaxed text-mute">
+            Mari ciptakan sesuatu yang Anda banggakan untuk diluncurkan.
+          </p>
+        </div>
+
+        <div class="reveal delay-3 flex flex-col items-start lg:items-end gap-3">
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <a href="#contact" class="btn-primary inline-flex items-center justify-center gap-2 text-[14px] font-medium px-6 py-3 rounded-full">
+              Begin a conversation
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+            <a href="mailto:legacyasphere@gmail.com" class="btn-ghost inline-flex items-center justify-center gap-2 text-[14px] font-medium px-6 py-3 rounded-full">
+              Or write directly
+            </a>
+          </div>
+          <p class="mt-2 text-xs font-mono text-mute">
+            Complimentary 20-min discovery call · No commitment
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT ========== -->
+  <section id="contact" class="lazy-paint relative py-24 sm:py-32 border-t border-line">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="reveal section-label">07 — Contact</div>
+
+      <div class="mt-10 grid lg:grid-cols-12 gap-12 lg:gap-16">
+        <div class="lg:col-span-5">
+          <h2 class="reveal font-display text-[clamp(1.9rem,3.6vw,2.8rem)] leading-[1.1] font-light tracking-tightest text-ink">
+            Tell us about <br />
+            your <span class="accent-italic">project</span>.
+          </h2>
+          <p class="reveal delay-1 mt-6 text-[15px] leading-relaxed text-ink-soft max-w-md">
+            Share a few details below. Consultation is by application — we review every inquiry personally and respond when capacity allows.
+          </p>
+          <p class="reveal delay-1 mt-2 text-[14px] italic leading-relaxed text-mute max-w-md">
+            Ceritakan tentang project Anda. Kami balas dalam 24 jam.
+          </p>
+
+          <div class="reveal delay-2 mt-10 space-y-5">
+            <a href="mailto:legacyasphere@gmail.com" class="flex items-start gap-4 group">
+              <div class="w-10 h-10 rounded-lg bg-cream border border-line flex items-center justify-center text-gold shrink-0 group-hover:border-gold/60 transition-colors">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M22 6 12 13 2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+              </div>
+              <div>
+                <div class="text-[11px] font-mono uppercase tracking-wider text-mute">Email</div>
+                <div class="mt-0.5 text-[15px] text-ink group-hover:text-gold transition-colors">legacyasphere@gmail.com</div>
+              </div>
+            </a>
+
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-lg bg-cream border border-line flex items-center justify-center text-gold shrink-0">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <div class="text-[11px] font-mono uppercase tracking-wider text-mute">Studio location</div>
+                <div class="mt-0.5 text-[15px] text-ink">Bekasi, Indonesia · GMT+7</div>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-lg bg-cream border border-line flex items-center justify-center text-gold shrink-0">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div>
+                <div class="text-[11px] font-mono uppercase tracking-wider text-mute">Current availability</div>
+                <div class="mt-0.5 text-[15px] text-ink">1 partner slot · Q3 2026</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="reveal delay-3 mt-10 pt-8 border-t border-line">
+            <div class="text-[11px] font-mono uppercase tracking-wider text-mute mb-4">Find us elsewhere</div>
+            <div class="flex items-center gap-2">
+              <a href="https://www.fiverr.com/yogapratama" aria-label="View Yoga's Fiverr profile (opens in new tab)" target="_blank" rel="noopener" class="w-10 h-10 rounded-lg border border-line flex items-center justify-center text-ink-soft hover:text-ink hover:border-gold/60 hover:bg-cream transition-all">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8h-2.5c-.5 0-1 .5-1 1v1H14v6h2v-6h2v-2h-2V7c0-1.5 1-3 3-3h1V2h-1c-2.5 0-4 1.5-4 4v2zM6 14H4v6h2v-6zM5 12.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></svg>
+              </a>
+              <a href="https://www.linkedin.com/in/yoga-pratamaeffendi-59b376245" aria-label="Connect with Yoga on LinkedIn (opens in new tab)" target="_blank" rel="noopener" class="w-10 h-10 rounded-lg border border-line flex items-center justify-center text-ink-soft hover:text-ink hover:border-gold/60 hover:bg-cream transition-all">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3v9zM6.5 8.25A1.75 1.75 0 1 1 8.3 6.5a1.78 1.78 0 0 1-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0 0 13 14.19a.66.66 0 0 0 0 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 0 1 2.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="lg:col-span-7">
+          <form id="contactForm" class="reveal delay-1 card p-6 sm:p-8 space-y-5">
+            <!-- Honeypot — invisible to users, filled only by bots -->
+            <div class="hp-field" aria-hidden="true">
+              <label for="website_url">Leave this empty</label>
+              <input type="text" id="website_url" name="website_url" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-5">
+              <div>
+                <label for="name" class="block text-[11px] font-mono uppercase tracking-wider text-mute mb-2">Your name</label>
+                <input id="name" name="name" type="text" required class="input-field w-full px-4 py-3 rounded-lg text-[15px]" placeholder="Jane Doe" />
+              </div>
+              <div>
+                <label for="email" class="block text-[11px] font-mono uppercase tracking-wider text-mute mb-2">Email</label>
+                <input id="email" name="email" type="email" required class="input-field w-full px-4 py-3 rounded-lg text-[15px]" placeholder="jane@company.com" />
+              </div>
+            </div>
+
+            <div>
+              <label for="project" class="block text-[11px] font-mono uppercase tracking-wider text-mute mb-2">Project type</label>
+              <select id="project" name="project" class="input-field w-full px-4 py-3 rounded-lg text-[15px]">
+                <option value="landing">Landing Page</option>
+                <option value="website">Website Development</option>
+                <option value="automation">AI Automation</option>
+                <option value="other">Something else</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="budget" class="block text-[11px] font-mono uppercase tracking-wider text-mute mb-2">Estimated budget</label>
+              <select id="budget" name="budget" class="input-field w-full px-4 py-3 rounded-lg text-[15px]">
+                <option value="<200">Under $200</option>
+                <option value="200-500">$200 – $500</option>
+                <option value="500-1000">$500 – $1,000</option>
+                <option value=">1000">$1,000+</option>
+                <option value="open">Not sure yet</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="message" class="block text-[11px] font-mono uppercase tracking-wider text-mute mb-2">Tell us about your project</label>
+              <textarea id="message" name="message" rows="5" required class="input-field w-full px-4 py-3 rounded-lg text-[15px] resize-none" placeholder="What are you trying to build? What's the goal?"></textarea>
+            </div>
+
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-2">
+              <p class="text-[11px] font-mono text-mute">Opens in your email app · No data sent to servers.</p>
+              <button type="submit" class="btn-primary inline-flex items-center justify-center gap-2 text-[14px] font-medium px-6 py-3 rounded-full w-full sm:w-auto">
+                <span id="submitText">Send inquiry</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+
+            <div id="formStatus" class="hidden text-sm font-mono"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="lazy-paint relative border-t border-line bg-cream/50">
+    <div class="relative max-w-7xl mx-auto px-5 sm:px-8 py-14">
+      <div class="reveal mb-12">
+        <div class="font-display italic font-light text-[clamp(3rem,12vw,9rem)] leading-none tracking-tightest text-ink select-none">
+          Legacya Sphere<span class="accent-italic">.</span>
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-10 border-b border-line">
+        <div>
+          <div class="flex items-center gap-2.5">
+            <img src="img-15.webp" alt="Legacya Sphere logo" class="w-8 h-8 object-contain" />
+            <span class="font-display font-medium text-ink">Legacya Sphere</span>
+          </div>
+          <p class="mt-4 text-[14px] leading-relaxed text-ink-soft max-w-xs">
+            Premium creative web studio crafting refined websites and intelligent automations.
+          </p>
+          <p class="mt-2 text-[13px] italic leading-relaxed text-mute max-w-xs">
+            Studio kreatif premium untuk brand yang berpikir.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="text-[11px] font-mono uppercase tracking-wider text-mute mb-4">Sitemap</h4>
+          <ul class="space-y-2.5 text-[14px]">
+            <li><a href="#about" class="text-ink-soft hover:text-ink">About</a></li>
+            <li><a href="#services" class="text-ink-soft hover:text-ink">Services</a></li>
+            <li><a href="#why" class="text-ink-soft hover:text-ink">Promise</a></li>
+            <li><a href="#work" class="text-ink-soft hover:text-ink">Work</a></li>
+            <li><a href="#contact" class="text-ink-soft hover:text-ink">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-[11px] font-mono uppercase tracking-wider text-mute mb-4">Services</h4>
+          <ul class="space-y-2.5 text-[14px]">
+            <li><a href="#services" class="text-ink-soft hover:text-ink">Landing Page Design</a></li>
+            <li><a href="#services" class="text-ink-soft hover:text-ink">Website Development</a></li>
+            <li><a href="#services" class="text-ink-soft hover:text-ink">AI Automation</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-[11px] font-mono uppercase tracking-wider text-mute mb-4">Get in touch</h4>
+          <ul class="space-y-2.5 text-[14px]">
+            <li><a href="mailto:legacyasphere@gmail.com" class="text-ink-soft hover:text-ink">legacyasphere@gmail.com</a></li>
+            <li><a href="https://www.fiverr.com/yogapratama" target="_blank" rel="noopener" class="text-ink-soft hover:text-ink">Fiverr Profile</a></li>
+            <li><a href="https://www.linkedin.com/in/yoga-pratamaeffendi-59b376245" target="_blank" rel="noopener" class="text-ink-soft hover:text-ink">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <p class="text-[11px] font-mono text-mute">
+          © 2026 Legacya Sphere · Founded by Yoga Pratama Effendi · Bekasi, Indonesia
+        </p>
+        <div class="flex items-center gap-2 text-[11px] font-mono text-mute">
+          <span class="status-dot animate-pulse-soft" style="width:6px;height:6px;"></span>
+          Studio open · Selective engagements
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== JAVASCRIPT ========== -->
+  <script>
+    // 0) FOUC prevention — mark document as styled and ready
+    document.documentElement.classList.add('ready');
+    // Safety fallback — unhide after 1s regardless (prevents blank screen in WebViews)
+    setTimeout(function() { document.documentElement.classList.add('ready'); }, 1000);
+
+    // 1) Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const setMenuState = (open) => {
+      mobileMenu.classList.toggle('is-open', open);
+      mobileMenu.setAttribute('aria-hidden', String(!open));
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+    };
+    menuBtn.addEventListener('click', () => {
+      setMenuState(!mobileMenu.classList.contains('is-open'));
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenuState(false)));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileMenu.classList.contains('is-open')) {
+        setMenuState(false);
+        menuBtn.focus();
+      }
+    });
+
+    // 2) Scroll reveal
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // 3) Navbar border on scroll
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      nav.style.borderBottomColor = window.scrollY > 30 ? 'rgba(184,149,106,0.25)' : 'rgba(230,223,208,0.6)';
+    }, { passive: true });
+
+    // 4) Project slideshow
+    document.querySelectorAll('[data-slideshow]').forEach((container) => {
+      const slides = container.querySelectorAll('.slide');
+      const dots = container.querySelectorAll('.dot');
+      let idx = 0;
+      let hoverInterval = null;
+      const goTo = (n) => {
+        idx = (n + slides.length) % slides.length;
+        slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      };
+      const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      if (hasFinePointer) {
+        container.addEventListener('mouseenter', () => { hoverInterval = setInterval(() => goTo(idx + 1), 1500); });
+        container.addEventListener('mouseleave', () => { clearInterval(hoverInterval); hoverInterval = null; goTo(0); });
+      }
+      container.addEventListener('click', (e) => { e.preventDefault(); goTo(idx + 1); });
+      container.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowRight') { e.preventDefault(); goTo(idx + 1); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(idx - 1); }
+      });
+    });
+
+    // 5) Brand-flip card scroll-driven rotation
+    const flipSection = document.getElementById('brand-flip');
+    const flipInner = document.getElementById('flipCardInner');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (flipSection && flipInner && !prefersReducedMotion) {
+      let isInView = false, rafId = null;
+      const flipObserver = new IntersectionObserver(([entry]) => {
+        isInView = entry.isIntersecting;
+        if (isInView) requestAnimationFrame(updateFlip);
+      }, { threshold: 0, rootMargin: '50px' });
+      flipObserver.observe(flipSection);
+      const updateFlip = () => {
+        const rect = flipSection.getBoundingClientRect();
+        const total = rect.height - window.innerHeight;
+        let progress = total > 0 ? Math.max(0, Math.min(1, -rect.top / total)) : 0;
+        let flipProg = (progress - 0.15) / 0.7;
+        flipProg = Math.max(0, Math.min(1, flipProg));
+        const eased = flipProg * flipProg * (3 - 2 * flipProg);
+        flipInner.style.transform = `rotateY(${eased * 180}deg)`;
+      };
+      window.addEventListener('scroll', () => {
+        if (!isInView || rafId) return;
+        rafId = requestAnimationFrame(() => { updateFlip(); rafId = null; });
+      }, { passive: true });
+      window.addEventListener('resize', updateFlip);
+      updateFlip();
+    }
+
+    // 6) Contact form — Mailto redirect with pre-filled template
+    // Opens user's email client with subject + body filled in. No backend needed.
+    const RECIPIENT_EMAIL = 'legacyasphere@gmail.com';
+
+    const form = document.getElementById('contactForm');
+    const formStatus = document.getElementById('formStatus');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const submitText = document.getElementById('submitText');
+    const originalBtnText = submitText.textContent;
+    const emailField = document.getElementById('email');
+    const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    const showStatus = (msg, type='success') => {
+      formStatus.classList.remove('hidden');
+      formStatus.className = `text-sm font-mono mt-2 ${type === 'success' ? 'text-sage' : 'text-red-600'}`;
+      formStatus.textContent = msg;
+    };
+
+    // Live email validation
+    emailField.addEventListener('input', () => {
+      if (emailField.classList.contains('error') && EMAIL_REGEX.test(emailField.value.trim())) {
+        emailField.classList.remove('error');
+      }
+    });
+
+    // Friendly labels for project type & budget select dropdowns
+    const PROJECT_LABELS = {
+      'landing': 'Landing Page Design',
+      'website': 'Website Development',
+      'automation': 'AI Automation',
+      'other': 'Other / Not sure',
+    };
+    const BUDGET_LABELS = {
+      '<200': 'Under $200',
+      '200-500': '$200 – $500',
+      '500-1000': '$500 – $1,000',
+      '>1000': '$1,000+',
+      'open': 'Open to discuss',
+    };
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      formStatus.classList.add('hidden');
+
+      // 1) Honeypot — bot check
+      const honeypot = form.querySelector('input[name="website_url"]');
+      if (honeypot && honeypot.value.trim() !== '') {
+        showStatus("✓ Inquiry received.", 'success');
+        form.reset();
+        return; // bot never reaches mailto
+      }
+
+      // 2) Email regex validation
+      const emailValue = emailField.value.trim();
+      if (!EMAIL_REGEX.test(emailValue)) {
+        emailField.classList.add('error');
+        emailField.focus();
+        showStatus('✗ Please enter a valid email address.', 'error');
+        return;
+      }
+
+      // 3) Build email template
+      const name = form.name.value.trim() || 'Anonymous';
+      const projectKey = form.project.value;
+      const budgetKey = form.budget.value;
+      const projectType = PROJECT_LABELS[projectKey] || projectKey;
+      const budget = BUDGET_LABELS[budgetKey] || budgetKey;
+      const message = form.message.value.trim() || '(no message provided)';
+
+      const subject = `New project inquiry — ${name} · ${projectType}`;
+      const body =
+`Hello Yoga,
+
+I'd like to begin a conversation about a project.
+
+———  PROJECT DETAILS  ———
+Name           : ${name}
+Email          : ${emailValue}
+Project type   : ${projectType}
+Estimated budget: ${budget}
+
+———  MESSAGE  ———
+${message}
+
+———
+
+Sent via the Legacya Sphere portfolio inquiry form.
+Looking forward to your reply.`;
+
+      // 4) Build and open mailto link
+      const mailtoUrl = `mailto:${RECIPIENT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+      // Update button briefly to show action
+      submitText.textContent = 'Opening your email…';
+      submitBtn.disabled = true;
+
+      // Trigger mailto (opens user's default email app)
+      window.location.href = mailtoUrl;
+
+      // Restore button after short delay (in case mailto fails to open)
+      setTimeout(() => {
+        submitText.textContent = originalBtnText;
+        submitBtn.disabled = false;
+        showStatus("✓ Email draft opened. Press send in your email app to complete.", 'success');
+      }, 1200);
+    });
+  </script>
+</body>
+</html>
