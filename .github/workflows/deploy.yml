@@ -1,0 +1,67 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    name: Validate HTML
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for required files
+        run: |
+          test -f index.html || (echo "index.html missing" && exit 1)
+          echo "index.html found ✓"
+
+      - name: Check image assets
+        run: |
+          for img in img-04.webp img-05.webp img-15.webp; do
+            test -f "$img" || (echo "$img missing" && exit 1)
+            echo "$img found ✓"
+          done
+
+      - name: Check HTML syntax (basic)
+        run: |
+          grep -q "<!DOCTYPE html>" index.html || (echo "Missing DOCTYPE" && exit 1)
+          grep -q '<meta charset=' index.html || (echo "Missing charset meta" && exit 1)
+          grep -q '<meta name="viewport"' index.html || (echo "Missing viewport meta" && exit 1)
+          grep -q '<title>' index.html || (echo "Missing title tag" && exit 1)
+          grep -q 'og:title' index.html || (echo "Missing Open Graph tags" && exit 1)
+          echo "All HTML checks passed ✓"
+
+  deploy-pages:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    needs: validate
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
