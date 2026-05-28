@@ -3,166 +3,86 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#F7F4ED" />
+  <meta name="theme-color" content="#0f1117" />
 
-  <!-- ========== CRITICAL PRELOAD (prevents FOUC + Tailwind boot flash) ========== -->
   <style id="ls-critical">
-    /* Lock body visuals until everything is ready */
     html.ls-loading body > *:not(#ls-splash) { opacity: 0; }
-    html:not(.ls-loading) body > *:not(#ls-splash) {
-      transition: opacity .45s ease;
-    }
-
-    /* Splash overlay — covers any unstyled flash */
+    html:not(.ls-loading) body > *:not(#ls-splash) { transition: opacity .45s ease; }
     #ls-splash {
       position: fixed; inset: 0; z-index: 99999;
-      background: #F7F4ED;
+      background: #0f1117;
       display: flex; align-items: center; justify-content: center;
-      flex-direction: column; gap: 22px;
+      flex-direction: column; gap: 20px;
       transition: opacity .55s ease, visibility .55s ease;
     }
     #ls-splash.is-done { opacity: 0; visibility: hidden; pointer-events: none; }
-    #ls-splash .ls-spinner {
-      width: 40px; height: 40px;
-      border: 1.5px solid #E6DFD0;
-      border-top-color: #B8956A;
-      border-radius: 50%;
-      animation: ls-spin .9s linear infinite;
+    #ls-splash .ls-logo-ring {
+      position: relative;
+      width: 72px; height: 72px;
+    }
+    #ls-splash .ls-ring-svg {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      animation: ls-spin 1.4s linear infinite;
+    }
+    #ls-splash .ls-logo-img {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #ls-splash .ls-logo-img img {
+      width: 34px; height: 34px; object-fit: contain;
+      opacity: 0.9;
     }
     #ls-splash .ls-wordmark {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: 12px; letter-spacing: 0.32em;
-      color: #8A847A; text-transform: uppercase;
+      font-family: ui-monospace, 'JetBrains Mono', monospace;
+      font-size: 11px; letter-spacing: 0.28em;
+      color: #a0a0a0; text-transform: uppercase;
     }
     @keyframes ls-spin { to { transform: rotate(360deg); } }
     @media (prefers-reduced-motion: reduce) {
-      #ls-splash .ls-spinner { animation: none; border-top-color: #B8956A; }
+      #ls-splash .ls-ring-svg { animation: none; }
     }
-
-    /* Browser recommendation tip (Chrome) */
-    #ls-browser-tip {
-      position: fixed; left: 50%; bottom: 16px;
-      transform: translateX(-50%) translateY(140%);
-      z-index: 9000;
-      max-width: calc(100% - 24px); width: 380px;
-      background: #1C1A17; color: #F7F4ED;
-      border: 1px solid rgba(184, 149, 106, 0.22);
-      border-radius: 14px;
-      padding: 14px 14px 14px 16px;
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      font-size: 13px; line-height: 1.5;
-      box-shadow: 0 22px 50px -16px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.04) inset;
-      display: flex; align-items: flex-start; gap: 10px;
-      opacity: 0;
-      transition: transform .55s cubic-bezier(.2,.7,.2,1), opacity .45s ease;
-    }
-    #ls-browser-tip.is-visible { transform: translateX(-50%) translateY(0); opacity: 1; }
-    #ls-browser-tip .lbt-body { flex: 1; min-width: 0; }
-    #ls-browser-tip .lbt-label {
-      font-family: ui-monospace, 'JetBrains Mono', monospace;
-      font-size: 9.5px; letter-spacing: 0.22em; text-transform: uppercase;
-      color: #B8956A; margin-bottom: 4px;
-    }
-    #ls-browser-tip .lbt-text { color: rgba(247, 244, 237, 0.86); }
-    #ls-browser-tip .lbt-text strong { color: #F7F4ED; font-weight: 500; }
-    #ls-browser-tip .lbt-actions { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
-    #ls-browser-tip .lbt-btn {
-      font-family: ui-monospace, 'JetBrains Mono', monospace;
-      font-size: 10.5px; letter-spacing: 0.12em;
-      padding: 7px 12px; border-radius: 8px;
-      cursor: pointer; border: 1px solid transparent;
-      transition: background .25s, color .25s, border-color .25s, transform .2s;
-    }
-    #ls-browser-tip .lbt-primary {
-      background: #B8956A; color: #13110F; border-color: #B8956A;
-    }
-    #ls-browser-tip .lbt-primary:hover { background: #D6BC95; border-color: #D6BC95; transform: translateY(-1px); }
-    #ls-browser-tip .lbt-ghost {
-      background: transparent; color: rgba(247,244,237,0.7);
-      border-color: rgba(247,244,237,0.16);
-    }
-    #ls-browser-tip .lbt-ghost:hover { color: #F7F4ED; border-color: rgba(247,244,237,0.34); }
-    #ls-browser-tip .lbt-close {
-      background: transparent; border: 0;
-      color: rgba(247,244,237,0.45);
-      font-size: 20px; line-height: 1; cursor: pointer;
-      padding: 0 2px; align-self: flex-start;
-      transition: color .2s;
-    }
-    #ls-browser-tip .lbt-close:hover { color: #F7F4ED; }
   </style>
-  <script>
-    /* Mark page as loading IMMEDIATELY (before body parses) so splash can take over */
-    document.documentElement.classList.add('ls-loading');
-  </script>
+  <script>document.documentElement.classList.add('ls-loading');</script>
 
-  <!-- Primary SEO -->
-  <title>Legacya Sphere — Premium Creative Web Studio | Yoga Pratama Effendi</title>
-  <meta name="description" content="Legacya Sphere is a premium creative studio crafting refined websites and intelligent automations. Founded by Yoga Pratama Effendi. Selective engagements only — consultation by application." />
+  <title>Yoga Pratama Effendi — AI-Native Fullstack Developer | Legacya Sphere</title>
+  <meta name="description" content="AI-Native Fullstack Developer. I architect and build operational software systems — backend infrastructure, database design, frontend interfaces, and deployment end-to-end." />
   <meta name="author" content="Yoga Pratama Effendi · Legacya Sphere" />
-  <meta name="keywords" content="legacya sphere, creative studio, web design, landing page, ai automation, indonesia, premium portfolio" />
+  <meta name="keywords" content="fullstack developer, supabase, react, vue, postgresql, ai-native developer, indonesia, operational software, inventory management, erp" />
   <link rel="canonical" href="https://legacyasphere.com/" />
 
-  <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Legacya Sphere — Premium Creative Web Studio" />
-  <meta property="og:description" content="Refined websites and intelligent automations for thoughtful brands." />
+  <meta property="og:title" content="Yoga Pratama Effendi — AI-Native Fullstack Developer" />
+  <meta property="og:description" content="I architect and build operational software systems. Backend infrastructure, database design, frontend interfaces, and deployment — end-to-end." />
   <meta property="og:url" content="https://legacyasphere.com/" />
 
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Legacya Sphere — Premium Creative Web Studio" />
-  <meta name="twitter:description" content="Refined websites and intelligent automations for thoughtful brands." />
+  <meta name="twitter:title" content="Yoga Pratama Effendi — AI-Native Fullstack Developer" />
+  <meta name="twitter:description" content="I architect and build operational software systems — end-to-end." />
 
-  <!-- Favicon -->
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23F7F4ED'/%3E%3Ctext x='50' y='62' font-family='Georgia,serif' font-size='38' font-weight='400' fill='%231C1A17' text-anchor='middle'%3ELS%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%230f1117'/%3E%3Ctext x='50' y='64' font-family='monospace' font-size='40' font-weight='700' fill='%233b82f6' text-anchor='middle'%3ELS%3C/text%3E%3C/svg%3E" />
 
-  <!-- Tailwind config -->
   <script>
     window.tailwind = window.tailwind || {};
     window.tailwind.config = {
       theme: {
         extend: {
           colors: {
-            bg:       "#F7F4ED",
-            cream:    "#FAF8F2",
-            sand:     "#EDE6D6",
-            warm:     "#F2EBDA",
-            ink:      "#1C1A17",
-            "ink-2":  "#13110F",
-            "ink-soft": "#5A5650",
-            mute:     "#8A847A",
-            line:     "#E6DFD0",
-            "line-dark": "#2A2722",
-            gold:     "#B8956A",
-            "gold-soft": "#D6BC95",
-            silver:   "#9C9A95",
-            clay:     "#C9A582",
-            sage:     "#7A8B6A",
+            base:    "#0f1117",
+            surface: "#161b22",
+            raised:  "#1e2430",
+            text:    "#ffffff",
+            muted:   "#a0a0a0",
+            dim:     "#6b7280",
+            accent:  "#3b82f6",
+            "accent-light": "#60a5fa",
+            "accent-dim":   "#1d4ed8",
+            border:  "#2d2d2d",
+            "border-light": "#3d3d3d",
+            green:   "#22c55e",
           },
           fontFamily: {
             sans: ['Inter', 'system-ui', 'sans-serif'],
-            serif: ['"Fraunces"', 'Georgia', 'serif'],
-            italic: ['"Instrument Serif"', 'Georgia', 'serif'],
             mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
-          },
-          letterSpacing: {
-            tightest: '-0.035em',
-            tighter2: '-0.04em',
-          },
-          animation: {
-            'pulse-soft': 'pulseSoft 2.4s ease-in-out infinite',
-            'float-slow': 'float 16s ease-in-out infinite',
-          },
-          keyframes: {
-            pulseSoft: {
-              '0%, 100%': { opacity: '1', transform: 'scale(1)' },
-              '50%': { opacity: '0.55', transform: 'scale(0.85)' },
-            },
-            float: {
-              '0%, 100%': { transform: 'translateY(0px)' },
-              '50%': { transform: 'translateY(-14px)' },
-            },
           },
         },
       },
@@ -170,172 +90,40 @@
   </script>
   <script src="https://cdn.tailwindcss.com" defer></script>
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
   <style>
     html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
     body {
-      background: #F7F4ED;
-      color: #1C1A17;
+      background: #0f1117;
+      color: #ffffff;
       font-family: 'Inter', system-ui, sans-serif;
       overflow-x: hidden;
-      background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.108 0 0 0 0 0.102 0 0 0 0 0.090 0 0 0 0.025 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
     }
-    ::selection { background: rgba(184, 149, 106, 0.28); color: #1C1A17; }
-    html { scrollbar-color: #C9A582 #F7F4ED; scrollbar-width: thin; }
-    ::-webkit-scrollbar { width: 10px; height: 10px; }
-    ::-webkit-scrollbar-track { background: #F7F4ED; }
-    ::-webkit-scrollbar-thumb { background: #D6CDB9; border-radius: 8px; border: 2px solid #F7F4ED; transition: background-color .25s; }
-    ::-webkit-scrollbar-thumb:hover { background: #B8956A; }
+    ::selection { background: rgba(59,130,246,0.28); color: #fff; }
+    html { scrollbar-color: #3d3d3d #0f1117; scrollbar-width: thin; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0f1117; }
+    ::-webkit-scrollbar-thumb { background: #2d2d2d; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
 
-    /* Display headlines */
-    .font-display {
-      font-family: 'Fraunces', Georgia, serif;
-      font-optical-sizing: auto;
-      font-variation-settings: "opsz" 144;
-      letter-spacing: -0.025em;
-    }
-
-    /* Instrument Serif italic — softer, more editorial than Fraunces italic */
-    .font-soft-italic {
-      font-family: 'Instrument Serif', Georgia, serif;
-      font-style: italic;
-      letter-spacing: -0.01em;
-    }
-
-    /* Section eyebrow */
-    .section-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      color: #8A847A;
-      text-transform: uppercase;
-      font-weight: 500;
-    }
-    .section-label::before {
-      content: '';
-      width: 28px;
-      height: 1px;
-      background: linear-gradient(to right, transparent, #B8956A);
-    }
-    .section-label.on-dark { color: #B8956A; }
-    .section-label.on-dark::before { background: linear-gradient(to right, transparent, #B8956A); }
-
-    /* Buttons */
-    .btn-primary {
-      background: #1C1A17;
-      color: #FAF8F2;
-      border: 1px solid #1C1A17;
-      transition: transform .25s, background-color .3s, box-shadow .3s;
-      box-shadow: 0 1px 0 rgba(255,255,255,0.06) inset, 0 6px 20px -8px rgba(28,26,23,0.35);
-    }
-    .btn-primary:hover {
-      background: #2A2722;
-      transform: translateY(-1px);
-      box-shadow: 0 1px 0 rgba(255,255,255,0.08) inset, 0 12px 28px -10px rgba(28,26,23,0.45);
-    }
-    .btn-ghost {
-      background: rgba(250, 248, 242, 0.6);
-      border: 1px solid #E6DFD0;
-      color: #1C1A17;
-      transition: border-color .3s, background-color .3s, transform .25s;
-    }
-    .btn-ghost:hover { border-color: #B8956A; background: #FAF8F2; transform: translateY(-1px); }
-
-    .btn-on-dark {
-      background: #F7F4ED;
-      color: #1C1A17;
-      border: 1px solid #F7F4ED;
-      transition: transform .25s, background-color .3s;
-    }
-    .btn-on-dark:hover { background: #B8956A; border-color: #B8956A; transform: translateY(-1px); }
-
-    /* Cards */
-    .card {
-      background: #FAF8F2;
-      border: 1px solid #E6DFD0;
-      border-radius: 18px;
-      transition: transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s, border-color .4s;
-      box-shadow: 0 1px 2px rgba(124, 105, 70, 0.04);
-    }
-    .card:hover {
-      transform: translateY(-3px);
-      border-color: #D6CDB9;
-      box-shadow: 0 14px 30px -12px rgba(124, 105, 70, 0.18), 0 4px 8px -2px rgba(124, 105, 70, 0.08);
-    }
-
-    /* Gold italic accent (Fraunces italic - tighter, for inline) */
-    .accent-italic {
-      font-family: 'Fraunces', Georgia, serif;
-      font-style: italic;
-      font-weight: 400;
-      color: #B8956A;
-    }
-
-    /* Magazine-style drop cap */
-    .drop-cap::first-letter {
-      font-family: 'Fraunces', Georgia, serif;
-      font-weight: 300;
-      font-size: 4.2em;
-      line-height: 0.82;
-      float: left;
-      margin: 0.05em 0.12em 0 0;
-      color: #1C1A17;
-      font-feature-settings: "lnum";
-    }
-
-    /* Brush underline */
-    .brush-underline { position: relative; display: inline-block; }
-    .brush-underline::after {
-      content: '';
-      position: absolute; left: -4%; right: -4%; bottom: -8px;
-      height: 6px;
-      background: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 8' preserveAspectRatio='none'%3E%3Cpath d='M0,4 Q50,1 100,3 T200,4' stroke='%23B8956A' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat;
-      opacity: 0.85;
-    }
-
-    /* Reveal animation */
-    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 1s cubic-bezier(.2,.7,.2,1), transform 1s cubic-bezier(.2,.7,.2,1); }
+    /* Reveal */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); }
     .reveal.in { opacity: 1; transform: translateY(0); }
     .reveal.delay-1 { transition-delay: .08s; }
     .reveal.delay-2 { transition-delay: .16s; }
     .reveal.delay-3 { transition-delay: .24s; }
     .reveal.delay-4 { transition-delay: .32s; }
     .reveal.delay-5 { transition-delay: .40s; }
-    .reveal.delay-6 { transition-delay: .48s; }
 
-    /* Marquee */
-    @keyframes marqueeScroll {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-    .marquee-track {
-      display: flex; gap: 3rem; white-space: nowrap;
-      animation: marqueeScroll 32s linear infinite;
-      will-change: transform;
-    }
-    @media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
-    .marquee-mask {
-      mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
-      -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
-    }
-
-    /* Navbar */
-    .nav-blur {
-      backdrop-filter: blur(14px) saturate(150%);
-      -webkit-backdrop-filter: blur(14px) saturate(150%);
-      background: rgba(247, 244, 237, 0.78);
-      border-bottom: 1px solid rgba(230, 223, 208, 0.6);
-    }
-    .status-dot {
-      width: 8px; height: 8px; border-radius: 9999px; background: #7A8B6A;
-      box-shadow: 0 0 0 3px rgba(122, 139, 106, 0.18);
+    /* Nav */
+    .nav-bg {
+      background: rgba(15,17,23,0.85);
+      backdrop-filter: blur(12px) saturate(150%);
+      -webkit-backdrop-filter: blur(12px) saturate(150%);
+      border-bottom: 1px solid #2d2d2d;
     }
 
     /* Mobile menu */
@@ -347,1035 +135,719 @@
     .mobile-menu.is-open {
       max-height: 480px; opacity: 1; transform: translateY(0);
       visibility: visible; pointer-events: auto;
-      transition: max-height .35s cubic-bezier(.2,.7,.2,1), opacity .25s, transform .25s, visibility 0s linear 0s;
+      transition: max-height .35s cubic-bezier(.2,.7,.2,1), opacity .25s, transform .25s, visibility 0s;
     }
 
-    /* ===== HERO — asymmetric orbital ===== */
-    .hero-orbital {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: min(900px, 95vw);
-      height: min(900px, 95vw);
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.5;
-    }
-    .hero-orbital svg { width: 100%; height: 100%; }
-    @media (max-width: 768px) { .hero-orbital { opacity: 0.35; } }
-
-    /* Hero ratio mark on right */
-    .hero-meta {
+    /* Eyebrow label */
+    .eyebrow {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 10.5px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: #8A847A;
-      line-height: 1.8;
+      font-size: 11px; letter-spacing: 0.22em;
+      text-transform: uppercase; color: #3b82f6;
+      display: flex; align-items: center; gap: 10px;
     }
-    .hero-meta .k { color: #B8956A; }
+    .eyebrow::before {
+      content: ''; width: 24px; height: 1px; background: #3b82f6; flex-shrink: 0;
+    }
 
-    /* ===== Brand-flip (kept) ===== */
-    .flip-section { position: relative; height: 180vh; }
-    .flip-sticky {
-      position: sticky; top: 0; height: 100vh;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 28px;
+    /* Buttons */
+    .btn-primary {
+      background: #3b82f6; color: #fff;
+      border: 1px solid #3b82f6;
+      transition: background .2s, transform .2s, box-shadow .2s;
     }
-    .flip-eyebrow {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #8A847A;
-      font-weight: 500;
+    .btn-primary:hover { background: #2563eb; transform: translateY(-1px); box-shadow: 0 8px 24px -8px rgba(59,130,246,0.5); }
+    .btn-ghost {
+      background: transparent; color: #a0a0a0;
+      border: 1px solid #2d2d2d;
+      transition: border-color .2s, color .2s, transform .2s;
     }
-    .flip-eyebrow .sep {
-      display: inline-block; width: 18px; height: 1px; background: #B8956A;
-      vertical-align: middle; margin: 0 12px;
+    .btn-ghost:hover { border-color: #3b82f6; color: #fff; transform: translateY(-1px); }
+
+    /* Cards */
+    .card {
+      background: #161b22;
+      border: 1px solid #2d2d2d;
+      border-radius: 12px;
+      transition: border-color .3s, transform .3s, box-shadow .3s;
     }
-    .flip-card-wrapper { perspective: 1600px; width: 270px; height: 480px; }
-    .flip-card-inner {
-      position: relative; width: 100%; height: 100%;
-      transform-style: preserve-3d; transform: rotateY(0deg); will-change: transform;
+    .card:hover { border-color: #3d3d3d; transform: translateY(-2px); box-shadow: 0 16px 40px -16px rgba(0,0,0,0.5); }
+
+    /* Status dot */
+    .status-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 0 3px rgba(34,197,94,0.15);
+      animation: pulse-status 2.5s ease-in-out infinite;
     }
-    .flip-face {
+    @keyframes pulse-status { 0%,100% { opacity:1; } 50% { opacity: 0.5; } }
+    @media (prefers-reduced-motion: reduce) { .status-dot { animation: none; } }
+
+    /* Grid line decoration */
+    .hero-grid {
       position: absolute; inset: 0;
-      backface-visibility: hidden; -webkit-backface-visibility: hidden;
-      border-radius: 24px; overflow: hidden;
-      border: 1px solid #E6DFD0;
-      box-shadow: 0 24px 50px -16px rgba(124, 105, 70, 0.28), 0 0 0 1px rgba(255,255,255,0.5) inset;
+      background-image:
+        linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 100%);
+      pointer-events: none;
     }
-    .flip-face-front {
-      background: linear-gradient(180deg, #FAF8F2 0%, #F2EBDA 100%);
+
+    /* Tech chip */
+    .chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 10px; border-radius: 6px;
+      background: #1e2430; border: 1px solid #2d2d2d;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; color: #a0a0a0;
+    }
+    .chip.accent { border-color: rgba(59,130,246,0.35); color: #60a5fa; background: rgba(59,130,246,0.08); }
+
+    /* AI Workflow pipeline */
+    .pipeline-step {
+      position: relative;
+      padding: 20px 24px;
+      background: #161b22;
+      border: 1px solid #2d2d2d;
+      border-radius: 10px;
+    }
+    .pipeline-arrow {
       display: flex; align-items: center; justify-content: center;
-    }
-    .flip-face-front img { width: 78%; height: auto; max-height: 78%; object-fit: contain; }
-    .flip-face-back { transform: rotateY(180deg); background: #F0E9D8; }
-    .flip-face-back img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
-    .flip-hint {
-      font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em;
-      text-transform: uppercase; color: #8A847A;
-      display: flex; align-items: center; gap: 8px; opacity: 0.75;
-    }
-    .flip-hint svg { animation: bounceY 1.8s ease-in-out infinite; }
-    @keyframes bounceY { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
-    @media (max-width: 640px) {
-      .flip-card-wrapper { width: 240px; height: 427px; }
-      .flip-section { height: 170vh; }
+      color: #3b82f6; opacity: 0.5; flex-shrink: 0;
     }
 
-    /* ===== Magazine row (services & process) ===== */
-    .mag-row {
-      display: grid;
-      grid-template-columns: 64px 1fr auto;
-      gap: 20px;
-      padding: 32px 0;
-      border-top: 1px solid #E6DFD0;
-      align-items: start;
-      transition: padding-left .4s cubic-bezier(.2,.7,.2,1);
-    }
-    .mag-row:hover { padding-left: 8px; }
-    .mag-row:last-child { border-bottom: 1px solid #E6DFD0; }
-    .mag-row .idx {
-      font-family: 'Fraunces', Georgia, serif;
-      font-weight: 300;
-      font-size: 28px;
-      color: #B8956A;
-      line-height: 1;
-      letter-spacing: -0.02em;
-      padding-top: 4px;
-    }
-    .mag-row .arr {
-      color: #B8956A;
-      transition: transform .35s cubic-bezier(.2,.7,.2,1);
-      padding-top: 8px;
-    }
-    .mag-row:hover .arr { transform: translateX(8px); }
-    @media (max-width: 640px) {
-      .mag-row { grid-template-columns: 44px 1fr auto; gap: 14px; padding: 24px 0; }
-      .mag-row .idx { font-size: 22px; }
-    }
-
-    /* ===== Project slideshow ===== */
+    /* Project slideshow */
     .project-slideshow {
       position: relative; overflow: hidden;
-      background: linear-gradient(135deg, #EDE6D6 0%, #E0D7C0 100%);
-      cursor: pointer; outline: none;
+      background: #1e2430;
+      cursor: pointer;
     }
-    .project-slideshow:focus-visible { box-shadow: inset 0 0 0 2px #B8956A; }
     .project-slideshow .slide {
       position: absolute; inset: 0; width: 100%; height: 100%;
-      object-fit: contain; object-position: center center;
-      padding: 18px;
-      opacity: 0; transform: scale(1.02);
-      transition: opacity .6s, transform .8s cubic-bezier(.2,.7,.2,1);
+      object-fit: cover; object-position: center top;
+      opacity: 0; transition: opacity .5s;
       pointer-events: none;
-      filter: drop-shadow(0 12px 24px rgba(28, 26, 23, 0.12));
     }
-    .project-slideshow .slide.active { opacity: 1; transform: scale(1); }
-    .project-slideshow::after {
-      content: ''; position: absolute; inset: 0; pointer-events: none;
-      background: linear-gradient(to bottom, transparent 80%, rgba(28,26,23,0.06) 100%);
-    }
-    @media (max-width: 640px) { .project-slideshow .slide { padding: 12px; } }
+    .project-slideshow .slide.active { opacity: 1; }
     .slide-dots {
-      position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
-      display: flex; gap: 6px; z-index: 2;
+      position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 5px; z-index: 2;
     }
     .slide-dots .dot {
-      width: 6px; height: 6px; border-radius: 9999px;
-      background: rgba(255,255,255,0.55);
-      transition: background-color .3s, width .3s;
+      width: 5px; height: 5px; border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      transition: background .3s, width .3s;
     }
-    .slide-dots .dot.active { background: #FFF; width: 18px; }
+    .slide-dots .dot.active { background: #fff; width: 16px; border-radius: 3px; }
 
-    /* ===== DARK MANIFESTO ===== */
-    .manifesto {
-      background: #13110F;
-      color: #F2EBDA;
-      position: relative;
-      overflow: hidden;
-    }
-    .manifesto::before {
-      content: '';
-      position: absolute; inset: 0;
-      background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n2'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 0.95 0 0 0 0 0.85 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n2)'/%3E%3C/svg%3E");
-      pointer-events: none;
-      opacity: 0.5;
-    }
-    .manifesto::after {
-      content: '';
-      position: absolute;
-      top: -40%; right: -20%;
-      width: 80vw; height: 80vw; max-width: 1100px; max-height: 1100px;
-      background: radial-gradient(circle at center,
-        rgba(184, 149, 106, 0.12) 0%,
-        rgba(184, 149, 106, 0.04) 35%,
-        transparent 65%);
-      filter: blur(40px);
-      pointer-events: none;
-      z-index: 0;
-    }
-    .manifesto > * { position: relative; z-index: 1; }
-    .manifesto h2, .manifesto h3 { color: #FAF8F2; }
-    .manifesto .text-soft { color: rgba(242, 235, 218, 0.65); }
-    .manifesto .text-mute2 { color: rgba(242, 235, 218, 0.45); }
-    .manifesto .principle-row {
-      display: grid;
-      grid-template-columns: 56px 1fr;
-      gap: 24px;
-      padding: 22px 0;
-      border-top: 1px solid rgba(242, 235, 218, 0.08);
-    }
-    .manifesto .principle-row:last-of-type { border-bottom: 1px solid rgba(242, 235, 218, 0.08); }
-    .manifesto .principle-row .pn {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      letter-spacing: 0.18em;
-      color: #B8956A;
-      padding-top: 3px;
-    }
-    .manifesto .principle-row .pt {
-      font-family: 'Fraunces', Georgia, serif;
-      font-weight: 300;
-      font-size: 22px;
-      letter-spacing: -0.02em;
-      line-height: 1.25;
-      margin-bottom: 8px;
-    }
-    @media (max-width: 640px) {
-      .manifesto .principle-row { grid-template-columns: 38px 1fr; gap: 14px; padding: 18px 0; }
-      .manifesto .principle-row .pt { font-size: 19px; }
-    }
-
-    /* ===== Process timeline ===== */
-    .timeline {
-      position: relative;
-      display: grid;
-      gap: 0;
-    }
+    /* Timeline */
     @media (min-width: 1024px) {
-      .timeline {
-        grid-template-columns: repeat(5, 1fr);
-        gap: 32px;
-      }
-      .timeline::before {
+      .timeline-h { display: grid; grid-template-columns: repeat(5,1fr); gap: 0; }
+      .timeline-h::before {
         content: '';
-        position: absolute;
-        top: 24px;
-        left: 5%;
-        right: 5%;
-        height: 1px;
-        background: linear-gradient(to right, transparent, #D6CDB9 8%, #D6CDB9 92%, transparent);
+        position: absolute; top: 23px; left: 10%; right: 10%; height: 1px;
+        background: linear-gradient(to right, transparent, #2d2d2d 10%, #2d2d2d 90%, transparent);
       }
     }
-    .timeline-step { position: relative; padding-top: 0; }
-    .timeline-step .tl-node {
-      width: 48px; height: 48px;
-      border-radius: 50%;
-      background: #FAF8F2;
-      border: 1px solid #E6DFD0;
+    .tl-node {
+      width: 46px; height: 46px; border-radius: 50%;
+      background: #161b22; border: 1px solid #2d2d2d;
       display: flex; align-items: center; justify-content: center;
-      font-family: 'Fraunces', Georgia, serif;
-      font-weight: 400;
-      font-size: 18px;
-      color: #B8956A;
-      position: relative;
-      z-index: 1;
-      margin-bottom: 18px;
-    }
-    .timeline-step .tl-node::after {
-      content: '';
-      position: absolute;
-      inset: -6px;
-      border-radius: 50%;
-      border: 1px solid rgba(184, 149, 106, 0.15);
+      font-family: 'JetBrains Mono', monospace; font-size: 13px;
+      color: #3b82f6; position: relative; z-index: 1; margin-bottom: 16px;
     }
     @media (max-width: 1023px) {
-      .timeline-step {
-        padding-left: 60px;
-        padding-bottom: 28px;
-        border-left: 1px solid #E6DFD0;
-        margin-left: 22px;
-      }
-      .timeline-step .tl-node {
-        position: absolute;
-        left: -25px; top: 0;
-        margin-bottom: 0;
-        width: 48px; height: 48px;
-      }
-      .timeline-step:last-child { border-left-color: transparent; }
+      .tl-step { padding-left: 56px; padding-bottom: 28px; border-left: 1px solid #2d2d2d; margin-left: 22px; }
+      .tl-step .tl-node { position: absolute; left: -24px; top: 0; margin-bottom: 0; }
+      .tl-step:last-child { border-left-color: transparent; }
     }
 
-    /* ===== Promise rows (no boxes) ===== */
-    .promise-row {
-      display: grid;
-      grid-template-columns: 44px 1fr;
-      gap: 20px;
-      padding: 22px 0;
-      border-top: 1px solid #E6DFD0;
-      align-items: start;
-    }
-    .promise-row:last-child { border-bottom: 1px solid #E6DFD0; }
-    .promise-row .icon-box {
-      width: 40px; height: 40px;
-      border-radius: 10px;
-      background: #EDE6D6;
-      display: flex; align-items: center; justify-content: center;
-      color: #B8956A;
-    }
-    @media (min-width: 768px) {
-      .promise-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        column-gap: 56px;
-        row-gap: 0;
-      }
-    }
+    /* Stack section */
+    .stack-category { border-left: 2px solid #3b82f6; padding-left: 16px; }
 
-    /* Pull quote */
-    .pullquote {
-      font-family: 'Instrument Serif', Georgia, serif;
-      font-style: italic;
-      font-weight: 400;
-      font-size: clamp(1.5rem, 3vw, 2.1rem);
-      line-height: 1.3;
-      letter-spacing: -0.01em;
-      color: #1C1A17;
-      padding: 28px 0;
-      border-top: 1px solid #B8956A;
-      border-bottom: 1px solid #B8956A;
-      position: relative;
+    /* Service row */
+    .service-row {
+      display: grid; grid-template-columns: 48px 1fr;
+      gap: 20px; padding: 28px 0;
+      border-top: 1px solid #2d2d2d; align-items: start;
+      transition: padding-left .3s;
     }
-    .pullquote::before {
-      content: '"';
-      font-family: 'Fraunces', Georgia, serif;
-      font-size: 3.5em;
-      line-height: 0;
-      vertical-align: -0.3em;
-      color: #B8956A;
-      margin-right: 0.05em;
+    .service-row:hover { padding-left: 6px; }
+    .service-row:last-child { border-bottom: 1px solid #2d2d2d; }
+    .service-idx {
+      font-family: 'JetBrains Mono', monospace; font-size: 24px;
+      color: #3b82f6; line-height: 1; padding-top: 4px; font-weight: 400;
     }
+    @media (max-width: 640px) { .service-row { grid-template-columns: 36px 1fr; gap: 14px; padding: 22px 0; } .service-idx { font-size: 18px; } }
 
-    /* Stat row (no boxes — just numbers separated by gold dots) */
-    .stat-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: 20px 28px;
-    }
-    .stat-row .stat .n {
-      font-family: 'Fraunces', Georgia, serif;
-      font-weight: 300;
-      font-size: clamp(1.8rem, 3.5vw, 2.4rem);
-      line-height: 1;
-      letter-spacing: -0.03em;
-      color: #1C1A17;
-    }
-    .stat-row .stat .l {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10.5px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #8A847A;
-      margin-top: 6px;
-      display: block;
-    }
-    .stat-row .sep {
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      background: #B8956A;
-      align-self: center;
-      opacity: 0.5;
-    }
-    @media (max-width: 640px) { .stat-row .sep { display: none; } }
+    /* Now section */
+    .now-item { display: flex; align-items: baseline; gap: 12px; padding: 14px 0; border-top: 1px solid #2d2d2d; }
+    .now-item:last-child { border-bottom: 1px solid #2d2d2d; }
 
     /* Form */
     .input-field {
-      background: #FAF8F2;
-      border: 1px solid #E6DFD0;
-      color: #1C1A17;
-      transition: border-color .25s, box-shadow .25s, background-color .25s;
+      background: #161b22; border: 1px solid #2d2d2d; color: #fff;
+      transition: border-color .2s, box-shadow .2s;
       font-family: 'Inter', sans-serif;
     }
-    .input-field:hover { border-color: #D6CDB9; }
-    .input-field:focus {
-      outline: none;
-      border-color: #B8956A;
-      background: #FFFFFF;
-      box-shadow: 0 0 0 3px rgba(184, 149, 106, 0.15);
-    }
-    .input-field.error { border-color: #B85A4A; box-shadow: 0 0 0 3px rgba(184, 90, 74, 0.12); }
-    .input-field::placeholder { color: #B5AFA4; }
-    .hp-field { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
-
+    .input-field:hover { border-color: #3d3d3d; }
+    .input-field:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.12); }
+    .input-field.error { border-color: #ef4444; }
+    .input-field::placeholder { color: #4b5563; }
+    .hp-field { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
     select.input-field {
       appearance: none;
-      background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%238A847A' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 16px center;
-      padding-right: 40px;
+      background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px;
     }
+    select.input-field option { background: #161b22; color: #fff; }
 
-    /* Featured project (full-width with stats) */
-    .featured-stat {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 14px;
-      align-items: baseline;
+    /* Marquee */
+    @keyframes marqueeScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .marquee-track { display: flex; gap: 2.5rem; white-space: nowrap; animation: marqueeScroll 36s linear infinite; will-change: transform; }
+    .marquee-mask {
+      mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
     }
-    .featured-stat .fs-n {
-      font-family: 'Fraunces', Georgia, serif;
-      font-weight: 300;
-      font-size: clamp(2rem, 4vw, 2.8rem);
-      letter-spacing: -0.03em;
-      line-height: 0.9;
-      color: #1C1A17;
-    }
-    .featured-stat .fs-l {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10.5px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #8A847A;
-    }
+    @media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
+
+    /* Glow accent */
+    .glow-dot { width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%); filter: blur(40px); pointer-events: none; }
   </style>
 </head>
 
 <body>
-  <!-- ========== LOADING SPLASH (hides FOUC) ========== -->
-  <div id="ls-splash" role="status" aria-label="Loading Legacya Sphere">
-    <div class="ls-spinner" aria-hidden="true"></div>
+  <!-- Splash -->
+  <div id="ls-splash" role="status" aria-label="Loading">
+    <div class="ls-logo-ring" aria-hidden="true">
+      <!-- Spinning arc ring -->
+      <svg class="ls-ring-svg" viewBox="0 0 72 72" fill="none">
+        <circle cx="36" cy="36" r="32" stroke="#2d2d2d" stroke-width="1.5"/>
+        <path d="M36 4 A32 32 0 0 1 68 36" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <!-- Logo mark centred inside ring -->
+      <div class="ls-logo-img">
+        <img src="img-15.webp" alt="" />
+      </div>
+    </div>
     <div class="ls-wordmark">Legacya Sphere</div>
   </div>
 
-  <!-- ========== BROWSER RECOMMENDATION (shows on Safari / Firefox / in-app webviews) ========== -->
-  <div id="ls-browser-tip" role="status" aria-live="polite">
-    <div class="lbt-body">
-      <div class="lbt-label">Tip · Best experience</div>
-      <div class="lbt-text">
-        Untuk performa visual &amp; animasi terbaik, buka situs ini di <strong>Google Chrome</strong>.
-      </div>
-      <div class="lbt-actions">
-        <button type="button" class="lbt-btn lbt-primary" id="lbtOpenChrome">Open in Chrome</button>
-        <button type="button" class="lbt-btn lbt-ghost" id="lbtDismiss">Lanjut di sini</button>
-      </div>
-    </div>
-    <button type="button" class="lbt-close" id="lbtClose" aria-label="Dismiss">×</button>
-  </div>
-
-  <!-- ========== NAV ========== -->
-  <header class="fixed top-0 left-0 right-0 z-50 nav-blur" id="navbar">
-    <nav class="max-w-7xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+  <!-- NAV -->
+  <header class="fixed top-0 left-0 right-0 z-50 nav-bg" id="navbar">
+    <nav class="max-w-7xl mx-auto px-5 sm:px-8 h-14 flex items-center justify-between">
       <a href="#hero" class="flex items-center gap-2.5 group" aria-label="Legacya Sphere — home">
-        <img src="img-15.webp" alt="" class="w-7 h-7 object-contain" loading="eager" />
-        <span class="font-display text-[15px] font-medium tracking-tight text-ink group-hover:text-gold transition-colors">Legacya Sphere</span>
+        <img src="img-15.webp" alt="" class="w-6 h-6 object-contain opacity-90" loading="eager" />
+        <span class="font-mono text-[13px] font-medium tracking-tight text-white group-hover:text-accent-light transition-colors">Legacya Sphere</span>
       </a>
 
-      <ul class="hidden md:flex items-center gap-9 text-[13.5px] text-ink-soft">
-        <li><a href="#about" class="hover:text-ink transition-colors">About</a></li>
-        <li><a href="#services" class="hover:text-ink transition-colors">Services</a></li>
-        <li><a href="#process" class="hover:text-ink transition-colors">Process</a></li>
-        <li><a href="#work" class="hover:text-ink transition-colors">Work</a></li>
-        <li><a href="#contact" class="hover:text-ink transition-colors">Contact</a></li>
+      <ul class="hidden md:flex items-center gap-8 text-[13px] text-muted">
+        <li><a href="#about" class="hover:text-white transition-colors">About</a></li>
+        <li><a href="#workflow" class="hover:text-white transition-colors">AI Workflow</a></li>
+        <li><a href="#work" class="hover:text-white transition-colors">Systems</a></li>
+        <li><a href="#stack" class="hover:text-white transition-colors">Stack</a></li>
+        <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
       </ul>
 
-      <a href="#contact" class="hidden md:inline-flex btn-primary items-center gap-2 text-[13px] font-medium px-4 py-2 rounded-full">
-        Start a project
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-      </a>
+      <div class="hidden md:flex items-center gap-3">
+        <a href="https://github.com/legacyasphere-id" target="_blank" rel="noopener" class="btn-ghost inline-flex items-center gap-2 text-[12px] font-medium px-3 py-1.5 rounded-lg" aria-label="GitHub">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          GitHub
+        </a>
+        <a href="#contact" class="btn-primary inline-flex items-center gap-2 text-[12px] font-medium px-4 py-1.5 rounded-lg">
+          Let's Build
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
 
-      <button id="menuBtn" class="md:hidden w-10 h-10 flex items-center justify-center rounded-lg border border-line"
-              aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileMenu">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      <button id="menuBtn" class="md:hidden w-9 h-9 flex items-center justify-center rounded-lg border border-border"
+              aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
       </button>
     </nav>
 
-    <div id="mobileMenu" class="mobile-menu md:hidden border-t border-line bg-bg/95 backdrop-blur" aria-hidden="true">
-      <ul class="px-5 py-5 flex flex-col gap-1 text-[15px]">
-        <li><a href="#about" class="block py-2.5 text-ink-soft hover:text-ink">About</a></li>
-        <li><a href="#services" class="block py-2.5 text-ink-soft hover:text-ink">Services</a></li>
-        <li><a href="#process" class="block py-2.5 text-ink-soft hover:text-ink">Process</a></li>
-        <li><a href="#work" class="block py-2.5 text-ink-soft hover:text-ink">Work</a></li>
-        <li><a href="#contact" class="block py-2.5 text-ink-soft hover:text-ink">Contact</a></li>
-        <li class="pt-3"><a href="#contact" class="btn-primary inline-flex items-center gap-2 text-[14px] font-medium px-4 py-2.5 rounded-full">Start a project →</a></li>
+    <div id="mobileMenu" class="mobile-menu md:hidden border-t border-border bg-base/95 backdrop-blur" aria-hidden="true">
+      <ul class="px-5 py-4 flex flex-col gap-1 text-[14px]">
+        <li><a href="#about" class="block py-2.5 text-muted hover:text-white">About</a></li>
+        <li><a href="#workflow" class="block py-2.5 text-muted hover:text-white">AI Workflow</a></li>
+        <li><a href="#work" class="block py-2.5 text-muted hover:text-white">Systems</a></li>
+        <li><a href="#stack" class="block py-2.5 text-muted hover:text-white">Stack</a></li>
+        <li><a href="#contact" class="block py-2.5 text-muted hover:text-white">Contact</a></li>
+        <li class="pt-2 flex gap-2">
+          <a href="https://github.com/legacyasphere-id" target="_blank" rel="noopener" class="btn-ghost flex-1 inline-flex items-center justify-center gap-2 text-[13px] px-4 py-2.5 rounded-lg">GitHub</a>
+          <a href="#contact" class="btn-primary flex-1 inline-flex items-center justify-center gap-2 text-[13px] px-4 py-2.5 rounded-lg">Contact</a>
+        </li>
       </ul>
     </div>
   </header>
 
-  <!-- ========== HERO — Asymmetric Editorial ========== -->
+  <!-- HERO -->
   <section id="hero" class="relative pt-28 pb-20 sm:pt-36 sm:pb-28 overflow-hidden">
-    <!-- Decorative orbital lines -->
-    <div class="hero-orbital" aria-hidden="true">
-      <svg viewBox="0 0 900 900" fill="none">
-        <circle cx="450" cy="450" r="200" stroke="#D6CDB9" stroke-width="0.6" stroke-dasharray="2 6"/>
-        <circle cx="450" cy="450" r="320" stroke="#D6CDB9" stroke-width="0.5" stroke-dasharray="2 8" opacity="0.7"/>
-        <circle cx="450" cy="450" r="430" stroke="#D6CDB9" stroke-width="0.4" stroke-dasharray="2 10" opacity="0.5"/>
-      </svg>
-    </div>
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="absolute top-1/4 right-0 glow-dot opacity-60" aria-hidden="true"></div>
 
     <div class="relative max-w-7xl mx-auto px-5 sm:px-8">
-      <!-- Top row: eyebrow + status -->
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div class="reveal flex items-center gap-3">
-          <img src="img-15.webp" alt="Legacya Sphere mark" class="w-9 h-9 object-contain" loading="eager" />
+      <!-- Top row -->
+      <div class="reveal flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div class="flex items-center gap-2.5">
+          <img src="img-15.webp" alt="" class="w-8 h-8 object-contain opacity-80" loading="eager" />
           <div>
-            <div class="font-mono text-[10.5px] tracking-[0.28em] uppercase text-ink">Legacya Sphere</div>
-            <div class="font-mono text-[9.5px] tracking-[0.24em] uppercase text-mute mt-0.5">Est. 2025 · Bekasi, ID</div>
+            <div class="font-mono text-[10px] tracking-[0.28em] uppercase text-muted">Legacya Sphere</div>
+            <div class="font-mono text-[9px] tracking-[0.22em] uppercase text-dim mt-0.5">Bekasi, ID · GMT+7</div>
           </div>
         </div>
-
-        <div class="reveal delay-1 inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-line bg-cream/60 text-xs font-mono text-ink-soft backdrop-blur self-start">
-          <span class="status-dot animate-pulse-soft"></span>
-          1 partner slot · Q3 2026
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-surface/60 text-[11px] font-mono text-muted self-start">
+          <span class="status-dot"></span>
+          Available for selective projects
         </div>
       </div>
 
-      <!-- Main asymmetric grid: 7/5 -->
+      <!-- Main grid -->
       <div class="mt-16 sm:mt-20 grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-
-        <!-- LEFT: headline + sub + CTA -->
         <div class="lg:col-span-8">
-          <h1 class="reveal delay-1 font-display text-[clamp(2.6rem,7.5vw,5.4rem)] leading-[1.02] font-light tracking-tighter2 text-ink">
-            We craft<br />
-            digital legacies for<br />
-            <span class="font-soft-italic text-gold">thoughtful</span> brands.
-          </h1>
-
-          <div class="reveal delay-2 mt-8 max-w-xl space-y-3">
-            <p class="text-[16.5px] sm:text-[17.5px] leading-[1.7] text-ink-soft">
-              A premium creative studio designing refined websites and intelligent automations — where strategy meets craftsmanship.
-            </p>
-            <p class="text-[14.5px] leading-relaxed text-mute italic">
-              Studio kreatif premium yang membangun website elegan dan automasi cerdas — di mana strategi bertemu ketekunan.
-            </p>
+          <div class="reveal delay-1">
+            <span class="chip accent mb-5 inline-flex">Certified Claude Practitioner · Anthropic</span>
           </div>
+          <h1 class="reveal delay-1 text-[clamp(2.4rem,7vw,5rem)] leading-[1.04] font-semibold tracking-tight text-white">
+            AI-Native<br />Fullstack Developer
+          </h1>
+          <p class="reveal delay-2 mt-5 text-[clamp(1rem,2.2vw,1.2rem)] font-medium text-muted">
+            I build operational software systems.
+          </p>
+          <p class="reveal delay-2 mt-2 text-[15px] text-dim leading-relaxed">
+            Architecture · Backend · Frontend · Deployment — end-to-end.
+          </p>
 
-          <div class="reveal delay-3 mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-            <a href="#work" class="btn-primary inline-flex items-center justify-center gap-2 text-[14px] font-medium px-6 py-3 rounded-full">
-              View our work
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          <div class="reveal delay-3 mt-10 flex flex-wrap gap-3">
+            <a href="#work" class="btn-primary inline-flex items-center gap-2 text-[14px] font-medium px-5 py-2.5 rounded-lg">
+              View Built Systems
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
             </a>
-            <a href="#contact" class="btn-ghost inline-flex items-center justify-center gap-2 text-[14px] font-medium px-6 py-3 rounded-full">
-              Begin a conversation
+            <a href="https://github.com/legacyasphere-id" target="_blank" rel="noopener" class="btn-ghost inline-flex items-center gap-2 text-[14px] font-medium px-5 py-2.5 rounded-lg">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+              GitHub
             </a>
+            <a href="#contact" class="btn-ghost inline-flex items-center gap-2 text-[14px] font-medium px-5 py-2.5 rounded-lg">Contact</a>
+            <a href="assets/certificates/claude-101-anthropic.pdf" target="_blank" rel="noopener" class="btn-ghost inline-flex items-center gap-2 text-[14px] font-medium px-5 py-2.5 rounded-lg">Resume ↓</a>
           </div>
         </div>
 
-        <!-- RIGHT: meta column -->
-        <aside class="reveal delay-4 lg:col-span-4 lg:pl-8 lg:border-l lg:border-line space-y-7">
-          <div>
-            <div class="hero-meta">— Founded by</div>
-            <div class="font-display font-medium text-[18px] text-ink mt-1">Yoga Pratama Effendi</div>
-            <div class="text-[13px] text-ink-soft italic mt-0.5">One-person studio · Selective engagements</div>
+        <!-- Meta column -->
+        <aside class="reveal delay-4 lg:col-span-4 space-y-4">
+          <div class="card p-5 space-y-4">
+            <div class="font-mono text-[10px] uppercase tracking-wider text-dim">Developer</div>
+            <div>
+              <div class="text-[17px] font-semibold text-white">Yoga Pratama Effendi</div>
+              <div class="text-[13px] text-muted mt-0.5">Founder · Legacya Sphere</div>
+            </div>
+            <div class="pt-3 border-t border-border">
+              <div class="font-mono text-[10px] uppercase tracking-wider text-dim mb-3">Core Stack</div>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="chip">React</span>
+                <span class="chip">Vue.js</span>
+                <span class="chip">Supabase</span>
+                <span class="chip">PostgreSQL</span>
+                <span class="chip">Tailwind</span>
+                <span class="chip">Vercel</span>
+              </div>
+            </div>
+            <div class="pt-3 border-t border-border">
+              <div class="font-mono text-[10px] uppercase tracking-wider text-dim mb-2">AI Tools</div>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="chip accent">Claude</span>
+                <span class="chip">GPT</span>
+                <span class="chip">Gemini</span>
+                <span class="chip">n8n</span>
+              </div>
+            </div>
           </div>
-
-          <div class="border-t border-line pt-6">
-            <div class="hero-meta">— Disciplines</div>
-            <ul class="mt-2 space-y-1.5 text-[14px] text-ink">
-              <li class="flex items-baseline gap-3">
-                <span class="hero-meta">01</span>
-                <span>Landing Page Design</span>
-              </li>
-              <li class="flex items-baseline gap-3">
-                <span class="hero-meta">02</span>
-                <span>Website Development</span>
-              </li>
-              <li class="flex items-baseline gap-3">
-                <span class="hero-meta">03</span>
-                <span>AI Automation</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="border-t border-line pt-6">
-            <div class="hero-meta">— Languages</div>
-            <div class="mt-1 text-[14px] text-ink">English <span class="text-mute mx-2">/</span> Bahasa Indonesia</div>
+          <div class="card p-4">
+            <div class="font-mono text-[10px] uppercase tracking-wider text-dim mb-2">Languages</div>
+            <div class="text-[13px] text-muted">English <span class="text-dim mx-1">/</span> Bahasa Indonesia</div>
           </div>
         </aside>
       </div>
 
-      <!-- Capabilities marquee — replaces AI tools -->
+      <!-- Marquee -->
       <div class="reveal delay-5 mt-20">
-        <p class="text-[10.5px] font-mono uppercase tracking-[0.24em] text-mute mb-5">— What we make</p>
-        <div class="marquee-mask overflow-hidden border-t border-b border-line py-4">
-          <div class="marquee-track text-ink text-[15px]">
-            <span class="font-display">Brand-led websites</span><span class="text-gold">✦</span>
-            <span class="font-soft-italic text-gold text-[17px]">Editorial landing pages</span><span class="text-gold">✦</span>
-            <span class="font-display">Intelligent automations</span><span class="text-gold">✦</span>
-            <span class="font-soft-italic text-gold text-[17px]">AI-assisted workflows</span><span class="text-gold">✦</span>
-            <span class="font-display">Conversion-first design</span><span class="text-gold">✦</span>
-            <span class="font-soft-italic text-gold text-[17px]">Premium positioning</span><span class="text-gold">✦</span>
-
-            <span class="font-display">Brand-led websites</span><span class="text-gold">✦</span>
-            <span class="font-soft-italic text-gold text-[17px]">Editorial landing pages</span><span class="text-gold">✦</span>
-            <span class="font-display">Intelligent automations</span><span class="text-gold">✦</span>
-            <span class="font-soft-italic text-gold text-[17px]">AI-assisted workflows</span><span class="text-gold">✦</span>
-            <span class="font-display">Conversion-first design</span><span class="text-gold">✦</span>
-            <span class="font-soft-italic text-gold text-[17px]">Premium positioning</span><span class="text-gold">✦</span>
+        <div class="marquee-mask overflow-hidden border-t border-b border-border py-3.5">
+          <div class="marquee-track text-[13px] font-mono text-dim">
+            <span>Operational Software Systems</span><span class="text-accent mx-2">·</span>
+            <span>Supabase + PostgreSQL Backend</span><span class="text-accent mx-2">·</span>
+            <span>React / Vue Frontends</span><span class="text-accent mx-2">·</span>
+            <span>Real-Time Data Sync</span><span class="text-accent mx-2">·</span>
+            <span>Role-Based Access Control</span><span class="text-accent mx-2">·</span>
+            <span>AI-Assisted Architecture</span><span class="text-accent mx-2">·</span>
+            <span>Vercel Deployment</span><span class="text-accent mx-2">·</span>
+            <span>Database Schema Design</span><span class="text-accent mx-2">·</span>
+            <span>Mini ERP Systems</span><span class="text-accent mx-2">·</span>
+            <span>Operational Software Systems</span><span class="text-accent mx-2">·</span>
+            <span>Supabase + PostgreSQL Backend</span><span class="text-accent mx-2">·</span>
+            <span>React / Vue Frontends</span><span class="text-accent mx-2">·</span>
+            <span>Real-Time Data Sync</span><span class="text-accent mx-2">·</span>
+            <span>Role-Based Access Control</span><span class="text-accent mx-2">·</span>
+            <span>AI-Assisted Architecture</span><span class="text-accent mx-2">·</span>
+            <span>Vercel Deployment</span><span class="text-accent mx-2">·</span>
+            <span>Database Schema Design</span><span class="text-accent mx-2">·</span>
+            <span>Mini ERP Systems</span><span class="text-accent mx-2">·</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ========== BRAND-FLIP ========== -->
-  <section id="brand-flip" class="flip-section border-t border-line" aria-label="The brand and the founder">
-    <div class="flip-sticky">
-      <div class="flip-eyebrow">
-        <span>The brand</span><span class="sep" aria-hidden="true"></span><span>The founder</span>
-      </div>
-
-      <div class="flip-card-wrapper">
-        <div class="flip-card-inner" id="flipCardInner">
-          <div class="flip-face flip-face-front">
-            <img src="img-15.webp" alt="Legacya Sphere logo mark" />
-          </div>
-          <div class="flip-face flip-face-back">
-            <img src="img-04.webp" alt="Yoga Pratama Effendi — Founder of Legacya Sphere" />
-          </div>
-        </div>
-      </div>
-
-      <div class="flip-hint" aria-hidden="true">
-        <span>Scroll to reveal</span>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== ABOUT — Editorial Drop-Cap ========== -->
-  <section id="about" class="relative py-24 sm:py-32 border-t border-line">
+  <!-- ABOUT — How I Think -->
+  <section id="about" class="relative py-24 sm:py-32 border-t border-border">
     <div class="max-w-7xl mx-auto px-5 sm:px-8">
-      <div class="reveal section-label">01 — About the studio</div>
+      <div class="reveal eyebrow">01 — How I Think</div>
 
       <div class="mt-12 grid lg:grid-cols-12 gap-12 lg:gap-20 items-start">
-        <!-- Left: Editorial text -->
         <div class="lg:col-span-7">
-          <h2 class="reveal font-display text-[clamp(2rem,4.2vw,3.2rem)] leading-[1.08] font-light tracking-tightest text-ink max-w-xl">
-            A studio built on<br />
-            <span class="font-soft-italic text-gold">discipline</span> and <span class="font-soft-italic text-gold">care</span>.
+          <h2 class="reveal text-[clamp(1.8rem,4vw,3rem)] font-semibold tracking-tight leading-[1.1] text-white">
+            Systems thinking<br />before interfaces.
           </h2>
 
-          <div class="reveal delay-1 mt-10 max-w-xl">
-            <p class="drop-cap text-[16px] leading-[1.75] text-ink-soft">
-              Legacya Sphere is a one-person creative studio founded by <span class="text-ink font-medium">Yoga Pratama Effendi</span>, building refined websites and intelligent automations for brands that value quiet precision over noise.
-            </p>
+          <!-- Fix 3: Founder photo — trust signal -->
+          <div class="reveal delay-1 mt-8 flex items-center gap-4">
+            <img src="img-04.webp" alt="Yoga Pratama Effendi" class="w-14 h-14 rounded-full object-cover border border-border shrink-0" style="object-position: center top;" />
+            <div>
+              <div class="text-[15px] font-semibold text-white">Yoga Pratama Effendi</div>
+              <div class="text-[12px] text-muted mt-0.5">Fullstack Developer · Bekasi, Indonesia</div>
+            </div>
           </div>
 
-          <p class="reveal delay-2 mt-6 max-w-xl text-[14.5px] italic leading-relaxed text-mute">
-            Studio kreatif yang membangun website elegan dan automasi cerdas — untuk brand yang menghargai presisi tenang di atas bising.
-          </p>
-
-          <!-- Pull quote -->
-          <div class="reveal delay-3 mt-12 max-w-xl pullquote">
-            Every project starts with the same question — <span class="text-gold">what does this brand deserve to feel like?</span>
+          <div class="reveal delay-1 mt-6 space-y-4 text-[15px] leading-[1.8] text-muted">
+            <p>I'm Yoga Pratama Effendi — a fullstack developer building operational software from Bekasi, Indonesia. I architect and ship systems that businesses actually run on: inventory management, operations dashboards, POS systems, and e-commerce platforms.</p>
+            <p>My workflow is architecture-first. Before writing a line of code, I map out data flows, define the database schema, and design the API contract. Interfaces are the last layer, not the first.</p>
           </div>
 
-          <p class="reveal delay-4 mt-8 max-w-xl text-[15.5px] leading-[1.75] text-ink-soft">
-            Then comes the work — typography weighed letter by letter, motion timed by feel, code shaped to last.
-          </p>
-
-          <!-- Stat row (no boxes — editorial) -->
-          <div class="reveal delay-5 mt-12 stat-row">
-            <div class="stat">
-              <div class="n">2025</div>
-              <div class="l">Founded</div>
+          <div class="reveal delay-2 mt-10 grid sm:grid-cols-2 gap-4">
+            <div class="card p-5">
+              <div class="text-accent text-[11px] font-mono uppercase tracking-wider mb-3">Approach</div>
+              <ul class="space-y-2.5 text-[13.5px] text-muted">
+                <li class="flex items-start gap-2"><span class="text-accent mt-0.5">→</span> Data flows before design</li>
+                <li class="flex items-start gap-2"><span class="text-accent mt-0.5">→</span> Performance before polish</li>
+                <li class="flex items-start gap-2"><span class="text-accent mt-0.5">→</span> Backend reliability first</li>
+                <li class="flex items-start gap-2"><span class="text-accent mt-0.5">→</span> Schema-driven development</li>
+              </ul>
             </div>
-            <span class="sep" aria-hidden="true"></span>
-            <div class="stat">
-              <div class="n">20<span class="text-gold">m</span></div>
-              <div class="l">Discovery call</div>
-            </div>
-            <span class="sep" aria-hidden="true"></span>
-            <div class="stat">
-              <div class="n">EN<span class="text-gold">/</span>ID</div>
-              <div class="l">Bilingual service</div>
-            </div>
-            <span class="sep" aria-hidden="true"></span>
-            <div class="stat">
-              <div class="n">1<span class="text-gold">:</span>1</div>
-              <div class="l">Founder-led</div>
+            <div class="card p-5">
+              <div class="text-accent text-[11px] font-mono uppercase tracking-wider mb-3">Claude Used For</div>
+              <ul class="space-y-2.5 text-[13.5px] text-muted">
+                <li class="flex items-start gap-2"><span class="text-accent mt-0.5">→</span> Architecture planning</li>
+                <li class="flex items-start gap-2"><span class="text-accent mt-0.5">→</span> DB schema design</li>
+                <li class="flex items-start gap-2"><span class="text-accent mt-0.5">→</span> Code review</li>
+                <li class="flex items-start gap-2"><span class="text-accent mt-0.5">→</span> System design review</li>
+              </ul>
             </div>
           </div>
         </div>
 
-        <!-- Right: Credential card -->
-        <aside class="lg:col-span-5 lg:sticky lg:top-24">
-          <div class="reveal delay-1 card p-6">
-            <div class="flex items-center justify-between gap-2 mb-4">
-              <div class="flex items-center gap-2">
-                <div class="w-7 h-7 rounded-full bg-cream border border-line flex items-center justify-center text-gold shrink-0" aria-hidden="true">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                    <polyline points="22 4 12 14.01 9 11.01"/>
-                  </svg>
-                </div>
-                <span class="font-mono text-[10px] uppercase tracking-wider text-mute">Verified Credential</span>
+        <!-- Credential -->
+        <aside class="lg:col-span-5 lg:sticky lg:top-20">
+          <div class="reveal delay-1 card p-5">
+            <div class="flex items-center gap-2 mb-4">
+              <div class="w-6 h-6 rounded-full bg-raised border border-border flex items-center justify-center text-accent shrink-0">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
               </div>
-              <a href="assets/certificates/claude-101-anthropic.pdf" target="_blank" rel="noopener" class="text-[10.5px] font-mono uppercase tracking-wider text-gold hover:text-ink transition-colors" aria-label="Open original PDF certificate"> </a>
+              <span class="font-mono text-[10px] uppercase tracking-wider text-dim">Verified Credential</span>
             </div>
 
-            <a href="assets/certificates/claude-101-anthropic.pdf" target="_blank" rel="noopener" class="block overflow-hidden rounded-lg border border-line bg-sand group">
-              <img src="img-05.webp" alt="Claude 101 — Certificate of Completion issued to Yoga Effendi by Anthropic, May 11 2026" decoding="async" width="2200" height="1700" class="w-full h-auto block transition-transform duration-500 group-hover:scale-[1.02]" />
+            <a href="assets/certificates/claude-101-anthropic.pdf" target="_blank" rel="noopener" class="block overflow-hidden rounded-lg border border-border group">
+              <img src="img-05.webp" alt="Claude 101 — Certificate of Completion issued to Yoga Effendi by Anthropic" decoding="async" width="2200" height="1700" class="w-full h-auto block transition-transform duration-500 group-hover:scale-[1.02]" />
             </a>
 
-            <div class="mt-5">
-              <h3 class="font-display text-[18px] font-medium text-ink leading-tight">
-                Claude 101 — by <span class="accent-italic">Anthropic</span>
-              </h3>
-              <p class="mt-2 text-[13.5px] leading-relaxed text-ink-soft">
-                Certified practitioner of Claude AI, issued directly by Anthropic. The foundation under every AI workflow we ship.
-              </p>
-              <p class="mt-1 text-[12.5px] italic leading-relaxed text-mute">
-                Sertifikasi resmi Claude AI dari Anthropic — fondasi setiap automasi kami.
-              </p>
-              <div class="mt-4 pt-3 border-t border-line flex items-center justify-between text-[10.5px] font-mono uppercase tracking-wider text-mute">
-                <span class="truncate">ID · hv8dnv6of7et</span>
-                <span class="whitespace-nowrap">May 2026</span>
+            <div class="mt-4">
+              <h3 class="text-[16px] font-semibold text-white">Claude 101 — <span class="text-accent">Anthropic</span></h3>
+              <p class="mt-1.5 text-[13px] text-muted leading-relaxed">Certified practitioner of Claude AI, issued directly by Anthropic. The foundation under every AI workflow I ship.</p>
+              <div class="mt-4 pt-3 border-t border-border flex items-center justify-between text-[10px] font-mono text-dim">
+                <span>ID · hv8dnv6of7et</span>
+                <span>May 2026</span>
               </div>
             </div>
           </div>
 
-          <!-- Skills as quiet inline chips -->
-          <div class="reveal delay-2 mt-6 flex flex-wrap gap-2">
-            <span class="px-3 py-1.5 rounded-full border border-line bg-cream text-[12px] font-mono text-ink-soft">Brand-led design</span>
-            <span class="px-3 py-1.5 rounded-full border border-line bg-cream text-[12px] font-mono text-ink-soft">Typography</span>
-            <span class="px-3 py-1.5 rounded-full border border-line bg-cream text-[12px] font-mono text-ink-soft">AI workflows</span>
-            <span class="px-3 py-1.5 rounded-full border border-line bg-cream text-[12px] font-mono text-ink-soft">No-code</span>
-            <span class="px-3 py-1.5 rounded-full border border-line bg-cream text-[12px] font-mono text-ink-soft">Conversion</span>
+          <div class="reveal delay-2 mt-4 flex flex-wrap gap-2">
+            <span class="chip">React</span>
+            <span class="chip">Vue.js</span>
+            <span class="chip">Supabase</span>
+            <span class="chip">PostgreSQL</span>
+            <span class="chip">Tailwind CSS</span>
+            <span class="chip">Recharts</span>
+            <span class="chip">Vercel</span>
+            <span class="chip accent">Claude</span>
+            <span class="chip">n8n</span>
           </div>
         </aside>
       </div>
     </div>
   </section>
 
-  <!-- ========== SERVICES — Magazine Rows ========== -->
-  <section id="services" class="relative py-24 sm:py-32 border-t border-line bg-cream/40">
+  <!-- AI WORKFLOW -->
+  <section id="workflow" class="relative py-24 sm:py-32 border-t border-border" style="background: linear-gradient(180deg, #0f1117 0%, #111827 50%, #0f1117 100%);">
     <div class="max-w-6xl mx-auto px-5 sm:px-8">
-      <div class="reveal section-label">02 — Services</div>
-
-      <div class="mt-10 grid lg:grid-cols-12 gap-10 items-end">
-        <h2 class="reveal lg:col-span-7 font-display text-[clamp(2rem,4.2vw,3.2rem)] leading-[1.08] font-light tracking-tightest text-ink">
-          Three disciplines,<br />
-          one <span class="font-soft-italic text-gold">standard</span>.
-        </h2>
-        <p class="reveal delay-1 lg:col-span-5 text-[15.5px] leading-relaxed text-ink-soft">
-          Selective engagements only. Every project begins with a complimentary 20-minute discovery call — no pressure, no obligation.
-        </p>
-      </div>
-
-      <!-- Magazine rows -->
-      <div class="mt-14">
-        <a href="#contact" class="mag-row reveal delay-1 group block">
-          <div class="idx">01</div>
-          <div>
-            <h3 class="font-display text-[22px] sm:text-[26px] font-medium text-ink leading-tight">Landing Page Design</h3>
-            <p class="mt-2 text-[14.5px] leading-relaxed text-ink-soft max-w-xl">Single-page sites built for clarity and conversion. Pixel-perfect across every device, with copy that earns the click.</p>
-            <p class="mt-1 text-[13px] italic leading-relaxed text-mute max-w-xl">Halaman tunggal yang dibangun untuk konversi.</p>
-            <div class="mt-3 font-mono text-[11px] uppercase tracking-wider text-gold">From $49.9</div>
-          </div>
-          <div class="arr">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-          </div>
-        </a>
-
-        <a href="#contact" class="mag-row reveal delay-2 group block">
-          <div class="idx">02</div>
-          <div>
-            <h3 class="font-display text-[22px] sm:text-[26px] font-medium text-ink leading-tight">Website Development</h3>
-            <p class="mt-2 text-[14.5px] leading-relaxed text-ink-soft max-w-xl">Multi-page brand websites that build trust, rank organically, and grow with you. SEO-ready from line one.</p>
-            <p class="mt-1 text-[13px] italic leading-relaxed text-mute max-w-xl">Website premium yang membangun kepercayaan dan tumbuh bersama brand Anda.</p>
-            <div class="mt-3 font-mono text-[11px] uppercase tracking-wider text-gold">From $74.9</div>
-          </div>
-          <div class="arr">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-          </div>
-        </a>
-
-        <a href="#contact" class="mag-row reveal delay-3 group block">
-          <div class="idx">03</div>
-          <div>
-            <h3 class="font-display text-[22px] sm:text-[26px] font-medium text-ink leading-tight">AI Automation</h3>
-            <p class="mt-2 text-[14.5px] leading-relaxed text-ink-soft max-w-xl">Make.com & n8n workflows that connect your tools, eliminate repetitive tasks, and run quietly while you build the business.</p>
-            <p class="mt-1 text-[13px] italic leading-relaxed text-mute max-w-xl">Otomasi cerdas yang bekerja diam-diam untuk Anda.</p>
-            <div class="mt-3 font-mono text-[11px] uppercase tracking-wider text-gold">From $99.9</div>
-          </div>
-          <div class="arr">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== MANIFESTO — DARK INTERLUDE (THE WOW MOMENT) ========== -->
-  <section id="manifesto" class="manifesto py-28 sm:py-36">
-    <div class="max-w-5xl mx-auto px-5 sm:px-8">
-      <div class="reveal section-label on-dark">03 — What we believe</div>
-
-      <h2 class="reveal mt-10 font-display text-[clamp(2.2rem,5.5vw,4rem)] leading-[1.06] font-light tracking-tightest">
-        Six principles<br />
-        we won't <span class="font-soft-italic text-gold">break</span>.
+      <div class="reveal eyebrow">02 — How I Build with AI</div>
+      <h2 class="reveal mt-6 text-[clamp(1.8rem,4vw,3rem)] font-semibold tracking-tight leading-[1.1] text-white">
+        AI is wired into<br />every stage of the build.
       </h2>
-
-      <p class="reveal delay-1 mt-8 max-w-xl text-[16px] leading-[1.75] text-soft">
-        The promises we keep — across every engagement, regardless of scope. Written here, written into every contract.
-      </p>
-      <p class="reveal delay-2 mt-2 max-w-xl text-[14px] italic leading-relaxed text-mute2">
-        Komitmen yang tidak kami negosiasi — pada setiap project, berapapun ukurannya.
+      <p class="reveal delay-1 mt-4 text-[15px] text-muted max-w-xl">
+        Not just for generating code — for planning architecture, reviewing decisions, and catching system design mistakes before they become production bugs.
       </p>
 
-      <div class="reveal delay-2 mt-16">
-        <div class="principle-row">
-          <div class="pn">P.01</div>
-          <div>
-            <div class="pt">Pixel-perfect, never "close enough".</div>
-            <p class="text-[14.5px] leading-relaxed text-soft">Designs that match the spec down to the last padding value. The detail you notice is the detail your visitors feel.</p>
+      <!-- Pipeline desktop -->
+      <div class="reveal delay-2 mt-14 hidden lg:flex items-stretch gap-0">
+        <div class="pipeline-step flex-1">
+          <div class="font-mono text-[10px] uppercase tracking-wider text-dim mb-3">01</div>
+          <div class="text-[15px] font-semibold text-white mb-2">Discovery</div>
+          <p class="text-[12px] text-muted leading-relaxed mb-4">Scope, requirements, system boundaries</p>
+          <div class="pt-3 border-t border-border">
+            <div class="font-mono text-[9px] uppercase tracking-wider text-accent mb-1.5">Claude:</div>
+            <div class="text-[11px] text-muted">PRD + Architecture planning</div>
           </div>
         </div>
-
-        <div class="principle-row">
-          <div class="pn">P.02</div>
-          <div>
-            <div class="pt">Mobile is the first draft, not the afterthought.</div>
-            <p class="text-[14.5px] leading-relaxed text-soft">Most of your visitors are on a phone. Designed for the small screen first, scaled up gracefully.</p>
+        <div class="pipeline-arrow px-2"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+        <div class="pipeline-step flex-1">
+          <div class="font-mono text-[10px] uppercase tracking-wider text-dim mb-3">02</div>
+          <div class="text-[15px] font-semibold text-white mb-2">System Design</div>
+          <p class="text-[12px] text-muted leading-relaxed mb-4">Database schema, API design, data flows</p>
+          <div class="pt-3 border-t border-border">
+            <div class="font-mono text-[9px] uppercase tracking-wider text-accent mb-1.5">Claude:</div>
+            <div class="text-[11px] text-muted">Schema + API contract review</div>
           </div>
         </div>
-
-        <div class="principle-row">
-          <div class="pn">P.03</div>
-          <div>
-            <div class="pt">Performance is a feature, not a polish.</div>
-            <p class="text-[14.5px] leading-relaxed text-soft">Lighthouse 90+ across the board. Fast sites convert. Slow sites bleed visitors before they read a word.</p>
+        <div class="pipeline-arrow px-2"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+        <div class="pipeline-step flex-1">
+          <div class="font-mono text-[10px] uppercase tracking-wider text-dim mb-3">03</div>
+          <div class="text-[15px] font-semibold text-white mb-2">Implementation</div>
+          <p class="text-[12px] text-muted leading-relaxed mb-4">Backend + frontend parallel build</p>
+          <div class="pt-3 border-t border-border">
+            <div class="font-mono text-[9px] uppercase tracking-wider text-accent mb-1.5">Claude:</div>
+            <div class="text-[11px] text-muted">Code review + optimization</div>
           </div>
         </div>
-
-        <div class="principle-row">
-          <div class="pn">P.04</div>
-          <div>
-            <div class="pt">SEO from line one of the foundation.</div>
-            <p class="text-[14.5px] leading-relaxed text-soft">Semantic HTML, heading hierarchy, schema markup — engineered in from the start, not bolted on at launch.</p>
+        <div class="pipeline-arrow px-2"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+        <div class="pipeline-step flex-1">
+          <div class="font-mono text-[10px] uppercase tracking-wider text-dim mb-3">04</div>
+          <div class="text-[15px] font-semibold text-white mb-2">Deployment</div>
+          <p class="text-[12px] text-muted leading-relaxed mb-4">Vercel + Supabase production setup</p>
+          <div class="pt-3 border-t border-border">
+            <div class="font-mono text-[9px] uppercase tracking-wider text-accent mb-1.5">Tools:</div>
+            <div class="text-[11px] text-muted">Vercel + monitoring</div>
           </div>
         </div>
-
-        <div class="principle-row">
-          <div class="pn">P.05</div>
-          <div>
-            <div class="pt">Daily updates. Never ghost. No jargon.</div>
-            <p class="text-[14.5px] leading-relaxed text-soft">Progress shared every working day. Plain language. You'll always know where we stand and what's next.</p>
-          </div>
-        </div>
-
-        <div class="principle-row">
-          <div class="pn">P.06</div>
-          <div>
-            <div class="pt">Delivered when promised — or you're refunded.</div>
-            <p class="text-[14.5px] leading-relaxed text-soft">If we commit to Friday, it ships Friday. If we miss, you receive 10% off per day late. Written into every contract.</p>
+        <div class="pipeline-arrow px-2"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+        <div class="pipeline-step flex-1">
+          <div class="font-mono text-[10px] uppercase tracking-wider text-dim mb-3">05</div>
+          <div class="text-[15px] font-semibold text-white mb-2">Iteration</div>
+          <p class="text-[12px] text-muted leading-relaxed mb-4">14-day support + performance tuning</p>
+          <div class="pt-3 border-t border-border">
+            <div class="font-mono text-[9px] uppercase tracking-wider text-accent mb-1.5">Claude:</div>
+            <div class="text-[11px] text-muted">Post-launch analysis</div>
           </div>
         </div>
       </div>
 
-      <div class="reveal delay-3 mt-14">
-        <a href="#contact" class="btn-on-dark inline-flex items-center gap-2 text-[14px] font-medium px-6 py-3 rounded-full">
-          See how we work
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-        </a>
+      <!-- Pipeline mobile -->
+      <div class="reveal delay-2 mt-10 lg:hidden space-y-3">
+        <div class="pipeline-step"><div class="flex items-center justify-between mb-2"><div class="text-[14px] font-semibold text-white">01 · Discovery</div><span class="chip accent text-[10px]">Claude: PRD</span></div><p class="text-[12px] text-muted">Scope, requirements, system boundaries</p></div>
+        <div class="pipeline-step"><div class="flex items-center justify-between mb-2"><div class="text-[14px] font-semibold text-white">02 · System Design</div><span class="chip accent text-[10px]">Claude: Schema</span></div><p class="text-[12px] text-muted">Database schema, API design, data flows</p></div>
+        <div class="pipeline-step"><div class="flex items-center justify-between mb-2"><div class="text-[14px] font-semibold text-white">03 · Implementation</div><span class="chip accent text-[10px]">Claude: Review</span></div><p class="text-[12px] text-muted">Backend + frontend parallel build</p></div>
+        <div class="pipeline-step"><div class="flex items-center justify-between mb-2"><div class="text-[14px] font-semibold text-white">04 · Deployment</div><span class="chip text-[10px]">Vercel</span></div><p class="text-[12px] text-muted">Vercel + Supabase production setup</p></div>
+        <div class="pipeline-step"><div class="flex items-center justify-between mb-2"><div class="text-[14px] font-semibold text-white">05 · Iteration</div><span class="chip accent text-[10px]">Claude: Analysis</span></div><p class="text-[12px] text-muted">14-day support + performance tuning</p></div>
+      </div>
+
+      <!-- Tool matrix -->
+      <div class="reveal delay-3 mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="card p-4"><div class="chip accent mb-3">Claude</div><p class="text-[13px] text-muted">Architecture planning, database design, API design, code review, system analysis</p></div>
+        <div class="card p-4"><div class="chip mb-3">GPT + Gemini</div><p class="text-[13px] text-muted">Research, documentation writing, alternative approaches, second opinions</p></div>
+        <div class="card p-4"><div class="chip mb-3">n8n</div><p class="text-[13px] text-muted">Automation workflows, integration pipelines, webhook handling</p></div>
+        <div class="card p-4"><div class="chip mb-3">GitHub</div><p class="text-[13px] text-muted">Version control, CI/CD, branch strategy, pull request reviews</p></div>
+        <div class="card p-4"><div class="chip mb-3">Vercel</div><p class="text-[13px] text-muted">Frontend deployment, preview environments, edge functions, analytics</p></div>
+        <div class="card p-4"><div class="chip mb-3">Supabase</div><p class="text-[13px] text-muted">PostgreSQL, realtime subscriptions, auth, row-level security, storage</p></div>
       </div>
     </div>
   </section>
 
-  <!-- ========== PROCESS — Horizontal Timeline ========== -->
-  <section id="process" class="relative py-24 sm:py-32 border-t border-line">
+  <!-- BUILT SYSTEMS -->
+  <section id="work" class="relative py-24 sm:py-32 border-t border-border">
     <div class="max-w-7xl mx-auto px-5 sm:px-8">
-      <div class="reveal section-label">04 — The Sphere Protocol</div>
-
-      <div class="mt-10 grid lg:grid-cols-12 gap-10 items-end">
-        <h2 class="reveal lg:col-span-7 font-display text-[clamp(2rem,4.2vw,3.2rem)] leading-[1.08] font-light tracking-tightest text-ink">
-          Calm work,<br />
-          <span class="font-soft-italic text-gold">clear steps</span>.
+      <div class="reveal eyebrow">03 — Built Systems</div>
+      <div class="mt-6 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
+        <h2 class="reveal text-[clamp(1.8rem,4vw,3rem)] font-semibold tracking-tight leading-[1.1] text-white">
+          Operational software,<br />shipped to production.
         </h2>
-        <div class="reveal delay-1 lg:col-span-5">
-          <p class="text-[15.5px] leading-relaxed text-ink-soft">Every engagement follows the same considered path. No surprises, no "we'll figure it out".</p>
-          <p class="mt-2 text-[13.5px] italic leading-relaxed text-mute">Alur yang sama setiap project. Anda tahu persis apa yang terjadi setelah DP.</p>
-        </div>
-      </div>
-
-      <div class="mt-16 timeline">
-        <div class="reveal delay-1 timeline-step">
-          <div class="tl-node">01</div>
-          <h3 class="font-display text-[18px] font-medium text-ink">Discovery</h3>
-          <p class="mt-2 text-[13.5px] leading-relaxed text-ink-soft">A 20-minute conversation. Brand, audience, goals. Scope and timeline agreed in writing before anything else.</p>
-          <p class="mt-1.5 text-[12.5px] italic text-mute leading-relaxed">Memahami brand & tujuan.</p>
-        </div>
-
-        <div class="reveal delay-2 timeline-step">
-          <div class="tl-node">02</div>
-          <h3 class="font-display text-[18px] font-medium text-ink">Strategy</h3>
-          <p class="mt-2 text-[13.5px] leading-relaxed text-ink-soft">Information architecture, positioning, content strategy. We define <span class="text-ink">why</span> before <span class="text-ink">what</span>.</p>
-          <p class="mt-1.5 text-[12.5px] italic text-mute leading-relaxed">Menentukan arah & pesan.</p>
-        </div>
-
-        <div class="reveal delay-3 timeline-step">
-          <div class="tl-node">03</div>
-          <h3 class="font-display text-[18px] font-medium text-ink">Design</h3>
-          <p class="mt-2 text-[13.5px] leading-relaxed text-ink-soft">Typography, layout, motion. Two rounds of revisions included. Daily progress shared — always.</p>
-          <p class="mt-1.5 text-[12.5px] italic text-mute leading-relaxed">Desain dengan progress harian.</p>
-        </div>
-
-        <div class="reveal delay-4 timeline-step">
-          <div class="tl-node">04</div>
-          <h3 class="font-display text-[18px] font-medium text-ink">Development</h3>
-          <p class="mt-2 text-[13.5px] leading-relaxed text-ink-soft">Clean, semantic code. Performance-first. SEO-ready. Mobile-tested across real devices, not emulators.</p>
-          <p class="mt-1.5 text-[12.5px] italic text-mute leading-relaxed">Implementasi kode bersih.</p>
-        </div>
-
-        <div class="reveal delay-5 timeline-step">
-          <div class="tl-node">05</div>
-          <h3 class="font-display text-[18px] font-medium text-ink">Launch</h3>
-          <p class="mt-2 text-[13.5px] leading-relaxed text-ink-soft">We deploy together. Full source files, handover documentation, and 14 days of post-launch support — gratis.</p>
-          <p class="mt-1.5 text-[12.5px] italic text-mute leading-relaxed">Deploy & dukungan 14 hari.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== WORK — Featured + Grid ========== -->
-  <section id="work" class="relative py-24 sm:py-32 border-t border-line bg-warm/30">
-    <div class="max-w-7xl mx-auto px-5 sm:px-8">
-      <div class="reveal section-label">05 — Selected work</div>
-
-      <div class="mt-10 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
-        <h2 class="reveal font-display text-[clamp(2rem,4.2vw,3.2rem)] leading-[1.08] font-light tracking-tightest max-w-2xl text-ink">
-          Recent projects,<br />
-          <span class="font-soft-italic text-gold">quietly proud</span>.
-        </h2>
-        <a href="#contact" class="reveal delay-1 inline-flex items-center gap-2 text-[14px] text-ink-soft hover:text-ink transition-colors">
-          Have a project? Begin here →
+        <a href="https://github.com/legacyasphere-id" target="_blank" rel="noopener" class="reveal delay-1 inline-flex items-center gap-2 text-[13px] text-muted hover:text-white transition-colors">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          All projects on GitHub →
         </a>
       </div>
 
-      <!-- Pinned Project: daenuna.co (full-width hero) -->
-      <article class="reveal delay-1 mt-14 card overflow-hidden group lg:grid lg:grid-cols-12">
-        <div class="project-slideshow lg:col-span-7 relative overflow-hidden" style="min-height:380px;" data-slideshow tabindex="0" role="button"
-             aria-label="daenuna.co — handmade crochet brand, tap to cycle">
-          <img src="daenuna-hero.jpg" alt="daenuna.co — hero section, custom crochet dolls handmade from Yogyakarta" class="slide active w-full h-full" data-slide="0" />
-          <img src="daenuna-story.jpg" alt="daenuna.co — brand story section, Di Balik Setiap Rajutan Kami" class="slide w-full h-full" data-slide="1" />
-          <img src="daenuna-order.jpg" alt="daenuna.co — order flow, Tiga langkah mudah satu pelukan hangat" class="slide w-full h-full" data-slide="2" />
-          <div class="slide-dots" role="tablist" aria-label="Project screenshots navigation">
-            <span class="dot active" data-dot="0" role="tab" aria-label="Show photo 1 of 3"></span>
-            <span class="dot" data-dot="1" role="tab" aria-label="Show photo 2 of 3"></span>
-            <span class="dot" data-dot="2" role="tab" aria-label="Show photo 3 of 3"></span>
+      <!-- InventoryOS — Primary Pinned -->
+      <article class="reveal delay-1 mt-14 card overflow-hidden">
+        <div class="grid lg:grid-cols-12">
+          <div class="project-slideshow lg:col-span-7" style="min-height:360px;" data-slideshow tabindex="0" role="button" aria-label="InventoryOS — tap to cycle screenshots">
+            <img src="img-16.webp" alt="InventoryOS — dashboard with KPI cards and stock value chart" class="slide active" data-slide="0" />
+            <img src="img-17.webp" alt="InventoryOS — stock list table with SKU and category filters" class="slide" data-slide="1" />
+            <img src="img-18.webp" alt="InventoryOS — alerts center with low-stock notifications" class="slide" data-slide="2" />
+            <div class="slide-dots"><span class="dot active" data-dot="0"></span><span class="dot" data-dot="1"></span><span class="dot" data-dot="2"></span></div>
           </div>
-        </div>
-        <div class="lg:col-span-5 p-8 lg:p-12 flex flex-col justify-center">
-          <div class="flex items-center justify-between mb-3">
-            <span class="font-mono text-[11px] uppercase tracking-wider text-gold">★ Pinned · 2025</span>
-            <a href="https://legacyasphere-id.github.io/Daenuna.co/" target="_blank" rel="noopener" aria-label="Visit daenuna.co live site" class="text-gold text-sm group-hover:translate-x-1 transition-transform hover:text-gold-soft">→</a>
-          </div>
-          <h3 class="font-display text-[24px] sm:text-[30px] font-medium text-ink leading-[1.12]">daenuna.co<br /><span class="font-soft-italic text-gold">Made with love, stitched for you.</span></h3>
+          <div class="lg:col-span-5 p-8 lg:p-10 flex flex-col justify-center">
+            <div class="flex items-center gap-2 mb-4">
+              <span class="chip accent">★ Primary · Pinned</span>
+              <div class="ml-auto flex items-center gap-3">
+                <a href="https://github.com/legacyasphere-id" target="_blank" rel="noopener" class="text-dim text-[13px] hover:text-white transition-colors">src →</a>
+                <a href="https://mini-erp-frontend-tau.vercel.app/alerts" target="_blank" rel="noopener" class="text-accent text-[13px] hover:text-accent-light">live →</a>
+              </div>
+            </div>
+            <h3 class="text-[22px] sm:text-[26px] font-semibold text-white leading-tight">InventoryOS</h3>
+            <p class="text-[14px] text-accent mt-1">Operational Inventory Management System</p>
 
-          <p class="mt-5 text-[14px] leading-[1.7] text-ink-soft">
-            A handmade crochet brand from Yogyakarta — custom amigurumi dolls and keychains crafted to order. Built a warm, playful web presence with catalog browsing, a direct custom-order flow via WhatsApp, and brand storytelling that captures the soul of handcraft. Mobile-first, bilingual-friendly.
-          </p>
+            <p class="mt-5 text-[13.5px] leading-[1.75] text-muted">
+              A Mini ERP with full backend integration — real-time stock tracking, order management, supplier records, multi-category analytics, and role-based access control. Built across 9 production screens.
+            </p>
 
-          <blockquote class="mt-6 py-5 border-t border-b border-line">
-            <p class="text-[14px] leading-[1.75] text-ink-soft italic">"Websitenya lucu banget, sesuai juga sama bisnis aku. Ga ada revisi!"</p>
-            <cite class="mt-3 flex items-center gap-2 not-italic">
-              <span class="block w-5 h-px bg-gold"></span>
-              <span class="font-mono text-[10px] uppercase tracking-wider text-gold">Owner, daenuna.co</span>
-            </cite>
-          </blockquote>
+            <div class="mt-6 space-y-3">
+              <div class="font-mono text-[10px] uppercase tracking-wider text-dim">Architecture</div>
+              <div class="grid grid-cols-3 gap-2 text-[11px]">
+                <div class="card p-2.5 text-center">
+                  <div class="text-accent font-mono mb-1">Frontend</div>
+                  <div class="text-muted">React + Zustand + React Query + Recharts</div>
+                </div>
+                <div class="card p-2.5 text-center">
+                  <div class="text-accent font-mono mb-1">Backend</div>
+                  <div class="text-muted">Supabase · PostgreSQL · RLS · Auth</div>
+                </div>
+                <div class="card p-2.5 text-center">
+                  <div class="text-accent font-mono mb-1">Deploy</div>
+                  <div class="text-muted">Vercel · GitHub CI/CD · Realtime</div>
+                </div>
+              </div>
+            </div>
 
-          <div class="mt-5 flex flex-wrap gap-2">
-            <span class="px-3 py-1 rounded-full bg-sand border border-line font-mono text-[10px] uppercase tracking-wider text-mute">HTML/CSS</span>
-            <span class="px-3 py-1 rounded-full bg-sand border border-line font-mono text-[10px] uppercase tracking-wider text-mute">Vanilla JS</span>
-            <span class="px-3 py-1 rounded-full bg-sand border border-line font-mono text-[10px] uppercase tracking-wider text-mute">GitHub Pages</span>
+            <div class="mt-5 pt-4 border-t border-border">
+              <div class="font-mono text-[10px] uppercase tracking-wider text-dim mb-2">Key Engineering Decisions</div>
+              <ul class="space-y-1.5 text-[12px] text-muted">
+                <li class="flex items-start gap-2"><span class="text-accent">→</span> Supabase RLS for row-level security per user role</li>
+                <li class="flex items-start gap-2"><span class="text-accent">→</span> React Query for server state + optimistic updates</li>
+                <li class="flex items-start gap-2"><span class="text-accent">→</span> Zustand for lightweight client state management</li>
+              </ul>
+            </div>
+
+            <!-- Fix 2: DB schema snapshot — proves real backend work -->
+            <div class="mt-5 pt-4 border-t border-border">
+              <div class="font-mono text-[10px] uppercase tracking-wider text-dim mb-3">PostgreSQL Schema Snapshot</div>
+              <pre class="text-[10.5px] font-mono text-muted leading-[1.75] overflow-x-auto rounded-lg p-4 border border-border" style="background:#0f1117;"><code><span style="color:#60a5fa;">-- products</span>
+id          uuid primary key
+sku         text unique not null
+name        text not null
+category_id uuid references categories(id)
+unit_cost   numeric(10,2)
+reorder_pt  integer default 10
+
+<span style="color:#60a5fa;">-- inventory_movements</span>
+id          uuid primary key
+product_id  uuid references products(id)
+type        text check (type in ('in','out','adjustment'))
+quantity    integer not null
+user_id     uuid references auth.users(id)
+created_at  timestamptz default now()
+
+<span style="color:#60a5fa;">-- RLS policies</span>
+staff  → select only on products, movements
+admin  → full access all tables</code></pre>
+            </div>
+
+            <div class="mt-5 flex flex-wrap gap-2">
+              <span class="chip">React</span>
+              <span class="chip">Zustand</span>
+              <span class="chip">React Query</span>
+              <span class="chip">Recharts</span>
+              <span class="chip accent">Supabase</span>
+              <span class="chip">PostgreSQL</span>
+              <span class="chip">Vercel</span>
+            </div>
           </div>
         </div>
       </article>
 
-      <!-- Standard project grid -->
-      <div class="mt-6 grid lg:grid-cols-2 gap-5">
-        <!-- Legacya POS UI -->
-        <article class="reveal delay-2 card overflow-hidden group">
-          <div class="project-slideshow aspect-[4/3]" data-slideshow tabindex="0" role="button"
-               aria-label="Legacya POS UI project — tap to cycle screenshots">
-            <img src="img-06.webp" alt="Legacya POS UI — cashier screen with live order list, menu grid, and QRIS split-bill payment" class="slide active" data-slide="0" />
-            <img src="img-07.webp" alt="Legacya POS UI — analytics dashboard with revenue and order KPI cards plus AI inventory insight panel" class="slide" data-slide="1" />
-            <img src="img-08.webp" alt="Legacya POS UI — kitchen display with color-coded live order tickets and prep timers" class="slide" data-slide="2" />
-            <div class="slide-dots" role="tablist" aria-label="Project screenshots navigation">
-              <span class="dot active" data-dot="0" role="tab" aria-label="Show screenshot 1 of 3"></span>
-              <span class="dot" data-dot="1" role="tab" aria-label="Show screenshot 2 of 3"></span>
-              <span class="dot" data-dot="2" role="tab" aria-label="Show screenshot 3 of 3"></span>
-            </div>
-          </div>
-          <div class="p-6">
-            <div class="flex items-center justify-between">
-              <span class="font-mono text-[11px] uppercase tracking-wider text-mute">Dashboard · POS UI · 2025</span>
-              <a href="https://legacya-pos-ui.vercel.app/dashboard" target="_blank" rel="noopener" aria-label="View Legacya POS UI live demo" class="text-gold text-sm group-hover:translate-x-1 transition-transform hover:text-gold-soft">→</a>
-            </div>
-            <h3 class="mt-3 font-display text-[19px] font-medium text-ink leading-tight">Legacya POS UI — <span class="font-soft-italic text-gold">Restaurant intelligence, built clean.</span></h3>
-            <p class="mt-2 text-[13.5px] leading-[1.7] text-ink-soft">A production-quality restaurant POS dashboard with embedded AI insights — 9 fully designed screens covering order management, revenue analytics, and menu intelligence. Built in React + Tailwind + Recharts, deployed live on Vercel.</p>
-            <div class="mt-5 flex flex-wrap gap-2">
-              <span class="px-3 py-1 rounded-full bg-sand border border-line font-mono text-[10px] uppercase tracking-wider text-mute">React</span>
-              <span class="px-3 py-1 rounded-full bg-sand border border-line font-mono text-[10px] uppercase tracking-wider text-mute">Tailwind CSS</span>
-              <span class="px-3 py-1 rounded-full bg-sand border border-line font-mono text-[10px] uppercase tracking-wider text-mute">Recharts</span>
-            </div>
-          </div>
-        </article>
-
+      <!-- 3-column grid -->
+      <div class="mt-6 grid lg:grid-cols-3 gap-5">
         <!-- Hybrid Dashboard -->
+        <article class="reveal delay-2 card overflow-hidden group">
+          <div class="project-slideshow aspect-[16/10]" data-slideshow tabindex="0" role="button" aria-label="Hybrid Dashboard — tap to cycle">
+            <img src="img-09.webp" alt="Hybrid Dashboard — KPI metric cards and revenue chart" class="slide active" data-slide="0" />
+            <img src="img-10.webp" alt="Hybrid Dashboard — revenue trend and task list" class="slide" data-slide="1" />
+            <img src="img-11.webp" alt="Hybrid Dashboard — project tracker and activity feed" class="slide" data-slide="2" />
+            <div class="slide-dots"><span class="dot active" data-dot="0"></span><span class="dot" data-dot="1"></span><span class="dot" data-dot="2"></span></div>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-mono text-[10px] uppercase tracking-wider text-dim">Dashboard · Studio Ops</span>
+              <div class="flex items-center gap-3">
+                <a href="https://github.com/legacyasphere-id/Hybrid-Dashboard" target="_blank" rel="noopener" class="text-dim text-[12px] hover:text-white transition-colors">src →</a>
+                <a href="https://legacyasphere-id.github.io/Hybrid-Dashboard/" target="_blank" rel="noopener" class="text-accent text-[12px] group-hover:translate-x-0.5 transition-transform">live →</a>
+              </div>
+            </div>
+            <h3 class="text-[16px] font-semibold text-white">Hybrid Dashboard</h3>
+            <p class="mt-2 text-[12.5px] leading-[1.7] text-muted">Studio operations dashboard with real-time revenue chart, KPI cards, persistent task manager, project tracker, and integrated AI assistant. localStorage state management.</p>
+            <div class="mt-4 flex flex-wrap gap-1.5">
+              <span class="chip">Tailwind CSS</span>
+              <span class="chip">Vanilla JS</span>
+              <span class="chip">SVG Charts</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Legacya POS UI -->
         <article class="reveal delay-3 card overflow-hidden group">
-          <div class="project-slideshow aspect-[4/3]" data-slideshow tabindex="0" role="button"
-               aria-label="Hybrid Dashboard — Studio Ops system, tap to cycle screenshots">
-            <img src="img-09.webp" alt="Hybrid Dashboard — greeting, KPI metric cards, and revenue chart overview" class="slide active" data-slide="0" />
-            <img src="img-10.webp" alt="Hybrid Dashboard — revenue trend line chart and today's task list" class="slide" data-slide="1" />
-            <img src="img-11.webp" alt="Hybrid Dashboard — active projects tracker and recent activity feed" class="slide" data-slide="2" />
-            <div class="slide-dots" role="tablist" aria-label="Project screenshots navigation">
-              <span class="dot active" data-dot="0" role="tab" aria-label="Show screenshot 1 of 3"></span>
-              <span class="dot" data-dot="1" role="tab" aria-label="Show screenshot 2 of 3"></span>
-              <span class="dot" data-dot="2" role="tab" aria-label="Show screenshot 3 of 3"></span>
-            </div>
+          <div class="project-slideshow aspect-[16/10]" data-slideshow tabindex="0" role="button" aria-label="Legacya POS UI — tap to cycle">
+            <img src="img-06.webp" alt="Legacya POS UI — cashier screen with live order list and menu grid" class="slide active" data-slide="0" />
+            <img src="img-07.webp" alt="Legacya POS UI — analytics dashboard with revenue KPI cards" class="slide" data-slide="1" />
+            <img src="img-08.webp" alt="Legacya POS UI — kitchen display with live order tickets" class="slide" data-slide="2" />
+            <div class="slide-dots"><span class="dot active" data-dot="0"></span><span class="dot" data-dot="1"></span><span class="dot" data-dot="2"></span></div>
           </div>
-          <div class="p-6">
-            <div class="flex items-center justify-between">
-              <span class="font-mono text-[11px] uppercase tracking-wider text-mute">Dashboard · 2025</span>
-              <a href="https://legacyasphere-id.github.io/Hybrid-Dashboard/" target="_blank" rel="noopener" aria-label="View Hybrid Dashboard live demo" class="text-gold text-sm group-hover:translate-x-1 transition-transform hover:text-gold-soft">→</a>
+          <div class="p-5">
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-mono text-[10px] uppercase tracking-wider text-dim">Dashboard · POS · 9 Screens</span>
+              <div class="flex items-center gap-3">
+                <a href="https://github.com/legacyasphere-id" target="_blank" rel="noopener" class="text-dim text-[12px] hover:text-white transition-colors">src →</a>
+                <a href="https://legacya-pos-ui.vercel.app/dashboard" target="_blank" rel="noopener" class="text-accent text-[12px] group-hover:translate-x-0.5 transition-transform">live →</a>
+              </div>
             </div>
-            <h3 class="mt-3 font-display text-[19px] font-medium text-ink leading-tight">Hybrid Dashboard — <span class="font-soft-italic text-gold">Studio Ops System</span></h3>
-            <p class="mt-2 text-[13.5px] leading-[1.7] text-ink-soft">A production-grade studio operations dashboard built for solo creative founders. Real-time revenue SVG chart, KPI metric cards, persistent task manager, project tracker, activity feed, and an integrated AI drafting assistant — all wired together in a single dark-sidebar interface with localStorage state.</p>
-            <div class="mt-5 flex flex-wrap gap-2">
-              <span class="px-3 py-1 rounded-full bg-sand border border-line font-mono text-[10px] uppercase tracking-wider text-mute">Tailwind CSS</span>
-              <span class="px-3 py-1 rounded-full bg-sand border border-line font-mono text-[10px] uppercase tracking-wider text-mute">Vanilla JS</span>
-              <span class="px-3 py-1 rounded-full bg-sand border border-line font-mono text-[10px] uppercase tracking-wider text-mute">SVG Charts</span>
+            <h3 class="text-[16px] font-semibold text-white">Legacya POS UI</h3>
+            <p class="mt-2 text-[12.5px] leading-[1.7] text-muted">Restaurant operations dashboard with embedded AI insights across 9 screens — order management, revenue analytics, kitchen display, and menu intelligence.</p>
+            <div class="mt-4 flex flex-wrap gap-1.5">
+              <span class="chip">React</span>
+              <span class="chip">Tailwind CSS</span>
+              <span class="chip">Recharts</span>
+              <span class="chip">Vercel</span>
             </div>
           </div>
         </article>
 
-        <!-- InventoryOS — Mini ERP -->
+        <!-- daenuna.co -->
         <article class="reveal delay-4 card overflow-hidden group">
-          <div class="project-slideshow aspect-[4/3]" data-slideshow tabindex="0" role="button"
-               aria-label="InventoryOS Mini ERP — tap to cycle screenshots">
-            <img src="img-16.webp" alt="InventoryOS — dashboard with KPI cards, stock value chart, active alerts and recent movements" class="slide active" data-slide="0" />
-            <img src="img-17.webp" alt="InventoryOS — stock list table with SKU, category, quantity and status filters" class="slide" data-slide="1" />
-            <img src="img-18.webp" alt="InventoryOS — alerts center with critical and warning low-stock notifications" class="slide" data-slide="2" />
-            <div class="slide-dots" role="tablist" aria-label="Project screenshots navigation">
-              <span class="dot active" data-dot="0" role="tab" aria-label="Show screenshot 1 of 3"></span>
-              <span class="dot" data-dot="1" role="tab" aria-label="Show screenshot 2 of 3"></span>
-              <span class="dot" data-dot="2" role="tab" aria-label="Show screenshot 3 of 3"></span>
-            </div>
+          <div class="project-slideshow aspect-[16/10]" data-slideshow tabindex="0" role="button" aria-label="daenuna.co — tap to cycle">
+            <img src="daenuna-hero.jpg" alt="daenuna.co — hero section" class="slide active" data-slide="0" />
+            <img src="daenuna-story.jpg" alt="daenuna.co — brand story section" class="slide" data-slide="1" />
+            <img src="daenuna-order.jpg" alt="daenuna.co — order flow" class="slide" data-slide="2" />
+            <div class="slide-dots"><span class="dot active" data-dot="0"></span><span class="dot" data-dot="1"></span><span class="dot" data-dot="2"></span></div>
           </div>
-          <div class="p-6">
-            <div class="flex items-center justify-between">
-              <span class="font-mono text-[11px] uppercase tracking-wider text-mute">ERP · Dashboard · 2025</span>
-              <a href="https://mini-erp-frontend-tau.vercel.app/alerts" target="_blank" rel="noopener" aria-label="View InventoryOS live demo" class="text-gold text-sm group-hover:translate-x-1 transition-transform hover:text-gold-soft">→</a>
+          <div class="p-5">
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-mono text-[10px] uppercase tracking-wider text-dim">E-Commerce · Order Mgmt</span>
+              <div class="flex items-center gap-3">
+                <a href="https://github.com/legacyasphere-id/Daenuna.co" target="_blank" rel="noopener" class="text-dim text-[12px] hover:text-white transition-colors">src →</a>
+                <a href="https://legacyasphere-id.github.io/Daenuna.co/" target="_blank" rel="noopener" class="text-accent text-[12px] group-hover:translate-x-0.5 transition-transform">live →</a>
+              </div>
             </div>
-            <h3 class="mt-3 font-display text-[19px] font-medium text-ink leading-tight">InventoryOS — <span class="font-soft-italic text-gold">Inventory intelligence, wired clean.</span></h3>
-            <p class="mt-2 text-[13.5px] leading-[1.7] text-ink-soft">A full-featured Mini ERP frontend — real-time stock tracking, order management, supplier records, multi-category analytics, and role-based user access across 9 screens. Built in React + Zustand + React Query + Recharts, deployed live on Vercel.</p>
-            <div class="mt-5 flex flex-wrap gap-2">
-              <span class="px-3 py-1 rounded-full bg-sand border border-line font-mono text-[10px] uppercase tracking-wider text-mute">React</span>
-              <span class="px-3 py-1 rounded-full bg-sand border border-line font-mono text-[10px] uppercase tracking-wider text-mute">Zustand</span>
-              <span class="px-3 py-1 rounded-full bg-sand border border-line font-mono text-[10px] uppercase tracking-wider text-mute">React Query</span>
-              <span class="px-3 py-1 rounded-full bg-sand border border-line font-mono text-[10px] uppercase tracking-wider text-mute">Recharts</span>
+            <h3 class="text-[16px] font-semibold text-white">daenuna.co</h3>
+            <p class="mt-2 text-[12.5px] leading-[1.7] text-muted">E-commerce platform for a handmade crochet brand — catalog browsing, custom order flow via WhatsApp, brand storytelling. Mobile-first, bilingual.</p>
+            <div class="mt-4 flex flex-wrap gap-1.5">
+              <span class="chip">HTML/CSS</span>
+              <span class="chip">Vanilla JS</span>
+              <span class="chip">GitHub Pages</span>
             </div>
           </div>
         </article>
@@ -1383,107 +855,281 @@
     </div>
   </section>
 
-  <!-- ========== CTA — Asymmetric Quote ========== -->
-  <section class="relative py-24 sm:py-32 border-t border-line">
-    <div class="relative max-w-7xl mx-auto px-5 sm:px-8">
-      <div class="reveal section-label">06 — Begin</div>
+  <!-- STACK & TOOLS -->
+  <section id="stack" class="relative py-24 sm:py-32 border-t border-border" style="background: #111318;">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8">
+      <div class="reveal eyebrow">04 — Stack & Tools</div>
+      <h2 class="reveal mt-6 text-[clamp(1.8rem,4vw,3rem)] font-semibold tracking-tight text-white">Tools I use and why.</h2>
+      <p class="reveal delay-1 mt-3 text-[15px] text-muted">Each tool is chosen for a specific reason — not just familiarity.</p>
 
-      <div class="mt-12 grid lg:grid-cols-12 gap-12 items-center">
-        <div class="lg:col-span-8">
-          <h2 class="reveal font-display text-[clamp(2.2rem,5.5vw,4.2rem)] leading-[1.04] font-light tracking-tighter2 text-ink">
-            Have a project worth<br />
-            <span class="font-soft-italic text-gold">making well</span>?
-          </h2>
-
-          <p class="reveal delay-1 mt-8 max-w-xl text-[16px] leading-[1.75] text-ink-soft">
-            Whether it's a landing page that needs to convert or an automation that needs to run quietly — let's build something you'll be proud to ship.
-          </p>
-          <p class="reveal delay-2 mt-2 max-w-xl text-[14px] italic leading-relaxed text-mute">
-            Mari ciptakan sesuatu yang Anda banggakan untuk diluncurkan.
-          </p>
+      <div class="reveal delay-2 mt-14 grid md:grid-cols-2 gap-10">
+        <div>
+          <div class="stack-category mb-6"><div class="font-mono text-[11px] uppercase tracking-wider text-accent">Frontend</div></div>
+          <div class="space-y-4">
+            <div class="card p-4"><div class="flex items-center justify-between mb-2"><div class="text-[14px] font-semibold text-white">React</div><span class="chip text-[10px]">Primary</span></div><p class="text-[12.5px] text-muted">Component architecture for complex dashboard UIs. Ecosystem (Zustand, React Query, Recharts) covers every operational app need.</p></div>
+            <div class="card p-4"><div class="flex items-center justify-between mb-2"><div class="text-[14px] font-semibold text-white">Vue.js</div><span class="chip text-[10px]">Secondary</span></div><p class="text-[12.5px] text-muted">Cleaner syntax for content-heavy apps. Options API maps naturally to operational form flows and CMS-style interfaces.</p></div>
+            <div class="card p-4"><div class="flex items-center justify-between mb-2"><div class="text-[14px] font-semibold text-white">Tailwind CSS</div><span class="chip text-[10px]">Styling</span></div><p class="text-[12.5px] text-muted">Utility-first keeps design consistent across complex multi-screen dashboards without fighting a design system.</p></div>
+            <div class="card p-4"><div class="flex items-center justify-between mb-2"><div class="text-[14px] font-semibold text-white">Recharts</div><span class="chip text-[10px]">Data Viz</span></div><p class="text-[12.5px] text-muted">Composable SVG charts with React. Customizable enough for production dashboards without heavy library overhead.</p></div>
+          </div>
         </div>
 
-        <div class="reveal delay-3 lg:col-span-4 lg:pl-8 lg:border-l lg:border-line">
-          <div class="flex flex-col gap-3">
-            <a href="#contact" class="btn-primary inline-flex items-center justify-center gap-2 text-[14px] font-medium px-6 py-3 rounded-full">
-              Begin a conversation
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-            </a>
-            <a href="mailto:legacyasphere@gmail.com" class="btn-ghost inline-flex items-center justify-center gap-2 text-[14px] font-medium px-6 py-3 rounded-full">
-              Or write directly
-            </a>
-            <p class="mt-3 text-xs font-mono text-mute leading-relaxed">
-              Complimentary 20-min discovery call.<br />No commitment, no pressure.
-            </p>
+        <div>
+          <div class="stack-category mb-6"><div class="font-mono text-[11px] uppercase tracking-wider text-accent">Backend & Database</div></div>
+          <div class="space-y-4">
+            <div class="card p-4"><div class="flex items-center justify-between mb-2"><div class="text-[14px] font-semibold text-white">Supabase</div><span class="chip accent text-[10px]">Core Backend</span></div><p class="text-[12.5px] text-muted">Postgres + Auth + Realtime + Storage in one platform. Row-Level Security replaces custom auth middleware. Built for operational systems.</p></div>
+            <div class="card p-4"><div class="flex items-center justify-between mb-2"><div class="text-[14px] font-semibold text-white">PostgreSQL</div><span class="chip text-[10px]">Database</span></div><p class="text-[12.5px] text-muted">Relational integrity for inventory, order, and supplier data. Foreign keys, indexes, and views — not a document store afterthought.</p></div>
+            <div class="card p-4"><div class="flex items-center justify-between mb-2"><div class="text-[14px] font-semibold text-white">Supabase Realtime</div><span class="chip text-[10px]">Live Data</span></div><p class="text-[12.5px] text-muted">WebSocket-based Postgres change listeners. Essential for live dashboards, stock alerts, and multi-user operational apps.</p></div>
+            <div class="card p-4"><div class="flex items-center justify-between mb-2"><div class="text-[14px] font-semibold text-white">Supabase RLS</div><span class="chip text-[10px]">Security</span></div><p class="text-[12.5px] text-muted">Policies written in SQL enforce access at the database layer — not just the API layer. Role-based access that can't be bypassed.</p></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="stack-category mb-6"><div class="font-mono text-[11px] uppercase tracking-wider text-accent">Deployment & CI/CD</div></div>
+          <div class="space-y-4">
+            <div class="card p-4"><div class="flex items-center justify-between mb-2"><div class="text-[14px] font-semibold text-white">Vercel</div><span class="chip text-[10px]">Frontend Deploy</span></div><p class="text-[12.5px] text-muted">Preview deployments per PR, global edge CDN, zero-config for React/Vue. Build pipeline that takes 30 seconds.</p></div>
+            <div class="card p-4"><div class="flex items-center justify-between mb-2"><div class="text-[14px] font-semibold text-white">GitHub</div><span class="chip text-[10px]">Version Control</span></div><p class="text-[12.5px] text-muted">Branch strategy, GitHub Actions for CI, automated deploys on merge. Every project version-controlled from day one.</p></div>
+            <div class="card p-4"><div class="flex items-center justify-between mb-2"><div class="text-[14px] font-semibold text-white">Cloudflare</div><span class="chip text-[10px]">Edge / DNS</span></div><p class="text-[12.5px] text-muted">DNS management, edge caching, and DDoS protection. Static sites go through Cloudflare Pages for global distribution.</p></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="stack-category mb-6"><div class="font-mono text-[11px] uppercase tracking-wider text-accent">AI Integration</div></div>
+          <div class="space-y-4">
+            <div class="card p-4"><div class="flex items-center justify-between mb-2"><div class="text-[14px] font-semibold text-white">Claude (Anthropic)</div><span class="chip accent text-[10px]">Primary AI</span></div><p class="text-[12.5px] text-muted">Architecture planning, database schema review, code review, system design analysis. Certified practitioner — not just a user.</p></div>
+            <div class="card p-4"><div class="flex items-center justify-between mb-2"><div class="text-[14px] font-semibold text-white">OpenRouter + GPT/Gemini</div><span class="chip text-[10px]">Research AI</span></div><p class="text-[12.5px] text-muted">Research, documentation, alternative architectural opinions. Multiple models prevent single-model blind spots.</p></div>
+            <div class="card p-4"><div class="flex items-center justify-between mb-2"><div class="text-[14px] font-semibold text-white">n8n</div><span class="chip text-[10px]">Automation</span></div><p class="text-[12.5px] text-muted">Visual workflow automation for integrations, webhook processing, and recurring operational tasks without custom server code.</p></div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ========== CONTACT ========== -->
-  <section id="contact" class="relative py-24 sm:py-32 border-t border-line bg-cream/30">
+  <!-- PROCESS -->
+  <section id="process" class="relative py-24 sm:py-32 border-t border-border">
     <div class="max-w-7xl mx-auto px-5 sm:px-8">
-      <div class="reveal section-label">07 — Contact</div>
+      <div class="reveal eyebrow">05 — How Projects Are Built</div>
+      <h2 class="reveal mt-6 text-[clamp(1.8rem,4vw,3rem)] font-semibold tracking-tight text-white">Same process, every project.</h2>
+      <p class="reveal delay-1 mt-3 text-[15px] text-muted max-w-xl">No surprises. Every engagement follows a clear path from discovery to launch.</p>
+
+      <div class="mt-16 relative timeline-h">
+        <div class="reveal delay-1 relative tl-step">
+          <div class="tl-node">01</div>
+          <h3 class="text-[15px] font-semibold text-white">Discovery</h3>
+          <p class="mt-2 text-[13px] text-muted leading-relaxed">Define scope, requirements, and system boundaries. Claude helps draft the PRD and architecture outline.</p>
+          <div class="mt-3"><span class="chip accent text-[10px]">Claude: PRD</span></div>
+        </div>
+        <div class="reveal delay-2 relative tl-step">
+          <div class="tl-node">02</div>
+          <h3 class="text-[15px] font-semibold text-white">Architecture</h3>
+          <p class="mt-2 text-[13px] text-muted leading-relaxed">Database schema, API design, data flow diagrams. Everything agreed before code is written.</p>
+          <div class="mt-3"><span class="chip accent text-[10px]">Claude: Schema</span></div>
+        </div>
+        <div class="reveal delay-3 relative tl-step">
+          <div class="tl-node">03</div>
+          <h3 class="text-[15px] font-semibold text-white">Development</h3>
+          <p class="mt-2 text-[13px] text-muted leading-relaxed">Backend + frontend built in parallel. Daily progress shared. Claude reviews code as it ships.</p>
+          <div class="mt-3"><span class="chip text-[10px]">Parallel build</span></div>
+        </div>
+        <div class="reveal delay-4 relative tl-step">
+          <div class="tl-node">04</div>
+          <h3 class="text-[15px] font-semibold text-white">Deployment</h3>
+          <p class="mt-2 text-[13px] text-muted leading-relaxed">Vercel + Supabase production setup. GitHub CI/CD wired. Performance tested before handover.</p>
+          <div class="mt-3"><span class="chip text-[10px]">Vercel + Supabase</span></div>
+        </div>
+        <div class="reveal delay-5 relative tl-step">
+          <div class="tl-node">05</div>
+          <h3 class="text-[15px] font-semibold text-white">Launch &amp; Support</h3>
+          <p class="mt-2 text-[13px] text-muted leading-relaxed">Full source files, handover docs, and 14 days of post-launch support included.</p>
+          <div class="mt-3"><span class="chip text-[10px]">14-day support</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="relative py-24 sm:py-32 border-t border-border" style="background: #111318;">
+    <div class="max-w-5xl mx-auto px-5 sm:px-8">
+      <div class="reveal eyebrow">06 — Services</div>
+      <div class="mt-10 grid lg:grid-cols-12 gap-8 items-end">
+        <h2 class="reveal lg:col-span-7 text-[clamp(1.8rem,4vw,3rem)] font-semibold tracking-tight text-white">Operational Software Systems</h2>
+        <p class="reveal delay-1 lg:col-span-5 text-[14px] text-muted">Full-stack builds from architecture to deployment. Backend and frontend delivered together.</p>
+      </div>
+
+      <div class="mt-12">
+        <a href="#contact" class="service-row reveal delay-1 block group">
+          <div class="service-idx">01</div>
+          <div>
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <h3 class="text-[19px] sm:text-[22px] font-semibold text-white">Operational Software Systems</h3>
+                <p class="mt-2 text-[13.5px] text-muted leading-relaxed max-w-xl">Complete fullstack system — architecture, PostgreSQL schema, Supabase backend, React/Vue frontend, real-time features, Vercel deployment, and 14-day post-launch support.</p>
+              </div>
+              <div class="shrink-0 text-accent group-hover:translate-x-1 transition-transform mt-1"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+            </div>
+            <div class="mt-4 font-mono text-[12px] text-accent">Starting $199</div>
+            <div class="mt-4 grid sm:grid-cols-2 gap-1.5">
+              <div class="flex items-center gap-2 text-[12px] text-muted"><span class="text-accent">→</span> Inventory management systems</div>
+              <div class="flex items-center gap-2 text-[12px] text-muted"><span class="text-accent">→</span> Restaurant POS + operations</div>
+              <div class="flex items-center gap-2 text-[12px] text-muted"><span class="text-accent">→</span> Studio operations dashboards</div>
+              <div class="flex items-center gap-2 text-[12px] text-muted"><span class="text-accent">→</span> E-commerce platforms</div>
+              <div class="flex items-center gap-2 text-[12px] text-muted"><span class="text-accent">→</span> Order management systems</div>
+              <div class="flex items-center gap-2 text-[12px] text-muted"><span class="text-accent">→</span> Admin dashboards + internal tools</div>
+            </div>
+          </div>
+        </a>
+
+        <a href="#contact" class="service-row reveal delay-2 block group">
+          <div class="service-idx">02</div>
+          <div>
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <h3 class="text-[19px] sm:text-[22px] font-semibold text-white">Frontend UI Development</h3>
+                <p class="mt-2 text-[13.5px] text-muted leading-relaxed max-w-xl">React or Vue frontend with data visualization, responsive design, and production-grade component architecture. Integrates with any existing backend or API.</p>
+              </div>
+              <div class="shrink-0 text-accent group-hover:translate-x-1 transition-transform mt-1"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+            </div>
+            <div class="mt-4 font-mono text-[12px] text-accent">Starting $99</div>
+          </div>
+        </a>
+
+        <a href="#contact" class="service-row reveal delay-3 block group">
+          <div class="service-idx">03</div>
+          <div>
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <h3 class="text-[19px] sm:text-[22px] font-semibold text-white">AI Automation Workflows</h3>
+                <p class="mt-2 text-[13.5px] text-muted leading-relaxed max-w-xl">n8n automation workflows connecting your tools, eliminating repetitive tasks, and running quietly in production. Webhook-driven, AI-powered, no server maintenance.</p>
+              </div>
+              <div class="shrink-0 text-accent group-hover:translate-x-1 transition-transform mt-1"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+            </div>
+            <div class="mt-4 font-mono text-[12px] text-accent">Starting $79</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOW -->
+  <section id="now" class="relative py-24 sm:py-32 border-t border-border">
+    <div class="max-w-4xl mx-auto px-5 sm:px-8">
+      <div class="reveal eyebrow">07 — Now</div>
+      <div class="reveal mt-6 flex items-center justify-between gap-4 flex-wrap">
+        <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-semibold tracking-tight text-white">Current focus.</h2>
+        <span class="chip text-[10px]">Last updated · May 2026</span>
+      </div>
+      <p class="reveal delay-1 mt-3 text-[14px] text-muted">What I'm learning, building, and thinking about right now.</p>
+
+      <div class="reveal delay-2 mt-12">
+        <div class="now-item">
+          <div class="chip accent text-[10px] shrink-0">Learning</div>
+          <div>
+            <div class="text-[14px] font-medium text-white">Claude Code — AI-native CLI development workflows</div>
+            <div class="text-[12px] text-muted mt-0.5">Anthropic's agentic coding tool for faster, more intentional development</div>
+          </div>
+        </div>
+        <div class="now-item">
+          <div class="chip accent text-[10px] shrink-0">Learning</div>
+          <div>
+            <div class="text-[14px] font-medium text-white">PostgreSQL query optimization + indexing strategies</div>
+            <div class="text-[12px] text-muted mt-0.5">B-tree vs GiST indexes, EXPLAIN ANALYZE, partial indexes for dashboard queries</div>
+          </div>
+        </div>
+        <div class="now-item">
+          <div class="chip text-[10px] shrink-0">Building</div>
+          <div>
+            <div class="text-[14px] font-medium text-white">InventoryOS v2 — multi-tenant backend with Supabase</div>
+            <div class="text-[12px] text-muted mt-0.5">Expanding to full multi-organization support with isolated row-level security policies</div>
+          </div>
+        </div>
+        <div class="now-item">
+          <div class="chip text-[10px] shrink-0">Exploring</div>
+          <div>
+            <div class="text-[14px] font-medium text-white">Edge functions + server-side rendering with Supabase</div>
+            <div class="text-[12px] text-muted mt-0.5">Moving compute closer to the database to reduce round-trips in high-frequency dashboards</div>
+          </div>
+        </div>
+        <div class="now-item">
+          <div class="chip text-[10px] shrink-0">Reading</div>
+          <div>
+            <div class="text-[14px] font-medium text-white">Designing Data-Intensive Applications — Kleppmann</div>
+            <div class="text-[12px] text-muted mt-0.5">Building intuition for distributed systems, replication, and consistency patterns</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal delay-3 mt-10">
+        <a href="https://github.com/legacyasphere-id" target="_blank" rel="noopener" class="btn-ghost inline-flex items-center gap-2 text-[13px] font-medium px-4 py-2 rounded-lg">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          View active repos on GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="relative py-24 sm:py-32 border-t border-border" style="background: #111318;">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="reveal eyebrow">08 — Ready to Build?</div>
 
       <div class="mt-10 grid lg:grid-cols-12 gap-12 lg:gap-16">
         <div class="lg:col-span-5">
-          <h2 class="reveal font-display text-[clamp(2rem,4.2vw,3.2rem)] leading-[1.08] font-light tracking-tightest text-ink">
-            Tell us about<br />
-            your <span class="font-soft-italic text-gold">project</span>.
+          <h2 class="reveal text-[clamp(1.8rem,4vw,3rem)] font-semibold tracking-tight text-white leading-[1.1]">
+            Let's build operational<br />systems that scale.
           </h2>
-          <p class="reveal delay-1 mt-6 text-[15.5px] leading-[1.7] text-ink-soft max-w-md">
-            Share a few details. Consultation is by application — we review every inquiry personally and respond when capacity allows.
+          <p class="reveal delay-1 mt-5 text-[15px] text-muted leading-relaxed max-w-md">
+            Available for selective projects. Startups, scale-ups, and technical founders building internal tools or operational software.
           </p>
-          <p class="reveal delay-1 mt-2 text-[14px] italic leading-relaxed text-mute max-w-md">
-            Ceritakan tentang project Anda. Kami balas dalam 24 jam.
+          <p class="reveal delay-1 mt-2 text-[13px] text-dim italic">
+            Tersedia untuk proyek pilihan · Bekasi, ID · GMT+7
           </p>
 
-          <div class="reveal delay-2 mt-10 space-y-5">
-            <a href="mailto:legacyasphere@gmail.com" class="flex items-start gap-4 group">
-              <div class="w-10 h-10 rounded-lg bg-cream border border-line flex items-center justify-center text-gold shrink-0 group-hover:border-gold/60 transition-colors">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M22 6 12 13 2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+          <div class="reveal delay-2 mt-10 space-y-4">
+            <a href="mailto:legacyasphere@gmail.com" class="flex items-center gap-4 group">
+              <div class="w-10 h-10 rounded-lg bg-surface border border-border flex items-center justify-center text-accent shrink-0 group-hover:border-accent/40 transition-colors">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M22 6 12 13 2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
               </div>
               <div>
-                <div class="text-[11px] font-mono uppercase tracking-wider text-mute">Email</div>
-                <div class="mt-0.5 text-[15px] text-ink group-hover:text-gold transition-colors">legacyasphere@gmail.com</div>
+                <div class="text-[10px] font-mono uppercase tracking-wider text-dim">Email</div>
+                <div class="text-[14px] text-white group-hover:text-accent transition-colors mt-0.5">legacyasphere@gmail.com</div>
               </div>
             </a>
 
-            <div class="flex items-start gap-4">
-              <div class="w-10 h-10 rounded-lg bg-cream border border-line flex items-center justify-center text-gold shrink-0">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <a href="https://github.com/legacyasphere-id" target="_blank" rel="noopener" class="flex items-center gap-4 group">
+              <div class="w-10 h-10 rounded-lg bg-surface border border-border flex items-center justify-center text-accent shrink-0 group-hover:border-accent/40 transition-colors">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
               </div>
               <div>
-                <div class="text-[11px] font-mono uppercase tracking-wider text-mute">Studio location</div>
-                <div class="mt-0.5 text-[15px] text-ink">Bekasi, Indonesia · GMT+7</div>
+                <div class="text-[10px] font-mono uppercase tracking-wider text-dim">GitHub</div>
+                <div class="text-[14px] text-white group-hover:text-accent transition-colors mt-0.5">github.com/legacyasphere-id</div>
               </div>
-            </div>
+            </a>
 
-            <div class="flex items-start gap-4">
-              <div class="w-10 h-10 rounded-lg bg-cream border border-line flex items-center justify-center text-gold shrink-0">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <a href="https://www.linkedin.com/in/yoga-pratamaeffendi-59b376245" target="_blank" rel="noopener" class="flex items-center gap-4 group">
+              <div class="w-10 h-10 rounded-lg bg-surface border border-border flex items-center justify-center text-accent shrink-0 group-hover:border-accent/40 transition-colors">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3v9zM6.5 8.25A1.75 1.75 0 1 1 8.3 6.5a1.78 1.78 0 0 1-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0 0 13 14.19a.66.66 0 0 0 0 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 0 1 2.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
               </div>
               <div>
-                <div class="text-[11px] font-mono uppercase tracking-wider text-mute">Current availability</div>
-                <div class="mt-0.5 text-[15px] text-ink">1 partner slot · Q3 2026</div>
+                <div class="text-[10px] font-mono uppercase tracking-wider text-dim">LinkedIn</div>
+                <div class="text-[14px] text-white group-hover:text-accent transition-colors mt-0.5">Yoga Pratama Effendi</div>
               </div>
-            </div>
-          </div>
+            </a>
 
-          <div class="reveal delay-3 mt-10 pt-8 border-t border-line">
-            <div class="text-[11px] font-mono uppercase tracking-wider text-mute mb-4">Find us elsewhere</div>
-            <div class="flex items-center gap-2">
-              <a href="https://www.fiverr.com/yogapratama" aria-label="Yoga's Fiverr profile (opens in new tab)" target="_blank" rel="noopener" class="w-10 h-10 rounded-lg border border-line flex items-center justify-center text-ink-soft hover:text-ink hover:border-gold/60 hover:bg-cream transition-all">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8h-2.5c-.5 0-1 .5-1 1v1H14v6h2v-6h2v-2h-2V7c0-1.5 1-3 3-3h1V2h-1c-2.5 0-4 1.5-4 4v2zM6 14H4v6h2v-6zM5 12.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></svg>
-              </a>
-              <a href="https://www.linkedin.com/in/yoga-pratamaeffendi-59b376245" aria-label="Yoga on LinkedIn (opens in new tab)" target="_blank" rel="noopener" class="w-10 h-10 rounded-lg border border-line flex items-center justify-center text-ink-soft hover:text-ink hover:border-gold/60 hover:bg-cream transition-all">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3v9zM6.5 8.25A1.75 1.75 0 1 1 8.3 6.5a1.78 1.78 0 0 1-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0 0 13 14.19a.66.66 0 0 0 0 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 0 1 2.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
-              </a>
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-lg bg-surface border border-border flex items-center justify-center text-accent shrink-0">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div>
+                <div class="text-[10px] font-mono uppercase tracking-wider text-dim">Availability</div>
+                <div class="text-[14px] text-white mt-0.5 flex items-center gap-2">
+                  <span class="status-dot" style="width:6px;height:6px;"></span>
+                  Available for selective projects
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
+        <!-- Contact form -->
         <div class="lg:col-span-7">
           <form id="contactForm" class="reveal delay-1 card p-6 sm:p-8 space-y-5">
             <div class="hp-field" aria-hidden="true">
@@ -1493,164 +1139,151 @@
 
             <div class="grid sm:grid-cols-2 gap-5">
               <div>
-                <label for="name" class="block text-[11px] font-mono uppercase tracking-wider text-mute mb-2">Your name</label>
-                <input id="name" name="name" type="text" required class="input-field w-full px-4 py-3 rounded-lg text-[15px]" placeholder="Jane Doe" />
+                <label for="name" class="block text-[11px] font-mono uppercase tracking-wider text-dim mb-2">Your name</label>
+                <input id="name" name="name" type="text" required class="input-field w-full px-4 py-2.5 rounded-lg text-[14px]" placeholder="Jane Doe" />
               </div>
               <div>
-                <label for="email" class="block text-[11px] font-mono uppercase tracking-wider text-mute mb-2">Email</label>
-                <input id="email" name="email" type="email" required class="input-field w-full px-4 py-3 rounded-lg text-[15px]" placeholder="jane@company.com" />
+                <label for="email" class="block text-[11px] font-mono uppercase tracking-wider text-dim mb-2">Email</label>
+                <input id="email" name="email" type="email" required class="input-field w-full px-4 py-2.5 rounded-lg text-[14px]" placeholder="jane@company.com" />
               </div>
             </div>
 
             <div>
-              <label for="project" class="block text-[11px] font-mono uppercase tracking-wider text-mute mb-2">Project type</label>
-              <select id="project" name="project" class="input-field w-full px-4 py-3 rounded-lg text-[15px]">
-                <option value="landing">Landing Page</option>
-                <option value="website">Website Development</option>
-                <option value="automation">AI Automation</option>
-                <option value="other">Something else</option>
+              <label for="project" class="block text-[11px] font-mono uppercase tracking-wider text-dim mb-2">Project type</label>
+              <select id="project" name="project" class="input-field w-full px-4 py-2.5 rounded-lg text-[14px]">
+                <option value="operational">Operational Software System</option>
+                <option value="frontend">Frontend UI Development</option>
+                <option value="automation">AI Automation Workflow</option>
+                <option value="other">Other / Not sure yet</option>
               </select>
             </div>
 
             <div>
-              <label for="budget" class="block text-[11px] font-mono uppercase tracking-wider text-mute mb-2">Estimated budget</label>
-              <select id="budget" name="budget" class="input-field w-full px-4 py-3 rounded-lg text-[15px]">
+              <label for="budget" class="block text-[11px] font-mono uppercase tracking-wider text-dim mb-2">Estimated budget</label>
+              <select id="budget" name="budget" class="input-field w-full px-4 py-2.5 rounded-lg text-[14px]">
                 <option value="<200">Under $200</option>
                 <option value="200-500">$200 – $500</option>
                 <option value="500-1000">$500 – $1,000</option>
                 <option value=">1000">$1,000+</option>
-                <option value="open">Not sure yet</option>
+                <option value="open">Let's discuss</option>
               </select>
             </div>
 
             <div>
-              <label for="message" class="block text-[11px] font-mono uppercase tracking-wider text-mute mb-2">Tell us about your project</label>
-              <textarea id="message" name="message" rows="5" required class="input-field w-full px-4 py-3 rounded-lg text-[15px] resize-none" placeholder="What are you trying to build? What's the goal?"></textarea>
+              <label for="message" class="block text-[11px] font-mono uppercase tracking-wider text-dim mb-2">Tell me about your system</label>
+              <textarea id="message" name="message" rows="5" required class="input-field w-full px-4 py-2.5 rounded-lg text-[14px] resize-none" placeholder="What are you building? What does it need to do? What's the scale?"></textarea>
             </div>
 
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-2">
-              <p class="text-[11px] font-mono text-mute">Opens in your email app · No data sent to servers.</p>
-              <button type="submit" class="btn-primary inline-flex items-center justify-center gap-2 text-[14px] font-medium px-6 py-3 rounded-full w-full sm:w-auto">
-                <span id="submitText">Send inquiry</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-1">
+              <p class="text-[11px] font-mono text-dim">Opens in your email app · No data sent to servers.</p>
+              <button type="submit" class="btn-primary inline-flex items-center justify-center gap-2 text-[13px] font-medium px-5 py-2.5 rounded-lg w-full sm:w-auto">
+                <span id="submitText">Send Inquiry</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
               </button>
             </div>
 
-            <div id="formStatus" class="hidden text-sm font-mono"></div>
+            <div id="formStatus" class="hidden text-[12px] font-mono"></div>
           </form>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ========== FOOTER ========== -->
-  <footer class="relative border-t border-line bg-cream/50">
-    <div class="relative max-w-7xl mx-auto px-5 sm:px-8 py-14">
-      <div class="reveal mb-12">
-        <div class="font-display italic font-light text-[clamp(3rem,12vw,9rem)] leading-none tracking-tightest text-ink select-none">
-          Legacya Sphere<span class="accent-italic">.</span>
+  <!-- FOOTER -->
+  <footer class="border-t border-border">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 py-12">
+      <div class="reveal mb-10">
+        <div class="text-[clamp(2.5rem,10vw,7rem)] font-bold tracking-tight text-white opacity-[0.04] select-none leading-none">
+          Legacya Sphere
         </div>
       </div>
 
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-10 border-b border-line">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 pb-10 border-b border-border">
         <div>
           <div class="flex items-center gap-2.5">
-            <img src="img-15.webp" alt="Legacya Sphere logo" class="w-8 h-8 object-contain" />
-            <span class="font-display font-medium text-ink">Legacya Sphere</span>
+            <img src="img-15.webp" alt="" class="w-7 h-7 object-contain opacity-80" />
+            <span class="font-mono text-[13px] font-medium text-white">Legacya Sphere</span>
           </div>
-          <p class="mt-4 text-[14px] leading-relaxed text-ink-soft max-w-xs">
-            Premium creative web studio crafting refined websites and intelligent automations.
-          </p>
-          <p class="mt-2 text-[13px] italic leading-relaxed text-mute max-w-xs">
-            Studio kreatif premium untuk brand yang berpikir.
-          </p>
+          <p class="mt-4 text-[13px] leading-relaxed text-muted">AI-Native Fullstack Developer building operational software systems end-to-end.</p>
+          <p class="mt-2 text-[12px] text-dim italic">Developer operasional software berbasis AI.</p>
         </div>
 
         <div>
-          <h4 class="text-[11px] font-mono uppercase tracking-wider text-mute mb-4">Sitemap</h4>
-          <ul class="space-y-2.5 text-[14px]">
-            <li><a href="#about" class="text-ink-soft hover:text-ink">About</a></li>
-            <li><a href="#services" class="text-ink-soft hover:text-ink">Services</a></li>
-            <li><a href="#manifesto" class="text-ink-soft hover:text-ink">What we believe</a></li>
-            <li><a href="#process" class="text-ink-soft hover:text-ink">Process</a></li>
-            <li><a href="#work" class="text-ink-soft hover:text-ink">Work</a></li>
-            <li><a href="#contact" class="text-ink-soft hover:text-ink">Contact</a></li>
+          <h4 class="text-[10px] font-mono uppercase tracking-wider text-dim mb-4">Navigation</h4>
+          <ul class="space-y-2 text-[13px]">
+            <li><a href="#about" class="text-muted hover:text-white transition-colors">About</a></li>
+            <li><a href="#workflow" class="text-muted hover:text-white transition-colors">AI Workflow</a></li>
+            <li><a href="#work" class="text-muted hover:text-white transition-colors">Built Systems</a></li>
+            <li><a href="#stack" class="text-muted hover:text-white transition-colors">Stack & Tools</a></li>
+            <li><a href="#process" class="text-muted hover:text-white transition-colors">Process</a></li>
+            <li><a href="#contact" class="text-muted hover:text-white transition-colors">Contact</a></li>
           </ul>
         </div>
 
         <div>
-          <h4 class="text-[11px] font-mono uppercase tracking-wider text-mute mb-4">Services</h4>
-          <ul class="space-y-2.5 text-[14px]">
-            <li><a href="#services" class="text-ink-soft hover:text-ink">Landing Page Design</a></li>
-            <li><a href="#services" class="text-ink-soft hover:text-ink">Website Development</a></li>
-            <li><a href="#services" class="text-ink-soft hover:text-ink">AI Automation</a></li>
+          <h4 class="text-[10px] font-mono uppercase tracking-wider text-dim mb-4">Services</h4>
+          <ul class="space-y-2 text-[13px]">
+            <li><a href="#services" class="text-muted hover:text-white transition-colors">Operational Software Systems</a></li>
+            <li><a href="#services" class="text-muted hover:text-white transition-colors">Frontend UI Development</a></li>
+            <li><a href="#services" class="text-muted hover:text-white transition-colors">AI Automation Workflows</a></li>
           </ul>
         </div>
 
         <div>
-          <h4 class="text-[11px] font-mono uppercase tracking-wider text-mute mb-4">Get in touch</h4>
-          <ul class="space-y-2.5 text-[14px]">
-            <li><a href="mailto:legacyasphere@gmail.com" class="text-ink-soft hover:text-ink">legacyasphere@gmail.com</a></li>
-            <li><a href="https://www.fiverr.com/yogapratama" target="_blank" rel="noopener" class="text-ink-soft hover:text-ink">Fiverr Profile</a></li>
-            <li><a href="https://www.linkedin.com/in/yoga-pratamaeffendi-59b376245" target="_blank" rel="noopener" class="text-ink-soft hover:text-ink">LinkedIn</a></li>
+          <h4 class="text-[10px] font-mono uppercase tracking-wider text-dim mb-4">Connect</h4>
+          <ul class="space-y-2 text-[13px]">
+            <li><a href="mailto:legacyasphere@gmail.com" class="text-muted hover:text-white transition-colors">legacyasphere@gmail.com</a></li>
+            <li><a href="https://github.com/legacyasphere-id" target="_blank" rel="noopener" class="text-muted hover:text-white transition-colors">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/yoga-pratamaeffendi-59b376245" target="_blank" rel="noopener" class="text-muted hover:text-white transition-colors">LinkedIn</a></li>
+            <li><a href="https://www.fiverr.com/yogapratama" target="_blank" rel="noopener" class="text-muted hover:text-white transition-colors">Fiverr</a></li>
           </ul>
         </div>
       </div>
 
-      <div class="pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <p class="text-[11px] font-mono text-mute">
-          © 2026 Legacya Sphere · Founded by Yoga Pratama Effendi · Bekasi, Indonesia
-        </p>
-        <div class="flex items-center gap-2 text-[11px] font-mono text-mute">
-          <span class="status-dot animate-pulse-soft" style="width:6px;height:6px;"></span>
-          Studio open · Selective engagements
+      <div class="pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <p class="text-[11px] font-mono text-dim">© 2026 Legacya Sphere · Yoga Pratama Effendi · Bekasi, Indonesia</p>
+        <div class="flex items-center gap-2 text-[11px] font-mono text-dim">
+          <span class="status-dot" style="width:6px;height:6px;"></span>
+          Available for selective projects
         </div>
       </div>
     </div>
   </footer>
 
-  <!-- ========== JAVASCRIPT ========== -->
+  <!-- JAVASCRIPT -->
   <script>
-    // 1) Mobile menu toggle
+    // 1) Mobile menu
     const menuBtn = document.getElementById('menuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
     const setMenuState = (open) => {
       mobileMenu.classList.toggle('is-open', open);
       mobileMenu.setAttribute('aria-hidden', String(!open));
       menuBtn.setAttribute('aria-expanded', String(open));
-      menuBtn.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+      menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     };
-    menuBtn.addEventListener('click', () => {
-      setMenuState(!mobileMenu.classList.contains('is-open'));
-    });
+    menuBtn.addEventListener('click', () => setMenuState(!mobileMenu.classList.contains('is-open')));
     mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenuState(false)));
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && mobileMenu.classList.contains('is-open')) {
-        setMenuState(false);
-        menuBtn.focus();
-      }
+      if (e.key === 'Escape' && mobileMenu.classList.contains('is-open')) { setMenuState(false); menuBtn.focus(); }
     });
 
     // 2) Scroll reveal
     const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-    // 3) Navbar border on scroll
+    // 3) Navbar accent on scroll
     const nav = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
-      nav.style.borderBottomColor = window.scrollY > 30 ? 'rgba(184,149,106,0.25)' : 'rgba(230,223,208,0.6)';
+      nav.style.borderBottomColor = window.scrollY > 30 ? 'rgba(59,130,246,0.2)' : '#2d2d2d';
     }, { passive: true });
 
     // 4) Project slideshow
     document.querySelectorAll('[data-slideshow]').forEach((container) => {
       const slides = container.querySelectorAll('.slide');
       const dots = container.querySelectorAll('.dot');
-      let idx = 0;
-      let hoverInterval = null;
+      let idx = 0, hoverInterval = null;
       const goTo = (n) => {
         idx = (n + slides.length) % slides.length;
         slides.forEach((s, i) => s.classList.toggle('active', i === idx));
@@ -1658,7 +1291,7 @@
       };
       const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
       if (hasFinePointer) {
-        container.addEventListener('mouseenter', () => { hoverInterval = setInterval(() => goTo(idx + 1), 1500); });
+        container.addEventListener('mouseenter', () => { hoverInterval = setInterval(() => goTo(idx + 1), 1600); });
         container.addEventListener('mouseleave', () => { clearInterval(hoverInterval); hoverInterval = null; goTo(0); });
       }
       container.addEventListener('click', (e) => { e.preventDefault(); goTo(idx + 1); });
@@ -1668,35 +1301,7 @@
       });
     });
 
-    // 5) Brand-flip card scroll-driven rotation
-    const flipSection = document.getElementById('brand-flip');
-    const flipInner = document.getElementById('flipCardInner');
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (flipSection && flipInner && !prefersReducedMotion) {
-      let isInView = false, rafId = null;
-      const flipObserver = new IntersectionObserver(([entry]) => {
-        isInView = entry.isIntersecting;
-        if (isInView) requestAnimationFrame(updateFlip);
-      }, { threshold: 0, rootMargin: '50px' });
-      flipObserver.observe(flipSection);
-      const updateFlip = () => {
-        const rect = flipSection.getBoundingClientRect();
-        const total = rect.height - window.innerHeight;
-        let progress = total > 0 ? Math.max(0, Math.min(1, -rect.top / total)) : 0;
-        let flipProg = (progress - 0.15) / 0.7;
-        flipProg = Math.max(0, Math.min(1, flipProg));
-        const eased = flipProg * flipProg * (3 - 2 * flipProg);
-        flipInner.style.transform = `rotateY(${eased * 180}deg)`;
-      };
-      window.addEventListener('scroll', () => {
-        if (!isInView || rafId) return;
-        rafId = requestAnimationFrame(() => { updateFlip(); rafId = null; });
-      }, { passive: true });
-      window.addEventListener('resize', updateFlip);
-      updateFlip();
-    }
-
-    // 6) Contact form — Mailto redirect with pre-filled template
+    // 5) Contact form
     const RECIPIENT_EMAIL = 'legacyasphere@gmail.com';
     const form = document.getElementById('contactForm');
     const formStatus = document.getElementById('formStatus');
@@ -1706,177 +1311,58 @@
     const emailField = document.getElementById('email');
     const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    const showStatus = (msg, type='success') => {
+    const showStatus = (msg, type = 'success') => {
       formStatus.classList.remove('hidden');
-      formStatus.className = `text-sm font-mono mt-2 ${type === 'success' ? 'text-sage' : 'text-red-600'}`;
+      formStatus.className = `text-[12px] font-mono mt-2 ${type === 'success' ? 'text-green-500' : 'text-red-500'}`;
       formStatus.textContent = msg;
     };
 
     emailField.addEventListener('input', () => {
-      if (emailField.classList.contains('error') && EMAIL_REGEX.test(emailField.value.trim())) {
-        emailField.classList.remove('error');
-      }
+      if (emailField.classList.contains('error') && EMAIL_REGEX.test(emailField.value.trim())) emailField.classList.remove('error');
     });
 
-    const PROJECT_LABELS = {
-      'landing': 'Landing Page Design',
-      'website': 'Website Development',
-      'automation': 'AI Automation',
-      'other': 'Other / Not sure',
-    };
-    const BUDGET_LABELS = {
-      '<200': 'Under $200',
-      '200-500': '$200 – $500',
-      '500-1000': '$500 – $1,000',
-      '>1000': '$1,000+',
-      'open': 'Open to discuss',
-    };
+    const PROJECT_LABELS = { 'operational': 'Operational Software System', 'frontend': 'Frontend UI Development', 'automation': 'AI Automation Workflow', 'other': 'Other' };
+    const BUDGET_LABELS = { '<200': 'Under $200', '200-500': '$200–$500', '500-1000': '$500–$1,000', '>1000': '$1,000+', 'open': 'Open to discuss' };
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       formStatus.classList.add('hidden');
-
       const honeypot = form.querySelector('input[name="website_url"]');
-      if (honeypot && honeypot.value.trim() !== '') {
-        showStatus("✓ Inquiry received.", 'success');
-        form.reset();
-        return;
-      }
-
+      if (honeypot && honeypot.value.trim() !== '') { showStatus('✓ Inquiry received.', 'success'); form.reset(); return; }
       const emailValue = emailField.value.trim();
-      if (!EMAIL_REGEX.test(emailValue)) {
-        emailField.classList.add('error');
-        emailField.focus();
-        showStatus('✗ Please enter a valid email address.', 'error');
-        return;
-      }
-
+      if (!EMAIL_REGEX.test(emailValue)) { emailField.classList.add('error'); emailField.focus(); showStatus('✗ Please enter a valid email address.', 'error'); return; }
       const name = form.name.value.trim() || 'Anonymous';
-      const projectKey = form.project.value;
-      const budgetKey = form.budget.value;
-      const projectType = PROJECT_LABELS[projectKey] || projectKey;
-      const budget = BUDGET_LABELS[budgetKey] || budgetKey;
+      const projectType = PROJECT_LABELS[form.project.value] || form.project.value;
+      const budget = BUDGET_LABELS[form.budget.value] || form.budget.value;
       const message = form.message.value.trim() || '(no message provided)';
-
-      const subject = `New project inquiry — ${name} · ${projectType}`;
-      const body =
-`Hello Yoga,
-
-I'd like to begin a conversation about a project.
-
-———  PROJECT DETAILS  ———
-Name           : ${name}
-Email          : ${emailValue}
-Project type   : ${projectType}
-Estimated budget: ${budget}
-
-———  MESSAGE  ———
-${message}
-
-———
-
-Sent via the Legacya Sphere portfolio inquiry form.
-Looking forward to your reply.`;
-
+      const subject = `Project inquiry — ${name} · ${projectType}`;
+      const body = `Hello Yoga,\n\nI'd like to discuss a project.\n\n— PROJECT DETAILS —\nName: ${name}\nEmail: ${emailValue}\nProject type: ${projectType}\nBudget: ${budget}\n\n— MESSAGE —\n${message}\n\n—\nSent via legacyasphere.com`;
       const mailtoUrl = `mailto:${RECIPIENT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-      submitText.textContent = 'Opening your email…';
+      submitText.textContent = 'Opening email…';
       submitBtn.disabled = true;
       window.location.href = mailtoUrl;
-
       setTimeout(() => {
         submitText.textContent = originalBtnText;
         submitBtn.disabled = false;
-        showStatus("✓ Email draft opened. Press send in your email app to complete.", 'success');
+        showStatus('✓ Email draft opened. Press send to complete.', 'success');
       }, 1200);
     });
 
-    // 7) Splash screen — hide once page is fully loaded (CSS + fonts + images)
+    // 6) Splash
     (function () {
       const splash = document.getElementById('ls-splash');
       const html = document.documentElement;
       let hidden = false;
-
       const hideSplash = () => {
-        if (hidden) return;
-        hidden = true;
-        // Give Tailwind a tick to finish applying classes before revealing
+        if (hidden) return; hidden = true;
         requestAnimationFrame(() => {
           html.classList.remove('ls-loading');
-          if (splash) {
-            splash.classList.add('is-done');
-            setTimeout(() => splash.remove(), 700);
-          }
+          if (splash) { splash.classList.add('is-done'); setTimeout(() => splash.remove(), 700); }
         });
       };
-
-      if (document.readyState === 'complete') {
-        // Already loaded — small delay so Tailwind's runtime has time to inject styles
-        setTimeout(hideSplash, 120);
-      } else {
-        window.addEventListener('load', () => setTimeout(hideSplash, 120));
-      }
-      // Failsafe — never let splash linger past 4s even on slow connections
+      if (document.readyState === 'complete') setTimeout(hideSplash, 100);
+      else window.addEventListener('load', () => setTimeout(hideSplash, 100));
       setTimeout(hideSplash, 4000);
-    })();
-
-    // 8) Browser recommendation — suggest Chrome for non-Chromium / in-app webviews
-    (function () {
-      const STORAGE_KEY = 'ls-browser-tip-dismissed';
-      // Safely read storage (some in-app browsers throw on localStorage)
-      const isDismissed = () => {
-        try { return localStorage.getItem(STORAGE_KEY) === '1'; } catch (_) { return false; }
-      };
-      const setDismissed = () => {
-        try { localStorage.setItem(STORAGE_KEY, '1'); } catch (_) { /* no-op */ }
-      };
-      if (isDismissed()) return;
-
-      const ua = navigator.userAgent || '';
-      const isInApp = /FBAN|FBAV|Instagram|Line|MicroMessenger|TikTok|Twitter|LinkedIn|Snapchat|Pinterest|GSA|wv\)/i.test(ua);
-      const isSafari = /Safari/i.test(ua) && !/Chrome|CriOS|Chromium|Edg|EdgiOS|OPR|SamsungBrowser|FxiOS/i.test(ua);
-      const isFirefox = /Firefox|FxiOS/i.test(ua);
-      const shouldSuggest = isInApp || isSafari || isFirefox;
-      if (!shouldSuggest) return;
-
-      const tip = document.getElementById('ls-browser-tip');
-      if (!tip) return;
-
-      const show = () => requestAnimationFrame(() => tip.classList.add('is-visible'));
-      const hide = () => {
-        tip.classList.remove('is-visible');
-        setDismissed();
-        setTimeout(() => tip.remove(), 600);
-      };
-
-      // Show after splash finishes — feels intentional, not jumpy
-      const showWhenReady = () => setTimeout(show, 1400);
-      if (document.readyState === 'complete') showWhenReady();
-      else window.addEventListener('load', showWhenReady);
-
-      document.getElementById('lbtClose').addEventListener('click', hide);
-      document.getElementById('lbtDismiss').addEventListener('click', hide);
-      document.getElementById('lbtOpenChrome').addEventListener('click', () => {
-        const url = window.location.href;
-        const isAndroid = /Android/i.test(ua);
-        const isIOS = /iPhone|iPad|iPod/i.test(ua);
-        try {
-          if (isAndroid) {
-            // Android Intent — opens Chrome directly, falls back to Play Store if not installed
-            const host = url.replace(/^https?:\/\//, '');
-            window.location.href = 'intent://' + host +
-              '#Intent;scheme=https;package=com.android.chrome;' +
-              'S.browser_fallback_url=' + encodeURIComponent(url) + ';end';
-          } else if (isIOS) {
-            const scheme = url.startsWith('https://') ? 'googlechromes://' : 'googlechrome://';
-            window.location.href = scheme + url.replace(/^https?:\/\//, '');
-          } else {
-            // Desktop fallback — copy URL to clipboard
-            if (navigator.clipboard) navigator.clipboard.writeText(url);
-          }
-        } catch (_) { /* fail silently */ }
-        setTimeout(hide, 400);
-      });
     })();
   </script>
 </body>
