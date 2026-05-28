@@ -65,7 +65,7 @@ This repository is a **public architecture study** in performance-first frontend
 - **Services** — 3 tiers (Landing Pages · Website Development · AI Automation) with transparent pricing
 - **Manifesto** — 6 core principles in a dark editorial layout
 - **Sphere Protocol** — 5-step process timeline for client engagements
-- **Work showcase** — Featured case study (Meridian Advisory) + 2 secondary projects
+- **Work showcase** — Featured case study (Meridian Advisory) + 3 secondary projects
 - **Contact form** — Honeypot-protected inquiry form with pre-filled `mailto:` template
 
 ### Engineering Quality
@@ -129,6 +129,12 @@ The tradeoff is disciplined, composable vanilla JS — a constraint that sharpen
 **Project: Hybrid Dashboard**
 
 ![Hybrid Dashboard](img-09.webp)
+
+<br />
+
+**Project: InventoryOS — Mini ERP**
+
+![InventoryOS Dashboard](img-16.webp)
 
 ---
 
@@ -209,7 +215,11 @@ Legacya-Portofolio/
 │
 ├── img-12.png          # Meridian Advisory — hero shot (hi-res)
 ├── img-13.png          # Meridian Advisory — detail view 1
-└── img-14.png          # Meridian Advisory — detail view 2
+├── img-14.png          # Meridian Advisory — detail view 2
+│
+├── img-16.webp         # InventoryOS Mini ERP — dashboard screenshot
+├── img-17.webp         # InventoryOS Mini ERP — stock list screenshot
+└── img-18.webp         # InventoryOS Mini ERP — alerts center screenshot
 ```
 
 ---
