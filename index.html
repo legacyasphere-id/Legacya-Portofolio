@@ -508,7 +508,16 @@
             Systems thinking<br />before interfaces.
           </h2>
 
-          <div class="reveal delay-1 mt-8 space-y-4 text-[15px] leading-[1.8] text-muted">
+          <!-- Fix 3: Founder photo — trust signal -->
+          <div class="reveal delay-1 mt-8 flex items-center gap-4">
+            <img src="img-04.webp" alt="Yoga Pratama Effendi" class="w-14 h-14 rounded-full object-cover border border-border shrink-0" style="object-position: center top;" />
+            <div>
+              <div class="text-[15px] font-semibold text-white">Yoga Pratama Effendi</div>
+              <div class="text-[12px] text-muted mt-0.5">Fullstack Developer · Bekasi, Indonesia</div>
+            </div>
+          </div>
+
+          <div class="reveal delay-1 mt-6 space-y-4 text-[15px] leading-[1.8] text-muted">
             <p>I'm Yoga Pratama Effendi — a fullstack developer building operational software from Bekasi, Indonesia. I architect and ship systems that businesses actually run on: inventory management, operations dashboards, POS systems, and e-commerce platforms.</p>
             <p>My workflow is architecture-first. Before writing a line of code, I map out data flows, define the database schema, and design the API contract. Interfaces are the last layer, not the first.</p>
           </div>
@@ -686,7 +695,10 @@
           <div class="lg:col-span-5 p-8 lg:p-10 flex flex-col justify-center">
             <div class="flex items-center gap-2 mb-4">
               <span class="chip accent">★ Primary · Pinned</span>
-              <a href="https://mini-erp-frontend-tau.vercel.app/alerts" target="_blank" rel="noopener" class="text-accent text-[13px] hover:text-accent-light ml-auto">Live →</a>
+              <div class="ml-auto flex items-center gap-3">
+                <a href="https://github.com/legacyasphere-id" target="_blank" rel="noopener" class="text-dim text-[13px] hover:text-white transition-colors">src →</a>
+                <a href="https://mini-erp-frontend-tau.vercel.app/alerts" target="_blank" rel="noopener" class="text-accent text-[13px] hover:text-accent-light">live →</a>
+              </div>
             </div>
             <h3 class="text-[22px] sm:text-[26px] font-semibold text-white leading-tight">InventoryOS</h3>
             <p class="text-[14px] text-accent mt-1">Operational Inventory Management System</p>
@@ -722,6 +734,30 @@
               </ul>
             </div>
 
+            <!-- Fix 2: DB schema snapshot — proves real backend work -->
+            <div class="mt-5 pt-4 border-t border-border">
+              <div class="font-mono text-[10px] uppercase tracking-wider text-dim mb-3">PostgreSQL Schema Snapshot</div>
+              <pre class="text-[10.5px] font-mono text-muted leading-[1.75] overflow-x-auto rounded-lg p-4 border border-border" style="background:#0f1117;"><code><span style="color:#60a5fa;">-- products</span>
+id          uuid primary key
+sku         text unique not null
+name        text not null
+category_id uuid references categories(id)
+unit_cost   numeric(10,2)
+reorder_pt  integer default 10
+
+<span style="color:#60a5fa;">-- inventory_movements</span>
+id          uuid primary key
+product_id  uuid references products(id)
+type        text check (type in ('in','out','adjustment'))
+quantity    integer not null
+user_id     uuid references auth.users(id)
+created_at  timestamptz default now()
+
+<span style="color:#60a5fa;">-- RLS policies</span>
+staff  → select only on products, movements
+admin  → full access all tables</code></pre>
+            </div>
+
             <div class="mt-5 flex flex-wrap gap-2">
               <span class="chip">React</span>
               <span class="chip">Zustand</span>
@@ -748,7 +784,10 @@
           <div class="p-5">
             <div class="flex items-center justify-between mb-2">
               <span class="font-mono text-[10px] uppercase tracking-wider text-dim">Dashboard · Studio Ops</span>
-              <a href="https://legacyasphere-id.github.io/Hybrid-Dashboard/" target="_blank" rel="noopener" class="text-accent text-[12px] group-hover:translate-x-0.5 transition-transform">Live →</a>
+              <div class="flex items-center gap-3">
+                <a href="https://github.com/legacyasphere-id/Hybrid-Dashboard" target="_blank" rel="noopener" class="text-dim text-[12px] hover:text-white transition-colors">src →</a>
+                <a href="https://legacyasphere-id.github.io/Hybrid-Dashboard/" target="_blank" rel="noopener" class="text-accent text-[12px] group-hover:translate-x-0.5 transition-transform">live →</a>
+              </div>
             </div>
             <h3 class="text-[16px] font-semibold text-white">Hybrid Dashboard</h3>
             <p class="mt-2 text-[12.5px] leading-[1.7] text-muted">Studio operations dashboard with real-time revenue chart, KPI cards, persistent task manager, project tracker, and integrated AI assistant. localStorage state management.</p>
@@ -771,7 +810,10 @@
           <div class="p-5">
             <div class="flex items-center justify-between mb-2">
               <span class="font-mono text-[10px] uppercase tracking-wider text-dim">Dashboard · POS · 9 Screens</span>
-              <a href="https://legacya-pos-ui.vercel.app/dashboard" target="_blank" rel="noopener" class="text-accent text-[12px] group-hover:translate-x-0.5 transition-transform">Live →</a>
+              <div class="flex items-center gap-3">
+                <a href="https://github.com/legacyasphere-id" target="_blank" rel="noopener" class="text-dim text-[12px] hover:text-white transition-colors">src →</a>
+                <a href="https://legacya-pos-ui.vercel.app/dashboard" target="_blank" rel="noopener" class="text-accent text-[12px] group-hover:translate-x-0.5 transition-transform">live →</a>
+              </div>
             </div>
             <h3 class="text-[16px] font-semibold text-white">Legacya POS UI</h3>
             <p class="mt-2 text-[12.5px] leading-[1.7] text-muted">Restaurant operations dashboard with embedded AI insights across 9 screens — order management, revenue analytics, kitchen display, and menu intelligence.</p>
@@ -795,7 +837,10 @@
           <div class="p-5">
             <div class="flex items-center justify-between mb-2">
               <span class="font-mono text-[10px] uppercase tracking-wider text-dim">E-Commerce · Order Mgmt</span>
-              <a href="https://legacyasphere-id.github.io/Daenuna.co/" target="_blank" rel="noopener" class="text-accent text-[12px] group-hover:translate-x-0.5 transition-transform">Live →</a>
+              <div class="flex items-center gap-3">
+                <a href="https://github.com/legacyasphere-id/Daenuna.co" target="_blank" rel="noopener" class="text-dim text-[12px] hover:text-white transition-colors">src →</a>
+                <a href="https://legacyasphere-id.github.io/Daenuna.co/" target="_blank" rel="noopener" class="text-accent text-[12px] group-hover:translate-x-0.5 transition-transform">live →</a>
+              </div>
             </div>
             <h3 class="text-[16px] font-semibold text-white">daenuna.co</h3>
             <p class="mt-2 text-[12.5px] leading-[1.7] text-muted">E-commerce platform for a handmade crochet brand — catalog browsing, custom order flow via WhatsApp, brand storytelling. Mobile-first, bilingual.</p>
@@ -968,7 +1013,10 @@
   <section id="now" class="relative py-24 sm:py-32 border-t border-border">
     <div class="max-w-4xl mx-auto px-5 sm:px-8">
       <div class="reveal eyebrow">07 — Now</div>
-      <h2 class="reveal mt-6 text-[clamp(1.8rem,4vw,3rem)] font-semibold tracking-tight text-white">Current focus.</h2>
+      <div class="reveal mt-6 flex items-center justify-between gap-4 flex-wrap">
+        <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-semibold tracking-tight text-white">Current focus.</h2>
+        <span class="chip text-[10px]">Last updated · May 2026</span>
+      </div>
       <p class="reveal delay-1 mt-3 text-[14px] text-muted">What I'm learning, building, and thinking about right now.</p>
 
       <div class="reveal delay-2 mt-12">
