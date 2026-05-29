@@ -1192,7 +1192,7 @@ admin  → full access all tables</code></pre>
             </div>
 
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-1">
-              <p class="text-[11px] font-mono text-dim">I'll respond within 24–48 hours.</p>
+              <p class="text-[11px] font-mono text-dim">Opens in your email app · No data sent to servers.</p>
               <button type="submit" class="btn-primary inline-flex items-center justify-center gap-2 text-[13px] font-medium px-5 py-2.5 rounded-lg w-full sm:w-auto">
                 <span id="submitText">Send Inquiry</span>
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
@@ -1202,15 +1202,6 @@ admin  → full access all tables</code></pre>
             <div id="formStatus" class="hidden text-[12px] font-mono"></div>
           </form>
 
-          <!-- Success state (hidden until form submits) -->
-          <div id="formSuccess" class="hidden reveal card p-8 text-center space-y-4">
-            <div class="w-12 h-12 rounded-full mx-auto flex items-center justify-center" style="background:rgba(76,175,125,0.12); border:1px solid rgba(76,175,125,0.3);">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4CAF7D" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
-            </div>
-            <h3 class="text-[20px] font-semibold text-white">Inquiry received.</h3>
-            <p class="text-[14px] text-muted leading-relaxed">I'll review your project details and get back to you within 24–48 hours.</p>
-            <p class="text-[12px] text-dim font-mono">— Yoga · Legacya Sphere</p>
-          </div>
         </div>
       </div>
     </div>
@@ -1328,13 +1319,9 @@ admin  → full access all tables</code></pre>
       });
     });
 
-    // 5) Contact form — async POST to n8n webhook with mailto fallback
-    // Set your n8n webhook URL below. Leave empty to use mailto fallback.
-    const N8N_WEBHOOK_URL = '';
+    // 5) Contact form
     const RECIPIENT_EMAIL = 'legacyasphere@gmail.com';
-
     const form = document.getElementById('contactForm');
-    const formSuccess = document.getElementById('formSuccess');
     const formStatus = document.getElementById('formStatus');
     const submitBtn = form.querySelector('button[type="submit"]');
     const submitText = document.getElementById('submitText');
@@ -1344,7 +1331,6 @@ admin  → full access all tables</code></pre>
 
     const showStatus = (msg, type = 'success') => {
       formStatus.classList.remove('hidden');
-      formStatus.className = `text-[12px] font-mono mt-2 ${type === 'success' ? '' : ''}`;
       formStatus.style.color = type === 'success' ? '#4CAF7D' : '#C0392B';
       formStatus.textContent = msg;
     };
@@ -1354,60 +1340,29 @@ admin  → full access all tables</code></pre>
     });
 
     const PROJECT_LABELS = { 'operational': 'Operational Software System', 'frontend': 'Frontend UI Development', 'automation': 'AI Automation Workflow', 'other': 'Other' };
-    const BUDGET_LABELS = { '1500-3000': '$1,500–$3,000', '3000-6000': '$3,000–$6,000', '6000+': '$6,000+', 'open': 'Open — let\'s scope together' };
+    const BUDGET_LABELS = { '1500-3000': '$1,500–$3,000', '3000-6000': '$3,000–$6,000', '6000+': '$6,000+', 'open': "Open — let's scope together" };
 
-    const showSuccessState = () => {
-      form.classList.add('hidden');
-      formSuccess.classList.remove('hidden');
-      formSuccess.classList.add('in');
-    };
-
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener('submit', (e) => {
       e.preventDefault();
       formStatus.classList.add('hidden');
-
       const honeypot = form.querySelector('input[name="website_url"]');
-      if (honeypot && honeypot.value.trim() !== '') { showSuccessState(); return; }
-
+      if (honeypot && honeypot.value.trim() !== '') { showStatus('✓ Inquiry received.', 'success'); form.reset(); return; }
       const emailValue = emailField.value.trim();
-      if (!EMAIL_REGEX.test(emailValue)) {
-        emailField.classList.add('error'); emailField.focus();
-        showStatus('✗ Please enter a valid email address.', 'error'); return;
-      }
-
+      if (!EMAIL_REGEX.test(emailValue)) { emailField.classList.add('error'); emailField.focus(); showStatus('✗ Please enter a valid email address.', 'error'); return; }
       const name = form.name.value.trim() || 'Anonymous';
       const projectType = PROJECT_LABELS[form.project.value] || form.project.value;
       const budget = BUDGET_LABELS[form.budget.value] || form.budget.value;
       const message = form.message.value.trim() || '(no message provided)';
-
-      submitText.textContent = 'Sending…';
+      const subject = `Project inquiry — ${name} · ${projectType}`;
+      const body = `Hello Yoga,\n\nI'd like to discuss a project.\n\n— PROJECT DETAILS —\nName: ${name}\nEmail: ${emailValue}\nProject type: ${projectType}\nBudget: ${budget}\n\n— MESSAGE —\n${message}\n\n—\nSent via legacyasphere.com`;
+      submitText.textContent = 'Opening email…';
       submitBtn.disabled = true;
-
-      if (N8N_WEBHOOK_URL) {
-        try {
-          const res = await fetch(N8N_WEBHOOK_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, email: emailValue, projectType, budget, message, source: 'legacyasphere.com' }),
-          });
-          if (!res.ok) throw new Error('webhook error');
-          showSuccessState();
-        } catch {
-          submitText.textContent = originalBtnText;
-          submitBtn.disabled = false;
-          showStatus('✗ Submission failed. Please email directly: legacyasphere@gmail.com', 'error');
-        }
-      } else {
-        // Fallback: mailto
-        const subject = `Project inquiry — ${name} · ${projectType}`;
-        const body = `Hello Yoga,\n\nI'd like to discuss a project.\n\n— PROJECT DETAILS —\nName: ${name}\nEmail: ${emailValue}\nProject type: ${projectType}\nBudget: ${budget}\n\n— MESSAGE —\n${message}\n\n—\nSent via legacyasphere.com`;
-        window.location.href = `mailto:${RECIPIENT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        setTimeout(() => {
-          submitText.textContent = originalBtnText;
-          submitBtn.disabled = false;
-          showSuccessState();
-        }, 1000);
-      }
+      window.location.href = `mailto:${RECIPIENT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      setTimeout(() => {
+        submitText.textContent = originalBtnText;
+        submitBtn.disabled = false;
+        showStatus('✓ Email draft opened. Press send to complete.', 'success');
+      }, 1200);
     });
 
     // 6) Splash
