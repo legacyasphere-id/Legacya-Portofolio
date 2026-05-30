@@ -240,7 +240,7 @@
     }
     .project-slideshow .slide {
       position: absolute; inset: 0; width: 100%; height: 100%;
-      object-fit: cover; object-position: center top;
+      object-fit: contain; object-position: center center;
       opacity: 0; transition: opacity .5s;
       pointer-events: none;
     }
@@ -845,9 +845,9 @@ admin  → full access all tables</code></pre>
         <!-- daenuna.co -->
         <article class="reveal delay-4 card overflow-hidden group">
           <div class="project-slideshow aspect-[16/10]" data-slideshow tabindex="0" role="button" aria-label="daenuna.co — tap to cycle">
-            <img src="daenuna-hero.jpg" alt="daenuna.co — hero section" class="slide active" data-slide="0" />
-            <img src="daenuna-story.jpg" alt="daenuna.co — brand story section" class="slide" data-slide="1" />
-            <img src="daenuna-order.jpg" alt="daenuna.co — order flow" class="slide" data-slide="2" />
+            <img src="daenuna-hero.jpg" alt="daenuna.co — hero section" class="slide active" data-slide="0" style="object-fit:cover; object-position:center top;" />
+            <img src="daenuna-story.jpg" alt="daenuna.co — brand story section" class="slide" data-slide="1" style="object-fit:cover; object-position:center top;" />
+            <img src="daenuna-order.jpg" alt="daenuna.co — order flow" class="slide" data-slide="2" style="object-fit:cover; object-position:center top;" />
             <div class="slide-dots"><span class="dot active" data-dot="0"></span><span class="dot" data-dot="1"></span><span class="dot" data-dot="2"></span></div>
           </div>
           <div class="p-5">
