@@ -4,27 +4,35 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg:      '#080810',
-        surface: '#0e0e1a',
-        raised:  '#14141f',
-        border:  '#1e1e2e',
-        'border-light': '#252535',
-        text:    '#e2e8f0',
-        muted:   '#8892a4',
-        dim:     '#4a5568',
-        cyan:    '#22d3ee',
-        'cyan-dim': '#0891b2',
-        purple:  '#a78bfa',
-        'purple-dim': '#7c3aed',
-        green:   '#34d399',
-        'green-dim': '#059669',
+        bg:      '#F7F4ED',
+        surface: '#FAF8F2',
+        raised:  '#EDE6D6',
+        border:  '#E6DFD0',
+        'border-light': '#D6CDB9',
+        text:    '#1C1A17',
+        muted:   '#8A847A',
+        dim:     '#B5AFA4',
+        // Primary accent — gold (was cyan)
+        cyan:    '#B8956A',
+        'cyan-dim': '#9A7A52',
+        // Secondary accent — sage (was purple)
+        purple:  '#7A8B6A',
+        'purple-dim': '#5C6E52',
+        // Success / active — forest (was green)
+        green:   '#5A8A6A',
+        'green-dim': '#3D6B4D',
+        // Legacy accent
         accent:  '#B8956A',
-        'accent-light': '#C9A97E',
+        'accent-light': '#D6BC95',
+        // Dark surface for manifesto-style sections
+        ink:     '#1C1A17',
+        'ink-deep': '#13110F',
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
-        serif: ['"Playfair Display"', 'Georgia', 'serif'],
+        sans:    ['Inter', 'system-ui', 'sans-serif'],
+        mono:    ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+        serif:   ['"Playfair Display"', 'Georgia', 'serif'],
+        display: ['Fraunces', 'Georgia', 'serif'],
       },
     },
   },

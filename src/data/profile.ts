@@ -1,5 +1,6 @@
 import type { Profile } from '../types/profile'
 import { identity } from '../core/identity'
+import { asset } from '../utils/asset'
 
 export const profile: Profile = {
   name:         identity.name,
@@ -18,7 +19,6 @@ export const profile: Profile = {
   logo:         identity.assets.logo,
   identities:   [...identity.badges],
   coreMessage:  identity.coreMessage,
-  // Execution tools (not identity attributes)
   coreStack:    [...identity.executionLayers.tools],
   aiTools:      [...identity.executionLayers.coEngineer],
   languages:    [...identity.languages],
@@ -29,8 +29,8 @@ export const profile: Profile = {
       issuer:      'Anthropic',
       date:        'May 2026',
       description: 'Certified practitioner of Claude AI, issued directly by Anthropic. The foundation under every AI workflow I ship.',
-      pdfUrl:      '/assets/certificates/claude-101-anthropic.pdf',
-      imageUrl:    '/img-05.webp',
+      pdfUrl:      asset('assets/certificates/claude-101-anthropic.pdf'),
+      imageUrl:    asset('img-05.webp'),
     },
     {
       id:          'claude-code-101',
@@ -38,7 +38,7 @@ export const profile: Profile = {
       issuer:      'Anthropic',
       date:        '2026',
       description: 'Certified in AI-native CLI development workflows using Claude Code — agentic coding, hooks, and MCP integrations.',
-      pdfUrl:      '/assets/certificates/claude-code-101-anthropic.pdf',
+      pdfUrl:      asset('assets/certificates/claude-code-101-anthropic.pdf'),
     },
   ],
 }

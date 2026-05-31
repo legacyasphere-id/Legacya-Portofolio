@@ -1,4 +1,5 @@
 import type { Project } from '../types/project'
+import { asset } from '../utils/asset'
 
 export const projects: Project[] = [
   {
@@ -33,9 +34,9 @@ export const projects: Project[] = [
       live: 'https://mini-erp-frontend-tau.vercel.app/alerts',
     },
     screenshots: [
-      { src: '/img-16.webp', alt: 'InventoryOS — dashboard with KPI cards and stock value chart' },
-      { src: '/img-17.webp', alt: 'InventoryOS — stock list table with SKU and category filters' },
-      { src: '/img-18.webp', alt: 'InventoryOS — alerts center with low-stock notifications' },
+      { src: asset('img-16.webp'), alt: 'InventoryOS — dashboard with KPI cards and stock value chart' },
+      { src: asset('img-17.webp'), alt: 'InventoryOS — stock list table with SKU and category filters' },
+      { src: asset('img-18.webp'), alt: 'InventoryOS — alerts center with low-stock notifications' },
     ],
   },
   {
@@ -69,9 +70,9 @@ export const projects: Project[] = [
       live: 'https://legacya-pos-ui.vercel.app/dashboard',
     },
     screenshots: [
-      { src: '/img-06.webp', alt: 'Legacya POS UI — cashier screen with live order list' },
-      { src: '/img-07.webp', alt: 'Legacya POS UI — analytics dashboard with revenue KPIs' },
-      { src: '/img-08.webp', alt: 'Legacya POS UI — kitchen display with live order tickets' },
+      { src: asset('img-06.webp'), alt: 'Legacya POS UI — cashier screen with live order list' },
+      { src: asset('img-07.webp'), alt: 'Legacya POS UI — analytics dashboard with revenue KPIs' },
+      { src: asset('img-08.webp'), alt: 'Legacya POS UI — kitchen display with live order tickets' },
     ],
   },
   {
@@ -105,9 +106,9 @@ export const projects: Project[] = [
       live: 'https://legacyasphere-id.github.io/Hybrid-Dashboard/',
     },
     screenshots: [
-      { src: '/img-09.webp', alt: 'Hybrid Dashboard — KPI metric cards and revenue chart' },
-      { src: '/img-10.webp', alt: 'Hybrid Dashboard — revenue trend and task list' },
-      { src: '/img-11.webp', alt: 'Hybrid Dashboard — project tracker and activity feed' },
+      { src: asset('img-09.webp'), alt: 'Hybrid Dashboard — KPI metric cards and revenue chart' },
+      { src: asset('img-10.webp'), alt: 'Hybrid Dashboard — revenue trend and task list' },
+      { src: asset('img-11.webp'), alt: 'Hybrid Dashboard — project tracker and activity feed' },
     ],
   },
   {
@@ -141,9 +142,9 @@ export const projects: Project[] = [
       live: 'https://legacyasphere-id.github.io/Daenuna.co/',
     },
     screenshots: [
-      { src: '/daenuna-hero.jpg', alt: 'daenuna.co — hero section' },
-      { src: '/daenuna-story.jpg', alt: 'daenuna.co — brand story section' },
-      { src: '/daenuna-order.jpg', alt: 'daenuna.co — order flow' },
+      { src: asset('daenuna-hero.jpg'), alt: 'daenuna.co — hero section' },
+      { src: asset('daenuna-story.jpg'), alt: 'daenuna.co — brand story section' },
+      { src: asset('daenuna-order.jpg'), alt: 'daenuna.co — order flow' },
     ],
   },
 ]

@@ -5,7 +5,7 @@ export function OSSection() {
   return (
     <section id="founder-os" className="section-divider">
       {/* OS system header bar — makes this feel like entering a dashboard, not reading a section */}
-      <div className="border-b border-border" style={{ background: '#0a0a14' }}>
+      <div className="border-b border-border" style={{ background: '#EDE6D6' }}>
         <div className="max-w-7xl mx-auto px-5 sm:px-8 py-3 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-dim">Founder OS</span>
@@ -22,7 +22,7 @@ export function OSSection() {
       </div>
 
       {/* Main content — generous spacing to signal dominance */}
-      <div className="py-24 sm:py-40" style={{ background: '#0a0a14' }}>
+      <div className="py-24 sm:py-40" style={{ background: '#EDE6D6' }}>
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div className="eyebrow mb-5">01 — Founder OS</div>
 

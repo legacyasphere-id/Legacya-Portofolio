@@ -35,7 +35,7 @@ export function ContactSection() {
   }
 
   return (
-    <section id="contact" className="section-divider py-24 sm:py-32" style={{ background: '#0a0a14' }}>
+    <section id="contact" className="section-divider py-24 sm:py-32" style={{ background: '#EDE6D6' }}>
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
         <div className="eyebrow mb-4">06 — Initiate Build</div>
 
