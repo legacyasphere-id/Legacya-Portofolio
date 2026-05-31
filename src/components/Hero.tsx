@@ -66,12 +66,12 @@ export function Hero({ profile }: HeroProps) {
 
       {/* CTAs */}
       <div className="mt-10 flex flex-wrap gap-3">
-        <a href="#projects" className="btn-primary">
-          View Work
+        <a href="#founder-os" className="btn-primary">
+          Explore Founder OS
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
         </a>
-        <a href="#founder-os" className="btn-ghost">
-          Explore Founder OS
+        <a href="#projects" className="btn-ghost">
+          View Build Output
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
         </a>
         <a href={profile.github} target="_blank" rel="noopener" className="btn-ghost">

@@ -7,14 +7,14 @@ export const identity = {
   // ── Core identity ──────────────────────────────────────────────────────
   role:        'AI-Native Builder & Product Engineer',
   title:       'AI-Native Builder & Product Engineer',
-  tagline:     'Designing and shipping fullstack systems using AI as a co-engineer.',
-  description: 'System-first builder focused on AI-assisted architecture, rapid prototyping, and scalable product development.',
-  coreMessage: 'I build products using AI as a co-engineer across architecture, development, and deployment.',
+  tagline:     'System-first. AI-native. Every stage co-engineered.',
+  description: 'Operational software systems built AI-native — from architecture to deployment, with Claude as co-engineer at every stage.',
+  coreMessage: "I don't build features. I build systems. AI is my co-engineer.",
 
   // ── Public-facing identity badges ─────────────────────────────────────
   badges: [
     'AI-Native Founder',
-    'AI-Assisted Fullstack Builder',
+    'AI-Native System Builder',
     'Product System Thinker',
   ] as const,
 
@@ -62,7 +62,7 @@ export const identity = {
   founderOS: {
     name:    'Founder OS',
     version: '2.0',
-    tagline: 'A productized system for building with AI as a co-engineer.',
+    tagline: 'The OS beneath every system I ship.',
     systemDescription:
       'An operating system for building products — not a portfolio. Principles, workflows, and tools organized as a coherent execution machine.',
   },

@@ -12,7 +12,7 @@ export function ProjectsSection() {
           <div className="eyebrow mb-4">02 — OS Snapshot</div>
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-10">
             <h2 className="text-[clamp(1.8rem,4vw,3rem)] font-semibold tracking-tight leading-[1.1] text-text">
-              System Status
+              System State
             </h2>
             <a href="#founder-os" className="font-mono text-[11px] text-dim hover:text-cyan transition-colors self-start sm:self-auto">
               ← Part of Founder OS

@@ -10,7 +10,7 @@ export const siteConfig = {
     { label: 'OS Status',    href: '#os-status'  },
     { label: 'Case Studies', href: '#projects'   },
     { label: 'Build Flow',   href: '#ai-flow'    },
-    { label: 'Roadmap',      href: '#roadmap'    },
+    { label: 'Evolution',    href: '#roadmap'    },
   ],
   social: identity.social,
 }
