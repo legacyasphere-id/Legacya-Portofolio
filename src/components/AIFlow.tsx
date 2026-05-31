@@ -92,7 +92,12 @@ export function AIFlow() {
         </div>
       </div>
 
-      {/* Detail grid */}
+      {/* Detail grid — tools active in this pipeline */}
+      <div className="mb-3 flex items-center gap-3">
+        <span className="font-mono text-[10px] uppercase tracking-wider text-dim">Pipeline Tooling</span>
+        <div className="flex-1 h-px bg-border" />
+        <span className="font-mono text-[10px] text-dim">active across all stages</span>
+      </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <div className="card-base p-4">
           <div className="chip-cyan mb-3">Claude</div>

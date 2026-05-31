@@ -171,7 +171,7 @@ export function CaseStudy({ project, variant = 'grid' }: CaseStudyProps) {
               onClick={() => setExpanded(!expanded)}
               className="w-full flex items-center justify-between py-2.5 border-t border-border text-[11px] font-mono text-dim hover:text-cyan transition-colors"
             >
-              <span>Engineering Analysis ({steps.length - 1} more steps)</span>
+              <span>Engineering Breakdown · {steps.length - 1} steps</span>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
                 className="transition-transform duration-200"
                 style={{ transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)' }}>
