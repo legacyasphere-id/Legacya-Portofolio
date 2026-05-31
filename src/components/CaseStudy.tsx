@@ -19,7 +19,7 @@ const statusColor: Record<Project['status'], string> = {
 
 const breakdownSteps = (cs: Project['caseStudy']) =>
   [
-    { key: 'problem',            label: 'Problem',           color: 'text-red-400',  accent: 'border-red-400/30' },
+    { key: 'problem',            label: 'Problem',           color: 'text-red-600',  accent: 'border-red-400/40' },
     { key: 'thinkingProcess',    label: 'Thinking Process',  color: 'text-purple',   accent: 'border-purple/30'  },
     { key: 'aiRole',             label: 'AI Role',           color: 'text-cyan',     accent: 'border-cyan/30'    },
     { key: 'architectureNote',   label: 'Architecture',      color: 'text-cyan',     accent: 'border-cyan/20'    },
@@ -63,7 +63,7 @@ export function CaseStudy({ project, variant = 'grid' }: CaseStudyProps) {
             {project.screenshots.length > 1 && (
               <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
                 {project.screenshots.map((_, i) => (
-                  <span key={i} className="transition-all duration-200 rounded-full" style={{ width: i === slideIdx ? 16 : 5, height: 5, background: i === slideIdx ? '#22d3ee' : 'rgba(34,211,238,0.3)' }} />
+                  <span key={i} className="transition-all duration-200 rounded-full" style={{ width: i === slideIdx ? 16 : 5, height: 5, background: i === slideIdx ? '#B8956A' : 'rgba(184,149,106,0.3)' }} />
                 ))}
               </div>
             )}
@@ -137,7 +137,7 @@ export function CaseStudy({ project, variant = 'grid' }: CaseStudyProps) {
             {project.screenshots.length > 1 && (
               <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
                 {project.screenshots.map((_, i) => (
-                  <span key={i} className="transition-all duration-200 rounded-full" style={{ width: i === slideIdx ? 16 : 5, height: 5, background: i === slideIdx ? '#22d3ee' : 'rgba(34,211,238,0.3)' }} />
+                  <span key={i} className="transition-all duration-200 rounded-full" style={{ width: i === slideIdx ? 16 : 5, height: 5, background: i === slideIdx ? '#B8956A' : 'rgba(184,149,106,0.3)' }} />
                 ))}
               </div>
             )}

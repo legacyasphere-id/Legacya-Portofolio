@@ -1,7 +1,4 @@
-/**
- * Identity System — single source of truth for all portfolio identity,
- * narrative tone, and brand copy. All data layers import from here.
- */
+import { asset } from '../utils/asset'
 
 export const identity = {
   // ── Core identity ──────────────────────────────────────────────────────
@@ -35,8 +32,8 @@ export const identity = {
 
   // ── Assets ────────────────────────────────────────────────────────────
   assets: {
-    photo: '/img-04.webp',
-    logo:  '/img-15.webp',
+    photo: asset('img-04.webp'),
+    logo:  asset('img-15.webp'),
   },
 
   // ── Execution layer classification ────────────────────────────────────
@@ -65,6 +62,6 @@ export const identity = {
     systemDescription:
       'An operating system for building products — not a portfolio. Principles, workflows, and tools organized as a coherent execution machine.',
   },
-} as const
+}
 
 export type Identity = typeof identity

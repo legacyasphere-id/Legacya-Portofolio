@@ -2,7 +2,7 @@ import { AIFlow } from '../components/AIFlow'
 
 export function FlowSection() {
   return (
-    <section id="ai-flow" className="section-divider py-24 sm:py-32" style={{ background: '#0a0a14' }}>
+    <section id="ai-flow" className="section-divider py-24 sm:py-32" style={{ background: '#EDE6D6' }}>
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
         <div className="eyebrow mb-4">04 — AI Build Flow</div>
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-12">

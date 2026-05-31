@@ -23,7 +23,7 @@ export function ProjectsSection() {
       </section>
 
       {/* Case Studies — output system */}
-      <section id="projects" className="section-divider py-24 sm:py-32" style={{ background: '#0a0a14' }}>
+      <section id="projects" className="section-divider py-24 sm:py-32" style={{ background: '#FAF8F2' }}>
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div className="eyebrow mb-4">03 — Case Studies</div>
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-12">

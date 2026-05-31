@@ -13,11 +13,11 @@ export function Footer() {
               fontFamily: "'Playfair Display', Georgia, serif",
               fontSize: 'clamp(3rem,16vw,9rem)',
               fontStyle: 'italic',
-              color: '#e2e8f0',
+              color: '#1C1A17',
               letterSpacing: '-0.02em',
             }}
           >
-            Legacya Sphere<span style={{ color: '#22d3ee' }}>.</span>
+            Legacya Sphere<span style={{ color: '#B8956A' }}>.</span>
           </div>
         </div>
 
