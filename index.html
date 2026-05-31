@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#080810" />
+    <meta name="theme-color" content="#F7F4ED" />
     <title>Yoga Pratama Effendi — AI-Native Founder OS | Legacya Sphere</title>
     <meta name="description" content="AI-Native Founder. I build products using AI as a co-engineer across architecture, development, and deployment." />
     <meta property="og:title" content="Yoga Pratama Effendi — AI-Native Founder OS | Legacya Sphere" />
@@ -11,15 +11,15 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://legacyasphere-id.github.io/Legacya-Portofolio/" />
     <meta property="og:image" content="https://legacyasphere-id.github.io/Legacya-Portofolio/img-04.webp" />
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%23080810'/%3E%3Ctext x='50' y='64' font-family='monospace' font-size='40' font-weight='700' fill='%2322d3ee' text-anchor='middle'%3ELS%3C/text%3E%3C/svg%3E" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23F7F4ED'/%3E%3Ctext x='50' y='64' font-family='Georgia%2Cserif' font-size='38' font-weight='400' fill='%231C1A17' text-anchor='middle'%3ELS%3C/text%3E%3C/svg%3E" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
   <style>
     #ls-splash {
       position: fixed;
       inset: 0;
-      background: #080810;
+      background: #F7F4ED;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -35,13 +35,13 @@
       width: 80px;
       height: 80px;
       border-radius: 50%;
-      background: #0e0e1a;
-      border: 1px solid #1e1e2e;
+      background: #FAF8F2;
+      border: 1px solid #E6DFD0;
       display: flex;
       align-items: center;
       justify-content: center;
       animation: ls-pulse 1.6s ease-in-out infinite;
-      box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.15);
+      box-shadow: 0 0 0 0 rgba(184, 149, 106, 0.15);
     }
     #ls-splash-ring img {
       width: 46px;
@@ -56,12 +56,12 @@
       font-weight: 500;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: #8892a4;
+      color: #8A847A;
     }
     @keyframes ls-pulse {
-      0%   { transform: scale(1);    box-shadow: 0 0 0 0   rgba(34,211,238,0.18); }
-      50%  { transform: scale(1.04); box-shadow: 0 0 0 12px rgba(34,211,238,0);   }
-      100% { transform: scale(1);    box-shadow: 0 0 0 0   rgba(34,211,238,0);    }
+      0%   { transform: scale(1);    box-shadow: 0 0 0 0   rgba(184,149,106,0.18); }
+      50%  { transform: scale(1.04); box-shadow: 0 0 0 12px rgba(184,149,106,0);   }
+      100% { transform: scale(1);    box-shadow: 0 0 0 0   rgba(184,149,106,0);    }
     }
   </style>
   </head>
@@ -76,5 +76,14 @@
 
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <!-- Fallback: only clear splash if React never mounted after 30s (handles true JS failures) -->
+    <script>
+      window.__spl=false;
+      setTimeout(function(){
+        if(window.__spl)return;
+        var s=document.getElementById('ls-splash');
+        if(s){s.style.opacity='0';setTimeout(function(){if(s&&s.parentNode)s.parentNode.removeChild(s)},520)}
+      },30000)
+    </script>
   </body>
 </html>

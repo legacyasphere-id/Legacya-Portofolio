@@ -6,7 +6,7 @@ export function HeroSection() {
   return (
     <section id="hero">
       {/* Sticky nav */}
-      <header className="fixed top-0 left-0 right-0 z-50 border-b border-border" style={{ background: 'rgba(8,8,16,0.92)', backdropFilter: 'blur(12px)' }}>
+      <header className="fixed top-0 left-0 right-0 z-50 border-b border-border" style={{ background: 'rgba(247,244,237,0.92)', backdropFilter: 'blur(12px)' }}>
         <nav className="max-w-7xl mx-auto px-5 sm:px-8 h-14 flex items-center justify-between">
           <a href="#hero" className="flex items-center gap-2.5 group" aria-label="Legacya Sphere — home">
             <img src={profile.logo} alt="" className="w-5 h-5 object-contain opacity-80" />
