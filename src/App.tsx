@@ -9,6 +9,8 @@ import { Footer } from './components/Footer'
 
 export default function App() {
   useEffect(() => {
+    // Signal the fallback timeout in index.html that React mounted
+    ;(window as unknown as { __spl: boolean }).__spl = true
     const splash = document.getElementById('ls-splash')
     if (!splash) return
     splash.classList.add('hidden')

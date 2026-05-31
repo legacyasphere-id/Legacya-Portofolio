@@ -20,7 +20,7 @@ export function Hero({ profile }: HeroProps) {
         aria-hidden="true"
         style={{
           backgroundImage:
-            'linear-gradient(rgba(34,211,238,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,0.04) 1px, transparent 1px)',
+            'linear-gradient(rgba(184,149,106,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(184,149,106,0.04) 1px, transparent 1px)',
           backgroundSize: '56px 56px',
           maskImage: 'radial-gradient(ellipse 80% 60% at 50% 0%, black 20%, transparent 100%)',
           WebkitMaskImage: 'radial-gradient(ellipse 80% 60% at 50% 0%, black 20%, transparent 100%)',

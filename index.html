@@ -76,12 +76,14 @@
 
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <!-- Fallback: force-clear splash after 8s if JS bundle never loads -->
+    <!-- Fallback: only clear splash if React never mounted after 30s (handles true JS failures) -->
     <script>
+      window.__spl=false;
       setTimeout(function(){
-        var s=document.getElementById('ls-splash')
-        if(s){s.style.opacity='0';setTimeout(function(){if(s.parentNode)s.parentNode.removeChild(s)},520)}
-      },8000)
+        if(window.__spl)return;
+        var s=document.getElementById('ls-splash');
+        if(s){s.style.opacity='0';setTimeout(function(){if(s&&s.parentNode)s.parentNode.removeChild(s)},520)}
+      },30000)
     </script>
   </body>
 </html>
