@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    scrollbar-color: #1e1e2e #080810;
+    scrollbar-width: thin;
+  }
+
+  body {
+    @apply bg-bg text-text font-sans;
+    overflow-x: hidden;
+  }
+
+  h1, h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #080810; }
+  ::-webkit-scrollbar-thumb { background: #1e1e2e; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #22d3ee33; }
+
+  ::selection { background: rgba(34,211,238,0.15); color: #e2e8f0; }
+}
+
+@layer components {
+  .chip {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-border bg-raised font-mono text-[11px] text-muted;
+  }
+  .chip-cyan {
+    @apply chip border-cyan/20 text-cyan bg-cyan/5;
+  }
+  .chip-purple {
+    @apply chip border-purple/20 text-purple bg-purple/5;
+  }
+  .chip-green {
+    @apply chip border-green/20 text-green bg-green/5;
+  }
+
+  .card-base {
+    @apply bg-surface border border-border rounded-xl;
+  }
+
+  .eyebrow {
+    @apply font-mono text-[11px] uppercase tracking-[0.22em] text-cyan flex items-center gap-3;
+  }
+  .eyebrow::before {
+    content: '';
+    @apply w-6 h-px bg-cyan flex-shrink-0;
+  }
+
+  .status-dot-green {
+    @apply w-2 h-2 rounded-full bg-green;
+    box-shadow: 0 0 0 3px rgba(52,211,153,0.15);
+  }
+
+  .status-dot-cyan {
+    @apply w-2 h-2 rounded-full bg-cyan;
+    box-shadow: 0 0 0 3px rgba(34,211,238,0.15);
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-cyan text-bg text-[13px] font-semibold transition-all;
+  }
+  .btn-primary:hover {
+    @apply brightness-110 -translate-y-px;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-border text-muted text-[13px] font-medium transition-all;
+  }
+  .btn-ghost:hover {
+    @apply border-cyan/30 text-cyan -translate-y-px;
+  }
+
+  .section-divider {
+    @apply border-t border-border;
+  }
+}
+
+@layer utilities {
+  .text-gradient-cyan {
+    background: linear-gradient(135deg, #22d3ee 0%, #a78bfa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .glow-cyan {
+    box-shadow: 0 0 20px rgba(34,211,238,0.1);
+  }
+}
