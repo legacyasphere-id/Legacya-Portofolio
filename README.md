@@ -2,24 +2,24 @@
 
 <br />
 
-<img src="img-15.webp" alt="Legacya Sphere" width="68" />
+<img src="public/img-15.webp" alt="Legacya Sphere" width="68" />
 
 <br /><br />
 
-# Legacya Sphere
+# Legacya Sphere — AI-Native Founder OS
 
-### Premium Creative Web Studio
+### Portfolio v2 · React + Vite + TypeScript
 
-*Refined websites. Intelligent automations. Selective engagements.*
+*Not a portfolio. A system.*
 
 <br />
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-legacyasphere.com-B8956A?style=flat-square&logo=vercel&logoColor=white)](https://legacyasphere.com)
-[![HTML5](https://img.shields.io/badge/HTML5-Single_File_App-E34F26?style=flat-square&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v3-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
-[![JavaScript](https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E?style=flat-square&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-[![Claude Certified](https://img.shields.io/badge/Anthropic-Claude_101_Certified-CC785C?style=flat-square&logo=anthropic&logoColor=white)](https://anthropic.com)
-[![License](https://img.shields.io/badge/License-MIT-8A847A?style=flat-square)](LICENSE)
+[![Live Site](https://img.shields.io/badge/Live-legacya--portofolio.vercel.app-B8956A?style=flat-square&logo=vercel&logoColor=white)](https://legacya-portofolio.vercel.app)
+[![GitHub Pages](https://img.shields.io/badge/Mirror-GitHub_Pages-181717?style=flat-square&logo=github)](https://legacyasphere-id.github.io/Legacya-Portofolio/)
+[![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Strict-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev)
+[![Claude Certified](https://img.shields.io/badge/Anthropic-Claude_101_+_Code_101-CC785C?style=flat-square&logo=anthropic&logoColor=white)](https://anthropic.com)
 
 <br />
 
@@ -29,360 +29,243 @@
 
 ## What Is This?
 
-**Legacya Sphere** is a production-grade portfolio-as-product — a zero-dependency static website that serves as both a client-facing studio identity and a live engineering case study. No React. No npm. No build step. Just disciplined HTML, Tailwind CSS, and composable vanilla JavaScript shipped as a single deployable file.
+**Legacya Sphere Portfolio v2** is an AI-Native Founder OS — a production-grade React application that frames identity as an operating system, not a CV. Built entirely with Claude as co-engineer across architecture, implementation, and deployment.
 
-> *"Most portfolios show what you've built. This one shows how you think."*
+> *"I don't build features. I build systems. AI is my co-engineer."*
 
-This repository is a **public architecture study** in performance-first frontend engineering: sophisticated UX patterns (scroll-driven 3D transforms, IntersectionObserver reveal chains, cross-fade slideshows), product thinking (availability scarcity, honeypot spam protection, bilingual UX), and startup-quality visual design — delivered with zero framework overhead.
-
----
-
-## Product Goals
-
-| Goal | How It's Achieved |
-|------|-------------------|
-| First impression in **< 3s** | Critical CSS inlined, splash screen blocks FOUC entirely |
-| **Zero Cumulative Layout Shift** | Font preloads + skeleton-aware rendering |
-| **Mobile-first** | Tailwind responsive utilities, touch-optimized interactions |
-| **Accessible** | ARIA labels, keyboard navigation, `prefers-reduced-motion` |
-| **Privacy-first contact** | `mailto:` protocol — no backend, no CORS, no data stored |
-| **Selective brand positioning** | Availability indicator, "consultation by application" UX pattern |
-
----
-
-## Features
-
-### User Experience
-- **Branded splash screen** — eliminates flash of unstyled content, 4-second JS failsafe
-- **Scroll-reveal system** — `IntersectionObserver`-powered entrance animations on 15+ sections
-- **3D brand flip card** — scroll-position driven via `requestAnimationFrame` (not CSS-only, for broader browser support)
-- **Project slideshow** — auto-cycles on hover, manual dot navigation, cross-fade transitions
-- **Infinite marquee** — smooth tech stack ticker, GPU-accelerated
-- **Dynamic navbar** — border-color transitions on scroll, mobile drawer with Escape-key dismiss
-
-### Product Sections
-- **Hero** — asymmetric layout with orbital SVG decorations, bilingual CTA
-- **Services** — 3 tiers (Landing Pages · Website Development · AI Automation) with transparent pricing
-- **Manifesto** — 6 core principles in a dark editorial layout
-- **Sphere Protocol** — 5-step process timeline for client engagements
-- **Work showcase** — Featured case study (Meridian Advisory) + 3 secondary projects
-- **Contact form** — Honeypot-protected inquiry form with pre-filled `mailto:` template
-
-### Engineering Quality
-- **Browser compatibility detector** — toast notification for non-Chrome users with one-tap copy-link
-- **Honeypot spam protection** — hidden field traps bots at form submission, zero user friction
-- **SEO-complete** — Open Graph, Twitter Cards, canonical URL, keyword meta
-- **Bilingual** — Full English / Bahasa Indonesia support throughout
+This is a **complete rewrite** of the original v1 single-file HTML portfolio. Every UI section, data layer, and deployment pipeline was designed and shipped using Claude Code as the primary engineering partner.
 
 ---
 
 ## Tech Stack
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                      LEGACYA SPHERE                         │
-│                                                             │
-│  Structure     HTML5 (semantic, ARIA-complete)              │
-│  Styling       Tailwind CSS v3 (CDN, custom design tokens)  │
-│  Logic         Vanilla JavaScript (zero dependencies)       │
-│  Typography    Fraunces · Instrument Serif · Inter          │
-│                JetBrains Mono                               │
-│  Images        WebP (optimized) · PNG (hi-resolution)       │
-│  Deployment    Static — deploy anywhere in 30 seconds       │
-└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────┐
+│                  LEGACYA SPHERE — FOUNDER OS v2                 │
+│                                                                 │
+│  Framework     React 18 (StrictMode, concurrent)               │
+│  Language      TypeScript 5 (strict mode, noUnusedLocals)       │
+│  Build         Vite 5 (ESM, tree-shaking, content hashing)      │
+│  Styling       Tailwind CSS v3 (custom warm palette tokens)     │
+│  Typography    Fraunces · Inter · JetBrains Mono                │
+│                Playfair Display                                 │
+│  Images        WebP + JPG (lazy-loaded, base-URL safe)          │
+│  Deployment    Vercel (primary) · GitHub Pages (mirror)         │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
-**Why no framework?**
+---
 
-A content-driven studio site has no state management problem to solve. Introducing React or Vue would add:
-- 200KB+ JS parse budget
-- A build toolchain to maintain
-- Dependency vulnerabilities to patch
-- Longer deploy cycles
+## Design System
 
-The tradeoff is disciplined, composable vanilla JS — a constraint that sharpens the code.
+Warm cream/gold palette — a deliberate departure from standard neon-on-dark developer portfolios.
+
+| Token | Value | Use |
+|-------|-------|-----|
+| `bg` | `#F7F4ED` | Page background |
+| `surface` | `#FAF8F2` | Card surface |
+| `raised` | `#EDE6D6` | Elevated sections |
+| `border` | `#E6DFD0` | All borders |
+| `text` | `#1C1A17` | Primary text |
+| `muted` | `#8A847A` | Secondary text |
+| `dim` | `#B5AFA4` | Tertiary / labels |
+| `cyan` | `#B8956A` | Gold accent (CTAs, links) |
+| `purple` | `#7A8B6A` | Sage accent |
+| `green` | `#5A8A6A` | Forest accent (status) |
 
 ---
 
-## Screenshots
+## Page Sections
 
-<br />
-
-**Hero — Asymmetric layout with orbital decorations**
-
-![Hero Section](img-04.webp)
-
-<br />
-
-**Featured Work — Meridian Advisory Case Study**
-
-![Meridian Advisory](img-12.png)
-
-<br />
-
-**Project: Legacya POS UI**
-
-![POS UI](img-06.webp)
-
-<br />
-
-**Project: Hybrid Dashboard**
-
-![Hybrid Dashboard](img-09.webp)
-
-<br />
-
-**Project: InventoryOS — Mini ERP**
-
-![InventoryOS Dashboard](img-16.webp)
+| # | Section | ID | Description |
+|---|---------|-----|-------------|
+| — | **Nav** | `#hero` | Sticky warm-cream navigation with GitHub + CTA |
+| 1 | **Hero** | `#hero` | Identity badges, headline, metrics bar |
+| 2 | **Founder OS** | `#founder-os` | 4 operating principles + 4-stage workflow pipeline |
+| 3 | **Case Studies** | `#projects` | Featured project + 3-column grid, expandable breakdowns |
+| 4 | **AI Flow** | `#flow` | Build pipeline diagram: Idea → Architecture → Code → Deploy |
+| 5 | **Evolution** | `#roadmap` | Live learning tracks + Verified Credentials |
+| 6 | **Contact** | `#contact` | Mailto-based inquiry form with honeypot protection |
+| — | **Footer** | — | Wordmark, nav columns, availability status |
 
 ---
 
-## Live Demo
+## Project Structure
 
-| Environment | URL | Notes |
-|-------------|-----|-------|
-| **Production** | [legacyasphere.com](https://legacyasphere.com) | Primary domain |
-| **GitHub Pages** | [legacyasphere-id.github.io/Legacya-Portofolio](https://legacyasphere-id.github.io/Legacya-Portofolio) | Mirror |
+```
+Legacya-Portofolio/
+├── public/                     # Static assets (images, certificates)
+│   ├── img-04.webp             # Founder portrait
+│   ├── img-05.webp             # Claude 101 certificate preview
+│   ├── img-15.webp             # Legacya Sphere logo
+│   ├── img-16/17/18.webp       # InventoryOS screenshots
+│   ├── img-06/07/08.webp       # Legacya POS UI screenshots
+│   ├── img-09/10/11.webp       # Hybrid Dashboard screenshots
+│   ├── daenuna-*.jpg           # daenuna.co screenshots
+│   └── assets/certificates/    # PDF certificates
+│
+├── src/
+│   ├── core/                   # Site-wide constants
+│   │   ├── config.ts           # Nav links, site metadata
+│   │   ├── founder-os.ts       # Principles + workflow data
+│   │   ├── identity.ts         # Single source of truth for all identity copy
+│   │   └── principles.ts       # Operating principles definitions
+│   │
+│   ├── data/                   # Page data (no hardcoded UI content)
+│   │   ├── profile.ts          # Personal info, credentials
+│   │   ├── projects.ts         # 4 case studies with full breakdowns
+│   │   ├── roadmap.ts          # Learning tracks with status
+│   │   └── stack.ts            # Tech stack grouped by category
+│   │
+│   ├── types/                  # TypeScript interfaces
+│   │   ├── profile.ts
+│   │   ├── project.ts
+│   │   ├── os.ts
+│   │   └── roadmap.ts
+│   │
+│   ├── utils/
+│   │   └── asset.ts            # BASE_URL-aware image path helper
+│   │
+│   ├── components/             # Reusable UI units
+│   │   ├── Hero.tsx            # Headline + badges + metrics bar
+│   │   ├── OSStatus.tsx        # Live dashboard panel
+│   │   ├── FounderOS.tsx       # Principles grid + workflow pipeline
+│   │   ├── CaseStudy.tsx       # Expandable case study card
+│   │   ├── AIFlow.tsx          # Build pipeline diagram
+│   │   ├── Roadmap.tsx         # Learning loop with status badges
+│   │   └── Footer.tsx          # Wordmark + nav columns
+│   │
+│   ├── sections/               # Page-level compositions
+│   │   ├── HeroSection.tsx     # Sticky nav + Hero
+│   │   ├── OSSection.tsx       # Founder OS section
+│   │   ├── ProjectsSection.tsx # Featured + grid projects
+│   │   ├── FlowSection.tsx     # AI pipeline diagram
+│   │   ├── RoadmapSection.tsx  # Roadmap + Credentials
+│   │   └── ContactSection.tsx  # Contact form
+│   │
+│   ├── App.tsx                 # Root — composes all sections, removes splash
+│   ├── main.tsx                # React 18 createRoot entry point
+│   └── index.css               # Tailwind directives + base styles
+│
+├── index.html                  # Vite entry — splash screen, fonts, fallback
+├── vite.config.ts              # base path: '/' (Vercel) / '/Legacya-Portofolio/' (Pages)
+├── tailwind.config.js          # Warm palette tokens + font families
+├── vercel.json                 # SPA rewrites for client-side routing
+└── .github/workflows/
+    └── deploy.yml              # Validate + build + deploy to GitHub Pages
+```
 
-> Best experienced in **Google Chrome** on desktop for full animation fidelity. The browser detector will surface a recommendation tip on other browsers.
+---
+
+## Key Engineering Notes
+
+### Asset Path Utility
+
+Images are served from `public/` and referenced via `src/utils/asset.ts`:
+
+```typescript
+// Prepends BASE_URL so paths work on both Vercel (/) and GitHub Pages (/Legacya-Portofolio/)
+export const asset = (path: string): string =>
+  `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
+```
+
+Usage: `asset('img-04.webp')` → `/img-04.webp` on Vercel, `/Legacya-Portofolio/img-04.webp` on GitHub Pages.
+
+### Dual-Target Base URL
+
+```typescript
+// vite.config.ts
+base: process.env.VERCEL ? '/' : '/Legacya-Portofolio/',
+```
+
+Vercel sets `VERCEL=1` automatically during builds. GitHub Actions does not — so both deploys get the correct asset prefix without extra config.
+
+### Splash Screen
+
+`index.html` contains an inline CSS splash that shows immediately (before JS loads). React removes it via `useEffect` on first render. A 30-second fallback clears it if JS fails to load — guarded by `window.__spl` so it's a no-op on successful loads:
+
+```html
+<script>
+  window.__spl = false;
+  setTimeout(function() {
+    if (window.__spl) return; // React already mounted — skip
+    var s = document.getElementById('ls-splash');
+    if (s) { s.style.opacity = '0'; setTimeout(() => s.remove(), 520); }
+  }, 30000);
+</script>
+```
 
 ---
 
 ## Getting Started
 
-### Run Locally
-
 ```bash
-# 1. Clone the repository
+# Clone
 git clone https://github.com/legacyasphere-id/Legacya-Portofolio.git
 cd Legacya-Portofolio
 
-# 2a. Python (available everywhere, zero install)
-python3 -m http.server 8080
+# Install
+npm install
 
-# 2b. Node.js
-npx serve .
+# Dev server (hot reload)
+npm run dev
 
-# 2c. VS Code
-# Install "Live Server" extension → right-click index.html → "Open with Live Server"
+# Type-check + production build
+npm run build
+
+# Preview production build locally
+npm run preview
 ```
 
-Open `http://localhost:8080` in Chrome.
-
-> **Note:** Opening `index.html` as a `file://` URL works but may restrict font loading on some browsers. A local server gives the full experience.
-
-### Customize
-
-All design tokens live in the Tailwind config block at the top of `index.html`:
-
-```javascript
-window.tailwind.config = {
-  theme: {
-    extend: {
-      colors: {
-        bg:   "#F7F4ED",  // page background
-        gold: "#B8956A",  // accent color — change this to retheme
-        ink:  "#1C1A17",  // text color
-      }
-    }
-  }
-}
-```
-
-Swap the color values to retheme the entire site instantly.
-
----
-
-## Folder Structure
-
-```
-Legacya-Portofolio/
-│
-├── index.html          # Entire application — markup, styles, and logic
-│
-├── img-15.webp         # Legacya Sphere logo mark
-├── img-04.webp         # Founder portrait
-├── img-05.webp         # Anthropic Claude 101 certification
-│
-├── img-06.webp         # Legacya POS UI — screenshot 1
-├── img-07.webp         # Legacya POS UI — screenshot 2
-├── img-08.webp         # Legacya POS UI — screenshot 3
-│
-├── img-09.webp         # Hybrid Dashboard — screenshot 1
-├── img-10.webp         # Hybrid Dashboard — screenshot 2
-├── img-11.webp         # Hybrid Dashboard — screenshot 3
-│
-├── img-12.png          # Meridian Advisory — hero shot (hi-res)
-├── img-13.png          # Meridian Advisory — detail view 1
-├── img-14.png          # Meridian Advisory — detail view 2
-│
-├── img-16.webp         # InventoryOS Mini ERP — dashboard screenshot
-├── img-17.webp         # InventoryOS Mini ERP — stock list screenshot
-└── img-18.webp         # InventoryOS Mini ERP — alerts center screenshot
-```
-
----
-
-## Architecture
-
-### v1 — Zero-Dependency Static (Current)
-
-```
-Browser Request
-  └── index.html
-        ├── <style> Critical CSS ──── locks layout, prevents FOUC
-        ├── Tailwind CDN ──────────── utility classes via JIT
-        ├── Google Fonts ──────────── Fraunces, Inter, JetBrains Mono
-        └── <script> Vanilla JS
-              ├── SplashController       — branded loading overlay
-              ├── RevealObserver         — IntersectionObserver chain
-              ├── ScrollTracker          — rAF-based position tracking
-              ├── CardFlipController     — 3D transform on scroll
-              ├── SlideshowEngine        — project image carousel
-              ├── MobileMenuController   — drawer + keyboard support
-              ├── FormHandler            — mailto + honeypot validation
-              └── BrowserDetector        — Chrome recommendation toast
-```
-
-**Performance profile:** < 100KB HTML, < 10KB JS, images lazy-loaded with WebP.
-
-### v2 — Component-Based (Planned)
-
-As the site grows toward a CMS-driven studio platform, the architecture evolves:
-
-```
-src/
-├── components/
-│   ├── Hero/
-│   ├── Services/
-│   ├── Projects/
-│   └── Contact/
-├── styles/
-│   └── tokens.css
-├── scripts/
-│   ├── animations.js
-│   ├── slideshow.js
-│   └── form.js
-└── build.js            # concat + minify, no bundler needed
-```
-
----
-
-## Engineering Decisions
-
-| Decision | Rationale |
-|----------|-----------|
-| **No React / Vue / Svelte** | Content-driven site — framework overhead outweighs benefits |
-| **Tailwind via CDN** | Zero build toolchain; tradeoff: 100KB CDN vs 0-second setup |
-| **`mailto:` contact form** | Privacy-first: no backend attack surface, no CORS, works offline |
-| **WebP image format** | 60–80% smaller than equivalent PNG/JPG |
-| **Inline critical CSS** | Eliminates render-blocking stylesheets, guarantees 0 FOUC |
-| **`requestAnimationFrame` card flip** | Smooth 60fps; CSS `scroll-driven` has limited browser support |
-| **Honeypot spam protection** | Zero friction for real users, no CAPTCHA, stops naive bots |
-| **Bilingual copy** | Targets both global (EN) and local (ID) markets simultaneously |
-
----
-
-## Roadmap
-
-### Phase 1 — Foundation ✅ Complete
-- [x] Production splash screen with failsafe
-- [x] Full SEO (Open Graph, Twitter Cards, canonical)
-- [x] Accessibility (ARIA, keyboard nav, reduced-motion)
-- [x] Mobile-responsive layout
-- [x] Browser compatibility detection
-- [x] Honeypot spam protection
-
-### Phase 2 — Performance
-- [ ] Self-host fonts (remove Google Fonts dependency)
-- [ ] Convert PNG assets to WebP
-- [ ] Add Service Worker for offline support
-- [ ] Hit 100/100 Lighthouse across all categories
-
-### Phase 3 — Product Evolution
-- [ ] Dark mode with `localStorage` persistence
-- [ ] CMS integration (Notion API or Contentlayer)
-- [ ] Privacy-first analytics (Plausible)
-- [ ] Expanded case studies / blog
-
-### Phase 4 — SaaS Features
-- [ ] AI-powered project brief generator (Claude API)
-- [ ] Interactive pricing calculator
-- [ ] Booking system (Cal.com embed)
-- [ ] Client portal with protected content
-- [ ] Multi-language auto-detection (`navigator.language`)
+Open `http://localhost:5173`.
 
 ---
 
 ## Deployment
 
-### Recommended: Vercel (30-second deploy)
+### Vercel (Primary — auto-deploy on push)
 
-```bash
-npm i -g vercel
-vercel --prod
-```
+1. Go to [vercel.com](https://vercel.com) → **Add New Project**
+2. Import `legacyasphere-id/Legacya-Portofolio` from GitHub
+3. Build command: `npm run build` · Output directory: `dist`
+4. Deploy — every push to `main` auto-deploys in ~30s
 
-Then in the Vercel dashboard: **Settings → Domains → Add** `legacyasphere.com`.
+### GitHub Pages (Mirror — auto-deploy via Actions)
 
-### Cloudflare Pages (Maximum CDN performance)
+Configured in `.github/workflows/deploy.yml`. Triggers on every push to `main`:
+1. Validates source files
+2. Runs `npm ci && npm run build`
+3. Uploads `dist/` as Pages artifact and deploys
 
-```bash
-npx wrangler pages deploy . --project-name legacya-sphere
-```
-
-Or connect the GitHub repo in the Cloudflare dashboard — build command: *(none)*, output directory: `/`.
-
-### Netlify
-
-```bash
-# Drag-and-drop the project folder at app.netlify.com/drop
-# Or via CLI:
-npx netlify-cli deploy --prod --dir .
-```
-
-### GitHub Pages (Mirror / Backup)
-
-Enable in **Settings → Pages → Deploy from branch → `main` → `/ (root)`**.
-
-### Platform Comparison
-
-| Platform | Speed | Free Domain | Analytics | Best For |
-|----------|-------|-------------|-----------|----------|
-| **Vercel** | ⚡ Fast | ✅ | ✅ Built-in | Primary — easiest setup |
-| **Cloudflare Pages** | ⚡⚡ Global | ✅ | ✅ | Maximum performance |
-| **Netlify** | ⚡ Fast | ✅ | ✅ | Forms & serverless |
-| **GitHub Pages** | Standard | ✅ | ❌ | Mirror/backup only |
-
-> Deploy to Vercel or Cloudflare Pages first. A live link in every job application is 10× more effective than a GitHub repo URL alone.
+| Environment | URL |
+|-------------|-----|
+| **Production (Vercel)** | [legacya-portofolio.vercel.app](https://legacya-portofolio.vercel.app) |
+| **Mirror (GitHub Pages)** | [legacyasphere-id.github.io/Legacya-Portofolio](https://legacyasphere-id.github.io/Legacya-Portofolio/) |
 
 ---
 
-## Performance Targets
+## Verified Credentials
 
-| Metric | Target | Strategy |
-|--------|--------|----------|
-| Performance | 90+ | WebP + lazy loading + no render-blocking JS |
-| Accessibility | 95+ | ARIA labels + semantic HTML |
-| Best Practices | 95+ | HTTPS + no console errors |
-| SEO | 100 | Complete meta tag coverage |
+| Credential | Issuer | Date |
+|------------|--------|------|
+| Claude 101 | Anthropic | May 2026 |
+| Claude Code 101 | Anthropic | 2026 |
+
+Certificates are displayed in the **System Evolution** section of the live site.
 
 ---
 
 ## Author
 
-<br />
-
 **Yoga Pratama Effendi**
-Founder · Legacya Sphere
-Bekasi, West Java, Indonesia
+Founder · Legacya Sphere · Bekasi, Indonesia · GMT+7
 
-*AI-native fullstack developer. Anthropic Claude 101 certified. Building refined digital products for thoughtful brands.*
+*AI-Native Founder. Building operational software systems with Claude as co-engineer at every stage.*
 
-[![Website](https://img.shields.io/badge/Website-legacyasphere.com-B8956A?style=flat-square)](https://legacyasphere.com)
+[![Live Site](https://img.shields.io/badge/Site-legacya--portofolio.vercel.app-B8956A?style=flat-square)](https://legacya-portofolio.vercel.app)
 [![GitHub](https://img.shields.io/badge/GitHub-legacyasphere--id-181717?style=flat-square&logo=github)](https://github.com/legacyasphere-id)
-[![Email](https://img.shields.io/badge/Contact-hello%40legacyasphere.com-EA4335?style=flat-square&logo=gmail&logoColor=white)](mailto:hello@legacyasphere.com)
+[![Email](https://img.shields.io/badge/Email-legacyasphere%40gmail.com-EA4335?style=flat-square&logo=gmail&logoColor=white)](mailto:legacyasphere@gmail.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Yoga_Pratama_Effendi-0A66C2?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/yoga-pratamaeffendi-59b376245)
 
 ---
 
@@ -394,8 +277,8 @@ Bekasi, West Java, Indonesia
 
 <div align="center">
 
-*Quality over volume. Craft over speed.*
+*Built with Claude. Shipped as a system.*
 
-**[View Live Site](https://legacyasphere.com) · [Report a Bug](https://github.com/legacyasphere-id/Legacya-Portofolio/issues/new?template=bug_report.yml) · [Request a Feature](https://github.com/legacyasphere-id/Legacya-Portofolio/issues/new?template=feature_request.yml)**
+**[View Live Site](https://legacya-portofolio.vercel.app) · [GitHub Pages Mirror](https://legacyasphere-id.github.io/Legacya-Portofolio/)**
 
 </div>
