@@ -15,6 +15,8 @@ export const projects: Project[] = [
         'Mapped data flows first: products → movements → aggregated stock state. Defined role boundaries (admin vs staff) at the schema level before writing UI. PostgreSQL constraints were designed to prevent concurrent update race conditions before the frontend existed.',
       aiRole:
         'Claude designed the PostgreSQL schema, reviewed RLS policies for security gaps, and architectured the React Query + Zustand state split. Used as a code review layer on every PR before merge.',
+      architecture:
+        'products → inventory_movements → aggregated stock state. RLS policies per role (admin / staff). React Query for server state, Zustand for ephemeral UI state. PostgreSQL transactions + constraints prevent concurrent SKU update races.',
       technicalExecution:
         'Supabase RLS enforces role-based access at the database layer. React Query manages server state with optimistic updates. Zustand handles ephemeral UI state. PostgreSQL transactions prevent race conditions when multiple staff update the same SKU simultaneously.',
       outcome:
@@ -50,6 +52,8 @@ export const projects: Project[] = [
         'Decomposed restaurant ops into 3 core subsystems: order intake (cashier), production (kitchen display), and analytics (revenue/menu intelligence). Designed the data model for each before building any screen.',
       aiRole:
         'Claude helped design the component hierarchy for the 9-screen system and reviewed the recharts data transformation layer to ensure accurate revenue aggregations.',
+      architecture:
+        '3 subsystems: order intake (cashier) → production queue (kitchen display) → analytics layer (revenue / menu intelligence). Shared order state flows top-down; analytics reads from a derived aggregation layer.',
       technicalExecution:
         'React frontend with Recharts for analytics. AI-powered insights embedded across screens. Kitchen display system with live order tickets. Menu intelligence layer for item-level analytics.',
       outcome:
@@ -84,6 +88,8 @@ export const projects: Project[] = [
         'Identified the minimum viable data set: revenue trend, task queue, project status, AI assistant. Designed localStorage-based state to keep it zero-backend and instantly deployable.',
       aiRole:
         'Claude reviewed the SVG chart architecture and helped design the localStorage state schema for persistence without a backend dependency.',
+      architecture:
+        'Single-module state object in localStorage. SVG charts drawn directly from state — no library. Component boundaries: KPI panel, task queue, project tracker, AI assistant each own a slice of state.',
       technicalExecution:
         'Pure Tailwind CSS + Vanilla JS with SVG charts rendered inline. localStorage state management. Zero dependencies, zero backend. Deployed as a static site.',
       outcome:
@@ -118,6 +124,8 @@ export const projects: Project[] = [
         'The core problem was friction between product discovery and order placement. Designed a guided catalog flow that mirrors physical browsing and routes completed orders to WhatsApp — matching the brand\'s existing communication channel.',
       aiRole:
         'Claude helped structure the bilingual copy and reviewed the WhatsApp order integration flow for UX clarity.',
+      architecture:
+        'Linear catalog funnel: category browse → product detail → order form → WhatsApp deep-link with pre-filled order data. No backend — order state is passed entirely through URL parameters.',
       technicalExecution:
         'Semantic HTML5 + Vanilla JS static site. WhatsApp order integration with pre-filled message templates. Bilingual (EN/ID) brand storytelling. Deployed as static site for zero server costs.',
       outcome:

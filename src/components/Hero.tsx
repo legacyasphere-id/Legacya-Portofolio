@@ -4,9 +4,16 @@ interface HeroProps {
   profile: Profile
 }
 
+const systemMetrics = [
+  { value: '4', label: 'Systems Shipped' },
+  { value: '2', label: 'Active Builds' },
+  { value: '9+', label: 'Production Screens' },
+  { value: 'AI', label: 'Co-Engineer' },
+]
+
 export function Hero({ profile }: HeroProps) {
   return (
-    <div className="relative pt-32 pb-24 sm:pt-40 sm:pb-32 px-5 sm:px-8 max-w-7xl mx-auto">
+    <div className="relative pt-32 pb-20 sm:pt-40 sm:pb-28 px-5 sm:px-8 max-w-7xl mx-auto">
       {/* Grid overlay */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -73,24 +80,21 @@ export function Hero({ profile }: HeroProps) {
         </a>
       </div>
 
-      {/* Core stack marquee */}
-      <div className="mt-20 border-t border-b border-border py-3 overflow-hidden">
-        <div className="flex gap-8 font-mono text-[11px] text-dim whitespace-nowrap" style={{ animation: 'marquee 28s linear infinite' }}>
-          {[...profile.coreStack, ...profile.aiTools, ...profile.coreStack, ...profile.aiTools].map((item, i) => (
-            <span key={i} className="flex items-center gap-2">
-              {item}
-              <span className="text-cyan/40">·</span>
-            </span>
+      {/* System metrics bar — replaces CV-like marquee */}
+      <div className="mt-16 border-t border-b border-border py-4">
+        <div className="flex flex-wrap items-center gap-0 divide-x divide-border">
+          {systemMetrics.map((m) => (
+            <div key={m.label} className="flex items-baseline gap-2 px-6 first:pl-0 last:pr-0">
+              <span className="font-mono text-[22px] font-semibold text-cyan leading-none">{m.value}</span>
+              <span className="font-mono text-[10px] uppercase tracking-wider text-dim">{m.label}</span>
+            </div>
           ))}
+          <div className="flex items-center gap-2 px-6 ml-auto">
+            <span className="status-dot-green animate-pulse" />
+            <span className="font-mono text-[10px] uppercase tracking-wider text-green">System Online</span>
+          </div>
         </div>
       </div>
-
-      <style>{`
-        @keyframes marquee {
-          from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
-        }
-      `}</style>
     </div>
   )
 }

@@ -16,6 +16,7 @@ export interface CaseStudy {
   problem: string
   thinkingProcess: string
   aiRole: string
+  architecture: string
   technicalExecution: string
   outcome: string
 }

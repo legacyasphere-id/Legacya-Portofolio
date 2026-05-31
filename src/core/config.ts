@@ -6,8 +6,8 @@ export const siteConfig = {
   nav: [
     { label: 'Founder OS', href: '#founder-os' },
     { label: 'OS Status', href: '#os-status' },
-    { label: 'Projects', href: '#projects' },
-    { label: 'AI Flow', href: '#ai-flow' },
+    { label: 'Case Studies', href: '#projects' },
+    { label: 'Build Flow', href: '#ai-flow' },
     { label: 'Roadmap', href: '#roadmap' },
   ],
   social: {
