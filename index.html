@@ -15,8 +15,65 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+  <style>
+    #ls-splash {
+      position: fixed;
+      inset: 0;
+      background: #080810;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+      transition: opacity 0.5s ease;
+    }
+    #ls-splash.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    #ls-splash-ring {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #0e0e1a;
+      border: 1px solid #1e1e2e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: ls-pulse 1.6s ease-in-out infinite;
+      box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.15);
+    }
+    #ls-splash-ring img {
+      width: 46px;
+      height: 46px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+    #ls-splash-text {
+      margin-top: 18px;
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #8892a4;
+    }
+    @keyframes ls-pulse {
+      0%   { transform: scale(1);    box-shadow: 0 0 0 0   rgba(34,211,238,0.18); }
+      50%  { transform: scale(1.04); box-shadow: 0 0 0 12px rgba(34,211,238,0);   }
+      100% { transform: scale(1);    box-shadow: 0 0 0 0   rgba(34,211,238,0);    }
+    }
+  </style>
   </head>
   <body>
+    <!-- Splash screen — replaced by React on first render -->
+    <div id="ls-splash" aria-hidden="true">
+      <div id="ls-splash-ring">
+        <img src="img-15.webp" alt="" />
+      </div>
+      <p id="ls-splash-text">Legacya Sphere</p>
+    </div>
+
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
