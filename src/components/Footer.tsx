@@ -1,5 +1,6 @@
 import { profile } from '../data/profile'
 import { siteConfig } from '../core/config'
+import { identity } from '../core/identity'
 
 export function Footer() {
   return (
@@ -26,7 +27,7 @@ export function Footer() {
               <img src={profile.logo} alt="" className="w-7 h-7 object-contain opacity-80" />
               <span className="font-mono text-[13px] font-medium text-text">Legacya Sphere</span>
             </div>
-            <p className="mt-4 text-[13px] leading-relaxed text-muted">AI-Native Fullstack Developer building operational software systems end-to-end.</p>
+            <p className="mt-4 text-[13px] leading-relaxed text-muted">{identity.description}</p>
             <p className="mt-2 text-[12px] text-dim italic">Developer operasional software berbasis AI.</p>
           </div>
 
