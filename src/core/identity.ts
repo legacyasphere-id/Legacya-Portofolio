@@ -5,7 +5,6 @@
 
 export const identity = {
   // ── Core identity ──────────────────────────────────────────────────────
-  role:        'AI-Native Builder & Product Engineer',
   title:       'AI-Native Builder & Product Engineer',
   tagline:     'System-first. AI-native. Every stage co-engineered.',
   description: 'Operational software systems built AI-native — from architecture to deployment, with Claude as co-engineer at every stage.',
@@ -53,7 +52,7 @@ export const identity = {
     problem:           'system-level — what process or data flow was broken at scale',
     thinkingProcess:   'AI-assisted reasoning — how the system was deconstructed before coding',
     aiRole:            'co-engineer framing — Claude as architecture + review partner, not a shortcut',
-    architecture:      'data flow first — entities, roles, boundaries, then tech choices',
+    architectureNote:  'data flow first — entities, roles, boundaries, then tech choices',
     technicalExecution:'implementation precision — RLS, state management, schema constraints',
     outcome:           'impact / operational result — what changed for the user or team',
   },

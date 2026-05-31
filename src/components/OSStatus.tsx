@@ -1,20 +1,20 @@
-import type { OSSnapshot } from '../types/os'
+import type { OSSnapshot, StatusItem, ActivityItem } from '../types/os'
 
 interface OSStatusProps {
   snapshot: OSSnapshot
 }
 
-const statusColors: Record<string, string> = {
+const statusColors: Record<StatusItem['status'], string> = {
   active: 'text-green border-green/20 bg-green/5',
   paused: 'text-purple border-purple/20 bg-purple/5',
-  done: 'text-dim border-border bg-raised',
+  done:   'text-dim border-border bg-raised',
 }
 
-const activityColors: Record<string, string> = {
-  building: 'text-cyan border-cyan/20 bg-cyan/5',
-  deployed: 'text-green border-green/20 bg-green/5',
+const activityColors: Record<ActivityItem['status'], string> = {
+  building:  'text-cyan border-cyan/20 bg-cyan/5',
+  deployed:  'text-green border-green/20 bg-green/5',
   iterating: 'text-purple border-purple/20 bg-purple/5',
-  planning: 'text-muted border-border bg-raised',
+  planning:  'text-muted border-border bg-raised',
 }
 
 export function OSStatus({ snapshot }: OSStatusProps) {

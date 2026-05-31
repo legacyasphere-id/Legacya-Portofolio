@@ -1,20 +1,23 @@
 const flowNodes = [
   {
     id: 'idea',
+    icon: '◈',
     label: 'Idea',
     sublabel: 'Problem space defined',
     color: 'border-purple/40 bg-purple/5 text-purple',
     iconBg: 'bg-purple/10',
   },
   {
-    id: 'architecture',
+    id: 'ai-architecture',
+    icon: '⬡',
     label: 'AI Architecture',
     sublabel: 'Schema + API design',
     color: 'border-cyan/40 bg-cyan/5 text-cyan',
     iconBg: 'bg-cyan/10',
   },
   {
-    id: 'coding',
+    id: 'ai-coding',
+    icon: '</>',
     label: 'AI Coding',
     sublabel: 'Claude Code + review',
     color: 'border-cyan/40 bg-cyan/5 text-cyan',
@@ -22,6 +25,7 @@ const flowNodes = [
   },
   {
     id: 'deployment',
+    icon: '↑',
     label: 'Deployment',
     sublabel: 'Vercel + Supabase',
     color: 'border-green/40 bg-green/5 text-green',
@@ -29,20 +33,13 @@ const flowNodes = [
   },
   {
     id: 'feedback',
+    icon: '⟳',
     label: 'Feedback Loop',
     sublabel: 'Iterate with data',
     color: 'border-purple/40 bg-purple/5 text-purple',
     iconBg: 'bg-purple/10',
   },
 ]
-
-const nodeIcons: Record<string, string> = {
-  idea: '◈',
-  architecture: '⬡',
-  coding: '</>',
-  deployment: '↑',
-  feedback: '⟳',
-}
 
 export function AIFlow() {
   return (
@@ -55,7 +52,7 @@ export function AIFlow() {
             <div key={node.id} className="flex items-center flex-1">
               <div className={`flex-1 rounded-xl border p-5 ${node.color} relative`}>
                 <div className={`w-8 h-8 rounded-lg ${node.iconBg} flex items-center justify-center font-mono text-sm mb-3`}>
-                  {nodeIcons[node.id]}
+                  {node.icon}
                 </div>
                 <div className="text-[14px] font-semibold text-text">{node.label}</div>
                 <div className="text-[11px] mt-1 opacity-70">{node.sublabel}</div>
@@ -77,7 +74,7 @@ export function AIFlow() {
             <div key={node.id} className="flex gap-4">
               <div className="flex flex-col items-center">
                 <div className={`w-8 h-8 rounded-lg ${node.iconBg} flex items-center justify-center font-mono text-sm flex-shrink-0 border ${node.color}`}>
-                  {nodeIcons[node.id]}
+                  {node.icon}
                 </div>
                 {idx < flowNodes.length - 1 && (
                   <div className="w-px flex-1 my-1 bg-border" style={{ minHeight: 24 }} />

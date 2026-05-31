@@ -6,7 +6,7 @@ export interface Project {
   status: 'live' | 'in-progress' | 'archived'
   featured: boolean
   caseStudy: CaseStudy
-  architecture: ProjectArchitecture
+  techStack: ProjectTechStack
   stack: string[]
   links: ProjectLinks
   screenshots: Screenshot[]
@@ -16,12 +16,12 @@ export interface CaseStudy {
   problem: string
   thinkingProcess: string
   aiRole: string
-  architecture: string
+  architectureNote: string
   technicalExecution: string
   outcome: string
 }
 
-export interface ProjectArchitecture {
+export interface ProjectTechStack {
   frontend?: string
   backend?: string
   database?: string

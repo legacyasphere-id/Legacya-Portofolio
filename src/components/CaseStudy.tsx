@@ -22,7 +22,7 @@ const breakdownSteps = (cs: Project['caseStudy']) =>
     { key: 'problem',            label: 'Problem',           color: 'text-red-400',  accent: 'border-red-400/30' },
     { key: 'thinkingProcess',    label: 'Thinking Process',  color: 'text-purple',   accent: 'border-purple/30'  },
     { key: 'aiRole',             label: 'AI Role',           color: 'text-cyan',     accent: 'border-cyan/30'    },
-    { key: 'architecture',       label: 'Architecture',      color: 'text-cyan',     accent: 'border-cyan/20'    },
+    { key: 'architectureNote',   label: 'Architecture',      color: 'text-cyan',     accent: 'border-cyan/20'    },
     { key: 'technicalExecution', label: 'Execution',         color: 'text-text',     accent: 'border-border'     },
     { key: 'outcome',            label: 'Outcome',           color: 'text-green',    accent: 'border-green/30'   },
   ].map(s => ({ ...s, content: cs[s.key as keyof typeof cs] as string }))
@@ -97,11 +97,11 @@ export function CaseStudy({ project, variant = 'grid' }: CaseStudyProps) {
             </div>
 
             {/* Architecture table */}
-            {Object.keys(project.architecture).length > 0 && (
+            {Object.keys(project.techStack).length > 0 && (
               <div className="border-t border-border pt-4">
                 <div className="font-mono text-[9px] uppercase tracking-wider text-dim mb-3">Tech Stack</div>
                 <div className="grid grid-cols-3 gap-2">
-                  {Object.entries(project.architecture).map(([key, val]) => (
+                  {Object.entries(project.techStack).map(([key, val]) => (
                     <div key={key} className="card-base p-2.5">
                       <div className="font-mono text-[9px] text-cyan mb-1 capitalize">{key}</div>
                       <div className="text-[11px] text-muted leading-tight">{val}</div>
@@ -187,11 +187,11 @@ export function CaseStudy({ project, variant = 'grid' }: CaseStudyProps) {
                     <p className="text-[12px] text-muted leading-relaxed">{step.content}</p>
                   </div>
                 ))}
-                {Object.keys(project.architecture).length > 0 && (
+                {Object.keys(project.techStack).length > 0 && (
                   <div className="border-t border-border pt-3">
                     <div className="font-mono text-[9px] uppercase tracking-wider text-dim mb-2">Tech Stack</div>
                     <div className="grid grid-cols-2 gap-1.5">
-                      {Object.entries(project.architecture).map(([key, val]) => (
+                      {Object.entries(project.techStack).map(([key, val]) => (
                         <div key={key} className="card-base p-2">
                           <div className="font-mono text-[9px] text-cyan mb-0.5 capitalize">{key}</div>
                           <div className="text-[10px] text-muted leading-tight">{val}</div>

@@ -40,7 +40,7 @@ export const founderOS: FounderOSConfig = {
   snapshot: {
     currentFocus: [
       { label: 'InventoryOS v2',        detail: 'Multi-tenant backend with Supabase RLS',  status: 'active' },
-      { label: 'Founder OS Portfolio',  detail: `${identity.role} · React + TypeScript`,   status: 'active' },
+      { label: 'Founder OS Portfolio',  detail: `${identity.title} · React + TypeScript`,  status: 'active' },
     ],
     activeLearning: [
       { label: 'TypeScript Strict Mode',  detail: 'Types as AI communication layer',        status: 'active' },
