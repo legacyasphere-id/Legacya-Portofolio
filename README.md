@@ -29,30 +29,25 @@
 
 ## What Is This?
 
-**Legacya Sphere Portfolio v2** is an AI-Native Founder OS — a production-grade React application that frames identity as an operating system, not a CV. Built entirely with Claude as co-engineer across architecture, implementation, and deployment.
+**Legacya Sphere Portfolio v2** is a production-grade React application that frames identity as an operating system, not a CV. Built entirely with Claude as co-engineer across architecture, implementation, and deployment.
 
 > *"I don't build features. I build systems. AI is my co-engineer."*
 
-This is a **complete rewrite** of the original v1 single-file HTML portfolio. Every UI section, data layer, and deployment pipeline was designed and shipped using Claude Code as the primary engineering partner.
+This is a complete rewrite of the original v1 single-file HTML portfolio. Every UI section, data layer, and deployment pipeline was designed and shipped using Claude Code as the primary engineering partner.
 
 ---
 
 ## Tech Stack
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                  LEGACYA SPHERE — FOUNDER OS v2                 │
-│                                                                 │
-│  Framework     React 18 (StrictMode, concurrent)               │
-│  Language      TypeScript 5 (strict mode, noUnusedLocals)       │
-│  Build         Vite 5 (ESM, tree-shaking, content hashing)      │
-│  Styling       Tailwind CSS v3 (custom warm palette tokens)     │
-│  Typography    Fraunces · Inter · JetBrains Mono                │
-│                Playfair Display                                 │
-│  Images        WebP + JPG (lazy-loaded, base-URL safe)          │
-│  Deployment    Vercel (primary) · GitHub Pages (mirror)         │
-└─────────────────────────────────────────────────────────────────┘
-```
+| Layer | Technology |
+|-------|------------|
+| Framework | React 18 (StrictMode, concurrent) |
+| Language | TypeScript 5 (strict, noUnusedLocals) |
+| Build | Vite 5 (ESM, tree-shaking, content hashing) |
+| Styling | Tailwind CSS v3 (custom warm palette tokens) |
+| Typography | Fraunces · Inter · JetBrains Mono · Playfair Display |
+| Images | WebP + JPG (lazy-loaded, BASE_URL-safe) |
+| Deployment | Vercel (primary) · GitHub Pages (mirror) |
 
 ---
 
@@ -77,16 +72,16 @@ Warm cream/gold palette — a deliberate departure from standard neon-on-dark de
 
 ## Page Sections
 
-| # | Section | ID | Description |
-|---|---------|-----|-------------|
-| — | **Nav** | `#hero` | Sticky warm-cream navigation with GitHub + CTA |
-| 1 | **Hero** | `#hero` | Identity badges, headline, metrics bar |
-| 2 | **Founder OS** | `#founder-os` | 4 operating principles + 4-stage workflow pipeline |
-| 3 | **Case Studies** | `#projects` | Featured project + 3-column grid, expandable breakdowns |
-| 4 | **AI Flow** | `#flow` | Build pipeline diagram: Idea → Architecture → Code → Deploy |
-| 5 | **Evolution** | `#roadmap` | Live learning tracks + Verified Credentials |
-| 6 | **Contact** | `#contact` | Mailto-based inquiry form with honeypot protection |
-| — | **Footer** | — | Wordmark, nav columns, availability status |
+| # | Section | Description |
+|---|---------|-------------|
+| — | **Nav** | Sticky warm-cream navigation with GitHub + CTA |
+| 1 | **Hero** | Identity badges, headline, metrics bar |
+| 2 | **Founder OS** | 4 operating principles + 4-stage workflow pipeline |
+| 3 | **Case Studies** | Featured project + 3-column grid with expandable breakdowns |
+| 4 | **AI Flow** | Build pipeline: Idea → Architecture → Code → Deploy |
+| 5 | **Evolution** | Live learning tracks + Verified Credentials |
+| 6 | **Contact** | Mailto-based inquiry form with honeypot protection |
+| — | **Footer** | Wordmark, nav columns, availability status |
 
 ---
 
@@ -96,7 +91,6 @@ Warm cream/gold palette — a deliberate departure from standard neon-on-dark de
 Legacya-Portofolio/
 ├── public/                     # Static assets (images, certificates)
 │   ├── img-04.webp             # Founder portrait
-│   ├── img-05.webp             # Claude 101 certificate preview
 │   ├── img-15.webp             # Legacya Sphere logo
 │   ├── img-16/17/18.webp       # InventoryOS screenshots
 │   ├── img-06/07/08.webp       # Legacya POS UI screenshots
@@ -108,7 +102,7 @@ Legacya-Portofolio/
 │   ├── core/                   # Site-wide constants
 │   │   ├── config.ts           # Nav links, site metadata
 │   │   ├── founder-os.ts       # Principles + workflow data
-│   │   ├── identity.ts         # Single source of truth for all identity copy
+│   │   ├── identity.ts         # Single source of truth for all copy
 │   │   └── principles.ts       # Operating principles definitions
 │   │
 │   ├── data/                   # Page data (no hardcoded UI content)
@@ -118,41 +112,20 @@ Legacya-Portofolio/
 │   │   └── stack.ts            # Tech stack grouped by category
 │   │
 │   ├── types/                  # TypeScript interfaces
-│   │   ├── profile.ts
-│   │   ├── project.ts
-│   │   ├── os.ts
-│   │   └── roadmap.ts
-│   │
 │   ├── utils/
 │   │   └── asset.ts            # BASE_URL-aware image path helper
-│   │
 │   ├── components/             # Reusable UI units
-│   │   ├── Hero.tsx            # Headline + badges + metrics bar
-│   │   ├── OSStatus.tsx        # Live dashboard panel
-│   │   ├── FounderOS.tsx       # Principles grid + workflow pipeline
-│   │   ├── CaseStudy.tsx       # Expandable case study card
-│   │   ├── AIFlow.tsx          # Build pipeline diagram
-│   │   ├── Roadmap.tsx         # Learning loop with status badges
-│   │   └── Footer.tsx          # Wordmark + nav columns
-│   │
 │   ├── sections/               # Page-level compositions
-│   │   ├── HeroSection.tsx     # Sticky nav + Hero
-│   │   ├── OSSection.tsx       # Founder OS section
-│   │   ├── ProjectsSection.tsx # Featured + grid projects
-│   │   ├── FlowSection.tsx     # AI pipeline diagram
-│   │   ├── RoadmapSection.tsx  # Roadmap + Credentials
-│   │   └── ContactSection.tsx  # Contact form
-│   │
-│   ├── App.tsx                 # Root — composes all sections, removes splash
-│   ├── main.tsx                # React 18 createRoot entry point
+│   ├── App.tsx                 # Root — composes all sections
+│   ├── main.tsx                # React 18 createRoot entry
 │   └── index.css               # Tailwind directives + base styles
 │
-├── index.html                  # Vite entry — splash screen, fonts, fallback
-├── vite.config.ts              # base path: '/' (Vercel) / '/Legacya-Portofolio/' (Pages)
+├── index.html                  # Vite entry — splash screen, fonts
+├── vite.config.ts              # base: '/' (Vercel) / '/Legacya-Portofolio/' (Pages)
 ├── tailwind.config.js          # Warm palette tokens + font families
-├── vercel.json                 # SPA rewrites for client-side routing
+├── vercel.json                 # SPA rewrites
 └── .github/workflows/
-    └── deploy.yml              # Validate + build + deploy to GitHub Pages
+    └── deploy.yml              # Validate → build → deploy to GitHub Pages
 ```
 
 ---
@@ -161,15 +134,14 @@ Legacya-Portofolio/
 
 ### Asset Path Utility
 
-Images are served from `public/` and referenced via `src/utils/asset.ts`:
+Images in `public/` are referenced through `src/utils/asset.ts` so paths work on both Vercel and GitHub Pages:
 
 ```typescript
-// Prepends BASE_URL so paths work on both Vercel (/) and GitHub Pages (/Legacya-Portofolio/)
 export const asset = (path: string): string =>
   `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
 ```
 
-Usage: `asset('img-04.webp')` → `/img-04.webp` on Vercel, `/Legacya-Portofolio/img-04.webp` on GitHub Pages.
+`asset('img-04.webp')` → `/img-04.webp` on Vercel, `/Legacya-Portofolio/img-04.webp` on GitHub Pages.
 
 ### Dual-Target Base URL
 
@@ -178,17 +150,17 @@ Usage: `asset('img-04.webp')` → `/img-04.webp` on Vercel, `/Legacya-Portofolio
 base: process.env.VERCEL ? '/' : '/Legacya-Portofolio/',
 ```
 
-Vercel sets `VERCEL=1` automatically during builds. GitHub Actions does not — so both deploys get the correct asset prefix without extra config.
+Vercel sets `VERCEL=1` automatically. GitHub Actions does not — so both deploy targets get the correct prefix without extra config.
 
 ### Splash Screen
 
-`index.html` contains an inline CSS splash that shows immediately (before JS loads). React removes it via `useEffect` on first render. A 30-second fallback clears it if JS fails to load — guarded by `window.__spl` so it's a no-op on successful loads:
+`index.html` renders an inline CSS splash before JS loads. React removes it via `useEffect` on first render. A 30-second fallback clears it if JS never loads:
 
 ```html
 <script>
   window.__spl = false;
   setTimeout(function() {
-    if (window.__spl) return; // React already mounted — skip
+    if (window.__spl) return;
     var s = document.getElementById('ls-splash');
     if (s) { s.style.opacity = '0'; setTimeout(() => s.remove(), 520); }
   }, 30000);
@@ -223,24 +195,24 @@ Open `http://localhost:5173`.
 
 ## Deployment
 
-### Vercel (Primary — auto-deploy on push)
+### Vercel (Primary — auto-deploy on push to `main`)
 
 1. Go to [vercel.com](https://vercel.com) → **Add New Project**
-2. Import `legacyasphere-id/Legacya-Portofolio` from GitHub
+2. Import `legacyasphere-id/Legacya-Portofolio`
 3. Build command: `npm run build` · Output directory: `dist`
-4. Deploy — every push to `main` auto-deploys in ~30s
+4. Every push to `main` deploys in ~30s
 
 ### GitHub Pages (Mirror — auto-deploy via Actions)
 
 Configured in `.github/workflows/deploy.yml`. Triggers on every push to `main`:
 1. Validates source files
 2. Runs `npm ci && npm run build`
-3. Uploads `dist/` as Pages artifact and deploys
+3. Deploys `dist/` as a Pages artifact
 
 | Environment | URL |
 |-------------|-----|
-| **Production (Vercel)** | [legacya-portofolio.vercel.app](https://legacya-portofolio.vercel.app) |
-| **Mirror (GitHub Pages)** | [legacyasphere-id.github.io/Legacya-Portofolio](https://legacyasphere-id.github.io/Legacya-Portofolio/) |
+| **Vercel (primary)** | [legacya-portofolio.vercel.app](https://legacya-portofolio.vercel.app) |
+| **GitHub Pages (mirror)** | [legacyasphere-id.github.io/Legacya-Portofolio](https://legacyasphere-id.github.io/Legacya-Portofolio/) |
 
 ---
 
@@ -257,7 +229,7 @@ Certificates are displayed in the **System Evolution** section of the live site.
 
 ## Author
 
-**Yoga Pratama Effendi**
+**Yoga Pratama Effendi**  
 Founder · Legacya Sphere · Bekasi, Indonesia · GMT+7
 
 *AI-Native Founder. Building operational software systems with Claude as co-engineer at every stage.*
