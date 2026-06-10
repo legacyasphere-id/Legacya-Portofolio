@@ -10,6 +10,7 @@
   html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
     scrollbar-color: #D6CDB9 #F7F4ED;
     scrollbar-width: thin;
   }

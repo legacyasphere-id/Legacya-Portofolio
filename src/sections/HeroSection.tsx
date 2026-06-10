@@ -1,6 +1,6 @@
 export function HeroSection() {
   return (
-    <section className="grad-hero relative flex min-h-screen flex-col items-start justify-center px-5 pb-20 pt-32 md:px-[6vw]">
+    <section className="grad-hero relative flex min-h-screen flex-col items-start justify-center overflow-hidden px-5 pb-20 pt-32 md:px-[6vw]">
       <div
         className="pointer-events-none absolute right-[clamp(-120px,2vw,80px)] top-1/2 aspect-square w-[min(46vw,560px)] -translate-y-1/2 opacity-90 max-md:right-[-30vw] max-md:w-[80vw] max-md:opacity-40"
         aria-hidden="true"
