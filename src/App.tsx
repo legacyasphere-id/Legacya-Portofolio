@@ -1,11 +1,12 @@
 import { useEffect } from 'react'
+import { SiteNav } from './components/SiteNav'
 import { HeroSection } from './sections/HeroSection'
-import { OSSection } from './sections/OSSection'
-import { ProjectsSection } from './sections/ProjectsSection'
-import { FlowSection } from './sections/FlowSection'
-import { RoadmapSection } from './sections/RoadmapSection'
-import { ContactSection } from './sections/ContactSection'
+import { WorkSection } from './sections/WorkSection'
+import { ServicesSection } from './sections/ServicesSection'
+import { StudioSection } from './sections/StudioSection'
+import { CTASection } from './sections/CTASection'
 import { Footer } from './components/Footer'
+import { useScrollReveal } from './hooks/useScrollReveal'
 
 export default function App() {
   useEffect(() => {
@@ -18,14 +19,18 @@ export default function App() {
     return () => clearTimeout(t)
   }, [])
 
+  useScrollReveal()
+
   return (
-    <div className="min-h-screen bg-bg">
-      <HeroSection />
-      <OSSection />
-      <ProjectsSection />
-      <FlowSection />
-      <RoadmapSection />
-      <ContactSection />
+    <div id="top" className="min-h-screen bg-bg">
+      <SiteNav />
+      <main>
+        <HeroSection />
+        <WorkSection />
+        <ServicesSection />
+        <StudioSection />
+        <CTASection />
+      </main>
       <Footer />
     </div>
   )
