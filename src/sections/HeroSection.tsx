@@ -1,56 +1,56 @@
+import { SystemDiagram } from '../components/SystemDiagram'
+
 export function HeroSection() {
   return (
-    <section className="grad-hero relative flex min-h-screen flex-col items-start justify-center px-5 pb-20 pt-32 md:px-[6vw]">
-      <div
-        className="pointer-events-none absolute right-[clamp(-120px,2vw,80px)] top-1/2 aspect-square w-[min(46vw,560px)] -translate-y-1/2 opacity-90 max-md:right-[-30vw] max-md:w-[80vw] max-md:opacity-40"
-        aria-hidden="true"
-      >
-        <div className="ring ring--1" />
-        <div className="ring ring--2" />
-        <div className="ring ring--3" />
-        <div className="sphere-core" />
-      </div>
+    <section className="grad-hero relative overflow-hidden px-5 pb-24 pt-32 md:px-10 md:pb-32 md:pt-40">
+      <div className="mx-auto grid max-w-[1180px] items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
+        {/* ── Left: copy ─────────────────────────────────────────────── */}
+        <div>
+          <p
+            className="mb-7 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-blue-deep"
+            data-animate
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-blue-deep" />
+            AI-Native Business Systems Studio
+          </p>
 
-      <p className="eyebrow mb-6" data-animate>
-        Legacya Sphere — Digital Systems Studio
-      </p>
+          <h1 className="max-w-[18ch] text-[clamp(2.3rem,5.4vw,4.1rem)] font-semibold leading-[1.07] tracking-[-0.03em]">
+            <span className="block" data-animate data-delay="100">
+              Building business
+            </span>
+            <span className="block" data-animate data-delay="200">
+              systems that{' '}
+              <span className="text-blue-accent">scale</span>
+            </span>
+            <span className="block" data-animate data-delay="300">
+              with your operations.
+            </span>
+          </h1>
 
-      <h1 className="max-w-[13ch] text-[clamp(2.4rem,7vw,5.4rem)] leading-[1.06]">
-        <span className="block" data-animate data-delay="100">
-          We design and build
-        </span>
-        <span className="block" data-animate data-delay="200">
-          <em className="font-soft-italic text-accent">digital systems</em> that make
-        </span>
-        <span className="block" data-animate data-delay="300">
-          brands work better.
-        </span>
-      </h1>
+          <p
+            className="mt-7 max-w-[52ch] text-[clamp(1rem,1.3vw,1.15rem)] leading-relaxed text-muted"
+            data-animate
+            data-delay="400"
+          >
+            Legacya Sphere helps companies transform manual operations into
+            scalable business systems — through custom platforms, operational
+            dashboards, automation workflows, and intelligent infrastructure.
+          </p>
 
-      <p
-        className="mt-7 max-w-[46ch] text-[clamp(1rem,1.4vw,1.125rem)] text-muted"
-        data-animate
-        data-delay="400"
-      >
-        Dashboards, e-commerce, and AI-assisted workflows — engineered for
-        businesses that want to move faster than their market.
-      </p>
+          <div className="mt-9 flex flex-wrap gap-3.5" data-animate data-delay="500">
+            <a href="#contact" className="btn-primary btn-lg">
+              Start a Project
+            </a>
+            <a href="#systems" className="btn-secondary btn-lg">
+              Explore Systems
+            </a>
+          </div>
+        </div>
 
-      <div className="mt-10 flex flex-wrap gap-4" data-animate data-delay="500">
-        <a href="#work" className="btn-solid">
-          See our work
-        </a>
-        <a href="#contact" className="btn-ghost">
-          Talk to us
-        </a>
-      </div>
-
-      <div
-        className="absolute bottom-8 left-5 flex items-center gap-3.5 font-mono text-[11px] uppercase tracking-[0.2em] text-muted md:left-[6vw]"
-        aria-hidden="true"
-      >
-        <span>Scroll to explore</span>
-        <div className="scrollline" />
+        {/* ── Right: systems visualization ───────────────────────────── */}
+        <div className="lg:pl-4">
+          <SystemDiagram />
+        </div>
       </div>
     </section>
   )

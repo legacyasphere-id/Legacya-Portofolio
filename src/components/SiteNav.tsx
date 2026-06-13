@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 
 const LINKS = [
-  { href: '#work', label: 'Work' },
-  { href: '#services', label: 'Services' },
-  { href: '#studio', label: 'Studio' },
+  { href: '#systems', label: 'Systems' },
+  { href: '#process', label: 'Solutions' },
+  { href: '#work', label: 'Case Studies' },
+  { href: '#os-status', label: 'OS Status' },
   { href: '#contact', label: 'Contact' },
 ]
 
@@ -12,7 +13,7 @@ export function SiteNav() {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50)
+    const onScroll = () => setScrolled(window.scrollY > 40)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -28,33 +29,38 @@ export function SiteNav() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-[100] flex items-center justify-between px-5 py-5 transition-all duration-300 md:px-12 ${
+        className={`fixed inset-x-0 top-0 z-[100] flex items-center justify-between px-5 py-4 transition-all duration-300 md:px-10 ${
           scrolled
-            ? 'bg-bg/85 shadow-[0_1px_0_#E6DFD0] backdrop-blur-xl'
-            : 'bg-transparent'
+            ? 'border-b border-border bg-bg/80 backdrop-blur-xl'
+            : 'border-b border-transparent bg-transparent'
         }`}
       >
-        <a href="#top" className="font-display text-xl text-text">
-          Legacya<span className="font-soft-italic text-accent">Sphere</span>
+        <a href="#top" className="flex items-center gap-2.5" aria-label="Legacya Sphere — home">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-surface text-[13px] font-semibold tracking-tight text-blue-deep">
+            LS
+          </span>
+          <span className="text-[15px] font-semibold tracking-tight text-text">
+            Legacya Sphere
+          </span>
         </a>
 
-        <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
-          {LINKS.slice(0, 3).map((l) => (
+        <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
+          {LINKS.map((l) => (
             <a key={l.href} href={l.href} className="nav-link">
               {l.label}
             </a>
           ))}
-          <a
-            href="#contact"
-            className="rounded-full border border-border px-[18px] py-2 text-[14px] text-text transition-colors duration-300 hover:border-accent"
-          >
-            Contact
-          </a>
         </nav>
+
+        <div className="hidden lg:block">
+          <a href="#contact" className="btn-primary">
+            Start a Project
+          </a>
+        </div>
 
         <button
           type="button"
-          className={`burger z-[101] flex flex-col gap-1.5 p-1.5 md:hidden ${open ? 'open' : ''}`}
+          className={`burger z-[101] flex flex-col gap-1.5 p-1.5 lg:hidden ${open ? 'open' : ''}`}
           aria-label="Toggle menu"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
@@ -65,7 +71,7 @@ export function SiteNav() {
       </header>
 
       <nav
-        className={`nav-overlay md:hidden ${open ? 'open' : ''}`}
+        className={`nav-overlay lg:hidden ${open ? 'open' : ''}`}
         aria-label="Mobile"
         aria-hidden={!open}
       >
@@ -74,6 +80,13 @@ export function SiteNav() {
             {l.label}
           </a>
         ))}
+        <a
+          href="#contact"
+          onClick={() => setOpen(false)}
+          className="mt-4 rounded-[10px] bg-blue-deep px-6 py-3 text-[15px] font-medium text-white"
+        >
+          Start a Project
+        </a>
       </nav>
     </>
   )

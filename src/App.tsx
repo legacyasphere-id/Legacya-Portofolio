@@ -1,9 +1,12 @@
 import { useEffect } from 'react'
 import { SiteNav } from './components/SiteNav'
 import { HeroSection } from './sections/HeroSection'
+import { TrustSection } from './sections/TrustSection'
+import { SystemsSection } from './sections/SystemsSection'
 import { WorkSection } from './sections/WorkSection'
-import { ServicesSection } from './sections/ServicesSection'
-import { StudioSection } from './sections/StudioSection'
+import { ProcessSection } from './sections/ProcessSection'
+import { PhilosophySection } from './sections/PhilosophySection'
+import { OSStatusSection } from './sections/OSStatusSection'
 import { CTASection } from './sections/CTASection'
 import { Footer } from './components/Footer'
 import { useScrollReveal } from './hooks/useScrollReveal'
@@ -26,9 +29,12 @@ export default function App() {
       <SiteNav />
       <main>
         <HeroSection />
+        <TrustSection />
+        <SystemsSection />
         <WorkSection />
-        <ServicesSection />
-        <StudioSection />
+        <ProcessSection />
+        <PhilosophySection />
+        <OSStatusSection />
         <CTASection />
       </main>
       <Footer />
