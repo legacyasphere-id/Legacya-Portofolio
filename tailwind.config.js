@@ -23,8 +23,9 @@ export default {
         'blue-dark': '#26416B', // hover for deep blue
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+        sans:  ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        mono:  ['"Geist Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+        serif: ['"Instrument Serif"', 'Georgia', 'serif'],
       },
     },
   },

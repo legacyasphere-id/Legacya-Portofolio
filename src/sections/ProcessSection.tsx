@@ -34,7 +34,7 @@ export function ProcessSection() {
       <div className="mx-auto max-w-[1180px]">
         <div className="mb-14 max-w-[44ch]" data-animate>
           <p className="eyebrow mb-4">Our Approach</p>
-          <h2 className="text-[clamp(1.9rem,3.6vw,2.9rem)] font-semibold tracking-[-0.03em]">
+          <h2 className="display text-[clamp(2.1rem,4vw,3.3rem)] leading-[1.08]">
             How we build
           </h2>
           <p className="mt-4 text-[1.05rem] leading-relaxed text-muted">

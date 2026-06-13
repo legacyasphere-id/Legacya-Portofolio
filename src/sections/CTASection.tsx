@@ -8,11 +8,11 @@ export function CTASection() {
     >
       <div className="mx-auto max-w-[760px]">
         <h2
-          className="mx-auto max-w-[20ch] text-[clamp(2.1rem,5.2vw,3.8rem)] font-semibold leading-[1.1] tracking-[-0.03em]"
+          className="display mx-auto max-w-[20ch] text-[clamp(2.4rem,5.6vw,4.4rem)] leading-[1.05]"
           data-animate
         >
           Let&rsquo;s build the system behind your{' '}
-          <span className="text-blue-accent">growth</span>.
+          <em className="italic text-blue-accent">growth</em>.
         </h2>
 
         <p

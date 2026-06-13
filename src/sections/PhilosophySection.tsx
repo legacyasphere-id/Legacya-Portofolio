@@ -7,11 +7,11 @@ export function PhilosophySection() {
         </p>
 
         <h2
-          className="text-[clamp(2rem,5vw,3.6rem)] font-semibold leading-[1.12] tracking-[-0.03em]"
+          className="display text-[clamp(2.4rem,5.6vw,4.2rem)] leading-[1.06]"
           data-animate
           data-delay="100"
         >
-          Systems over <span className="text-blue-accent">software</span>.
+          Systems over <em className="italic text-blue-accent">software</em>.
         </h2>
 
         <div className="mt-10 max-w-[60ch] space-y-6 text-[clamp(1.15rem,1.8vw,1.5rem)] font-light leading-[1.5] text-muted">

@@ -14,13 +14,13 @@ export function HeroSection() {
             AI-Native Business Systems Studio
           </p>
 
-          <h1 className="max-w-[18ch] text-[clamp(2.3rem,5.4vw,4.1rem)] font-semibold leading-[1.07] tracking-[-0.03em]">
+          <h1 className="display max-w-[16ch] text-[clamp(2.6rem,6vw,4.8rem)] leading-[1.04]">
             <span className="block" data-animate data-delay="100">
               Building business
             </span>
             <span className="block" data-animate data-delay="200">
               systems that{' '}
-              <span className="text-blue-accent">scale</span>
+              <em className="italic text-blue-accent">scale</em>
             </span>
             <span className="block" data-animate data-delay="300">
               with your operations.
