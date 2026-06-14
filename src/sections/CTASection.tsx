@@ -12,7 +12,7 @@ export function CTASection() {
           data-animate
         >
           Let&rsquo;s build the system behind your{' '}
-          <em className="italic text-blue-accent">growth</em>.
+          <span className="text-blue-accent">growth</span>.
         </h2>
 
         <p

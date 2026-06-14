@@ -20,7 +20,7 @@ export function HeroSection() {
             </span>
             <span className="block" data-animate data-delay="200">
               systems that{' '}
-              <em className="italic text-blue-accent">scale</em>
+              <span className="text-blue-accent">scale</span>
             </span>
             <span className="block" data-animate data-delay="300">
               with your operations.

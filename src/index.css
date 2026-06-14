@@ -23,23 +23,19 @@
   }
 
   h1, h2, h3, h4 {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Sora', system-ui, sans-serif;
     font-weight: 600;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.02em;
     color: #181818;
   }
 
-  /* Display serif — large editorial headlines only (hero, section titles,
-     philosophy, CTA). Single-weight face: never bolded or tightly tracked. */
+  /* Display — large headlines (hero, section titles, philosophy, CTA).
+     Geometric grotesque set a touch lighter so big sizes read calm. */
   .display {
-    font-family: 'Instrument Serif', Georgia, serif;
-    font-weight: 400;
-    letter-spacing: -0.005em;
+    font-family: 'Sora', system-ui, sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.03em;
     color: #181818;
-  }
-  .display em,
-  .display .italic {
-    font-style: italic;
   }
 
   ::-webkit-scrollbar { width: 7px; }
@@ -312,11 +308,11 @@
 
 /* ── Footer wordmark ─────────────────────────────────────────────────── */
 .wordmark {
-  font-family: 'Instrument Serif', Georgia, serif;
-  font-weight: 400;
+  font-family: 'Sora', system-ui, sans-serif;
+  font-weight: 600;
   text-align: center;
-  font-size: clamp(2.8rem, 12vw, 9.5rem);
-  letter-spacing: -0.01em;
+  font-size: clamp(2.5rem, 11vw, 9rem);
+  letter-spacing: -0.04em;
   line-height: 1;
   color: transparent;
   -webkit-text-stroke: 1px rgba(47, 79, 127, 0.20);

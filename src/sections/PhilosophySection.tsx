@@ -11,7 +11,7 @@ export function PhilosophySection() {
           data-animate
           data-delay="100"
         >
-          Systems over <em className="italic text-blue-accent">software</em>.
+          Systems over <span className="text-blue-accent">software</span>.
         </h2>
 
         <div className="mt-10 max-w-[60ch] space-y-6 text-[clamp(1.15rem,1.8vw,1.5rem)] font-light leading-[1.5] text-muted">
