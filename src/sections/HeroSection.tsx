@@ -11,16 +11,15 @@ export function HeroSection() {
             data-animate
           >
             <span className="h-1.5 w-1.5 rounded-full bg-blue-deep" />
-            AI-Native Business Systems Studio
+            AI-Native Systems Studio
           </p>
 
-          <h1 className="display max-w-[16ch] text-[clamp(2.6rem,6vw,4.8rem)] leading-[1.04]">
+          <h1 className="display max-w-[15ch] text-[clamp(2.6rem,6vw,4.8rem)] leading-[1.04]">
             <span className="block" data-animate data-delay="100">
-              Building business
+              Building systems
             </span>
             <span className="block" data-animate data-delay="200">
-              systems that{' '}
-              <span className="text-blue-accent">scale</span>
+              that <span className="text-blue-accent">scale</span>
             </span>
             <span className="block" data-animate data-delay="300">
               with your operations.

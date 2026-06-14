@@ -83,7 +83,7 @@ export function SiteNav() {
         <a
           href="#contact"
           onClick={() => setOpen(false)}
-          className="mt-4 rounded-[10px] bg-blue-deep px-6 py-3 text-[15px] font-medium text-white"
+          className="nav-cta mt-4 rounded-[10px] bg-blue-deep px-6 py-3 text-[15px] font-medium text-white"
         >
           Start a Project
         </a>
