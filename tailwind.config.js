@@ -4,35 +4,28 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg:      '#F7F4ED',
-        surface: '#FAF8F2',
-        raised:  '#EDE6D6',
-        border:  '#E6DFD0',
-        'border-light': '#D6CDB9',
-        text:    '#1C1A17',
-        muted:   '#8A847A',
-        dim:     '#B5AFA4',
-        // Primary accent — gold (was cyan)
-        cyan:    '#B8956A',
-        'cyan-dim': '#9A7A52',
-        // Secondary accent — sage (was purple)
-        purple:  '#7A8B6A',
-        'purple-dim': '#5C6E52',
-        // Success / active — forest (was green)
-        green:   '#5A8A6A',
-        'green-dim': '#3D6B4D',
-        // Legacy accent
-        accent:  '#B8956A',
-        'accent-light': '#D6BC95',
-        // Dark surface for manifesto-style sections
-        ink:     '#1C1A17',
-        'ink-deep': '#13110F',
+        // ── Surfaces — cream / human operations ──────────────────────────
+        bg:      '#F5F0E8', // primary page canvas
+        surface: '#FAF7F2', // cards, elevated content
+        raised:  '#F0EADF', // subtle elevation / image placeholders
+
+        // ── Text ─────────────────────────────────────────────────────────
+        text:    '#181818', // headlines & primary content
+        muted:   '#66625D', // descriptions, supporting copy
+        dim:     '#9A958C', // metadata, faint labels
+
+        // ── Lines ────────────────────────────────────────────────────────
+        border:  '#E5DDD0', // dividers, cards, inputs
+
+        // ── Blue / systems & intelligence ────────────────────────────────
+        blue:        '#5E7EBE', // primary accent — highlights, links
+        'blue-deep': '#2F4F7F', // authority — buttons, key actions
+        'blue-dark': '#26416B', // hover for deep blue
       },
       fontFamily: {
-        sans:    ['Inter', 'system-ui', 'sans-serif'],
-        mono:    ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
-        serif:   ['"Playfair Display"', 'Georgia', 'serif'],
-        display: ['Fraunces', 'Georgia', 'serif'],
+        sans:    ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        mono:    ['"Geist Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+        display: ['"Sora"', 'system-ui', 'sans-serif'],
       },
     },
   },

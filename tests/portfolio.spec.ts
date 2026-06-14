@@ -3,15 +3,19 @@ import { test, expect } from '@playwright/test'
 // ── Navigation ────────────────────────────────────────────────────────────────
 
 test.describe('Navigation', () => {
-  test('fixed nav renders with brand logo and links', async ({ page, isMobile }) => {
+  test('fixed nav renders brand and primary links', async ({ page, isMobile }) => {
     await page.goto('/')
-    await expect(page.locator('header a[href="#top"]')).toContainText('Legacya')
+    await expect(page.locator('header a[href="#top"]')).toContainText('Legacya Sphere')
 
     test.skip(isMobile, 'desktop links hidden on mobile behind burger menu')
-    const nav = page.locator('header nav')
+    const nav = page.locator('header nav[aria-label="Primary"]')
+    await expect(nav.locator('a[href="#systems"]')).toBeVisible()
     await expect(nav.locator('a[href="#work"]')).toBeVisible()
-    await expect(nav.locator('a[href="#services"]')).toBeVisible()
+    await expect(nav.locator('a[href="#os-status"]')).toBeVisible()
     await expect(nav.locator('a[href="#contact"]')).toBeVisible()
+    await expect(page.locator('header a.btn-primary[href="#contact"]')).toContainText(
+      'Start a Project',
+    )
   })
 
   test('burger menu opens and closes on mobile', async ({ page, isMobile }) => {
@@ -29,22 +33,49 @@ test.describe('Navigation', () => {
 // ── Hero ──────────────────────────────────────────────────────────────────────
 
 test.describe('Hero', () => {
-  test('headline renders studio positioning', async ({ page }) => {
+  test('headline renders systems positioning', async ({ page }) => {
     await page.goto('/')
     const h1 = page.locator('h1')
-    await expect(h1).toContainText('We design and build')
-    await expect(h1).toContainText('digital systems')
-    await expect(h1).toContainText('brands work better.')
+    await expect(h1).toContainText('Building systems')
+    await expect(h1).toContainText('scale')
+    await expect(h1).toContainText('with your operations.')
   })
 
-  test('hero CTAs point to work and contact', async ({ page }) => {
+  test('hero CTAs point to contact and case studies', async ({ page }) => {
     await page.goto('/')
-    await expect(page.locator('a.btn-solid[href="#work"]')).toBeVisible()
-    await expect(page.locator('a.btn-ghost[href="#contact"]')).toBeVisible()
+    await expect(
+      page.locator('main a.btn-primary[href="#contact"]', { hasText: 'Discuss Your System' }),
+    ).toBeVisible()
+    await expect(
+      page.locator('a.btn-secondary[href="#work"]', { hasText: 'View Case Studies' }),
+    ).toBeVisible()
   })
 })
 
-// ── Work deck ─────────────────────────────────────────────────────────────────
+// ── Trust strip ────────────────────────────────────────────────────────────────
+
+test.describe('Trust', () => {
+  test('renders the technology foundation', async ({ page }) => {
+    await page.goto('/')
+    for (const tech of ['Laravel', 'Vue.js', 'Supabase', 'PostgreSQL']) {
+      await expect(page.getByText(tech, { exact: true }).first()).toBeVisible()
+    }
+  })
+})
+
+// ── Systems We Build ────────────────────────────────────────────────────────────
+
+test.describe('Systems', () => {
+  test('renders the three system pillars', async ({ page }) => {
+    await page.goto('/')
+    const systems = page.locator('#systems')
+    await expect(systems.locator('h3', { hasText: 'Business Operating Systems' })).toBeVisible()
+    await expect(systems.locator('h3', { hasText: 'Operational Dashboards' })).toBeVisible()
+    await expect(systems.locator('h3', { hasText: 'Automation Infrastructure' })).toBeVisible()
+  })
+})
+
+// ── Work / case studies ─────────────────────────────────────────────────────────
 
 test.describe('Work', () => {
   test('renders all four real projects', async ({ page }) => {
@@ -54,6 +85,14 @@ test.describe('Work', () => {
     await expect(work.locator('h3', { hasText: 'Legacya POS UI' })).toBeVisible()
     await expect(work.locator('h3', { hasText: 'Hybrid Dashboard' })).toBeVisible()
     await expect(work.locator('h3', { hasText: 'daenuna.co' })).toBeVisible()
+  })
+
+  test('each case study exposes problem, solution and outcome', async ({ page }) => {
+    await page.goto('/')
+    const work = page.locator('#work')
+    await expect(work.getByText('Problem').first()).toBeVisible()
+    await expect(work.getByText('Solution').first()).toBeVisible()
+    await expect(work.getByText('Outcome').first()).toBeVisible()
   })
 
   test('project cards link to live deployments', async ({ page }) => {
@@ -66,53 +105,76 @@ test.describe('Work', () => {
   })
 })
 
-// ── Services & studio ─────────────────────────────────────────────────────────
+// ── Process ──────────────────────────────────────────────────────────────────────
 
-test.describe('Services', () => {
-  test('renders the four service pillars', async ({ page }) => {
+test.describe('Process', () => {
+  test('renders the four-step framework', async ({ page }) => {
     await page.goto('/')
-    const services = page.locator('#services')
-    await expect(services.locator('h3', { hasText: 'Web Systems' })).toBeVisible()
-    await expect(services.locator('h3', { hasText: 'Data & Backend' })).toBeVisible()
-    await expect(services.locator('h3', { hasText: 'AI Co-Engineering' })).toBeVisible()
-    await expect(services.locator('h3', { hasText: 'Deploy & Operate' })).toBeVisible()
+    const process = page.locator('#process')
+    await expect(process.locator('h3', { hasText: 'Discover' })).toBeVisible()
+    await expect(process.locator('h3', { hasText: 'Architect' })).toBeVisible()
+    await expect(process.locator('h3', { hasText: 'Build' })).toBeVisible()
+    await expect(process.locator('h3', { hasText: 'Evolve' })).toBeVisible()
   })
 })
 
-test.describe('Studio', () => {
-  test('founder credit is rendered', async ({ page }) => {
+// ── OS Status ─────────────────────────────────────────────────────────────────────
+
+test.describe('OS Status', () => {
+  test('renders the status board with initiatives and badges', async ({ page }) => {
     await page.goto('/')
-    await expect(page.locator('#studio')).toContainText('Yoga Pratama Effendi')
+    const os = page.locator('#os-status')
+    await expect(os.locator('h2', { hasText: 'OS Status' })).toBeVisible()
+    await expect(os.locator('h3', { hasText: 'SphereOS' })).toBeVisible()
+    await expect(os.locator('.badge', { hasText: 'Active Development' }).first()).toBeVisible()
+    await expect(os.locator('.badge', { hasText: 'Production' }).first()).toBeVisible()
   })
 })
 
-// ── Contact & footer ──────────────────────────────────────────────────────────
+// ── Contact / CTA ───────────────────────────────────────────────────────────────
 
 test.describe('Contact', () => {
-  test('CTA section has a mailto button', async ({ page }) => {
+  test('closing CTA has the growth headline and a mailto button', async ({ page }) => {
     await page.goto('/')
-    const cta = page.locator('#contact a[href^="mailto:"]')
-    await expect(cta).toHaveAttribute('href', 'mailto:legacyasphere@gmail.com')
+    const cta = page.locator('#contact')
+    await expect(cta.locator('h2')).toContainText('Let')
+    await expect(cta.locator('h2')).toContainText('growth')
+    await expect(cta.locator('a[href^="mailto:"]')).toHaveAttribute(
+      'href',
+      'mailto:legacyasphere@gmail.com',
+    )
   })
 })
 
+// ── Footer ─────────────────────────────────────────────────────────────────────
+
 test.describe('Footer', () => {
-  test('social links point to real profiles', async ({ page }) => {
+  test('renders the three-column structure', async ({ page }) => {
     await page.goto('/')
     const footer = page.locator('footer')
-    await expect(footer.locator('a', { hasText: 'Instagram' })).toHaveAttribute(
-      'href',
-      'https://www.instagram.com/legacya.id',
-    )
+    await expect(footer.getByText('Studio', { exact: true })).toBeVisible()
+    await expect(footer.getByText('Capabilities', { exact: true })).toBeVisible()
+    await expect(footer.getByText('Connect', { exact: true })).toBeVisible()
+  })
+
+  test('connect links point to real channels', async ({ page }) => {
+    await page.goto('/')
+    const footer = page.locator('footer')
     await expect(footer.locator('a', { hasText: 'GitHub' })).toHaveAttribute(
       'href',
       /github\.com\/legacyasphere-id/,
     )
+    await expect(footer.locator('a', { hasText: 'Email' })).toHaveAttribute(
+      'href',
+      /^mailto:/,
+    )
   })
 
-  test('founder credit appears in studio column', async ({ page }) => {
+  test('bottom line carries the studio positioning', async ({ page }) => {
     await page.goto('/')
-    await expect(page.locator('footer')).toContainText('Founded by Yoga Pratama Effendi')
+    await expect(page.locator('footer')).toContainText(
+      'AI-Native Business Systems Studio',
+    )
   })
 })
 

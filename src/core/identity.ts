@@ -2,10 +2,12 @@ import { asset } from '../utils/asset'
 
 export const identity = {
   // ── Core identity ──────────────────────────────────────────────────────
-  title:       'AI-Native Builder & Product Engineer',
-  tagline:     'System-first. AI-native. Every stage co-engineered.',
-  description: 'Operational software systems built AI-native — from architecture to deployment, with Claude as co-engineer at every stage.',
-  coreMessage: "I don't build features. I build systems. AI is my co-engineer.",
+  title:          'AI-Native Business Systems Studio',
+  positioning:    'AI-Native Business Systems Studio',
+  tagline:        'Helping companies transform manual operations into scalable business systems.',
+  description:    'Legacya Sphere designs and builds business operating systems, internal platforms, dashboards, automation workflows, and digital infrastructure that help companies operate more efficiently.',
+  brandStatement: 'Legacya Sphere helps companies transform manual operations into scalable business systems.',
+  coreMessage:    "Most businesses don't need more tools. They need better systems.",
 
   // ── Public-facing identity badges ─────────────────────────────────────
   badges: [
