@@ -11,7 +11,7 @@ export function HeroSection() {
             data-animate
           >
             <span className="h-1.5 w-1.5 rounded-full bg-blue-deep" />
-            AI-Native Systems Studio
+            Operational Systems Studio
           </p>
 
           <h1 className="display max-w-[15ch] text-[clamp(2.6rem,6vw,4.8rem)] leading-[1.04]">
@@ -26,22 +26,22 @@ export function HeroSection() {
             </span>
           </h1>
 
-          <p
-            className="mt-7 max-w-[52ch] text-[clamp(1rem,1.3vw,1.15rem)] leading-relaxed text-muted"
-            data-animate
-            data-delay="400"
-          >
-            Legacya Sphere helps companies transform manual operations into
-            scalable business systems — through custom platforms, operational
-            dashboards, automation workflows, and intelligent infrastructure.
-          </p>
+          <div className="mt-7 max-w-[52ch]" data-animate data-delay="400">
+            <p className="text-[clamp(1.05rem,1.5vw,1.3rem)] font-medium leading-snug text-text">
+              Transforming manual operations into scalable business systems.
+            </p>
+            <p className="mt-3 text-[clamp(1rem,1.3vw,1.15rem)] leading-relaxed text-muted">
+              We build platforms, dashboards, and automation workflows that help
+              companies operate with greater clarity and efficiency.
+            </p>
+          </div>
 
           <div className="mt-9 flex flex-wrap gap-3.5" data-animate data-delay="500">
             <a href="#contact" className="btn-primary btn-lg">
-              Start a Project
+              Discuss Your System
             </a>
-            <a href="#systems" className="btn-secondary btn-lg">
-              Explore Systems
+            <a href="#work" className="btn-secondary btn-lg">
+              View Case Studies
             </a>
           </div>
         </div>

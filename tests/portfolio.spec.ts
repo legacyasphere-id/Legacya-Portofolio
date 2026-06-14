@@ -41,13 +41,13 @@ test.describe('Hero', () => {
     await expect(h1).toContainText('with your operations.')
   })
 
-  test('hero CTAs point to contact and systems', async ({ page }) => {
+  test('hero CTAs point to contact and case studies', async ({ page }) => {
     await page.goto('/')
     await expect(
-      page.locator('main a.btn-primary[href="#contact"]', { hasText: 'Start a Project' }),
+      page.locator('main a.btn-primary[href="#contact"]', { hasText: 'Discuss Your System' }),
     ).toBeVisible()
     await expect(
-      page.locator('a.btn-secondary[href="#systems"]', { hasText: 'Explore Systems' }),
+      page.locator('a.btn-secondary[href="#work"]', { hasText: 'View Case Studies' }),
     ).toBeVisible()
   })
 })
