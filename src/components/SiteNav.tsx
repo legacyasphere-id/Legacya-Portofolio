@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { asset } from '../utils/asset'
 
 const LINKS = [
   { href: '#systems', label: 'Systems' },
@@ -36,8 +37,8 @@ export function SiteNav() {
         }`}
       >
         <a href="#top" className="flex items-center gap-2.5" aria-label="Legacya Sphere — home">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-surface text-[13px] font-semibold tracking-tight text-blue-deep">
-            LS
+          <span className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full border border-border bg-surface">
+            <img src={asset('logo.png')} alt="" className="h-full w-full object-cover" />
           </span>
           <span className="text-[15px] font-semibold tracking-tight text-text">
             Legacya Sphere
