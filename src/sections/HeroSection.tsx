@@ -28,15 +28,15 @@ export function HeroSection() {
 
           <div className="mt-7 max-w-[52ch]" data-animate data-delay="400">
             <p className="text-[clamp(1.05rem,1.5vw,1.3rem)] font-medium leading-snug text-text">
-              Transforming manual operations into scalable business systems.
+              Transforming manual workflows into scalable digital infrastructure.
             </p>
             <p className="mt-3 text-[clamp(1rem,1.3vw,1.15rem)] leading-relaxed text-muted">
-              We build platforms, dashboards, and automation workflows that help
-              companies operate with greater clarity and efficiency.
+              We build platforms, dashboards, and automation that help companies
+              operate with greater clarity and efficiency.
             </p>
           </div>
 
-          <div className="mt-9 flex flex-wrap gap-3.5" data-animate data-delay="500">
+          <div className="mt-9 flex flex-wrap gap-x-3.5 gap-y-4" data-animate data-delay="500">
             <a href="#contact" className="btn-primary btn-lg">
               Discuss Your System
             </a>

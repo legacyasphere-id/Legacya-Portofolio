@@ -30,7 +30,7 @@ export function SiteNav() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-[100] flex items-center justify-between px-5 py-4 transition-all duration-300 md:px-10 ${
+        className={`fixed inset-x-0 top-0 z-[100] flex items-center justify-between px-6 py-4 transition-all duration-300 md:px-10 ${
           scrolled
             ? 'border-b border-border bg-bg/80 backdrop-blur-xl'
             : 'border-b border-transparent bg-transparent'
