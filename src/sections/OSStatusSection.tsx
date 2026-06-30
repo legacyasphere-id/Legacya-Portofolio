@@ -1,4 +1,9 @@
-import { osStatus, OS_STATUS_LABEL, type OSStatusLevel } from '../data/osStatus'
+import {
+  osStatus,
+  OS_STATUS_LABEL,
+  type OSStatusLevel,
+  type RoadmapPhase,
+} from '../data/osStatus'
 
 const BADGE_CLASS: Record<OSStatusLevel, string> = {
   active: 'badge-active',
@@ -7,7 +12,21 @@ const BADGE_CLASS: Record<OSStatusLevel, string> = {
   planned: 'badge-planned',
 }
 
+const PHASE_ORDER: Record<RoadmapPhase, number> = {
+  Next: 0,
+  Later: 1,
+  Exploring: 2,
+}
+
 export function OSStatusSection() {
+  const board = osStatus.filter((item) => item.status !== 'planned')
+  const roadmap = osStatus
+    .filter((item) => item.status === 'planned')
+    .sort(
+      (a, b) =>
+        PHASE_ORDER[a.phase ?? 'Later'] - PHASE_ORDER[b.phase ?? 'Later'],
+    )
+
   return (
     <section
       id="os-status"
@@ -21,8 +40,8 @@ export function OSStatusSection() {
               OS Status
             </h2>
             <p className="mt-4 text-[1.05rem] leading-relaxed text-muted">
-              Current initiatives and development activity across the studio —
-              the frameworks and infrastructure we build on.
+              What&rsquo;s live across the studio today — and what&rsquo;s next
+              on the roadmap. The frameworks and infrastructure we build on.
             </p>
           </div>
 
@@ -37,7 +56,7 @@ export function OSStatusSection() {
         </div>
 
         <div className="overflow-hidden rounded-2xl border border-border bg-bg">
-          {osStatus.map((item, i) => (
+          {board.map((item, i) => (
             <div
               key={item.id}
               className={`flex flex-col gap-3 p-5 transition-colors duration-300 hover:bg-surface md:flex-row md:items-center md:gap-6 md:p-6 ${
@@ -72,6 +91,47 @@ export function OSStatusSection() {
             </div>
           ))}
         </div>
+
+        {/* ── Roadmap ─────────────────────────────────────────────────────
+            Planned items, reframed as a forward-looking horizon rather than a
+            flat "planned" badge. */}
+        {roadmap.length > 0 && (
+          <div className="mt-16">
+            <div className="mb-7 flex items-center gap-3" data-animate>
+              <p className="eyebrow">Roadmap</p>
+              <span className="h-px flex-1 bg-border" />
+              <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-dim">
+                What&rsquo;s next
+              </span>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-3">
+              {roadmap.map((item, i) => (
+                <div
+                  key={item.id}
+                  className="card flex flex-col p-6"
+                  data-animate
+                  data-delay={String(Math.min((i + 1) * 100, 500))}
+                >
+                  <div className="mb-4 flex items-center justify-between">
+                    <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-blue-deep">
+                      {item.phase ?? 'Later'}
+                    </span>
+                    <span className="font-mono text-[10.5px] uppercase tracking-[0.12em] text-dim">
+                      {item.category}
+                    </span>
+                  </div>
+                  <h3 className="text-[1.05rem] font-semibold tracking-[-0.01em]">
+                    {item.name}
+                  </h3>
+                  <p className="mt-2 text-[13.5px] leading-relaxed text-muted">
+                    {item.detail}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   )

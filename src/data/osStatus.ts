@@ -1,5 +1,8 @@
 export type OSStatusLevel = 'active' | 'production' | 'research' | 'planned'
 
+/** Forward-looking horizon for roadmap (planned) items. */
+export type RoadmapPhase = 'Next' | 'Later' | 'Exploring'
+
 export interface OSStatusItem {
   id: string
   name: string
@@ -7,13 +10,15 @@ export interface OSStatusItem {
   detail: string
   status: OSStatusLevel
   version?: string
+  /** Set on `planned` items — places them on the roadmap horizon. */
+  phase?: RoadmapPhase
 }
 
 export const OS_STATUS_LABEL: Record<OSStatusLevel, string> = {
   active:     'Active Development',
   production: 'Production',
   research:   'Research',
-  planned:    'Planned',
+  planned:    'On Roadmap',
 }
 
 /**
@@ -70,5 +75,24 @@ export const osStatus: OSStatusItem[] = [
     detail:
       'A standardized portal layer for giving customers structured, secure access to their data, orders, and operational status.',
     status: 'planned',
+    phase: 'Next',
+  },
+  {
+    id: 'reporting-suite',
+    name: 'Operational Reporting Suite',
+    category: 'Intelligence',
+    detail:
+      'A unified reporting and KPI layer that reads across every system we run, turning operational data into decisions without manual exports.',
+    status: 'planned',
+    phase: 'Next',
+  },
+  {
+    id: 'multi-business-console',
+    name: 'Multi-Business Console',
+    category: 'Core Platform',
+    detail:
+      'One SphereOS instance overseeing several business units — shared identity, permissions, and operational visibility across them.',
+    status: 'planned',
+    phase: 'Later',
   },
 ]

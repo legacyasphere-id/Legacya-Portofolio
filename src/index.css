@@ -74,6 +74,19 @@ body::after {
   body::before { background-position: 60% center; }
 }
 
+/* Local reading area behind the hero's left column. A horizontal white wash
+   that is near-invisible at peak and dissolves to nothing before mid-canvas —
+   it lifts text legibility without covering, darkening or filtering the
+   artwork. Not a panel, not glass, not a decorative gradient. */
+.hero-veil {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.42) 0%,
+    rgba(255, 255, 255, 0.26) 22%,
+    rgba(255, 255, 255, 0) 54%
+  );
+}
+
 /* ── Reveal system: subtle fade + rise ───────────────────────────────── */
 [data-animate] {
   opacity: 0;
@@ -315,4 +328,8 @@ body::after {
   color: transparent;
   -webkit-text-stroke: 1px rgba(47, 79, 127, 0.20);
   user-select: none;
+}
+/* Footer sits over a dark scrim — lighten the wordmark stroke so it reads. */
+.wordmark-light {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.22);
 }
