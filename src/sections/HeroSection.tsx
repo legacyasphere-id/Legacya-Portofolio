@@ -10,9 +10,17 @@
 export function HeroSection() {
   return (
     <section className="grad-hero relative flex min-h-screen items-center overflow-hidden px-5 pb-24 pt-32 md:px-10 md:pb-28 md:pt-36">
-      <div className="mx-auto grid w-full max-w-[1240px] items-center gap-16 lg:grid-cols-[45%_55%] lg:gap-12">
+      {/* Soft, almost-invisible reading area behind the left column only — a
+          gentle editorial backdrop that lifts text legibility off the brighter
+          artwork. Not a panel, not a filter, fades out before mid-canvas. */}
+      <div
+        className="hero-veil pointer-events-none absolute inset-y-0 left-0 z-0 w-full lg:w-[58%]"
+        aria-hidden="true"
+      />
+
+      <div className="relative z-10 mx-auto grid w-full max-w-[1240px] items-center gap-16 lg:grid-cols-[45%_55%] lg:gap-12">
         {/* ── Left (45%): typography ─────────────────────────────────────── */}
-        <div>
+        <div className="lg:pl-12">
           <p
             className="mb-8 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-blue-deep"
             data-animate
@@ -21,7 +29,7 @@ export function HeroSection() {
             Operating Systems Studio
           </p>
 
-          <h1 className="display font-bold leading-[0.95] tracking-[-0.03em] text-[#111111] text-[clamp(3rem,8vw,6.5rem)]">
+          <h1 className="display font-extrabold leading-[0.95] tracking-[-0.03em] text-[#111111] text-[clamp(3rem,8vw,6.5rem)]">
             <span className="block" data-animate data-delay="100">
               Building
             </span>
@@ -40,7 +48,7 @@ export function HeroSection() {
           </h1>
 
           <p
-            className="mt-9 max-w-[560px] text-[clamp(1.05rem,1.6vw,1.375rem)] leading-[1.6] text-[#666666]"
+            className="mt-9 max-w-[560px] text-[clamp(1.05rem,1.6vw,1.375rem)] leading-[1.6] text-[#4B5563]"
             data-animate
             data-delay="500"
           >
