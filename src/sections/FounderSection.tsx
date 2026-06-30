@@ -14,7 +14,7 @@ export function FounderSection() {
             <img
               src={asset('img-04.webp')}
               alt={`${identity.name}, Founder of ${identity.company}`}
-              className="aspect-[4/5] w-full object-cover"
+              className="aspect-[9/16] w-full object-cover"
               loading="lazy"
             />
           </div>
