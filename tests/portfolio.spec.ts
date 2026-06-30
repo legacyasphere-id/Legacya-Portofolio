@@ -47,21 +47,30 @@ test.describe('Hero', () => {
 // ── Work deck ─────────────────────────────────────────────────────────────────
 
 test.describe('Work', () => {
-  test('renders all four real projects', async ({ page }) => {
+  test('renders the curated featured projects', async ({ page }) => {
     await page.goto('/')
     const work = page.locator('#work')
     await expect(work.locator('h3', { hasText: 'InventoryOS' })).toBeVisible()
-    await expect(work.locator('h3', { hasText: 'Legacya POS UI' })).toBeVisible()
-    await expect(work.locator('h3', { hasText: 'Hybrid Dashboard' })).toBeVisible()
-    await expect(work.locator('h3', { hasText: 'daenuna.co' })).toBeVisible()
+    await expect(work.locator('h3', { hasText: 'AI-CV Screening' })).toBeVisible()
+    await expect(work.locator('h3', { hasText: 'Sphere OS' })).toBeVisible()
+    await expect(work.locator('h3', { hasText: 'Legacya POS' })).toBeVisible()
   })
 
-  test('project cards link to live deployments', async ({ page }) => {
+  test('each project links to a live deployment', async ({ page }) => {
     await page.goto('/')
-    const links = page.locator('#work a.link-sweep')
-    await expect(links).toHaveCount(4)
-    for (const href of await links.evaluateAll((as) => as.map((a) => a.getAttribute('href')))) {
+    const liveLinks = page.locator('#work a.link-sweep', { hasText: 'View live project' })
+    await expect(liveLinks).toHaveCount(4)
+    for (const href of await liveLinks.evaluateAll((as) => as.map((a) => a.getAttribute('href')))) {
       expect(href).toMatch(/^https:\/\//)
+    }
+  })
+
+  test('each project links to its source repo', async ({ page }) => {
+    await page.goto('/')
+    const sourceLinks = page.locator('#work a.link-sweep', { hasText: 'Source' })
+    await expect(sourceLinks).toHaveCount(4)
+    for (const href of await sourceLinks.evaluateAll((as) => as.map((a) => a.getAttribute('href')))) {
+      expect(href).toMatch(/^https:\/\/github\.com\/legacyasphere-id/)
     }
   })
 })

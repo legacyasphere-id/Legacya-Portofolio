@@ -1,15 +1,4 @@
-import { projects } from '../data/projects'
-
-const SHORT_LINES: Record<string, string> = {
-  'inventory-os':
-    'Real-time stock tracking that replaced manual spreadsheets for warehouse teams.',
-  'legacya-pos':
-    'Cashier, kitchen display, and revenue analytics unified in one platform.',
-  'hybrid-dashboard':
-    'A zero-backend operations dashboard — revenue, tasks, and projects on one screen.',
-  daenuna:
-    'A guided catalog flow that turned Instagram DM chaos into structured orders.',
-}
+import { work } from '../data/work'
 
 export function WorkSection() {
   return (
@@ -20,45 +9,68 @@ export function WorkSection() {
       </div>
 
       <div className="flex flex-col gap-8 px-5 md:px-[6vw]">
-        {projects.map((project, i) => (
+        {work.map((project, i) => (
           <article
             key={project.id}
             className="deck-card grid min-h-[420px] md:sticky md:grid-cols-[1.35fr_1fr] max-md:min-h-0"
             style={{ top: `calc(96px + ${i * 14}px)` }}
+            data-animate
           >
-            <div className="relative min-h-[200px] overflow-hidden bg-raised md:min-h-[260px]">
-              {project.screenshots[0] && (
+            <div
+              className="relative min-h-[200px] overflow-hidden bg-navy-deep md:min-h-[260px]"
+              style={project.gradient ? { background: project.gradient } : undefined}
+            >
+              {project.image ? (
                 <img
-                  src={project.screenshots[0].src}
-                  alt={project.screenshots[0].alt}
+                  src={project.image.src}
+                  alt={project.image.alt}
                   className="absolute inset-0 h-full w-full object-cover object-top"
                   loading="lazy"
                 />
+              ) : (
+                <span
+                  className="font-display absolute bottom-6 right-7 text-[clamp(3rem,8vw,5rem)] leading-none text-white/10"
+                  aria-hidden="true"
+                >
+                  {project.name.split(' ')[0]}
+                </span>
               )}
-              <div className="absolute inset-0 bg-gradient-to-tr from-ink/20 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-navy-deep/30 via-transparent to-transparent" />
               <span className="font-soft-italic absolute left-7 top-6 text-lg text-bg drop-shadow-[0_1px_3px_rgba(28,26,23,0.6)]">
                 {String(i + 1).padStart(2, '0')}
               </span>
+              <span className="absolute right-6 top-6 rounded-full bg-bg/85 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-navy">
+                {project.status === 'live' ? 'Live' : 'In development'}
+              </span>
             </div>
 
-            <div className="flex flex-col justify-center gap-3.5 p-7 md:p-12">
+            <div className="flex flex-col justify-center gap-3 p-7 md:p-12">
               <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-accent">
                 {project.type}
               </p>
               <h3 className="text-[clamp(1.6rem,3vw,2.4rem)]">{project.name}</h3>
-              <p className="max-w-[36ch] text-muted">
-                {SHORT_LINES[project.id] ?? project.tagline}
-              </p>
-              {project.links.live && (
+              <p className="max-w-[40ch] text-muted">{project.summary}</p>
+              <p className="mt-1 font-mono text-[11px] text-navy-soft">{project.stack}</p>
+              <div className="mt-3 flex flex-wrap items-center gap-5">
+                {project.live && (
+                  <a
+                    className="link-sweep"
+                    href={project.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View live project
+                  </a>
+                )}
                 <a
-                  className="link-sweep mt-2.5"
-                  href={project.links.live}
+                  className="link-sweep text-muted"
+                  href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  View live project
+                  Source
                 </a>
-              )}
+              </div>
             </div>
           </article>
         ))}

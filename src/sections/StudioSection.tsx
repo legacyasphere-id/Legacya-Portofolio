@@ -1,8 +1,8 @@
 import { identity } from '../core/identity'
 
 const STATS = [
-  { value: '4', label: 'Systems shipped' },
-  { value: '18+', label: 'Production screens' },
+  { value: '6', label: 'Systems shipped' },
+  { value: '4', label: 'Live on Vercel' },
   { value: 'AI-native', label: 'Build workflow' },
   { value: 'React · Supabase', label: 'Core stack' },
 ]

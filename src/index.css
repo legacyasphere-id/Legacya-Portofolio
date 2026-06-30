@@ -16,11 +16,11 @@
   }
 
   body {
-    @apply bg-bg text-text font-sans;
+    @apply text-text font-sans;
+    background-color: #EFE9DC;
     overflow-x: hidden;
     font-size: 16px;
     line-height: 1.6;
-    background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.108 0 0 0 0 0.102 0 0 0 0 0.090 0 0 0 0.025 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
   h1, h2, h3 {
@@ -35,6 +35,30 @@
   ::-webkit-scrollbar-thumb:hover { background: #B8956A; }
 
   ::selection { background: rgba(184,149,106,0.25); color: #1C1A17; }
+}
+
+/* ── Fixed marble background + readability veil ───────────────────────── */
+.site-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.site-bg-veil {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  /* Cream wash: heavier on the left where left-aligned text lives, lighter
+     on the right so the marble swirl stays visible. Keeps dark text legible. */
+  background:
+    linear-gradient(100deg, rgba(243,238,228,0.93) 0%, rgba(243,238,228,0.80) 42%, rgba(243,238,228,0.58) 72%, rgba(243,238,228,0.42) 100%);
+}
+@media (max-width: 768px) {
+  .site-bg-veil {
+    background: linear-gradient(180deg, rgba(243,238,228,0.90) 0%, rgba(243,238,228,0.80) 100%);
+  }
 }
 
 /* ── Reveal system: blur-to-clear + rise ─────────────────────────────── */
@@ -150,19 +174,34 @@
 
   /* ── Card ────────────────────────────────────────────────────────── */
   .deck-card {
-    @apply bg-surface border border-border rounded-[20px] overflow-hidden;
-    box-shadow: 0 1px 2px rgba(28,26,23,0.04), 0 16px 40px -16px rgba(28,26,23,0.10);
+    @apply border border-white/50 rounded-[20px] overflow-hidden;
+    background: rgba(250, 248, 242, 0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 1px 2px rgba(28,26,23,0.04), 0 18px 46px -18px rgba(38,56,74,0.20);
     transition: box-shadow 0.4s ease, transform 0.4s var(--ease);
   }
   .deck-card:hover {
-    box-shadow: 0 2px 4px rgba(28,26,23,0.05), 0 24px 56px -16px rgba(28,26,23,0.16);
+    box-shadow: 0 2px 4px rgba(28,26,23,0.05), 0 28px 60px -18px rgba(38,56,74,0.28);
   }
 
   .service-card {
-    @apply bg-bg p-7 md:p-10;
+    @apply p-7 md:p-10;
+    background: rgba(247, 244, 237, 0.86);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     transition: background-color 0.35s ease;
   }
-  .service-card:hover { @apply bg-surface; }
+  .service-card:hover { background: rgba(250, 248, 242, 0.95); }
+
+  /* Navy band — for sections that lean into the texture with light text */
+  .band-navy {
+    position: relative;
+    color: #F2E9DC;
+    background:
+      linear-gradient(180deg, rgba(38,56,74,0.92) 0%, rgba(28,40,54,0.95) 100%);
+  }
+  .band-navy .eyebrow { color: #D6BC95; }
 }
 
 @layer utilities {
@@ -182,19 +221,12 @@
     font-style: italic;
     font-weight: 400;
   }
-  /* Smooth section gradients (light theme) */
+  /* Section washes — kept mostly transparent so the marble shows through */
   .grad-hero {
-    background:
-      radial-gradient(90% 80% at 85% 15%, rgba(184,149,106,0.14), transparent 60%),
-      linear-gradient(180deg, #F7F4ED 0%, #F4EFE3 100%);
+    background: radial-gradient(70% 70% at 88% 20%, rgba(184,149,106,0.16), transparent 62%);
   }
   .grad-warm {
-    background: linear-gradient(180deg, #F4EFE3 0%, #F7F4ED 30%, #F7F4ED 70%, #F2ECDF 100%);
-  }
-  .grad-cta {
-    background:
-      radial-gradient(70% 120% at 50% 120%, rgba(184,149,106,0.18), transparent 60%),
-      linear-gradient(180deg, #F2ECDF 0%, #F7F4ED 100%);
+    background: linear-gradient(180deg, rgba(243,238,228,0.30) 0%, transparent 35%, transparent 65%, rgba(38,56,74,0.06) 100%);
   }
 }
 
@@ -213,7 +245,7 @@
 .ring--2 {
   inset: 11%;
   animation: spin 24s linear infinite reverse;
-  border-bottom-color: rgba(122, 139, 106, 0.6);
+  border-bottom-color: rgba(51, 71, 91, 0.6);
 }
 .ring--3 {
   inset: 24%;
@@ -224,7 +256,7 @@
   position: absolute;
   inset: 39%;
   border-radius: 50%;
-  background: radial-gradient(circle at 32% 28%, rgba(184,149,106,0.4), rgba(184,149,106,0.05) 62%, transparent 75%);
+  background: radial-gradient(circle at 32% 28%, rgba(184,149,106,0.42), rgba(51,71,91,0.10) 62%, transparent 75%);
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -306,6 +338,6 @@
   letter-spacing: -0.02em;
   line-height: 1;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(28, 26, 23, 0.22);
+  -webkit-text-stroke: 1px rgba(242, 233, 220, 0.45);
   user-select: none;
 }

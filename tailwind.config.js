@@ -12,18 +12,21 @@ export default {
         text:    '#1C1A17',
         muted:   '#8A847A',
         dim:     '#B5AFA4',
-        // Primary accent — gold (was cyan)
+        // Primary accent — gold
         cyan:    '#B8956A',
         'cyan-dim': '#9A7A52',
-        // Secondary accent — sage (was purple)
-        purple:  '#7A8B6A',
-        'purple-dim': '#5C6E52',
-        // Success / active — forest (was green)
-        green:   '#5A8A6A',
-        'green-dim': '#3D6B4D',
-        // Legacy accent
         accent:  '#B8956A',
         'accent-light': '#D6BC95',
+        // Secondary accent — sage
+        purple:  '#7A8B6A',
+        'purple-dim': '#5C6E52',
+        // Success / active — forest
+        green:   '#5A8A6A',
+        'green-dim': '#3D6B4D',
+        // Navy — drawn from the background texture (cream/blue system)
+        navy:      '#33475B',
+        'navy-deep': '#26384A',
+        'navy-soft': '#5A7088',
         // Dark surface for manifesto-style sections
         ink:     '#1C1A17',
         'ink-deep': '#13110F',
