@@ -13,12 +13,10 @@
     text-rendering: optimizeLegibility;
     scrollbar-color: #D8CFC0 #F5F0E8;
     scrollbar-width: thin;
-    overflow-x: hidden;
-    background-color: #ECE6DA;
   }
 
   body {
-    @apply text-text font-sans;
+    @apply bg-bg text-text font-sans;
     overflow-x: hidden;
     font-size: 16px;
     line-height: 1.6;
@@ -46,31 +44,6 @@
   ::-webkit-scrollbar-thumb:hover { background: #5E7EBE; }
 
   ::selection { background: rgba(94, 126, 190, 0.22); color: #181818; }
-}
-
-/* ── Marble texture background ────────────────────────────────────────────
-   One opaque, viewport-fixed layer. Because it fully covers the viewport and
-   the html canvas under it is opaque, nothing behind the page can ever show
-   through — no stale/cached layers, no ghosting. A light cream wash is baked
-   on top so text stays legible while the texture reads clearly. */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background-image:
-    linear-gradient(rgba(245, 240, 232, 0.52), rgba(245, 240, 232, 0.52)),
-    url('./assets/bg-texture.jpg');
-  background-size: cover, cover;
-  background-position: center, center;
-  background-repeat: no-repeat, no-repeat;
-}
-@media (max-width: 768px) {
-  body::before {
-    background-image:
-      linear-gradient(rgba(245, 240, 232, 0.62), rgba(245, 240, 232, 0.62)),
-      url('./assets/bg-texture.jpg');
-  }
 }
 
 /* ── Reveal system: subtle fade + rise ───────────────────────────────── */
@@ -224,9 +197,18 @@ body::before {
   .text-blue-accent { color: #5E7EBE; }
 
   /* Section gradients — calm, minimal */
-  /* Hero & CTA have no background of their own — the marble shows through. */
-  .grad-hero { background: transparent; }
-  .grad-cta { background: transparent; }
+  .grad-hero {
+    background:
+      radial-gradient(58% 55% at 84% 8%, rgba(94, 126, 190, 0.30), transparent 60%),
+      radial-gradient(46% 50% at 4% 100%, rgba(47, 79, 127, 0.16), transparent 62%),
+      linear-gradient(180deg, #F5F0E8 0%, #ECE6DA 100%);
+  }
+  .grad-cta {
+    background:
+      radial-gradient(100% 95% at 50% 112%, rgba(47, 79, 127, 0.40), transparent 60%),
+      radial-gradient(48% 65% at 90% -6%, rgba(94, 126, 190, 0.24), transparent 60%),
+      linear-gradient(180deg, #EBE4D6 0%, #F5F0E8 60%);
+  }
 
   /* Faint blueprint grid for technical sections */
   .grid-blueprint {

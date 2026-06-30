@@ -25,7 +25,7 @@ export default function App() {
   useScrollReveal()
 
   return (
-    <div id="top" className="min-h-screen">
+    <div id="top" className="min-h-screen bg-bg">
       <SiteNav />
       <main>
         <HeroSection />
