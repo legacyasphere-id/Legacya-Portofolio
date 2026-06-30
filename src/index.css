@@ -13,10 +13,12 @@
     text-rendering: optimizeLegibility;
     scrollbar-color: #D8CFC0 #F5F0E8;
     scrollbar-width: thin;
+    overflow-x: hidden;
+    background-color: #ECE6DA;
   }
 
   body {
-    @apply bg-bg text-text font-sans;
+    @apply text-text font-sans;
     overflow-x: hidden;
     font-size: 16px;
     line-height: 1.6;
@@ -44,6 +46,38 @@
   ::-webkit-scrollbar-thumb:hover { background: #5E7EBE; }
 
   ::selection { background: rgba(94, 126, 190, 0.22); color: #181818; }
+}
+
+/* ── Fixed marble texture background + readability veil ───────────────── */
+.site-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.site-bg-veil {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  /* Cream wash that keeps text legible while the cream/blue marble stays
+     visible behind the transparent content sections. */
+  background: linear-gradient(
+    180deg,
+    rgba(245, 240, 232, 0.86) 0%,
+    rgba(245, 240, 232, 0.78) 50%,
+    rgba(245, 240, 232, 0.84) 100%
+  );
+}
+@media (max-width: 768px) {
+  .site-bg-veil {
+    background: linear-gradient(
+      180deg,
+      rgba(245, 240, 232, 0.88) 0%,
+      rgba(245, 240, 232, 0.84) 100%
+    );
+  }
 }
 
 /* ── Reveal system: subtle fade + rise ───────────────────────────────── */
@@ -201,13 +235,13 @@
     background:
       radial-gradient(58% 55% at 84% 8%, rgba(94, 126, 190, 0.30), transparent 60%),
       radial-gradient(46% 50% at 4% 100%, rgba(47, 79, 127, 0.16), transparent 62%),
-      linear-gradient(180deg, #F5F0E8 0%, #ECE6DA 100%);
+      linear-gradient(180deg, rgba(245, 240, 232, 0.74) 0%, rgba(236, 230, 218, 0.80) 100%);
   }
   .grad-cta {
     background:
       radial-gradient(100% 95% at 50% 112%, rgba(47, 79, 127, 0.40), transparent 60%),
       radial-gradient(48% 65% at 90% -6%, rgba(94, 126, 190, 0.24), transparent 60%),
-      linear-gradient(180deg, #EBE4D6 0%, #F5F0E8 60%);
+      linear-gradient(180deg, rgba(235, 228, 214, 0.78) 0%, rgba(245, 240, 232, 0.80) 60%);
   }
 
   /* Faint blueprint grid for technical sections */

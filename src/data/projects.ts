@@ -5,33 +5,34 @@ export const projects: Project[] = [
   {
     id: 'inventory-os',
     name: 'InventoryOS',
-    tagline: 'Operational Inventory Management System',
-    type: 'Mini ERP · 9 Screens',
+    tagline: 'Full-Stack Inventory Management System',
+    type: 'Mini ERP · Full-Stack',
     status: 'live',
     featured: true,
     caseStudy: {
       problem:
         'Multi-role warehouse teams relied on manual spreadsheets for stock tracking, causing inventory discrepancies, delayed reorder decisions, and zero visibility across roles.',
       thinkingProcess:
-        'Mapped data flows first: products → movements → aggregated stock state. Defined role boundaries (admin vs staff) at the schema level before writing UI. PostgreSQL constraints were designed to prevent concurrent update race conditions before the frontend existed.',
+        'Mapped data flows first: products → movements → aggregated stock state. Defined the schema and transaction boundaries before any UI, so stock integrity was guaranteed at the database layer rather than patched in the frontend.',
       aiRole:
-        'Claude designed the PostgreSQL schema, reviewed RLS policies for security gaps, and architectured the React Query + Zustand state split. Used as a code review layer on every PR before merge.',
+        'Claude designed the Prisma schema and transaction boundaries, reviewed the JWT auth flow for gaps, and guided the vendor-chunk bundle optimization that cut initial JS from 829 KB to 162 KB.',
       architectureNote:
-        'products → inventory_movements → aggregated stock state. RLS policies per role (admin / staff). React Query for server state, Zustand for ephemeral UI state. PostgreSQL transactions + constraints prevent concurrent SKU update races.',
+        'products → inventory_movements → aggregated stock state. Express + Prisma API over PostgreSQL (Supabase-hosted). Every movement updates currentQty inside a single Prisma transaction to prevent concurrent-update races.',
       technicalExecution:
-        'Supabase RLS enforces role-based access at the database layer. React Query manages server state with optimistic updates. Zustand handles ephemeral UI state. PostgreSQL transactions prevent race conditions when multiple staff update the same SKU simultaneously.',
+        'JWT auth with bcrypt hashing and protected routes on both layers. Atomic stock movements via Prisma transactions. Multi-line purchase orders with a draft → confirmed → partial → received lifecycle. Full API: products, movements, orders, suppliers, analytics, users.',
       outcome:
-        'Deployed across 9 production screens with real-time stock tracking, alert system, and analytics. Eliminated manual stock sheets and measurably reduced inventory discrepancy in warehouse operations.',
+        'Live on Vercel with real auth, atomic stock movements, purchase orders, suppliers, alerts, and analytics — CI running on every push. The audit ranks it the strongest full-stack engineering asset.',
     },
     techStack: {
-      frontend: 'React + Zustand + React Query + Recharts',
-      backend: 'Supabase · PostgreSQL · RLS · Auth',
-      deploy: 'Vercel · GitHub CI/CD · Realtime',
+      frontend: 'React + TypeScript + TanStack Query',
+      backend: 'Express + Prisma + PostgreSQL',
+      auth: 'JWT + bcrypt',
+      deploy: 'Vercel · GitHub CI/CD',
     },
-    stack: ['React', 'Zustand', 'React Query', 'Recharts', 'Supabase', 'PostgreSQL', 'Vercel'],
+    stack: ['React', 'TypeScript', 'TanStack Query', 'Express', 'Prisma', 'PostgreSQL', 'Vercel'],
     links: {
-      github: 'https://github.com/legacyasphere-id',
-      live: 'https://mini-erp-frontend-tau.vercel.app/alerts',
+      github: 'https://github.com/legacyasphere-id/MINI-ERP',
+      live: 'https://mini-erp-frontend-tau.vercel.app/',
     },
     screenshots: [
       { src: asset('img-16.webp'), alt: 'InventoryOS — dashboard with KPI cards and stock value chart' },
@@ -40,111 +41,109 @@ export const projects: Project[] = [
     ],
   },
   {
+    id: 'ai-cv-screening',
+    name: 'AI-CV Screening',
+    tagline: 'AI-Powered CV Screening for Allure Industries',
+    type: 'AI Screening Platform',
+    status: 'live',
+    featured: true,
+    caseStudy: {
+      problem:
+        'Allure Industries screened CVs by hand — slow, inconsistent, and impossible to justify why one candidate ranked above another.',
+      thinkingProcess:
+        'Separated extraction from judgment: let the LLM read messy CVs into structured fields, but keep ranking on a fixed, auditable formula so hiring decisions never depend on model whim.',
+      aiRole:
+        'Claude shaped the deterministic scoring rubric and the prompt boundary that keeps Gemini limited to extraction and normalization — never the ranking decision.',
+      architectureNote:
+        'CV upload → Gemini extraction (skills, experience, education) → normalization → deterministic scorer (Skill 40 / Experience 30 / Education 20 / Bonus 10). Supabase stores candidates, jobs, matches, and submissions.',
+      technicalExecution:
+        'React + TypeScript frontend, Supabase Edge Functions (Deno) for process-cv and match-candidates, Gemini 1.5 Flash for extraction only. Demo mode runs with five sample CVs and no backend.',
+      outcome:
+        'MVP shipped on Vercel with a radar-chart dashboard, per-candidate explainability, and JSON/CSV export. Ranking is 100% reproducible and bias-auditable. The audit rates it the best B2B monetization candidate.',
+    },
+    techStack: {
+      frontend: 'React + TypeScript + Recharts',
+      backend: 'Supabase Edge Functions (Deno)',
+      database: 'Supabase PostgreSQL',
+      deploy: 'Vercel',
+    },
+    stack: ['React', 'TypeScript', 'Supabase Edge', 'Deno', 'Gemini', 'Recharts', 'Vercel'],
+    links: {
+      github:
+        'https://github.com/legacyasphere-id/AI-Powered-CV-Screening-Platform-for-Allure-Industries',
+      live: 'https://ai-powered-cv-screening-platform-fo.vercel.app',
+    },
+    screenshots: [],
+  },
+  {
+    id: 'sphere-os',
+    name: 'Sphere OS',
+    tagline: 'Unified Business OS for Founders',
+    type: 'Business Operating System',
+    status: 'in-progress',
+    featured: true,
+    caseStudy: {
+      problem:
+        'Founders and small teams run on five disconnected SaaS tools — CRM here, projects there, finance in a spreadsheet — with no shared source of truth.',
+      thinkingProcess:
+        'Modeled one shared dataset first, then layered modules on top, so CRM, projects, proposals, and finance read and write the same entities instead of syncing copies between tools.',
+      aiRole:
+        'Claude reviewed the module boundaries and the Laravel migration set, and helped compile all 16 migrations into a single Supabase-compatible restore script for zero-Docker recreation.',
+      architectureNote:
+        'Laravel 12 API + Vue 3 SPA over one relational core. Modules: CRM · Projects · Proposals · Finance · Knowledge Base · AI Assistant. Runs on MySQL 8 (Docker) or Supabase PostgreSQL.',
+      technicalExecution:
+        'Laravel 12 (PHP) backend, Vue 3 + TypeScript + Pinia frontend, Vite build, Tailwind v4. Docker Compose brings up API + frontend + Nginx + MySQL in one command; Playwright E2E included.',
+      outcome:
+        'Live demo deployed on Vercel. Unifies six business functions on one dataset, replacing the five-tool sprawl most small studios juggle. Active development toward beta.',
+    },
+    techStack: {
+      frontend: 'Vue 3 + TypeScript + Pinia',
+      backend: 'Laravel 12 · MySQL / Supabase',
+      deploy: 'Vercel · Docker Compose',
+    },
+    stack: ['Laravel 12', 'Vue 3', 'TypeScript', 'Pinia', 'PostgreSQL', 'Docker', 'Playwright'],
+    links: {
+      github: 'https://github.com/legacyasphere-id/Sphere-Os',
+      live: 'https://sphere-os-virid.vercel.app',
+    },
+    screenshots: [],
+  },
+  {
     id: 'legacya-pos',
-    name: 'Legacya POS UI',
+    name: 'Legacya POS',
     tagline: 'Restaurant Operations Platform',
-    type: 'Dashboard · POS · 9 Screens',
+    type: 'POS · 9 Screens · 3 Roles',
     status: 'live',
     featured: false,
     caseStudy: {
       problem:
         'Restaurant operators ran cashier ops, kitchen coordination, and revenue analytics across fragmented manual processes — no unified real-time view.',
       thinkingProcess:
-        'Decomposed restaurant ops into 3 core subsystems: order intake (cashier), production (kitchen display), and analytics (revenue/menu intelligence). Designed the data model for each before building any screen.',
+        'Decomposed restaurant ops into three core subsystems — order intake (cashier), production (kitchen display), and analytics — and split payment from fulfillment so cash orders still flow through the kitchen queue.',
       aiRole:
-        'Claude helped design the component hierarchy for the 9-screen system and reviewed the recharts data transformation layer to ensure accurate revenue aggregations.',
+        'Claude reviewed the Supabase RLS policies and the auth_role resolution that was wrongly reading the JWT role claim, and validated the Realtime order-queue subscription model.',
       architectureNote:
-        '3 subsystems: order intake (cashier) → production queue (kitchen display) → analytics layer (revenue / menu intelligence). Shared order state flows top-down; analytics reads from a derived aggregation layer.',
+        'Owner / Cashier / Kitchen roles on a live Supabase backend. order.status drives fulfillment; a separate order.payment_status axis tracks payment. place_order and pay_order_cash RPCs enforce server-side logic; the kitchen queue polls and subscribes to Realtime changes.',
       technicalExecution:
-        'React frontend with Recharts for analytics. AI-powered insights embedded across screens. Kitchen display system with live order tickets. Menu intelligence layer for item-level analytics.',
+        'React + Vite frontend with Recharts analytics. Supabase PostgreSQL with RLS and Realtime. Live order list with status filters, an elapsed cooking timer, and a thermal-receipt preview. Auth, menu, cashier, orders, and kitchen are wired to the backend.',
       outcome:
-        'Deployed 9 operational screens covering cashier workflow, kitchen display, revenue analytics, and menu intelligence. Replaced fragmented manual processes with a unified platform.',
+        'Nine operational screens across three personas with a live Supabase backend — Realtime kitchen queue, RLS-enforced access, and a split payment/fulfillment flow replacing fragmented manual processes.',
     },
     techStack: {
-      frontend: 'React + Recharts',
+      frontend: 'React + Vite + Recharts',
+      backend: 'Supabase · PostgreSQL · RLS',
+      realtime: 'Supabase Realtime',
       deploy: 'Vercel',
     },
-    stack: ['React', 'Tailwind CSS', 'Recharts', 'Vercel'],
+    stack: ['React', 'Vite', 'Tailwind CSS', 'Recharts', 'Supabase', 'PostgreSQL', 'Vercel'],
     links: {
-      github: 'https://github.com/legacyasphere-id',
-      live: 'https://legacya-pos-ui.vercel.app/dashboard',
+      github: 'https://github.com/legacyasphere-id/Legacya-Pos-Ui',
+      live: 'https://legacya-pos-ui.vercel.app',
     },
     screenshots: [
-      { src: asset('img-06.webp'), alt: 'Legacya POS UI — cashier screen with live order list' },
-      { src: asset('img-07.webp'), alt: 'Legacya POS UI — analytics dashboard with revenue KPIs' },
-      { src: asset('img-08.webp'), alt: 'Legacya POS UI — kitchen display with live order tickets' },
-    ],
-  },
-  {
-    id: 'hybrid-dashboard',
-    name: 'Hybrid Dashboard',
-    tagline: 'Studio Operations Dashboard',
-    type: 'Dashboard · Studio Ops',
-    status: 'live',
-    featured: false,
-    caseStudy: {
-      problem:
-        'Small studio teams needed a single-screen operational view — revenue tracking, task management, and project status — without paying for enterprise SaaS.',
-      thinkingProcess:
-        'Identified the minimum viable data set: revenue trend, task queue, project status, AI assistant. Designed localStorage-based state to keep it zero-backend and instantly deployable.',
-      aiRole:
-        'Claude reviewed the SVG chart architecture and helped design the localStorage state schema for persistence without a backend dependency.',
-      architectureNote:
-        'Single-module state object in localStorage. SVG charts drawn directly from state — no library. Component boundaries: KPI panel, task queue, project tracker, AI assistant each own a slice of state.',
-      technicalExecution:
-        'Pure Tailwind CSS + Vanilla JS with SVG charts rendered inline. localStorage state management. Zero dependencies, zero backend. Deployed as a static site.',
-      outcome:
-        'Studio operations dashboard with real-time revenue chart, KPI cards, persistent task manager, and project tracker. Zero SaaS cost, full ownership.',
-    },
-    techStack: {
-      frontend: 'Tailwind CSS + Vanilla JS',
-      deploy: 'GitHub Pages',
-    },
-    stack: ['Tailwind CSS', 'Vanilla JS', 'SVG Charts'],
-    links: {
-      github: 'https://github.com/legacyasphere-id/Hybrid-Dashboard',
-      live: 'https://legacyasphere-id.github.io/Hybrid-Dashboard/',
-    },
-    screenshots: [
-      { src: asset('img-09.webp'), alt: 'Hybrid Dashboard — KPI metric cards and revenue chart' },
-      { src: asset('img-10.webp'), alt: 'Hybrid Dashboard — revenue trend and task list' },
-      { src: asset('img-11.webp'), alt: 'Hybrid Dashboard — project tracker and activity feed' },
-    ],
-  },
-  {
-    id: 'daenuna',
-    name: 'daenuna.co',
-    tagline: 'Artisan E-Commerce Platform',
-    type: 'E-Commerce · Order Management',
-    status: 'live',
-    featured: false,
-    caseStudy: {
-      problem:
-        'A handmade crochet brand ran all orders via Instagram DMs — chaotic, unscalable, and impossible to track. No structured catalog, no order flow.',
-      thinkingProcess:
-        'The core problem was friction between product discovery and order placement. Designed a guided catalog flow that mirrors physical browsing and routes completed orders to WhatsApp — matching the brand\'s existing communication channel.',
-      aiRole:
-        'Claude helped structure the bilingual copy and reviewed the WhatsApp order integration flow for UX clarity.',
-      architectureNote:
-        'Linear catalog funnel: category browse → product detail → order form → WhatsApp deep-link with pre-filled order data. No backend — order state is passed entirely through URL parameters.',
-      technicalExecution:
-        'Semantic HTML5 + Vanilla JS static site. WhatsApp order integration with pre-filled message templates. Bilingual (EN/ID) brand storytelling. Deployed as static site for zero server costs.',
-      outcome:
-        'Replaced chaotic social DM orders with structured catalog flow. Measurably reduced order processing friction for a high-repeat-purchase artisan brand.',
-    },
-    techStack: {
-      frontend: 'Semantic HTML5 + Vanilla JS',
-      deploy: 'GitHub Pages',
-    },
-    stack: ['Semantic HTML5', 'Vanilla JS', 'Static Deploy'],
-    links: {
-      github: 'https://github.com/legacyasphere-id/Daenuna.co',
-      live: 'https://legacyasphere-id.github.io/Daenuna.co/',
-    },
-    screenshots: [
-      { src: asset('daenuna-hero.jpg'), alt: 'daenuna.co — hero section' },
-      { src: asset('daenuna-story.jpg'), alt: 'daenuna.co — brand story section' },
-      { src: asset('daenuna-order.jpg'), alt: 'daenuna.co — order flow' },
+      { src: asset('img-06.webp'), alt: 'Legacya POS — cashier screen with live order list' },
+      { src: asset('img-07.webp'), alt: 'Legacya POS — analytics dashboard with revenue KPIs' },
+      { src: asset('img-08.webp'), alt: 'Legacya POS — kitchen display with live order tickets' },
     ],
   },
 ]

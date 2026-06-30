@@ -3,23 +3,28 @@ import { projects } from '../data/projects'
 const OVERVIEW: Record<string, string> = {
   'inventory-os':
     'A mini-ERP that gives warehouse teams real-time control over stock, movements, and reorder decisions.',
+  'ai-cv-screening':
+    'An AI screening platform that extracts CV data with Gemini, then ranks candidates on a deterministic, bias-auditable formula.',
+  'sphere-os':
+    'A unified business OS — CRM, projects, proposals, finance, and an AI assistant sharing one dataset instead of five tools.',
   'legacya-pos':
-    'A unified restaurant operations platform covering cashier, kitchen, and revenue analytics.',
-  'hybrid-dashboard':
-    'A zero-backend studio operations dashboard — revenue, tasks, and projects on one screen.',
-  daenuna:
-    'A structured e-commerce catalog and order flow for a high-repeat artisan brand.',
+    'A unified restaurant operations platform covering cashier, kitchen, and revenue analytics in real time.',
 }
 
 const SOLUTION: Record<string, string> = {
   'inventory-os':
-    'A centralized platform with role-based access, real-time stock tracking, and an alert system — built on a database designed to prevent inventory errors at the source.',
+    'A centralized platform with role-based access, atomic stock movements, and an alert system — built on a schema and transactions designed to prevent inventory errors at the source.',
+  'ai-cv-screening':
+    'Gemini handles only extraction and normalization; a fixed scoring engine (Skill 40 / Experience 30 / Education 20 / Bonus 10) keeps every ranking reproducible and explainable.',
+  'sphere-os':
+    'One relational core under a Laravel 12 API and a Vue 3 SPA, with six modules reading and writing the same entities — deployable via Docker Compose or Supabase.',
   'legacya-pos':
-    'One platform unifying order intake, a live kitchen display, and a revenue analytics layer, so the whole operation works from a single real-time view.',
-  'hybrid-dashboard':
-    'A single-screen operational dashboard with live revenue charts, a persistent task manager, and a project tracker — fully owned, with zero SaaS cost.',
-  daenuna:
-    'A guided catalog flow that routes completed orders straight into the brand\'s existing channel, replacing chaotic DMs with structured, trackable orders.',
+    'One platform unifying order intake, a live kitchen display, and a revenue analytics layer on a Supabase backend, so the whole operation works from a single real-time view.',
+}
+
+const GRADIENT: Record<string, string> = {
+  'ai-cv-screening': 'linear-gradient(135deg, #26416B 0%, #2F4F7F 55%, #5E7EBE 130%)',
+  'sphere-os': 'linear-gradient(135deg, #1F3358 0%, #2F4F7F 60%, #5E7EBE 130%)',
 }
 
 const STATUS_LABEL: Record<string, string> = {
@@ -52,14 +57,28 @@ export function WorkSection() {
               data-delay="100"
             >
               {/* Visual */}
-              <div className="relative min-h-[220px] overflow-hidden bg-raised lg:min-h-full">
-                {project.screenshots[0] && (
+              <div
+                className="relative min-h-[220px] overflow-hidden bg-raised lg:min-h-full"
+                style={
+                  !project.screenshots[0] && GRADIENT[project.id]
+                    ? { background: GRADIENT[project.id] }
+                    : undefined
+                }
+              >
+                {project.screenshots[0] ? (
                   <img
                     src={project.screenshots[0].src}
                     alt={project.screenshots[0].alt}
                     className="absolute inset-0 h-full w-full object-cover object-top"
                     loading="lazy"
                   />
+                ) : (
+                  <span
+                    className="display absolute bottom-5 right-6 text-[clamp(2.6rem,6vw,4.2rem)] leading-none text-white/10"
+                    aria-hidden="true"
+                  >
+                    {project.name.split(' ')[0]}
+                  </span>
                 )}
                 <div className="absolute inset-0 bg-gradient-to-tr from-blue-deep/25 via-transparent to-transparent" />
                 <div className="absolute left-5 top-5 flex items-center gap-2.5">

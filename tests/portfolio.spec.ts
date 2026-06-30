@@ -78,13 +78,13 @@ test.describe('Systems', () => {
 // ── Work / case studies ─────────────────────────────────────────────────────────
 
 test.describe('Work', () => {
-  test('renders all four real projects', async ({ page }) => {
+  test('renders the curated featured projects', async ({ page }) => {
     await page.goto('/')
     const work = page.locator('#work')
     await expect(work.locator('h3', { hasText: 'InventoryOS' })).toBeVisible()
-    await expect(work.locator('h3', { hasText: 'Legacya POS UI' })).toBeVisible()
-    await expect(work.locator('h3', { hasText: 'Hybrid Dashboard' })).toBeVisible()
-    await expect(work.locator('h3', { hasText: 'daenuna.co' })).toBeVisible()
+    await expect(work.locator('h3', { hasText: 'AI-CV Screening' })).toBeVisible()
+    await expect(work.locator('h3', { hasText: 'Sphere OS' })).toBeVisible()
+    await expect(work.locator('h3', { hasText: 'Legacya POS' })).toBeVisible()
   })
 
   test('each case study exposes problem, solution and outcome', async ({ page }) => {

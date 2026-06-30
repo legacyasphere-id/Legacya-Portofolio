@@ -1,12 +1,12 @@
 const TECH = [
-  'Laravel',
-  'Vue.js',
+  'React',
   'TypeScript',
-  'PostgreSQL',
+  'Vue.js',
+  'Laravel',
   'Supabase',
-  'OpenAI',
+  'PostgreSQL',
+  'Gemini',
   'n8n',
-  'Microsoft Graph',
 ]
 
 export function TrustSection() {
