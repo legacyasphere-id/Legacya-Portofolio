@@ -73,7 +73,10 @@ export const projects: Project[] = [
         'https://github.com/legacyasphere-id/AI-Powered-CV-Screening-Platform-for-Allure-Industries',
       live: 'https://ai-powered-cv-screening-platform-fo.vercel.app',
     },
-    screenshots: [],
+    screenshots: [
+      { src: asset('img-19.webp'), alt: 'AI-CV Screening — candidate dashboard with KPI cards, ranked top candidates, and a Top-3 score-comparison radar' },
+      { src: asset('img-20.webp'), alt: 'AI-CV Screening — job requirements and the ranked all-candidates table with skill matches and final scores' },
+    ],
   },
   {
     id: 'sphere-os',
