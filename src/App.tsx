@@ -5,7 +5,9 @@ import { TrustSection } from './sections/TrustSection'
 import { SystemsSection } from './sections/SystemsSection'
 import { WorkSection } from './sections/WorkSection'
 import { ProcessSection } from './sections/ProcessSection'
+import { ProofSection } from './sections/ProofSection'
 import { PhilosophySection } from './sections/PhilosophySection'
+import { FounderSection } from './sections/FounderSection'
 import { OSStatusSection } from './sections/OSStatusSection'
 import { CTASection } from './sections/CTASection'
 import { Footer } from './components/Footer'
@@ -32,8 +34,10 @@ export default function App() {
         <TrustSection />
         <SystemsSection />
         <WorkSection />
+        <ProofSection />
         <ProcessSection />
         <PhilosophySection />
+        <FounderSection />
         <OSStatusSection />
         <CTASection />
       </main>
