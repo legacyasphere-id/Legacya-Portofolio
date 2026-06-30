@@ -48,35 +48,28 @@
   ::selection { background: rgba(94, 126, 190, 0.22); color: #181818; }
 }
 
-/* ── Fixed marble texture background + readability veil ───────────────── */
-.site-bg {
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-.site-bg-veil {
+/* ── Marble texture background ────────────────────────────────────────────
+   One opaque, viewport-fixed layer. Because it fully covers the viewport and
+   the html canvas under it is opaque, nothing behind the page can ever show
+   through — no stale/cached layers, no ghosting. A light cream wash is baked
+   on top so text stays legible while the texture reads clearly. */
+body::before {
+  content: '';
   position: fixed;
   inset: 0;
   z-index: -1;
-  /* Cream wash light enough that the marble reads clearly, strong enough
-     to keep body text legible. */
-  background: linear-gradient(
-    180deg,
-    rgba(245, 240, 232, 0.60) 0%,
-    rgba(245, 240, 232, 0.52) 50%,
-    rgba(245, 240, 232, 0.60) 100%
-  );
+  background-image:
+    linear-gradient(rgba(245, 240, 232, 0.52), rgba(245, 240, 232, 0.52)),
+    url('./assets/bg-texture.jpg');
+  background-size: cover, cover;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
 }
 @media (max-width: 768px) {
-  .site-bg-veil {
-    background: linear-gradient(
-      180deg,
-      rgba(245, 240, 232, 0.70) 0%,
-      rgba(245, 240, 232, 0.64) 100%
-    );
+  body::before {
+    background-image:
+      linear-gradient(rgba(245, 240, 232, 0.62), rgba(245, 240, 232, 0.62)),
+      url('./assets/bg-texture.jpg');
   }
 }
 
@@ -231,17 +224,9 @@
   .text-blue-accent { color: #5E7EBE; }
 
   /* Section gradients — calm, minimal */
-  /* Hero & CTA keep only their blue glows so the marble shows through. */
-  .grad-hero {
-    background:
-      radial-gradient(58% 55% at 84% 8%, rgba(94, 126, 190, 0.26), transparent 60%),
-      radial-gradient(46% 50% at 4% 100%, rgba(47, 79, 127, 0.14), transparent 62%);
-  }
-  .grad-cta {
-    background:
-      radial-gradient(100% 95% at 50% 112%, rgba(47, 79, 127, 0.38), transparent 60%),
-      radial-gradient(48% 65% at 90% -6%, rgba(94, 126, 190, 0.22), transparent 60%);
-  }
+  /* Hero & CTA have no background of their own — the marble shows through. */
+  .grad-hero { background: transparent; }
+  .grad-cta { background: transparent; }
 
   /* Faint blueprint grid for technical sections */
   .grid-blueprint {
