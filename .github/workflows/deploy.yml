@@ -31,7 +31,7 @@ jobs:
 
       - name: Check image assets
         run: |
-          for img in public/img-04.webp public/img-05.webp public/img-15.webp; do
+          for img in public/img-04.webp public/img-15.webp public/img-16.webp; do
             test -f "$img" || (echo "$img missing" && exit 1)
             echo "$img found ✓"
           done
