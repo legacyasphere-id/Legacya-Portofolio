@@ -329,3 +329,7 @@ body::after {
   -webkit-text-stroke: 1px rgba(47, 79, 127, 0.20);
   user-select: none;
 }
+/* Footer sits over a dark scrim — lighten the wordmark stroke so it reads. */
+.wordmark-light {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.22);
+}
