@@ -9,7 +9,7 @@
  */
 export function HeroSection() {
   return (
-    <section className="grad-hero relative flex min-h-screen items-center overflow-hidden px-5 pb-24 pt-32 md:px-10 md:pb-28 md:pt-36">
+    <section id="hero" className="grad-hero relative flex min-h-screen items-center overflow-hidden px-5 pb-24 pt-32 md:px-10 md:pb-28 md:pt-36">
       {/* Soft, almost-invisible reading area behind the left column only — a
           gentle editorial backdrop that lifts text legibility off the brighter
           artwork. Not a panel, not a filter, fades out before mid-canvas. */}

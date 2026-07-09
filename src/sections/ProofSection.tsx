@@ -20,7 +20,7 @@ const METRICS = [
 
 export function ProofSection() {
   return (
-    <section className="border-t border-border bg-surface/50 px-5 py-24 md:px-10 md:py-32">
+    <section id="proof" className="border-t border-border bg-surface/50 px-5 py-24 md:px-10 md:py-32">
       <div className="mx-auto max-w-[1180px]">
         <div className="mb-12 max-w-[46ch]" data-animate>
           <p className="eyebrow mb-4">Proof</p>
