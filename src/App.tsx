@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { SiteNav } from './components/SiteNav'
 import { HeroSection } from './sections/HeroSection'
+import { SystemsStrip } from './sections/SystemsStrip'
 import { TrustSection } from './sections/TrustSection'
 import { SystemsSection } from './sections/SystemsSection'
 import { WorkSection } from './sections/WorkSection'
@@ -31,6 +32,7 @@ export default function App() {
       <SiteNav />
       <main>
         <HeroSection />
+        <SystemsStrip />
         <TrustSection />
         <SystemsSection />
         <WorkSection />

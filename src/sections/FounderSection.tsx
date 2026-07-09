@@ -61,9 +61,18 @@ export function FounderSection() {
             </p>
           </div>
 
+          {/* Credibility anchor */}
+          <p
+            className="mt-6 font-mono text-[11px] uppercase tracking-[0.14em] text-blue-deep"
+            data-animate
+            data-delay="250"
+          >
+            4 systems in production · open to remote engagements · Bekasi &rarr; Global
+          </p>
+
           {/* Meta + links */}
           <div
-            className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3 font-mono text-[11px] uppercase tracking-[0.14em] text-dim"
+            className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 font-mono text-[11px] uppercase tracking-[0.14em] text-dim"
             data-animate
             data-delay="300"
           >

@@ -33,6 +33,15 @@ const STATUS_LABEL: Record<string, string> = {
   archived: 'Archived',
 }
 
+// One-line proof metric per case study — the concrete "what it does" at a glance.
+const METRIC: Record<string, string> = {
+  'inventory-os': '4 roles · atomic stock movements · real-time alerts',
+  'ai-cv-screening':
+    '100% reproducible ranking · radar-chart explainability · JSON/CSV export',
+  'legacya-pos': '9 screens · 3 roles · real-time Supabase kitchen queue',
+  'sphere-os': '6 modules · one shared dataset · replaces 5 SaaS tools',
+}
+
 export function WorkSection() {
   return (
     <section id="work" className="border-t border-border px-5 py-24 md:px-10 md:py-32">
@@ -137,6 +146,12 @@ export function WorkSection() {
                     {project.caseStudy.outcome}
                   </p>
                 </div>
+
+                {METRIC[project.id] && (
+                  <p className="rounded-r-md border-l-[3px] border-blue-deep bg-blue/[0.08] py-2.5 pl-3.5 pr-4 font-mono text-[11px] leading-relaxed tracking-[0.04em] text-blue-deep">
+                    {METRIC[project.id]}
+                  </p>
+                )}
 
                 <div className="flex flex-wrap items-center gap-2">
                   {project.stack.slice(0, 5).map((tech) => (
