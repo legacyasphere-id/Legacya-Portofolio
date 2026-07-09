@@ -1,9 +1,8 @@
 /**
- * Trust / proof strip. We don't publish fabricated testimonials — the cards
- * below are factual outcomes from systems running in production today, drawn
- * straight from the OS status board. When real, attributed client quotes are
- * available, drop them into `TESTIMONIALS` and they render in place of the
- * outcome statements.
+ * Proof. A single dark metrics band carries the headline numbers, with a
+ * trusted-by line beneath. Testimonials are testimonial-ready: drop real,
+ * attributed quotes into `TESTIMONIALS` and they render below the band — we
+ * don't publish fabricated quotes.
  */
 interface Testimonial {
   quote: string
@@ -13,27 +12,15 @@ interface Testimonial {
 
 const TESTIMONIALS: Testimonial[] = []
 
-const OUTCOMES = [
-  {
-    context: 'Warehouse operations',
-    outcome:
-      'Multi-role inventory live in production — manual spreadsheet workflows retired for real-time, accurate stock.',
-  },
-  {
-    context: 'Restaurant operations',
-    outcome:
-      'Cashier, kitchen display, and revenue analytics unified on one real-time platform.',
-  },
-  {
-    context: 'Back-office',
-    outcome:
-      'Automation pipelines removing repetitive admin and connecting fragmented business tools.',
-  },
+const METRICS = [
+  { value: '4', label: 'Systems Built' },
+  { value: '2026', label: 'Founded' },
+  { value: '3+', label: 'Industries Served' },
 ]
 
 export function ProofSection() {
   return (
-    <section className="border-t border-border bg-surface/50 px-5 py-24 md:px-10 md:py-32">
+    <section id="proof" className="border-t border-border bg-surface/50 px-5 py-24 md:px-10 md:py-32">
       <div className="mx-auto max-w-[1180px]">
         <div className="mb-12 max-w-[46ch]" data-animate>
           <p className="eyebrow mb-4">Proof</p>
@@ -42,8 +29,32 @@ export function ProofSection() {
           </h2>
         </div>
 
-        {TESTIMONIALS.length > 0 ? (
-          <div className="grid gap-5 md:grid-cols-2">
+        {/* Dark metrics band — the one dark moment on the page. */}
+        <div
+          className="overflow-hidden rounded-2xl bg-[#17181B] px-6 py-14 md:px-10 md:py-16"
+          data-animate
+        >
+          <div className="mx-auto flex max-w-[900px] flex-col items-center justify-around gap-10 sm:flex-row sm:gap-6">
+            {METRICS.map((m, i) => (
+              <div key={m.label} className="flex items-center gap-10 sm:contents">
+                <div className="flex flex-col items-center gap-2">
+                  <span className="display font-extrabold leading-none text-blue-accent text-[clamp(3.4rem,8vw,5.5rem)]">
+                    {m.value}
+                  </span>
+                  <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-[#9CA3AF]">
+                    {m.label}
+                  </span>
+                </div>
+                {i < METRICS.length - 1 && (
+                  <span className="hidden h-16 w-px bg-white/10 sm:block" />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {TESTIMONIALS.length > 0 && (
+          <div className="mt-8 grid gap-5 md:grid-cols-2">
             {TESTIMONIALS.map((t, i) => (
               <figure
                 key={t.name}
@@ -55,28 +66,9 @@ export function ProofSection() {
                   &ldquo;{t.quote}&rdquo;
                 </blockquote>
                 <figcaption className="mt-5 text-[13px] text-muted">
-                  <span className="font-semibold text-text">{t.name}</span> ·{' '}
-                  {t.role}
+                  <span className="font-semibold text-text">{t.name}</span> · {t.role}
                 </figcaption>
               </figure>
-            ))}
-          </div>
-        ) : (
-          <div className="grid gap-4 md:grid-cols-3">
-            {OUTCOMES.map((o, i) => (
-              <div
-                key={o.context}
-                className="card flex flex-col p-6"
-                data-animate
-                data-delay={String(Math.min((i + 1) * 100, 500))}
-              >
-                <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-blue-deep">
-                  {o.context}
-                </p>
-                <p className="mt-3 text-[14.5px] leading-relaxed text-muted">
-                  {o.outcome}
-                </p>
-              </div>
             ))}
           </div>
         )}

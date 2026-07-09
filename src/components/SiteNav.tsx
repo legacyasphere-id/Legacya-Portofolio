@@ -55,7 +55,7 @@ export function SiteNav() {
 
         <div className="hidden lg:block">
           <a href="#contact" className="btn-primary">
-            Start a Project
+            Free Consultation
           </a>
         </div>
 
@@ -86,7 +86,7 @@ export function SiteNav() {
           onClick={() => setOpen(false)}
           className="nav-cta mt-4 rounded-[10px] bg-blue-deep px-6 py-3 text-[15px] font-medium text-white"
         >
-          Start a Project
+          Free Consultation
         </a>
       </nav>
     </>

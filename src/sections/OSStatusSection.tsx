@@ -35,6 +35,9 @@ export function OSStatusSection() {
       <div className="mx-auto max-w-[1180px]">
         <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
           <div className="max-w-[44ch]" data-animate>
+            <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
+              Last updated · July 10, 2026
+            </p>
             <p className="eyebrow mb-4">System Board</p>
             <h2 className="display text-[clamp(2.1rem,4vw,3.3rem)] leading-[1.08]">
               OS Status

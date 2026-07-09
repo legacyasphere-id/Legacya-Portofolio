@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import { SiteNav } from './components/SiteNav'
+import { SectionGuide } from './components/SectionGuide'
 import { HeroSection } from './sections/HeroSection'
+import { SystemsStrip } from './sections/SystemsStrip'
 import { TrustSection } from './sections/TrustSection'
 import { SystemsSection } from './sections/SystemsSection'
 import { WorkSection } from './sections/WorkSection'
@@ -29,8 +31,10 @@ export default function App() {
   return (
     <div id="top" className="min-h-screen">
       <SiteNav />
+      <SectionGuide />
       <main>
         <HeroSection />
+        <SystemsStrip />
         <TrustSection />
         <SystemsSection />
         <WorkSection />
