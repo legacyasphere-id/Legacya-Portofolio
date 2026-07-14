@@ -3,6 +3,7 @@ export interface Project {
   name: string
   tagline: string
   type: string
+  industry?: string
   status: 'live' | 'in-progress' | 'archived'
   featured: boolean
   caseStudy: CaseStudy
@@ -28,6 +29,7 @@ export interface ProjectTechStack {
   deploy?: string
   realtime?: string
   auth?: string
+  automation?: string
 }
 
 export interface ProjectLinks {

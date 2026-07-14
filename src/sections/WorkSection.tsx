@@ -5,8 +5,8 @@ const OVERVIEW: Record<string, string> = {
     'A mini-ERP that gives warehouse teams real-time control over stock, movements, and reorder decisions.',
   'ai-cv-screening':
     'An AI screening platform that extracts CV data with Gemini, then ranks candidates on a deterministic, bias-auditable formula.',
-  'sphere-os':
-    'A unified business OS — CRM, projects, proposals, finance, and an AI assistant sharing one dataset instead of five tools.',
+  'brightpath-dental':
+    'A client-delivered clinic site with a GPT-4o RAG assistant and an automated lead pipeline — patients get answers and book, the clinic gets notified.',
   'legacya-pos':
     'A unified restaurant operations platform covering cashier, kitchen, and revenue analytics in real time.',
 }
@@ -16,15 +16,14 @@ const SOLUTION: Record<string, string> = {
     'A centralized platform with role-based access, atomic stock movements, and an alert system — built on a schema and transactions designed to prevent inventory errors at the source.',
   'ai-cv-screening':
     'Gemini handles only extraction and normalization; a fixed scoring engine (Skill 40 / Experience 30 / Education 20 / Bonus 10) keeps every ranking reproducible and explainable.',
-  'sphere-os':
-    'One relational core under a Laravel 12 API and a Vue 3 SPA, with six modules reading and writing the same entities — deployable via Docker Compose or Supabase.',
+  'brightpath-dental':
+    'A Next.js 15 site where GPT-4o answers over a clinic knowledge base, both chat and booking capture leads into Supabase, and next/server after() fires a Make.com → Gmail notification on every lead.',
   'legacya-pos':
     'One platform unifying order intake, a live kitchen display, and a revenue analytics layer on a Supabase backend, so the whole operation works from a single real-time view.',
 }
 
 const GRADIENT: Record<string, string> = {
   'ai-cv-screening': 'linear-gradient(135deg, #26416B 0%, #2F4F7F 55%, #5E7EBE 130%)',
-  'sphere-os': 'linear-gradient(135deg, #1F3358 0%, #2F4F7F 60%, #5E7EBE 130%)',
 }
 
 const STATUS_LABEL: Record<string, string> = {
@@ -39,7 +38,7 @@ const METRIC: Record<string, string> = {
   'ai-cv-screening':
     '100% reproducible ranking · radar-chart explainability · JSON/CSV export',
   'legacya-pos': '9 screens · 3 roles · real-time Supabase kitchen queue',
-  'sphere-os': '6 modules · one shared dataset · replaces 5 SaaS tools',
+  'brightpath-dental': 'GPT-4o RAG chat · dual-path lead capture · automated Make.com → Gmail pipeline',
 }
 
 export function WorkSection() {
@@ -108,9 +107,16 @@ export function WorkSection() {
               {/* Case study */}
               <div className="flex flex-col gap-5 p-7 md:p-10">
                 <div>
-                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-blue">
-                    {project.type}
-                  </p>
+                  <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
+                    <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-blue">
+                      {project.type}
+                    </p>
+                    {project.industry && (
+                      <span className="rounded border border-border bg-raised px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.16em] text-dim">
+                        {project.industry}
+                      </span>
+                    )}
+                  </div>
                   <h3 className="mt-2 text-[clamp(1.5rem,2.6vw,2.1rem)] font-semibold tracking-[-0.02em]">
                     {project.name}
                   </h3>
