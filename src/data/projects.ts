@@ -7,6 +7,7 @@ export const projects: Project[] = [
     name: 'InventoryOS',
     tagline: 'Full-Stack Inventory Management System',
     type: 'Mini ERP · Full-Stack',
+    industry: 'Warehouse · Logistics',
     status: 'live',
     featured: true,
     caseStudy: {
@@ -45,6 +46,7 @@ export const projects: Project[] = [
     name: 'AI-CV Screening',
     tagline: 'AI-Powered CV Screening for Allure Industries',
     type: 'AI Screening Platform',
+    industry: 'HR Tech',
     status: 'live',
     featured: true,
     caseStudy: {
@@ -79,43 +81,50 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: 'sphere-os',
-    name: 'Sphere OS',
-    tagline: 'Unified Business OS for Founders',
-    type: 'Business Operating System',
-    status: 'in-progress',
+    id: 'brightpath-dental',
+    name: 'BrightPath Dental',
+    tagline: 'AI-Powered Clinic Site for BrightPath Dental (Indonesia)',
+    type: 'Client Delivery · AI Chat · Lead Capture',
+    industry: 'Healthcare',
+    status: 'live',
     featured: true,
     caseStudy: {
       problem:
-        'Founders and small teams run on five disconnected SaaS tools — CRM here, projects there, finance in a spreadsheet — with no shared source of truth.',
+        'A dental clinic in Indonesia had no digital presence — no way for patients to learn about services, book appointments, or get answers outside of a phone call.',
       thinkingProcess:
-        'Modeled one shared dataset first, then layered modules on top, so CRM, projects, proposals, and finance read and write the same entities instead of syncing copies between tools.',
+        'Designed around the patient journey first: answer questions → capture intent → notify the clinic. AI chat handles discovery, the lead form captures commitment, and Make.com + Gmail closes the loop automatically.',
       aiRole:
-        'Claude reviewed the module boundaries and the Laravel migration set, and helped compile all 16 migrations into a single Supabase-compatible restore script for zero-Docker recreation.',
+        'Claude co-engineered the full system — GPT-4o RAG chat trained on clinic KB, next/server after() fix for Vercel webhook reliability, and Make.com Gmail scenario with live variable pills. Built across 4 phases in one week.',
       architectureNote:
-        'Laravel 12 API + Vue 3 SPA over one relational core. Modules: CRM · Projects · Proposals · Finance · Knowledge Base · AI Assistant. Runs on MySQL 8 (Docker) or Supabase PostgreSQL.',
+        'Next.js 15 App Router frontend. /api/chat (GPT-4o + Supabase RAG) and /api/leads (Supabase insert + Make.com webhook via after()). Admin panel at /admin for KB document upload. Make.com webhook → Gmail for automated lead notifications.',
       technicalExecution:
-        'Laravel 12 (PHP) backend, Vue 3 + TypeScript + Pinia frontend, Vite build, Tailwind v4. Docker Compose brings up API + frontend + Nginx + MySQL in one command; Playwright E2E included.',
+        'GPT-4o chatbot with RAG over 5 clinic KB documents (services, pricing, doctors, FAQ). Bahasa Indonesia auto-detection. Lead capture from both chat and booking form into Supabase. next/server after() ensures Make.com webhook fires after Vercel serverless return. Admin panel with drag & drop KnowledgeUpload.',
       outcome:
-        'Live demo deployed on Vercel. Unifies six business functions on one dataset, replacing the five-tool sprawl most small studios juggle. Active development toward beta.',
+        'Full client delivery in one week: live AI chat, automated lead email pipeline, and admin KB management — all running in production on Vercel. First real client project under Legacya Sphere.',
     },
     techStack: {
-      frontend: 'Vue 3 + TypeScript + Pinia',
-      backend: 'Laravel 12 · MySQL / Supabase',
-      deploy: 'Vercel · Docker Compose',
+      frontend: 'Next.js 15 · TypeScript · Tailwind CSS',
+      backend: 'Supabase PostgreSQL + Auth · OpenAI GPT-4o',
+      automation: 'Make.com · Gmail API',
+      deploy: 'Vercel',
     },
-    stack: ['Laravel 12', 'Vue 3', 'TypeScript', 'Pinia', 'PostgreSQL', 'Docker', 'Playwright'],
+    stack: ['Next.js 15', 'TypeScript', 'Supabase', 'OpenAI', 'Make.com', 'Tailwind CSS', 'Vercel'],
     links: {
-      github: 'https://github.com/legacyasphere-id/Sphere-Os',
-      live: 'https://sphere-os-virid.vercel.app',
+      github: 'https://github.com/legacyasphere-id/brightpath-dental',
+      live: 'https://brightpath-dental.vercel.app',
     },
-    screenshots: [],
+    screenshots: [
+      { src: asset('img-21.webp'), alt: "BrightPath Dental — clinic homepage hero with 'Book an Appointment' and 'Ask our AI' calls-to-action" },
+      { src: asset('img-22.webp'), alt: 'BrightPath Dental — AI assistant section with sample patient questions and instant Bahasa Indonesia / English answers' },
+      { src: asset('img-23.webp'), alt: 'BrightPath Dental — services overview grid (check-ups, whitening, implants, orthodontics, root canal, pediatric)' },
+    ],
   },
   {
     id: 'legacya-pos',
     name: 'Legacya POS',
     tagline: 'Restaurant Operations Platform',
     type: 'POS · 9 Screens · 3 Roles',
+    industry: 'Food & Beverage',
     status: 'live',
     featured: false,
     caseStudy: {
