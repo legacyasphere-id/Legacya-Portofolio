@@ -83,7 +83,7 @@ test.describe('Work', () => {
     const work = page.locator('#work')
     await expect(work.locator('h3', { hasText: 'InventoryOS' })).toBeVisible()
     await expect(work.locator('h3', { hasText: 'AI-CV Screening' })).toBeVisible()
-    await expect(work.locator('h3', { hasText: 'Sphere OS' })).toBeVisible()
+    await expect(work.locator('h3', { hasText: 'BrightPath Dental' })).toBeVisible()
     await expect(work.locator('h3', { hasText: 'Legacya POS' })).toBeVisible()
   })
 
@@ -125,7 +125,7 @@ test.describe('OS Status', () => {
     await page.goto('/')
     const os = page.locator('#os-status')
     await expect(os.locator('h2', { hasText: 'OS Status' })).toBeVisible()
-    await expect(os.locator('h3', { hasText: 'SphereOS' })).toBeVisible()
+    await expect(os.locator('h3', { hasText: 'BrightPath Dental' })).toBeVisible()
     await expect(os.locator('.badge', { hasText: 'Active Development' }).first()).toBeVisible()
     await expect(os.locator('.badge', { hasText: 'Production' }).first()).toBeVisible()
   })
