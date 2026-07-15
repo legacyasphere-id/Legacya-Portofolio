@@ -27,8 +27,8 @@ export const OS_STATUS_LABEL: Record<OSStatusLevel, string> = {
  */
 export const osStatus: OSStatusItem[] = [
   {
-    id: 'sphere-os',
-    name: 'SphereOS',
+    id: 'brightpath-dental',
+    name: 'BrightPath Dental',
     category: 'Core Platform',
     detail:
       'Our internal multi-tenant business operating system — the foundation we extend into client platforms, with role-based access and real-time operational data.',
@@ -91,7 +91,7 @@ export const osStatus: OSStatusItem[] = [
     name: 'Multi-Business Console',
     category: 'Core Platform',
     detail:
-      'One SphereOS instance overseeing several business units — shared identity, permissions, and operational visibility across them.',
+      'One BrightPath Dental instance overseeing several business units — shared identity, permissions, and operational visibility across them.',
     status: 'planned',
     phase: 'Later',
   },

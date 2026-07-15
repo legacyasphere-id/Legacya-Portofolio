@@ -13,7 +13,7 @@ const SYSTEMS: SystemEntry[] = [
   { name: 'InventoryOS', meta: 'Mini ERP · v1.4', state: 'live' },
   { name: 'AI-CV Screening', meta: 'AI Platform', state: 'live' },
   { name: 'Legacya POS', meta: 'POS · 9 Screens', state: 'live' },
-  { name: 'Sphere OS', meta: 'Business OS', state: 'building' },
+  { name: 'BrightPath Dental', meta: 'Business OS', state: 'building' },
 ]
 
 export function SystemsStrip() {
