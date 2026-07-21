@@ -22,7 +22,7 @@ export const projects: Project[] = [
       technicalExecution:
         'JWT auth with bcrypt hashing and protected routes on both layers. Atomic stock movements via Prisma transactions. Multi-line purchase orders with a draft → confirmed → partial → received lifecycle. Full API: products, movements, orders, suppliers, analytics, users.',
       outcome:
-        'Live on Vercel with real auth, atomic stock movements, purchase orders, suppliers, alerts, and analytics — CI running on every push. The audit ranks it the strongest full-stack engineering asset.',
+        'Live on Vercel with real auth, atomic stock movements, purchase orders, suppliers, alerts, and analytics, CI running on every push. The audit ranks it the strongest full-stack engineering asset.',
     },
     techStack: {
       frontend: 'React + TypeScript + TanStack Query',
@@ -36,9 +36,9 @@ export const projects: Project[] = [
       live: 'https://mini-erp-frontend-tau.vercel.app/',
     },
     screenshots: [
-      { src: asset('img-16.webp'), alt: 'InventoryOS — dashboard with KPI cards and stock value chart' },
-      { src: asset('img-17.webp'), alt: 'InventoryOS — stock list table with SKU and category filters' },
-      { src: asset('img-18.webp'), alt: 'InventoryOS — alerts center with low-stock notifications' },
+      { src: asset('img-16.webp'), alt: 'InventoryOS, dashboard with KPI cards and stock value chart' },
+      { src: asset('img-17.webp'), alt: 'InventoryOS, stock list table with SKU and category filters' },
+      { src: asset('img-18.webp'), alt: 'InventoryOS, alerts center with low-stock notifications' },
     ],
   },
   {
@@ -51,11 +51,11 @@ export const projects: Project[] = [
     featured: true,
     caseStudy: {
       problem:
-        'Allure Industries screened CVs by hand — slow, inconsistent, and impossible to justify why one candidate ranked above another.',
+        'Allure Industries screened CVs by hand, slow, inconsistent, and impossible to justify why one candidate ranked above another.',
       thinkingProcess:
         'Separated extraction from judgment: let the LLM read messy CVs into structured fields, but keep ranking on a fixed, auditable formula so hiring decisions never depend on model whim.',
       aiRole:
-        'Claude shaped the deterministic scoring rubric and the prompt boundary that keeps Gemini limited to extraction and normalization — never the ranking decision.',
+        'Claude shaped the deterministic scoring rubric and the prompt boundary that keeps Gemini limited to extraction and normalization, never the ranking decision.',
       architectureNote:
         'CV upload → Gemini extraction (skills, experience, education) → normalization → deterministic scorer (Skill 40 / Experience 30 / Education 20 / Bonus 10). Supabase stores candidates, jobs, matches, and submissions.',
       technicalExecution:
@@ -76,8 +76,8 @@ export const projects: Project[] = [
       live: 'https://ai-powered-cv-screening-platform-fo.vercel.app',
     },
     screenshots: [
-      { src: asset('img-19.webp'), alt: 'AI-CV Screening — candidate dashboard with KPI cards, ranked top candidates, and a Top-3 score-comparison radar' },
-      { src: asset('img-20.webp'), alt: 'AI-CV Screening — job requirements and the ranked all-candidates table with skill matches and final scores' },
+      { src: asset('img-19.webp'), alt: 'AI-CV Screening, candidate dashboard with KPI cards, ranked top candidates, and a Top-3 score-comparison radar' },
+      { src: asset('img-20.webp'), alt: 'AI-CV Screening, job requirements and the ranked all-candidates table with skill matches and final scores' },
     ],
   },
   {
@@ -90,17 +90,17 @@ export const projects: Project[] = [
     featured: true,
     caseStudy: {
       problem:
-        'A dental clinic in Indonesia had no digital presence — no way for patients to learn about services, book appointments, or get answers outside of a phone call.',
+        'A dental clinic in Indonesia had no digital presence, no way for patients to learn about services, book appointments, or get answers outside of a phone call.',
       thinkingProcess:
         'Designed around the patient journey first: answer questions → capture intent → notify the clinic. AI chat handles discovery, the lead form captures commitment, and Make.com + Gmail closes the loop automatically.',
       aiRole:
-        'Claude co-engineered the full system — GPT-4o RAG chat trained on clinic KB, next/server after() fix for Vercel webhook reliability, and Make.com Gmail scenario with live variable pills. Built across 4 phases in one week.',
+        'Claude co-engineered the full system, GPT-4o RAG chat trained on clinic KB, next/server after() fix for Vercel webhook reliability, and Make.com Gmail scenario with live variable pills. Built across 4 phases in one week.',
       architectureNote:
         'Next.js 15 App Router frontend. /api/chat (GPT-4o + Supabase RAG) and /api/leads (Supabase insert + Make.com webhook via after()). Admin panel at /admin for KB document upload. Make.com webhook → Gmail for automated lead notifications.',
       technicalExecution:
         'GPT-4o chatbot with RAG over 5 clinic KB documents (services, pricing, doctors, FAQ). Bahasa Indonesia auto-detection. Lead capture from both chat and booking form into Supabase. next/server after() ensures Make.com webhook fires after Vercel serverless return. Admin panel with drag & drop KnowledgeUpload.',
       outcome:
-        'Full client delivery in one week: live AI chat, automated lead email pipeline, and admin KB management — all running in production on Vercel. First real client project under Legacya Sphere.',
+        'Full client delivery in one week: live AI chat, automated lead email pipeline, and admin KB management, all running in production on Vercel. First real client project under Legacya Sphere.',
     },
     techStack: {
       frontend: 'Next.js 15 · TypeScript · Tailwind CSS',
@@ -114,9 +114,9 @@ export const projects: Project[] = [
       live: 'https://brightpath-dental.vercel.app',
     },
     screenshots: [
-      { src: asset('img-21.webp'), alt: "BrightPath Dental — clinic homepage hero with 'Book an Appointment' and 'Ask our AI' calls-to-action" },
-      { src: asset('img-22.webp'), alt: 'BrightPath Dental — AI assistant section with sample patient questions and instant Bahasa Indonesia / English answers' },
-      { src: asset('img-23.webp'), alt: 'BrightPath Dental — services overview grid (check-ups, whitening, implants, orthodontics, root canal, pediatric)' },
+      { src: asset('img-21.webp'), alt: "BrightPath Dental, clinic homepage hero with 'Book an Appointment' and 'Ask our AI' calls-to-action" },
+      { src: asset('img-22.webp'), alt: 'BrightPath Dental, AI assistant section with sample patient questions and instant Bahasa Indonesia / English answers' },
+      { src: asset('img-23.webp'), alt: 'BrightPath Dental, services overview grid (check-ups, whitening, implants, orthodontics, root canal, pediatric)' },
     ],
   },
   {
@@ -129,9 +129,9 @@ export const projects: Project[] = [
     featured: false,
     caseStudy: {
       problem:
-        'Restaurant operators ran cashier ops, kitchen coordination, and revenue analytics across fragmented manual processes — no unified real-time view.',
+        'Restaurant operators ran cashier ops, kitchen coordination, and revenue analytics across fragmented manual processes, no unified real-time view.',
       thinkingProcess:
-        'Decomposed restaurant ops into three core subsystems — order intake (cashier), production (kitchen display), and analytics — and split payment from fulfillment so cash orders still flow through the kitchen queue.',
+        'Decomposed restaurant ops into three core subsystems, order intake (cashier), production (kitchen display), and analytics, and split payment from fulfillment so cash orders still flow through the kitchen queue.',
       aiRole:
         'Claude reviewed the Supabase RLS policies and the auth_role resolution that was wrongly reading the JWT role claim, and validated the Realtime order-queue subscription model.',
       architectureNote:
@@ -139,7 +139,7 @@ export const projects: Project[] = [
       technicalExecution:
         'React + Vite frontend with Recharts analytics. Supabase PostgreSQL with RLS and Realtime. Live order list with status filters, an elapsed cooking timer, and a thermal-receipt preview. Auth, menu, cashier, orders, and kitchen are wired to the backend.',
       outcome:
-        'Nine operational screens across three personas with a live Supabase backend — Realtime kitchen queue, RLS-enforced access, and a split payment/fulfillment flow replacing fragmented manual processes.',
+        'Nine operational screens across three personas with a live Supabase backend, Realtime kitchen queue, RLS-enforced access, and a split payment/fulfillment flow replacing fragmented manual processes.',
     },
     techStack: {
       frontend: 'React + Vite + Recharts',
@@ -153,9 +153,9 @@ export const projects: Project[] = [
       live: 'https://legacya-pos-ui.vercel.app',
     },
     screenshots: [
-      { src: asset('img-06.webp'), alt: 'Legacya POS — cashier screen with live order list' },
-      { src: asset('img-07.webp'), alt: 'Legacya POS — analytics dashboard with revenue KPIs' },
-      { src: asset('img-08.webp'), alt: 'Legacya POS — kitchen display with live order tickets' },
+      { src: asset('img-06.webp'), alt: 'Legacya POS, cashier screen with live order list' },
+      { src: asset('img-07.webp'), alt: 'Legacya POS, analytics dashboard with revenue KPIs' },
+      { src: asset('img-08.webp'), alt: 'Legacya POS, kitchen display with live order tickets' },
     ],
   },
 ]

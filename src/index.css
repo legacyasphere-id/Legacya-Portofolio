@@ -29,7 +29,7 @@
     color: #181818;
   }
 
-  /* Display — large headlines (hero, section titles, philosophy, CTA).
+  /* Display, large headlines (hero, section titles, philosophy, CTA).
      Geometric grotesque set a touch lighter so big sizes read calm. */
   .display {
     font-family: 'Sora', system-ui, sans-serif;
@@ -50,7 +50,7 @@
    The artwork IS the background. One image, used directly, fixed to the
    viewport so it stays continuous across every section (a smooth, seamless
    transition as you scroll). No gradients, no recreation, no per-section
-   layers — the content simply floats over it. */
+   layers, the content simply floats over it. */
 body::before {
   content: '';
   position: fixed;
@@ -61,7 +61,7 @@ body::before {
   background-position: center;
   background-repeat: no-repeat;
 }
-/* Optional, very subtle overlay — exists only for text contrast (8%). */
+/* Optional, very subtle overlay, exists only for text contrast (8%). */
 body::after {
   content: '';
   position: fixed;
@@ -75,7 +75,7 @@ body::after {
 }
 
 /* Local reading area behind the hero's left column. A horizontal white wash
-   that is near-invisible at peak and dissolves to nothing before mid-canvas —
+   that is near-invisible at peak and dissolves to nothing before mid-canvas;
    it lifts text legibility without covering, darkening or filtering the
    artwork. Not a panel, not glass, not a decorative gradient. */
 .hero-veil {
@@ -128,7 +128,7 @@ body::after {
   }
   .btn:active { transform: scale(0.98); }
 
-  /* Primary — deep blue authority */
+  /* Primary, deep blue authority */
   .btn-primary {
     @apply btn bg-blue-deep text-white;
   }
@@ -137,7 +137,7 @@ body::after {
     box-shadow: 0 10px 24px -12px rgba(47, 79, 127, 0.55);
   }
 
-  /* Secondary — quiet bordered */
+  /* Secondary, quiet bordered */
   .btn-secondary {
     @apply btn border border-border bg-transparent text-text;
   }
@@ -236,8 +236,8 @@ body::after {
 @layer utilities {
   .text-blue-accent { color: #5E7EBE; }
 
-  /* Section gradients — calm, minimal */
-  /* Hero & CTA have no background of their own — the artwork shows through. */
+  /* Section gradients, calm, minimal */
+  /* Hero & CTA have no background of their own, the artwork shows through. */
   .grad-hero { background: transparent; }
   .grad-cta { background: transparent; }
 
@@ -282,7 +282,7 @@ body::after {
   to   { transform: translateX(0); }
 }
 
-/* Logo badge — white rounded panel, soft shadow (matches the reference). */
+/* Logo badge, white rounded panel, soft shadow (matches the reference). */
 .tech-badge {
   display: flex;
   align-items: center;
@@ -297,7 +297,7 @@ body::after {
   box-shadow: 0 8px 22px rgba(24, 24, 24, 0.07);
 }
 
-/* Claude badge — deliberately shinier: warm tint, pulsing amber glow, and a
+/* Claude badge, deliberately shinier: warm tint, pulsing amber glow, and a
    sheen that sweeps across it. */
 .tech-badge--shine {
   position: relative;
@@ -331,9 +331,9 @@ body::after {
   .tech-badge--shine::after { animation: none; opacity: 0.4; }
 }
 
-/* ── Floating hero cards — macOS-style frosted panels ────────────────────
+/* ── Floating hero cards, macOS-style frosted panels ────────────────────
    Subtle blur, thin border, soft shadow. They quietly float over the
-   artwork — never dominate it. No glow, no animation beyond the shared
+   artwork, never dominate it. No glow, no animation beyond the shared
    fade/rise reveal. */
 .float-card {
   background: rgba(255, 255, 255, 0.55);
@@ -410,7 +410,7 @@ body::after {
   -webkit-text-stroke: 1px rgba(47, 79, 127, 0.20);
   user-select: none;
 }
-/* Footer sits over a dark scrim — lighten the wordmark stroke so it reads. */
+/* Footer sits over a dark scrim, lighten the wordmark stroke so it reads. */
 .wordmark-light {
   -webkit-text-stroke: 1px rgba(255, 255, 255, 0.22);
 }

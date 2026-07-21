@@ -43,7 +43,7 @@ export function OSStatusSection() {
               OS Status
             </h2>
             <p className="mt-4 text-[1.05rem] leading-relaxed text-muted">
-              What&rsquo;s live across the studio today — and what&rsquo;s next
+              What&rsquo;s live across the studio today, and what&rsquo;s next
               on the roadmap. The frameworks and infrastructure we build on.
             </p>
           </div>

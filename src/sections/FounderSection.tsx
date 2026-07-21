@@ -48,16 +48,16 @@ export function FounderSection() {
           >
             <p>
               I build AI-native business systems for companies that have outgrown
-              spreadsheets — turning manual operations into platforms,
+              spreadsheets, turning manual operations into platforms,
               dashboards, and automation that scale.
             </p>
             <p>
               Legacya Sphere is how I do that work: an{' '}
               <span className="font-medium text-text">
                 AI-assisted studio building digital infrastructure for business
-                legacy
+                legacy.
               </span>{' '}
-              — systems designed to outlast the people who set them up.
+              Systems designed to outlast the people who set them up.
             </p>
           </div>
 

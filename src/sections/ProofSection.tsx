@@ -1,7 +1,7 @@
 /**
  * Proof. A single dark metrics band carries the headline numbers, with a
  * trusted-by line beneath. Testimonials are testimonial-ready: drop real,
- * attributed quotes into `TESTIMONIALS` and they render below the band — we
+ * attributed quotes into `TESTIMONIALS` and they render below the band, we
  * don't publish fabricated quotes.
  */
 interface Testimonial {
@@ -29,7 +29,7 @@ export function ProofSection() {
           </h2>
         </div>
 
-        {/* Dark metrics band — the one dark moment on the page. */}
+        {/* Dark metrics band, the one dark moment on the page. */}
         <div
           className="overflow-hidden rounded-2xl bg-[#17181B] px-6 py-14 md:px-10 md:py-16"
           data-animate

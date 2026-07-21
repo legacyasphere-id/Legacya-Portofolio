@@ -1,5 +1,5 @@
 /**
- * Hero — the digital front door of an Operating Systems Studio.
+ * Hero, the digital front door of an Operating Systems Studio.
  *
  * The attached artwork (body-level fixed background) IS the visual. Nothing
  * here competes with it: no gradients, rings, blobs, orbital graphics or
@@ -10,7 +10,7 @@
 export function HeroSection() {
   return (
     <section id="hero" className="grad-hero relative flex min-h-screen items-center overflow-hidden px-5 pb-24 pt-32 md:px-10 md:pb-28 md:pt-36">
-      {/* Soft, almost-invisible reading area behind the left column only — a
+      {/* Soft, almost-invisible reading area behind the left column only, a
           gentle editorial backdrop that lifts text legibility off the brighter
           artwork. Not a panel, not a filter, fades out before mid-canvas. */}
       <div
@@ -19,45 +19,28 @@ export function HeroSection() {
       />
 
       <div className="relative z-10 mx-auto grid w-full max-w-[1240px] items-center gap-16 lg:grid-cols-[45%_55%] lg:gap-12">
-        {/* ── Left (45%): typography ─────────────────────────────────────── */}
+        {/* Left (45%): typography */}
         <div className="lg:pl-12">
-          <p
-            className="mb-8 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-blue-deep"
-            data-animate
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-blue-deep" />
-            Operating Systems Studio
-          </p>
-
-          <h1 className="display font-extrabold leading-[0.95] tracking-[-0.03em] text-[#111111] text-[clamp(3rem,8vw,6.5rem)]">
+          <h1 className="display font-extrabold leading-[1.05] tracking-[-0.02em] text-[#111111] text-[clamp(1.9rem,4.6vw,3.5rem)]">
             <span className="block" data-animate data-delay="100">
-              Building
+              Systems that <span className="text-blue-accent">scale</span>
             </span>
             <span className="block" data-animate data-delay="200">
-              systems that
-            </span>
-            <span className="block" data-animate data-delay="300">
-              <span className="text-blue-accent">scale</span>
-            </span>
-            <span className="block" data-animate data-delay="400">
-              with your
-            </span>
-            <span className="block" data-animate data-delay="400">
-              operations.
+              with your operations.
             </span>
           </h1>
 
           <p
-            className="mt-9 max-w-[560px] text-[clamp(1.05rem,1.6vw,1.375rem)] leading-[1.6] text-[#4B5563]"
+            className="mt-6 max-w-[500px] text-[clamp(1rem,1.4vw,1.2rem)] leading-[1.6] text-[#4B5563]"
             data-animate
-            data-delay="500"
+            data-delay="300"
           >
-            We transform manual workflows into scalable digital infrastructure —
+            We turn manual workflows into scalable digital infrastructure:
             platforms, dashboards, and automation that help companies operate
-            with greater clarity and efficiency.
+            with clarity.
           </p>
 
-          <div className="mt-10 flex flex-wrap gap-x-3.5 gap-y-4" data-animate data-delay="500">
+          <div className="mt-8 flex flex-wrap gap-x-3.5 gap-y-4" data-animate data-delay="400">
             <a href="#contact" className="btn-primary btn-lg">
               Discuss Your System
             </a>
@@ -67,7 +50,7 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* ── Right (55%): floating panels ───────────────────────────────── */}
+        {/* Right (55%): floating panels */}
         <div className="relative hidden min-h-[460px] lg:block" aria-hidden="true">
           <div
             className="float-card absolute left-[6%] top-[4%] w-[260px] p-5"

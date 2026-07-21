@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import { SiteNav } from './components/SiteNav'
 import { SectionGuide } from './components/SectionGuide'
 import { HeroSection } from './sections/HeroSection'
-import { SystemsStrip } from './sections/SystemsStrip'
 import { TechStackSection } from './sections/TechStackSection'
 import { SystemsSection } from './sections/SystemsSection'
 import { WorkSection } from './sections/WorkSection'
@@ -34,7 +33,6 @@ export default function App() {
       <SectionGuide />
       <main>
         <HeroSection />
-        <SystemsStrip />
         <TechStackSection />
         <SystemsSection />
         <WorkSection />

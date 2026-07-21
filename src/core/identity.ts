@@ -48,12 +48,12 @@ export const identity = {
 
   // ── Project narrative tone (applied consistently to all case studies) ─
   narrativeTone: {
-    problem:           'system-level — what process or data flow was broken at scale',
-    thinkingProcess:   'AI-assisted reasoning — how the system was deconstructed before coding',
-    aiRole:            'co-engineer framing — Claude as architecture + review partner, not a shortcut',
-    architectureNote:  'data flow first — entities, roles, boundaries, then tech choices',
-    technicalExecution:'implementation precision — RLS, state management, schema constraints',
-    outcome:           'impact / operational result — what changed for the user or team',
+    problem:           'system-level, what process or data flow was broken at scale',
+    thinkingProcess:   'AI-assisted reasoning, how the system was deconstructed before coding',
+    aiRole:            'co-engineer framing, Claude as architecture + review partner, not a shortcut',
+    architectureNote:  'data flow first, entities, roles, boundaries, then tech choices',
+    technicalExecution:'implementation precision, RLS, state management, schema constraints',
+    outcome:           'impact / operational result, what changed for the user or team',
   },
 
   // ── Founder OS system text ────────────────────────────────────────────
@@ -62,7 +62,7 @@ export const identity = {
     version: '2.0',
     tagline: 'The OS beneath every system I ship.',
     systemDescription:
-      'An operating system for building products — not a portfolio. Principles, workflows, and tools organized as a coherent execution machine.',
+      'An operating system for building products, not a portfolio. Principles, workflows, and tools organized as a coherent execution machine.',
   },
 }
 
