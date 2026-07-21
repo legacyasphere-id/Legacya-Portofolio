@@ -52,13 +52,16 @@ test.describe('Hero', () => {
   })
 })
 
-// ── Trust strip ────────────────────────────────────────────────────────────────
+// ── Tech stack ─────────────────────────────────────────────────────────────────
 
-test.describe('Trust', () => {
-  test('renders the technology foundation', async ({ page }) => {
+test.describe('Tech Stack', () => {
+  test('renders the technology marquee and AI logos', async ({ page }) => {
     await page.goto('/')
-    for (const tech of ['Laravel', 'Vue.js', 'Supabase', 'PostgreSQL']) {
-      await expect(page.getByText(tech, { exact: true }).first()).toBeVisible()
+    await expect(
+      page.getByRole('heading', { name: 'Key Technologies & Platforms' }),
+    ).toBeVisible()
+    for (const logo of ['React', 'Supabase', 'Claude']) {
+      await expect(page.getByAltText(logo, { exact: true }).first()).toBeVisible()
     }
   })
 })

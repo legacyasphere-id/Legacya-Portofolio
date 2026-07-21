@@ -250,6 +250,87 @@ body::after {
   }
 }
 
+/* ── Tech-stack marquee ──────────────────────────────────────────────────
+   Two horizontal rows of logo badges that scroll in opposite directions,
+   with soft fade masks on both edges. Pauses on hover; respects
+   reduced-motion. */
+.marquee {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marquee-left 42s linear infinite;
+}
+.marquee__track--reverse {
+  animation: marquee-right 30s linear infinite;
+}
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes marquee-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+/* Logo badge — white rounded panel, soft shadow (matches the reference). */
+.tech-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 4rem;
+  width: 4rem;
+  margin-right: 1.15rem;
+  flex: none;
+  border-radius: 1rem;
+  background: #ffffff;
+  border: 1px solid rgba(229, 221, 208, 0.7);
+  box-shadow: 0 8px 22px rgba(24, 24, 24, 0.07);
+}
+
+/* Claude badge — deliberately shinier: warm tint, pulsing amber glow, and a
+   sheen that sweeps across it. */
+.tech-badge--shine {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(150deg, #ffffff 0%, #fff4ec 100%);
+  border-color: rgba(217, 119, 87, 0.55);
+  box-shadow: 0 8px 26px rgba(217, 119, 87, 0.42), 0 0 0 1px rgba(217, 119, 87, 0.28);
+  animation: claude-glow 2.6s ease-in-out infinite;
+}
+.tech-badge--shine::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 34%, rgba(255, 255, 255, 0.9) 48%, rgba(255, 233, 218, 0.6) 54%, transparent 68%);
+  background-size: 260% 100%;
+  animation: claude-sheen 2.8s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes claude-glow {
+  0%, 100% { box-shadow: 0 8px 22px rgba(217, 119, 87, 0.32), 0 0 0 1px rgba(217, 119, 87, 0.26); }
+  50%      { box-shadow: 0 10px 34px rgba(217, 119, 87, 0.62), 0 0 0 1px rgba(217, 119, 87, 0.5); }
+}
+@keyframes claude-sheen {
+  0%       { background-position: 160% 0; }
+  55%,100% { background-position: -160% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track { animation: none; }
+  .tech-badge--shine { animation: none; }
+  .tech-badge--shine::after { animation: none; opacity: 0.4; }
+}
+
 /* ── Floating hero cards — macOS-style frosted panels ────────────────────
    Subtle blur, thin border, soft shadow. They quietly float over the
    artwork — never dominate it. No glow, no animation beyond the shared

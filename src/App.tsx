@@ -3,7 +3,7 @@ import { SiteNav } from './components/SiteNav'
 import { SectionGuide } from './components/SectionGuide'
 import { HeroSection } from './sections/HeroSection'
 import { SystemsStrip } from './sections/SystemsStrip'
-import { TrustSection } from './sections/TrustSection'
+import { TechStackSection } from './sections/TechStackSection'
 import { SystemsSection } from './sections/SystemsSection'
 import { WorkSection } from './sections/WorkSection'
 import { ProcessSection } from './sections/ProcessSection'
@@ -35,7 +35,7 @@ export default function App() {
       <main>
         <HeroSection />
         <SystemsStrip />
-        <TrustSection />
+        <TechStackSection />
         <SystemsSection />
         <WorkSection />
         <ProofSection />
