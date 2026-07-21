@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
  */
 const SECTIONS = [
   { id: 'hero', label: 'Home' },
+  { id: 'tech-stack', label: 'Tech Stack' },
   { id: 'systems', label: 'Systems' },
   { id: 'work', label: 'Case Studies' },
   { id: 'proof', label: 'Proof' },
