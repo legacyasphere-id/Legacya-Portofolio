@@ -36,7 +36,7 @@ test.describe('Hero', () => {
   test('headline renders systems positioning', async ({ page }) => {
     await page.goto('/')
     const h1 = page.locator('h1')
-    await expect(h1).toContainText('Building systems')
+    await expect(h1).toContainText('Systems that')
     await expect(h1).toContainText('scale')
     await expect(h1).toContainText('with your operations.')
   })

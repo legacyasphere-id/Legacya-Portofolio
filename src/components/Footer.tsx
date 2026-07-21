@@ -97,7 +97,7 @@ export function Footer() {
 
         <div className="mt-8 flex flex-col items-center gap-2 border-t border-white/15 pt-6 text-center md:flex-row md:justify-between md:text-left">
           <p className="text-[13px] font-medium text-white">
-            Legacya Sphere — AI-Native Business Systems Studio
+            Legacya Sphere, AI-Native Business Systems Studio
           </p>
           <p className="text-[12px] text-white/60">
             © {new Date().getFullYear()} · Helping companies transform manual

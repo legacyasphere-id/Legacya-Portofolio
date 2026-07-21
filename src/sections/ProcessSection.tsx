@@ -15,7 +15,7 @@ const STEPS = [
     n: '03',
     title: 'Build',
     detail:
-      'Develop scalable platforms and infrastructure — built to be reliable, secure, and ready for production from day one.',
+      'Develop scalable platforms and infrastructure, built to be reliable, secure, and ready for production from day one.',
   },
   {
     n: '04',

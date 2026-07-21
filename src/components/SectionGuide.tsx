@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 
 /**
- * Section guide — a quiet right-edge wayfinder so visitors always know which
+ * Section guide, a quiet right-edge wayfinder so visitors always know which
  * section they're in on this long single page. Dots track scroll position;
  * the active section's name shows in a light frosted chip, and any dot is
- * click-to-jump. Desktop only — on mobile the page just reads top to bottom.
+ * click-to-jump. Desktop only, on mobile the page just reads top to bottom.
  */
 const SECTIONS = [
   { id: 'hero', label: 'Home' },

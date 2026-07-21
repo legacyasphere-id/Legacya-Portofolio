@@ -36,7 +36,7 @@ export function SiteNav() {
             : 'border-b border-transparent bg-transparent'
         }`}
       >
-        <a href="#top" className="flex items-center gap-2.5" aria-label="Legacya Sphere — home">
+        <a href="#top" className="flex items-center gap-2.5" aria-label="Legacya Sphere, home">
           <span className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full border border-border bg-surface">
             <img src={asset('logo.png')} alt="" className="h-full w-full object-cover" />
           </span>

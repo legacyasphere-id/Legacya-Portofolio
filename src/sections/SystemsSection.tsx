@@ -2,7 +2,7 @@ const SYSTEMS = [
   {
     title: 'Business Operating Systems',
     description:
-      'Centralized platforms that help businesses manage operations efficiently — replacing scattered spreadsheets and disconnected tools with one source of truth.',
+      'Centralized platforms that help businesses manage operations efficiently, replacing scattered spreadsheets and disconnected tools with one source of truth.',
     points: ['Internal platforms', 'Role-based access', 'Centralized data'],
     glyph: (
       <>
@@ -14,7 +14,7 @@ const SYSTEMS = [
   {
     title: 'Operational Dashboards',
     description:
-      'Real-time visibility into performance, processes, and decision-making — so leaders can see what is happening across the business at a glance.',
+      'Real-time visibility into performance, processes, and decision-making, so leaders can see what is happening across the business at a glance.',
     points: ['Live metrics', 'Performance views', 'Decision support'],
     glyph: (
       <>
@@ -26,7 +26,7 @@ const SYSTEMS = [
   {
     title: 'Automation Infrastructure',
     description:
-      'Systems that reduce repetitive work and streamline operations — connecting tools, moving data, and removing manual steps from daily workflows.',
+      'Systems that reduce repetitive work and streamline operations, connecting tools, moving data, and removing manual steps from daily workflows.',
     points: ['Workflow automation', 'Tool integrations', 'API pipelines'],
     glyph: (
       <>
@@ -49,7 +49,7 @@ export function SystemsSection() {
           </h2>
           <p className="mt-4 text-[1.05rem] leading-relaxed text-muted">
             Operational infrastructure designed around how your business
-            actually runs — not generic software.
+            actually runs, not generic software.
           </p>
         </div>
 

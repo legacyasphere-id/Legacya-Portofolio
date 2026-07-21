@@ -6,14 +6,14 @@ const OVERVIEW: Record<string, string> = {
   'ai-cv-screening':
     'An AI screening platform that extracts CV data with Gemini, then ranks candidates on a deterministic, bias-auditable formula.',
   'brightpath-dental':
-    'A client-delivered clinic site with a GPT-4o RAG assistant and an automated lead pipeline — patients get answers and book, the clinic gets notified.',
+    'A client-delivered clinic site with a GPT-4o RAG assistant and an automated lead pipeline, patients get answers and book, the clinic gets notified.',
   'legacya-pos':
     'A unified restaurant operations platform covering cashier, kitchen, and revenue analytics in real time.',
 }
 
 const SOLUTION: Record<string, string> = {
   'inventory-os':
-    'A centralized platform with role-based access, atomic stock movements, and an alert system — built on a schema and transactions designed to prevent inventory errors at the source.',
+    'A centralized platform with role-based access, atomic stock movements, and an alert system, built on a schema and transactions designed to prevent inventory errors at the source.',
   'ai-cv-screening':
     'Gemini handles only extraction and normalization; a fixed scoring engine (Skill 40 / Experience 30 / Education 20 / Bonus 10) keeps every ranking reproducible and explainable.',
   'brightpath-dental':
@@ -32,7 +32,7 @@ const STATUS_LABEL: Record<string, string> = {
   archived: 'Archived',
 }
 
-// One-line proof metric per case study — the concrete "what it does" at a glance.
+// One-line proof metric per case study, the concrete "what it does" at a glance.
 const METRIC: Record<string, string> = {
   'inventory-os': '4 roles · atomic stock movements · real-time alerts',
   'ai-cv-screening':

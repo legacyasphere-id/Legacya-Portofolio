@@ -10,7 +10,7 @@ export interface OSStatusItem {
   detail: string
   status: OSStatusLevel
   version?: string
-  /** Set on `planned` items — places them on the roadmap horizon. */
+  /** Set on `planned` items, places them on the roadmap horizon. */
   phase?: RoadmapPhase
 }
 
@@ -22,7 +22,7 @@ export const OS_STATUS_LABEL: Record<OSStatusLevel, string> = {
 }
 
 /**
- * Current initiatives and development activity across the studio — framed as
+ * Current initiatives and development activity across the studio, framed as
  * an operating-system status board rather than a marketing roadmap.
  */
 export const osStatus: OSStatusItem[] = [
@@ -31,7 +31,7 @@ export const osStatus: OSStatusItem[] = [
     name: 'BrightPath Dental',
     category: 'Core Platform',
     detail:
-      'Our internal multi-tenant business operating system — the foundation we extend into client platforms, with role-based access and real-time operational data.',
+      'Our internal multi-tenant business operating system, the foundation we extend into client platforms, with role-based access and real-time operational data.',
     status: 'active',
     version: 'v2.0',
   },
@@ -65,7 +65,7 @@ export const osStatus: OSStatusItem[] = [
     name: 'AI Operations Layer',
     category: 'Research',
     detail:
-      'Exploring AI as a first-class runtime component inside business systems — assisted decisions, summarization, and operational copilots.',
+      'Exploring AI as a first-class runtime component inside business systems, assisted decisions, summarization, and operational copilots.',
     status: 'research',
   },
   {
@@ -91,7 +91,7 @@ export const osStatus: OSStatusItem[] = [
     name: 'Multi-Business Console',
     category: 'Core Platform',
     detail:
-      'One BrightPath Dental instance overseeing several business units — shared identity, permissions, and operational visibility across them.',
+      'One BrightPath Dental instance overseeing several business units, shared identity, permissions, and operational visibility across them.',
     status: 'planned',
     phase: 'Later',
   },

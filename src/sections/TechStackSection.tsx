@@ -6,7 +6,7 @@ interface Logo {
   shine?: boolean
 }
 
-// Layer 1 — the technology stack we build on.
+// Layer 1, the technology stack we build on.
 const STACK: Logo[] = [
   { name: 'React', file: 'react' },
   { name: 'TypeScript', file: 'typescript' },
@@ -24,7 +24,7 @@ const STACK: Logo[] = [
   { name: 'GitHub', file: 'github' },
 ]
 
-// Layer 2 — the AI models in the workflow. Claude is highlighted.
+// Layer 2, the AI models in the workflow. Claude is highlighted.
 const AI: Logo[] = [
   { name: 'GPT', file: 'gpt' },
   { name: 'Gemini', file: 'gemini' },
@@ -70,7 +70,7 @@ export function TechStackSection() {
       className="border-y border-border bg-bg px-5 py-24 md:px-10 md:py-28"
     >
       <div className="mx-auto grid max-w-[1180px] items-center gap-12 lg:grid-cols-[42%_58%] lg:gap-16">
-        {/* Left — copy */}
+        {/* Left, copy */}
         <div>
           <p
             className="mb-5 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-blue-deep"
@@ -91,8 +91,8 @@ export function TechStackSection() {
             data-animate
             data-delay="200"
           >
-            We build on leading platforms and models — chosen for reliability,
-            speed, and long-term maintainability — with AI as a co-engineer at
+            We build on leading platforms and models, chosen for reliability,
+            speed, and long-term maintainability, with AI as a co-engineer at
             every stage.
           </p>
           <a href="#work" className="btn-primary mt-8 inline-flex" data-animate data-delay="300">
@@ -100,7 +100,7 @@ export function TechStackSection() {
           </a>
         </div>
 
-        {/* Right — two horizontal marquee layers */}
+        {/* Right, two horizontal marquee layers */}
         <div className="min-w-0 space-y-8" data-animate data-delay="200">
           <div className="min-w-0">
             <p className="mb-3 font-mono text-[10.5px] uppercase tracking-[0.18em] text-dim">

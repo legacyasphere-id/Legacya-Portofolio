@@ -21,7 +21,7 @@ export function PhilosophySection() {
           </p>
           <p data-animate data-delay="300">
             Technology should simplify operations, remove friction, and create
-            leverage — not add another login to an already crowded screen.
+            leverage, not add another login to an already crowded screen.
           </p>
           <p data-animate data-delay="400">
             Our work focuses on building{' '}
