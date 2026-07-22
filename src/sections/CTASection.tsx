@@ -16,7 +16,7 @@ export function CTASection() {
         </h2>
 
         <p
-          className="mx-auto mb-11 mt-7 max-w-[52ch] text-[1.05rem] leading-relaxed text-muted"
+          className="mx-auto mb-11 mt-7 max-w-[52ch] text-[1.05rem] leading-relaxed text-white"
           data-animate
           data-delay="100"
         >
