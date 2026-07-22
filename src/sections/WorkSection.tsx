@@ -50,7 +50,7 @@ export function WorkSection() {
           <h2 className="display text-[clamp(2.1rem,4vw,3.3rem)] leading-[1.08]">
             Systems in production
           </h2>
-          <p className="mt-4 text-[1.05rem] leading-relaxed text-muted">
+          <p className="mt-4 text-[1.05rem] leading-relaxed text-white">
             Real platforms built for real operations. Each one replaced manual
             work with a system the business now runs on.
           </p>
