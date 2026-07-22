@@ -1,40 +1,26 @@
+import { asset } from '../utils/asset'
+
 const SYSTEMS = [
   {
     title: 'Business Operating Systems',
     description:
       'Centralized platforms that help businesses manage operations efficiently, replacing scattered spreadsheets and disconnected tools with one source of truth.',
     points: ['Internal platforms', 'Role-based access', 'Centralized data'],
-    glyph: (
-      <>
-        <rect x="6" y="6" width="36" height="36" rx="7" />
-        <path d="M6 18h36M18 18v24" />
-      </>
-    ),
+    icon: asset('icons/business-os.png'),
   },
   {
     title: 'Operational Dashboards',
     description:
       'Real-time visibility into performance, processes, and decision-making, so leaders can see what is happening across the business at a glance.',
     points: ['Live metrics', 'Performance views', 'Decision support'],
-    glyph: (
-      <>
-        <rect x="6" y="6" width="36" height="36" rx="7" />
-        <path d="M13 30l7-8 6 5 9-12" />
-      </>
-    ),
+    icon: asset('icons/dashboards.png'),
   },
   {
     title: 'Automation Infrastructure',
     description:
       'Systems that reduce repetitive work and streamline operations, connecting tools, moving data, and removing manual steps from daily workflows.',
     points: ['Workflow automation', 'Tool integrations', 'API pipelines'],
-    glyph: (
-      <>
-        <circle cx="14" cy="14" r="5" />
-        <circle cx="34" cy="34" r="5" />
-        <path d="M14 19v9a6 6 0 006 6h9" />
-      </>
-    ),
+    icon: asset('icons/automation.png'),
   },
 ]
 
@@ -61,18 +47,14 @@ export function SystemsSection() {
               data-animate
               data-delay={String((i + 1) * 100)}
             >
-              <span className="mb-7 flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-bg">
-                <svg
-                  viewBox="0 0 48 48"
-                  className="h-6 w-6 stroke-blue-deep"
-                  fill="none"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+              <span className="mb-7 flex h-16 w-16 items-center justify-center rounded-xl border border-border bg-bg">
+                <img
+                  src={system.icon}
+                  alt=""
                   aria-hidden="true"
-                >
-                  {system.glyph}
-                </svg>
+                  className="h-11 w-11 object-contain"
+                  loading="lazy"
+                />
               </span>
 
               <h3 className="text-[1.3rem] font-semibold tracking-[-0.02em]">
