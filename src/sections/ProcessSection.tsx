@@ -37,7 +37,7 @@ export function ProcessSection() {
           <h2 className="display text-[clamp(2.1rem,4vw,3.3rem)] leading-[1.08]">
             How we build
           </h2>
-          <p className="mt-4 text-[1.05rem] leading-relaxed text-muted">
+          <p className="mt-4 text-[1.05rem] leading-relaxed text-white">
             A structured framework that turns operational complexity into
             systems your business can rely on.
           </p>

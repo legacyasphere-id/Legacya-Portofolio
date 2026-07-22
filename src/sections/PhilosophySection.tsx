@@ -14,7 +14,7 @@ export function PhilosophySection() {
           Systems over <span className="text-blue-accent">software</span>.
         </h2>
 
-        <div className="mt-10 max-w-[60ch] space-y-6 text-[clamp(1.15rem,1.8vw,1.5rem)] font-light leading-[1.5] text-muted">
+        <div className="mt-10 max-w-[60ch] space-y-6 text-[clamp(1.15rem,1.8vw,1.5rem)] font-light leading-[1.5] text-white">
           <p data-animate data-delay="200">
             Most businesses don&rsquo;t need more tools. They need better
             systems.
@@ -25,7 +25,7 @@ export function PhilosophySection() {
           </p>
           <p data-animate data-delay="400">
             Our work focuses on building{' '}
-            <span className="font-normal text-text">
+            <span className="font-normal text-white">
               operational foundations that scale alongside business growth
             </span>
             .

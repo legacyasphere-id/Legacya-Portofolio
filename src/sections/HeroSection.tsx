@@ -31,7 +31,7 @@ export function HeroSection() {
           </h1>
 
           <p
-            className="mt-6 max-w-[500px] text-[clamp(1rem,1.4vw,1.2rem)] leading-[1.6] text-[#4B5563]"
+            className="mt-6 max-w-[500px] text-[clamp(1rem,1.4vw,1.2rem)] leading-[1.6] text-white"
             data-animate
             data-delay="300"
           >
