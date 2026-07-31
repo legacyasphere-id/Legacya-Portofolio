@@ -19,28 +19,39 @@ export function HeroSection() {
       />
 
       <div className="relative z-10 mx-auto grid w-full max-w-[1240px] items-center gap-16 lg:grid-cols-[45%_55%] lg:gap-12">
-        {/* Left (45%): typography */}
-        <div className="lg:pl-12">
-          <h1 className="display font-extrabold leading-[1.05] tracking-[-0.02em] text-[#111111] text-[clamp(1.9rem,4.6vw,3.5rem)]">
+        {/* Left column: typography. Layout inspired by Brix — the block sits
+            in the left third, vertically centred, with generous whitespace and
+            a clear reading flow. Same colors, type, sizes, and buttons. */}
+        <div className="lg:pl-16 xl:pl-20">
+          <h1 className="display font-extrabold leading-[1.1] tracking-[-0.02em] text-[#111111] text-[clamp(1.9rem,4.6vw,3.5rem)]">
             <span className="block" data-animate data-delay="100">
-              Systems that <span className="text-blue-accent">scale</span>
+              We&rsquo;re making
             </span>
             <span className="block" data-animate data-delay="200">
-              with your operations.
+              systems that
+            </span>
+            <span className="block" data-animate data-delay="300">
+              <span className="text-blue-accent">scale</span>
+            </span>
+            <span className="block" data-animate data-delay="400">
+              with your
+            </span>
+            <span className="block" data-animate data-delay="500">
+              operations.
             </span>
           </h1>
 
           <p
-            className="mt-6 max-w-[500px] text-[clamp(1rem,1.4vw,1.2rem)] leading-[1.6] text-white"
+            className="mt-8 max-w-[600px] text-[clamp(1rem,1.4vw,1.2rem)] leading-[1.7] text-white"
             data-animate
-            data-delay="300"
+            data-delay="500"
           >
             We turn manual workflows into scalable digital infrastructure:
             platforms, dashboards, and automation that help companies operate
             with clarity.
           </p>
 
-          <div className="mt-8 flex flex-wrap gap-x-3.5 gap-y-4" data-animate data-delay="400">
+          <div className="mt-10 flex flex-wrap gap-x-4 gap-y-4" data-animate data-delay="500">
             <a href="#contact" className="btn-primary btn-lg">
               Discuss Your System
             </a>
