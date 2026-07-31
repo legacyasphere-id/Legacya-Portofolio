@@ -72,16 +72,16 @@ Composed in order by `src/App.tsx`:
 
 | # | Section | Description |
 |---|---------|-------------|
-| — | **Nav** (`SiteNav`) | Minimal transparent navigation that floats over the artwork |
+| — | **Nav** (`SiteNav`) | Minimal navigation floating over the artwork; the Pricing item has a cursor-following glow |
 | 1 | **Hero** | Large display headline, supporting paragraph, three floating frosted cards |
-| 2 | **Trust** | Technology-foundation strip |
-| 3 | **Systems** | What the studio builds |
-| 4 | **Work** | Case studies with expandable problem → solution → outcome breakdowns |
-| 5 | **Proof** | Production outcomes + trusted-by line (testimonial-ready) |
+| 2 | **Tech Stack** | Two-row logo marquee (stack + AI models) |
+| 3 | **Systems** | What the studio builds, with custom illustrated icons |
+| 4 | **Work** | Case studies with problem → solution → outcome breakdowns |
+| 5 | **Proof** | Dark metrics band + trusted-by line (testimonial-ready) |
 | 6 | **Process** | How engagements run |
 | 7 | **Philosophy** | "Systems over software" |
 | 8 | **Founder** | Who's behind Legacya Sphere — portrait, bio, links |
-| 9 | **OS Status** | Live system board + a forward-looking roadmap |
+| 9 | **Pricing** | Three service tiers with spotlight, hover, and gradient-border interactions |
 | 10 | **CTA** | Start-a-project call to action |
 | — | **Footer** | Nav columns, wordmark, availability |
 
@@ -94,8 +94,9 @@ Legacya-Portofolio/
 ├── public/                       # Static assets (served at BASE_URL)
 │   ├── img-04.webp               # Founder portrait
 │   ├── img-15.webp               # Legacya Sphere logo
-│   ├── img-16/17/18.webp         # InventoryOS screenshots
-│   ├── img-06/07/08.webp         # Legacya POS screenshots
+│   ├── img-16..23.webp           # Project screenshots (InventoryOS, AI-CV, BrightPath, POS)
+│   ├── logos/                    # Tech-stack marquee brand logos (SVG)
+│   ├── icons/                    # Custom feature-card icons (PNG)
 │   ├── logo.png                  # Nav / footer / splash mark
 │   └── assets/certificates/      # PDF certificates
 │
@@ -103,15 +104,14 @@ Legacya-Portofolio/
 │   ├── core/
 │   │   └── identity.ts           # Single source of truth for name, links, copy
 │   ├── data/
-│   │   ├── projects.ts           # Case studies with full breakdowns
-│   │   └── osStatus.ts           # System board + roadmap items
+│   │   └── projects.ts           # Case studies with full breakdowns
 │   ├── types/
 │   │   └── project.ts            # Shared TypeScript interfaces
 │   ├── utils/
 │   │   └── asset.ts              # BASE_URL-aware image path helper
 │   ├── hooks/
 │   │   └── useScrollReveal.ts    # IntersectionObserver fade/rise reveal
-│   ├── components/               # SiteNav, Footer
+│   ├── components/               # SiteNav, SectionGuide, Footer
 │   ├── sections/                 # One file per page section
 │   ├── assets/
 │   │   └── hero-background.webp  # Brand artwork (fixed page background)
