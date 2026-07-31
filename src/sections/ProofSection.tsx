@@ -1,8 +1,10 @@
+import { asset } from '../utils/asset'
+
 /**
- * Proof. A single dark metrics band carries the headline numbers, with a
- * trusted-by line beneath. Testimonials are testimonial-ready: drop real,
- * attributed quotes into `TESTIMONIALS` and they render below the band, we
- * don't publish fabricated quotes.
+ * Proof. A dark metrics band carries the headline numbers, followed by the
+ * Anthropic credentials and a trusted-by line. Testimonials are
+ * testimonial-ready: drop real, attributed quotes into `TESTIMONIALS` and they
+ * render below the band, we don't publish fabricated quotes.
  */
 interface Testimonial {
   quote: string
@@ -16,6 +18,25 @@ const METRICS = [
   { value: '4', label: 'Systems Built' },
   { value: '2026', label: 'Founded' },
   { value: '3+', label: 'Industries Served' },
+]
+
+// Real Anthropic certificates — thumbnail preview links to the full PDF.
+const CERTS = [
+  {
+    title: 'Claude 101',
+    thumb: asset('assets/certificates/claude-101.webp'),
+    pdf: asset('assets/certificates/claude-101-anthropic.pdf'),
+  },
+  {
+    title: 'Claude Code 101',
+    thumb: asset('assets/certificates/claude-code-101.webp'),
+    pdf: asset('assets/certificates/claude-code-101-anthropic.pdf'),
+  },
+  {
+    title: 'Introduction to Claude Cowork',
+    thumb: asset('assets/certificates/claude-cowork.webp'),
+    pdf: asset('assets/certificates/claude-cowork-anthropic.pdf'),
+  },
 ]
 
 export function ProofSection() {
@@ -49,6 +70,48 @@ export function ProofSection() {
                   <span className="hidden h-16 w-px bg-white/10 sm:block" />
                 )}
               </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Anthropic credentials — a differentiator few studio sites show. */}
+        <div className="mt-14">
+          <p
+            className="mb-6 text-center font-mono text-[11px] uppercase tracking-[0.2em] text-dim"
+            data-animate
+          >
+            Anthropic-certified
+          </p>
+          <div className="grid gap-4 sm:grid-cols-3">
+            {CERTS.map((c, i) => (
+              <a
+                key={c.title}
+                href={c.pdf}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="card card-hover group flex flex-col overflow-hidden"
+                data-animate
+                data-delay={String((i + 1) * 100)}
+              >
+                <img
+                  src={c.thumb}
+                  alt={`${c.title} certificate of completion from Anthropic`}
+                  className="aspect-[4/3] w-full border-b border-border object-cover"
+                  loading="lazy"
+                />
+                <div className="flex flex-1 flex-col p-5">
+                  <p className="text-[14px] font-semibold tracking-tight text-text">
+                    {c.title}
+                  </p>
+                  <p className="mt-1 text-[12.5px] text-muted">
+                    Anthropic · Certificate of Completion
+                  </p>
+                  <span className="link-sweep mt-4 text-[13px]">
+                    View certificate
+                    <span aria-hidden="true">→</span>
+                  </span>
+                </div>
+              </a>
             ))}
           </div>
         </div>
