@@ -14,7 +14,7 @@ const SECTIONS = [
   { id: 'proof', label: 'Proof' },
   { id: 'process', label: 'Process' },
   { id: 'founder', label: 'Founder' },
-  { id: 'os-status', label: 'OS Status' },
+  { id: 'pricing', label: 'Pricing' },
   { id: 'contact', label: 'Contact' },
 ]
 

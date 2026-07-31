@@ -11,7 +11,7 @@ test.describe('Navigation', () => {
     const nav = page.locator('header nav[aria-label="Primary"]')
     await expect(nav.locator('a[href="#systems"]')).toBeVisible()
     await expect(nav.locator('a[href="#work"]')).toBeVisible()
-    await expect(nav.locator('a[href="#os-status"]')).toBeVisible()
+    await expect(nav.locator('a[href="#pricing"]')).toBeVisible()
     await expect(nav.locator('a[href="#contact"]')).toBeVisible()
     await expect(page.locator('header a.btn-primary[href="#contact"]')).toContainText(
       'Start a Project',
@@ -121,16 +121,17 @@ test.describe('Process', () => {
   })
 })
 
-// ── OS Status ─────────────────────────────────────────────────────────────────────
+// ── Pricing ───────────────────────────────────────────────────────────────────────
 
-test.describe('OS Status', () => {
-  test('renders the status board with initiatives and badges', async ({ page }) => {
+test.describe('Pricing', () => {
+  test('renders the three service tiers', async ({ page }) => {
     await page.goto('/')
-    const os = page.locator('#os-status')
-    await expect(os.locator('h2', { hasText: 'OS Status' })).toBeVisible()
-    await expect(os.locator('h3', { hasText: 'BrightPath Dental' })).toBeVisible()
-    await expect(os.locator('.badge', { hasText: 'Active Development' }).first()).toBeVisible()
-    await expect(os.locator('.badge', { hasText: 'Production' }).first()).toBeVisible()
+    const pricing = page.locator('#pricing')
+    await expect(pricing.locator('h2', { hasText: 'Find the right build' })).toBeVisible()
+    for (const tier of ['Starter', 'Business', 'Enterprise']) {
+      await expect(pricing.locator('h3', { hasText: tier })).toBeVisible()
+    }
+    await expect(pricing.getByText('Rp2.500.000')).toBeVisible()
   })
 })
 
