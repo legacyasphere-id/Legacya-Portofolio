@@ -9,7 +9,7 @@ import { ProcessSection } from './sections/ProcessSection'
 import { ProofSection } from './sections/ProofSection'
 import { PhilosophySection } from './sections/PhilosophySection'
 import { FounderSection } from './sections/FounderSection'
-import { OSStatusSection } from './sections/OSStatusSection'
+import { PricingSection } from './sections/PricingSection'
 import { CTASection } from './sections/CTASection'
 import { Footer } from './components/Footer'
 import { useScrollReveal } from './hooks/useScrollReveal'
@@ -40,7 +40,7 @@ export default function App() {
         <ProcessSection />
         <PhilosophySection />
         <FounderSection />
-        <OSStatusSection />
+        <PricingSection />
         <CTASection />
       </main>
       <Footer />

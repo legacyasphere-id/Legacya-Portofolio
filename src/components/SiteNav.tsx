@@ -1,11 +1,46 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { asset } from '../utils/asset'
+
+/**
+ * Nav link with a soft indigo/violet glow that fades in on hover and follows
+ * the cursor horizontally (Linear/Vercel-style). Position is written straight
+ * to the element inside a rAF; width is never animated.
+ */
+function GlowNavLink({ href, label }: { href: string; label: string }) {
+  const linkRef = useRef<HTMLAnchorElement>(null)
+  const glowRef = useRef<HTMLSpanElement>(null)
+  const raf = useRef(0)
+
+  const handleMove = (e: React.MouseEvent) => {
+    const link = linkRef.current
+    const glow = glowRef.current
+    if (!link || !glow) return
+    const x = e.clientX
+    cancelAnimationFrame(raf.current)
+    raf.current = requestAnimationFrame(() => {
+      const r = link.getBoundingClientRect()
+      glow.style.transform = `translateX(${x - r.left - r.width / 2}px)`
+    })
+  }
+
+  return (
+    <a
+      ref={linkRef}
+      href={href}
+      onMouseMove={handleMove}
+      className="nav-glow-link relative text-[14px] text-muted"
+    >
+      <span ref={glowRef} className="nav-glow" aria-hidden="true" />
+      {label}
+    </a>
+  )
+}
 
 const LINKS = [
   { href: '#systems', label: 'Systems' },
   { href: '#process', label: 'Solutions' },
   { href: '#work', label: 'Case Studies' },
-  { href: '#os-status', label: 'OS Status' },
+  { href: '#pricing', label: 'Pricing' },
   { href: '#contact', label: 'Contact' },
 ]
 
@@ -46,11 +81,15 @@ export function SiteNav() {
         </a>
 
         <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
-          {LINKS.map((l) => (
-            <a key={l.href} href={l.href} className="nav-link">
-              {l.label}
-            </a>
-          ))}
+          {LINKS.map((l) =>
+            l.href === '#pricing' ? (
+              <GlowNavLink key={l.href} href={l.href} label={l.label} />
+            ) : (
+              <a key={l.href} href={l.href} className="nav-link">
+                {l.label}
+              </a>
+            ),
+          )}
         </nav>
 
         <div className="hidden lg:block">
