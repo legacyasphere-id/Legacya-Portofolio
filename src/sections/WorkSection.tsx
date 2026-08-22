@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { projects } from '../data/projects'
 
 const OVERVIEW: Record<string, string> = {
@@ -42,6 +43,9 @@ const METRIC: Record<string, string> = {
 }
 
 export function WorkSection() {
+  const [activeId, setActiveId] = useState(projects[0]?.id)
+  const active = projects.find((p) => p.id === activeId) ?? projects[0]
+
   return (
     <section id="work" className="border-t border-border px-5 py-24 md:px-10 md:py-32">
       <div className="mx-auto max-w-[1180px]">
@@ -56,135 +60,169 @@ export function WorkSection() {
           </p>
         </div>
 
-        <div className="flex flex-col gap-6">
-          {projects.map((project, i) => (
-            <article
-              key={project.id}
-              className="card overflow-hidden lg:grid lg:grid-cols-[1.1fr_1.4fr]"
-              data-animate
-              data-delay="100"
-            >
-              {/* Visual */}
-              <div
-                className="relative min-h-[220px] overflow-hidden bg-raised lg:min-h-full"
-                style={
-                  !project.screenshots[0] && GRADIENT[project.id]
-                    ? { background: GRADIENT[project.id] }
-                    : undefined
-                }
+        {/* Folder tabs, one per industry. Pick a tab to open that project's
+            case study below. Scrolls horizontally on narrow screens instead
+            of wrapping, so the folder metaphor holds on mobile too. */}
+        <div
+          role="tablist"
+          aria-label="Featured projects by industry"
+          className="scrollbar-none -mb-px flex gap-1.5 overflow-x-auto"
+          data-animate
+        >
+          {projects.map((project, i) => {
+            const isActive = project.id === active.id
+            return (
+              <button
+                key={project.id}
+                type="button"
+                role="tab"
+                id={`work-tab-${project.id}`}
+                aria-selected={isActive}
+                aria-controls="work-panel"
+                onClick={() => setActiveId(project.id)}
+                className={`shrink-0 rounded-t-xl border px-5 py-3 text-left transition-all duration-300 ${
+                  isActive
+                    ? 'relative z-10 border-border border-b-surface bg-surface text-text'
+                    : 'translate-y-1.5 border-transparent bg-raised text-dim hover:translate-y-0.5 hover:text-muted'
+                }`}
               >
-                {project.screenshots[0] ? (
-                  <img
-                    src={project.screenshots[0].src}
-                    alt={project.screenshots[0].alt}
-                    className="absolute inset-0 h-full w-full object-cover object-top"
-                    loading="lazy"
-                  />
-                ) : (
-                  <span
-                    className="display absolute bottom-5 right-6 text-[clamp(2.6rem,6vw,4.2rem)] leading-none text-white/10"
-                    aria-hidden="true"
-                  >
-                    {project.name.split(' ')[0]}
-                  </span>
-                )}
-                <div className="absolute inset-0 bg-gradient-to-tr from-blue-deep/25 via-transparent to-transparent" />
-                <div className="absolute left-5 top-5 flex items-center gap-2.5">
-                  <span className="rounded-md bg-bg/90 px-2 py-1 font-mono text-[11px] font-medium text-blue-deep backdrop-blur">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <span
-                    className={`badge ${
-                      project.status === 'live' ? 'badge-production' : 'badge-active'
-                    }`}
-                  >
-                    <span className="badge-dot" />
-                    {STATUS_LABEL[project.status] ?? project.status}
-                  </span>
-                </div>
-              </div>
-
-              {/* Case study */}
-              <div className="flex flex-col gap-5 p-7 md:p-10">
-                <div>
-                  <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
-                    <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-blue">
-                      {project.type}
-                    </p>
-                    {project.industry && (
-                      <span className="rounded border border-border bg-raised px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.16em] text-dim">
-                        {project.industry}
-                      </span>
-                    )}
-                  </div>
-                  <h3 className="mt-2 text-[clamp(1.5rem,2.6vw,2.1rem)] font-semibold tracking-[-0.02em]">
-                    {project.name}
-                  </h3>
-                  <p className="mt-2.5 text-[15px] leading-relaxed text-muted">
-                    {OVERVIEW[project.id] ?? project.tagline}
-                  </p>
-                </div>
-
-                <dl className="grid gap-5 sm:grid-cols-2">
-                  <div>
-                    <dt className="mb-1.5 font-mono text-[10.5px] uppercase tracking-[0.16em] text-dim">
-                      Problem
-                    </dt>
-                    <dd className="text-[13.5px] leading-relaxed text-muted">
-                      {project.caseStudy.problem}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="mb-1.5 font-mono text-[10.5px] uppercase tracking-[0.16em] text-dim">
-                      Solution
-                    </dt>
-                    <dd className="text-[13.5px] leading-relaxed text-muted">
-                      {SOLUTION[project.id] ?? project.caseStudy.technicalExecution}
-                    </dd>
-                  </div>
-                </dl>
-
-                <div className="rounded-xl border border-blue/25 bg-blue/[0.05] p-4">
-                  <p className="mb-1 font-mono text-[10.5px] uppercase tracking-[0.16em] text-blue-deep">
-                    Outcome
-                  </p>
-                  <p className="text-[13.5px] leading-relaxed text-text">
-                    {project.caseStudy.outcome}
-                  </p>
-                </div>
-
-                {METRIC[project.id] && (
-                  <p className="rounded-r-md border-l-[3px] border-blue-deep bg-blue/[0.08] py-2.5 pl-3.5 pr-4 font-mono text-[11px] leading-relaxed tracking-[0.04em] text-blue-deep">
-                    {METRIC[project.id]}
-                  </p>
-                )}
-
-                <div className="flex flex-wrap items-center gap-2">
-                  {project.stack.slice(0, 5).map((tech) => (
-                    <span
-                      key={tech}
-                      className="rounded-md border border-border bg-bg px-2.5 py-1 font-mono text-[11px] text-muted"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                {project.links.live && (
-                  <a
-                    className="link-sweep mt-1"
-                    href={project.links.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    View live system
-                    <span aria-hidden="true">→</span>
-                  </a>
-                )}
-              </div>
-            </article>
-          ))}
+                <span className="block font-mono text-[10px] uppercase tracking-[0.16em] text-dim">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <span className="mt-1 block whitespace-nowrap text-[13px] font-semibold tracking-tight">
+                  {project.industry ?? project.name}
+                </span>
+              </button>
+            )
+          })}
         </div>
+
+        <article
+          id="work-panel"
+          role="tabpanel"
+          aria-labelledby={`work-tab-${active.id}`}
+          className="card relative z-0 overflow-hidden rounded-t-none lg:grid lg:grid-cols-[1.1fr_1.4fr]"
+          data-animate
+        >
+          {/* Visual */}
+          <div
+            className="relative min-h-[220px] overflow-hidden bg-raised lg:min-h-full"
+            style={
+              !active.screenshots[0] && GRADIENT[active.id]
+                ? { background: GRADIENT[active.id] }
+                : undefined
+            }
+          >
+            {active.screenshots[0] ? (
+              <img
+                src={active.screenshots[0].src}
+                alt={active.screenshots[0].alt}
+                className="absolute inset-0 h-full w-full object-cover object-top"
+                loading="lazy"
+              />
+            ) : (
+              <span
+                className="display absolute bottom-5 right-6 text-[clamp(2.6rem,6vw,4.2rem)] leading-none text-white/10"
+                aria-hidden="true"
+              >
+                {active.name.split(' ')[0]}
+              </span>
+            )}
+            <div className="absolute inset-0 bg-gradient-to-tr from-blue-deep/25 via-transparent to-transparent" />
+            <div className="absolute left-5 top-5 flex items-center gap-2.5">
+              <span className="rounded-md bg-bg/90 px-2 py-1 font-mono text-[11px] font-medium text-blue-deep backdrop-blur">
+                {String(projects.findIndex((p) => p.id === active.id) + 1).padStart(2, '0')}
+              </span>
+              <span
+                className={`badge ${
+                  active.status === 'live' ? 'badge-production' : 'badge-active'
+                }`}
+              >
+                <span className="badge-dot" />
+                {STATUS_LABEL[active.status] ?? active.status}
+              </span>
+            </div>
+          </div>
+
+          {/* Case study */}
+          <div className="flex flex-col gap-5 p-7 md:p-10">
+            <div>
+              <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
+                <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-blue">
+                  {active.type}
+                </p>
+                {active.industry && (
+                  <span className="rounded border border-border bg-raised px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.16em] text-dim">
+                    {active.industry}
+                  </span>
+                )}
+              </div>
+              <h3 className="mt-2 text-[clamp(1.5rem,2.6vw,2.1rem)] font-semibold tracking-[-0.02em]">
+                {active.name}
+              </h3>
+              <p className="mt-2.5 text-[15px] leading-relaxed text-muted">
+                {OVERVIEW[active.id] ?? active.tagline}
+              </p>
+            </div>
+
+            <dl className="grid gap-5 sm:grid-cols-2">
+              <div>
+                <dt className="mb-1.5 font-mono text-[10.5px] uppercase tracking-[0.16em] text-dim">
+                  Problem
+                </dt>
+                <dd className="text-[13.5px] leading-relaxed text-muted">
+                  {active.caseStudy.problem}
+                </dd>
+              </div>
+              <div>
+                <dt className="mb-1.5 font-mono text-[10.5px] uppercase tracking-[0.16em] text-dim">
+                  Solution
+                </dt>
+                <dd className="text-[13.5px] leading-relaxed text-muted">
+                  {SOLUTION[active.id] ?? active.caseStudy.technicalExecution}
+                </dd>
+              </div>
+            </dl>
+
+            <div className="rounded-xl border border-blue/25 bg-blue/[0.05] p-4">
+              <p className="mb-1 font-mono text-[10.5px] uppercase tracking-[0.16em] text-blue-deep">
+                Outcome
+              </p>
+              <p className="text-[13.5px] leading-relaxed text-text">
+                {active.caseStudy.outcome}
+              </p>
+            </div>
+
+            {METRIC[active.id] && (
+              <p className="rounded-r-md border-l-[3px] border-blue-deep bg-blue/[0.08] py-2.5 pl-3.5 pr-4 font-mono text-[11px] leading-relaxed tracking-[0.04em] text-blue-deep">
+                {METRIC[active.id]}
+              </p>
+            )}
+
+            <div className="flex flex-wrap items-center gap-2">
+              {active.stack.slice(0, 5).map((tech) => (
+                <span
+                  key={tech}
+                  className="rounded-md border border-border bg-bg px-2.5 py-1 font-mono text-[11px] text-muted"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+
+            {active.links.live && (
+              <a
+                className="link-sweep mt-1"
+                href={active.links.live}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View live system
+                <span aria-hidden="true">→</span>
+              </a>
+            )}
+          </div>
+        </article>
       </div>
     </section>
   )

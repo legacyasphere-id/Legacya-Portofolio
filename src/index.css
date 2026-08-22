@@ -248,6 +248,16 @@ body::after {
       linear-gradient(to bottom, rgba(47, 79, 127, 0.045) 1px, transparent 1px);
     background-size: 48px 48px;
   }
+
+  /* Hides the scrollbar on a horizontally-scrollable strip (e.g. the work
+     folder tabs) while keeping it scrollable by touch, trackpad, or wheel. */
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* ── Tech-stack marquee ──────────────────────────────────────────────────
