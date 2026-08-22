@@ -331,19 +331,6 @@ body::after {
   .tech-badge--shine::after { animation: none; opacity: 0.4; }
 }
 
-/* ── Floating hero cards, macOS-style frosted panels ────────────────────
-   Subtle blur, thin border, soft shadow. They quietly float over the
-   artwork, never dominate it. No glow, no animation beyond the shared
-   fade/rise reveal. */
-.float-card {
-  background: rgba(255, 255, 255, 0.55);
-  -webkit-backdrop-filter: blur(16px);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
-  border-radius: 18px;
-}
-
 /* ── Mobile nav overlay ──────────────────────────────────────────────── */
 .nav-overlay {
   position: fixed;

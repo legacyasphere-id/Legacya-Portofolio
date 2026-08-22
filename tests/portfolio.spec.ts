@@ -32,12 +32,12 @@ test.describe('Navigation', () => {
 // ── Hero ──────────────────────────────────────────────────────────────────────
 
 test.describe('Hero', () => {
-  test('headline renders systems positioning', async ({ page }) => {
+  test('headline renders AI-native studio positioning', async ({ page }) => {
     await page.goto('/')
     const h1 = page.locator('h1')
-    await expect(h1).toContainText('Systems that')
-    await expect(h1).toContainText('scale')
-    await expect(h1).toContainText('with your operations.')
+    await expect(h1).toContainText('AI-Native')
+    await expect(h1).toContainText('solving every')
+    await expect(h1).toContainText('your business.')
   })
 
   test('hero CTAs point to contact and case studies', async ({ page }) => {
@@ -174,8 +174,8 @@ test.describe('Footer', () => {
 test.describe('Scroll reveal', () => {
   test('hero reveal elements become visible on load', async ({ page }) => {
     await page.goto('/')
-    const firstLine = page.locator('h1 span').first()
-    await expect(firstLine).toHaveClass(/is-visible/)
+    const headline = page.locator('h1')
+    await expect(headline).toHaveClass(/is-visible/)
   })
 
   test('below-fold sections reveal when scrolled into view', async ({ page }) => {
