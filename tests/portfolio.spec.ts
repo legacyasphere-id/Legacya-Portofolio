@@ -9,7 +9,6 @@ test.describe('Navigation', () => {
 
     test.skip(isMobile, 'desktop links hidden on mobile behind burger menu')
     const nav = page.locator('header nav[aria-label="Primary"]')
-    await expect(nav.locator('a[href="#systems"]')).toBeVisible()
     await expect(nav.locator('a[href="#work"]')).toBeVisible()
     await expect(nav.locator('a[href="#pricing"]')).toBeVisible()
     await expect(nav.locator('a[href="#contact"]')).toBeVisible()
@@ -63,18 +62,6 @@ test.describe('Tech Stack', () => {
     for (const logo of ['React', 'Supabase', 'Claude']) {
       await expect(page.getByAltText(logo, { exact: true }).first()).toBeVisible()
     }
-  })
-})
-
-// ── Systems We Build ────────────────────────────────────────────────────────────
-
-test.describe('Systems', () => {
-  test('renders the three system pillars', async ({ page }) => {
-    await page.goto('/')
-    const systems = page.locator('#systems')
-    await expect(systems.locator('h3', { hasText: 'Business Operating Systems' })).toBeVisible()
-    await expect(systems.locator('h3', { hasText: 'Operational Dashboards' })).toBeVisible()
-    await expect(systems.locator('h3', { hasText: 'Automation Infrastructure' })).toBeVisible()
   })
 })
 

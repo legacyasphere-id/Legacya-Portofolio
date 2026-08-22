@@ -37,6 +37,11 @@ const CERTS = [
     thumb: asset('assets/certificates/claude-cowork.webp'),
     pdf: asset('assets/certificates/claude-cowork-anthropic.pdf'),
   },
+  {
+    title: 'AI Fluency: Framework & Foundations',
+    thumb: asset('assets/certificates/ai-fluency-framework.webp'),
+    pdf: asset('assets/certificates/ai-fluency-framework-anthropic.pdf'),
+  },
 ]
 
 export function ProofSection() {
@@ -82,7 +87,7 @@ export function ProofSection() {
           >
             Anthropic-certified
           </p>
-          <div className="grid gap-4 sm:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {CERTS.map((c, i) => (
               <a
                 key={c.title}
