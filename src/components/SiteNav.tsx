@@ -37,7 +37,6 @@ function GlowNavLink({ href, label }: { href: string; label: string }) {
 }
 
 const LINKS = [
-  { href: '#systems', label: 'Systems' },
   { href: '#process', label: 'Solutions' },
   { href: '#work', label: 'Case Studies' },
   { href: '#pricing', label: 'Pricing' },

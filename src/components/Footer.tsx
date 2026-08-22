@@ -6,16 +6,15 @@ const COLUMNS = [
     title: 'Studio',
     links: [
       { label: 'About', href: '#process' },
-      { label: 'Systems', href: '#systems' },
       { label: 'Case Studies', href: '#work' },
     ],
   },
   {
     title: 'Capabilities',
     links: [
-      { label: 'Business Systems', href: '#systems' },
-      { label: 'Dashboards', href: '#systems' },
-      { label: 'Automation', href: '#systems' },
+      { label: 'Business Systems', href: '#work' },
+      { label: 'Dashboards', href: '#work' },
+      { label: 'Automation', href: '#work' },
     ],
   },
 ]
