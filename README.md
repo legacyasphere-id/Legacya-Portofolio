@@ -73,16 +73,15 @@ Composed in order by `src/App.tsx`:
 | # | Section | Description |
 |---|---------|-------------|
 | — | **Nav** (`SiteNav`) | Minimal navigation floating over the artwork; the Pricing item has a cursor-following glow |
-| 1 | **Hero** | Large display headline, supporting paragraph, three floating frosted cards |
+| 1 | **Hero** | Display headline that wraps as natural paragraph text, with the two CTAs stacked beside it on desktop (a row below on mobile) — no floating cards, the artwork carries the visual |
 | 2 | **Tech Stack** | Two-row logo marquee (stack + AI models) |
-| 3 | **Systems** | What the studio builds, with custom illustrated icons |
-| 4 | **Work** | Case studies with problem → solution → outcome breakdowns |
-| 5 | **Proof** | Dark metrics band + trusted-by line (testimonial-ready) |
-| 6 | **Process** | How engagements run |
-| 7 | **Philosophy** | "Systems over software" |
-| 8 | **Founder** | Who's behind Legacya Sphere — portrait, bio, links |
-| 9 | **Pricing** | Three service tiers with spotlight, hover, and gradient-border interactions |
-| 10 | **CTA** | Start-a-project call to action |
+| 3 | **Work** | Case studies behind a folder-tab picker — one tab per project, labeled by industry; click a tab to open that project's picture, description, and full problem → solution → outcome breakdown |
+| 4 | **Proof** | Dark metrics band, real Anthropic certificates (thumbnail → full PDF), and a trusted-by line (testimonial-ready) |
+| 5 | **Process** | How engagements run |
+| 6 | **Philosophy** | "Systems over software" |
+| 7 | **Founder** | Who's behind Legacya Sphere — portrait, bio, links |
+| 8 | **Pricing** | Three service tiers with spotlight, hover, and gradient-border interactions |
+| 9 | **CTA** | Start-a-project call to action |
 | — | **Footer** | Nav columns, wordmark, availability |
 
 ---
@@ -96,9 +95,8 @@ Legacya-Portofolio/
 │   ├── img-15.webp               # Legacya Sphere logo
 │   ├── img-16..23.webp           # Project screenshots (InventoryOS, AI-CV, BrightPath, POS)
 │   ├── logos/                    # Tech-stack marquee brand logos (SVG)
-│   ├── icons/                    # Custom feature-card icons (PNG)
 │   ├── logo.png                  # Nav / footer / splash mark
-│   └── assets/certificates/      # PDF certificates
+│   └── assets/certificates/      # Anthropic certificates — thumbnail (.webp) + full PDF, one pair each
 │
 ├── src/
 │   ├── core/
