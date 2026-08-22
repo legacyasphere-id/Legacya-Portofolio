@@ -68,13 +68,24 @@ test.describe('Tech Stack', () => {
 // ── Work / case studies ─────────────────────────────────────────────────────────
 
 test.describe('Work', () => {
-  test('renders the curated featured projects', async ({ page }) => {
+  test('renders a folder tab per curated project, opening its case study', async ({ page }) => {
     await page.goto('/')
     const work = page.locator('#work')
+    const tabs = work.locator('[role="tab"]')
+    await expect(tabs).toHaveCount(4)
+
+    // First tab is open by default.
     await expect(work.locator('h3', { hasText: 'InventoryOS' })).toBeVisible()
-    await expect(work.locator('h3', { hasText: 'AI-CV Screening' })).toBeVisible()
-    await expect(work.locator('h3', { hasText: 'BrightPath Dental' })).toBeVisible()
-    await expect(work.locator('h3', { hasText: 'Legacya POS' })).toBeVisible()
+
+    const remaining: [string, string][] = [
+      ['HR Tech', 'AI-CV Screening'],
+      ['Healthcare', 'BrightPath Dental'],
+      ['Food & Beverage', 'Legacya POS'],
+    ]
+    for (const [industry, name] of remaining) {
+      await tabs.filter({ hasText: industry }).click()
+      await expect(work.locator('h3', { hasText: name })).toBeVisible()
+    }
   })
 
   test('each case study exposes problem, solution and outcome', async ({ page }) => {
@@ -85,12 +96,17 @@ test.describe('Work', () => {
     await expect(work.getByText('Outcome').first()).toBeVisible()
   })
 
-  test('project cards link to live deployments', async ({ page }) => {
+  test('every project folder links to a live deployment', async ({ page }) => {
     await page.goto('/')
-    const links = page.locator('#work a.link-sweep')
-    await expect(links).toHaveCount(4)
-    for (const href of await links.evaluateAll((as) => as.map((a) => a.getAttribute('href')))) {
-      expect(href).toMatch(/^https:\/\//)
+    const work = page.locator('#work')
+    const tabs = work.locator('[role="tab"]')
+    const count = await tabs.count()
+
+    for (let i = 0; i < count; i++) {
+      await tabs.nth(i).click()
+      const link = work.locator('a.link-sweep')
+      await expect(link).toHaveCount(1)
+      await expect(link).toHaveAttribute('href', /^https:\/\//)
     }
   })
 })
