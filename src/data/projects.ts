@@ -84,7 +84,7 @@ export const projects: Project[] = [
     id: 'brightpath-dental',
     name: 'BrightPath Dental',
     tagline: 'AI-Powered Clinic Site for BrightPath Dental (Indonesia)',
-    type: 'Client Delivery · AI Chat · Lead Capture',
+    type: 'Portfolio Demo · AI Chat · Lead Capture',
     industry: 'Healthcare',
     status: 'live',
     featured: true,
@@ -100,7 +100,7 @@ export const projects: Project[] = [
       technicalExecution:
         'GPT-4o chatbot with RAG over 5 clinic KB documents (services, pricing, doctors, FAQ). Bahasa Indonesia auto-detection. Lead capture from both chat and booking form into Supabase. next/server after() ensures Make.com webhook fires after Vercel serverless return. Admin panel with drag & drop KnowledgeUpload.',
       outcome:
-        'Full client delivery in one week: live AI chat, automated lead email pipeline, and admin KB management, all running in production on Vercel. First real client project under Legacya Sphere.',
+        'Built and shipped in one week: live AI chat, automated lead email pipeline, and admin KB management, all running in production on Vercel. A fictional-clinic portfolio piece demonstrating full-stack, production-grade AI system delivery.',
     },
     techStack: {
       frontend: 'Next.js 15 · TypeScript · Tailwind CSS',

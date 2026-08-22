@@ -6,7 +6,7 @@ const OVERVIEW: Record<string, string> = {
   'ai-cv-screening':
     'An AI screening platform that extracts CV data with Gemini, then ranks candidates on a deterministic, bias-auditable formula.',
   'brightpath-dental':
-    'A client-delivered clinic site with a GPT-4o RAG assistant and an automated lead pipeline, patients get answers and book, the clinic gets notified.',
+    'A demo clinic site (fictional practice) with a GPT-4o RAG assistant and an automated lead pipeline, patients get answers and book, the clinic gets notified.',
   'legacya-pos':
     'A unified restaurant operations platform covering cashier, kitchen, and revenue analytics in real time.',
 }
