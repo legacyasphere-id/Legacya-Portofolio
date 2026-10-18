@@ -2,10 +2,11 @@ import { useEffect } from 'react'
 import { SiteNav } from './components/SiteNav'
 import { SectionGuide } from './components/SectionGuide'
 import { HeroSection } from './sections/HeroSection'
-import { TechStackSection } from './sections/TechStackSection'
+import { SolutionsSection } from './sections/SolutionsSection'
 import { WorkSection } from './sections/WorkSection'
-import { ProcessSection } from './sections/ProcessSection'
 import { ProofSection } from './sections/ProofSection'
+import { ProcessSection } from './sections/ProcessSection'
+import { TechStackSection } from './sections/TechStackSection'
 import { PhilosophySection } from './sections/PhilosophySection'
 import { FounderSection } from './sections/FounderSection'
 import { PricingSection } from './sections/PricingSection'
@@ -32,10 +33,11 @@ export default function App() {
       <SectionGuide />
       <main>
         <HeroSection />
-        <TechStackSection />
+        <SolutionsSection />
         <WorkSection />
         <ProofSection />
         <ProcessSection />
+        <TechStackSection />
         <PhilosophySection />
         <FounderSection />
         <PricingSection />

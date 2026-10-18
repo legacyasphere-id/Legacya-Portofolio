@@ -81,9 +81,9 @@ body::after {
 .hero-veil {
   background: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0.42) 0%,
-    rgba(255, 255, 255, 0.26) 22%,
-    rgba(255, 255, 255, 0) 54%
+    rgba(245, 240, 232, 0.88) 0%,
+    rgba(245, 240, 232, 0.64) 42%,
+    rgba(245, 240, 232, 0) 85%
   );
 }
 

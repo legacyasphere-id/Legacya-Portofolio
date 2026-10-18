@@ -1,20 +1,15 @@
 import { useEffect, useState } from 'react'
 
-/**
- * Section guide, a quiet right-edge wayfinder so visitors always know which
- * section they're in on this long single page. Dots track scroll position;
- * the active section's name shows in a light frosted chip, and any dot is
- * click-to-jump. Desktop only, on mobile the page just reads top to bottom.
- */
 const SECTIONS = [
   { id: 'hero', label: 'Home' },
-  { id: 'tech-stack', label: 'Tech Stack' },
+  { id: 'solutions', label: 'Solutions' },
   { id: 'work', label: 'Case Studies' },
   { id: 'proof', label: 'Proof' },
   { id: 'process', label: 'Process' },
+  { id: 'tech-stack', label: 'Stack' },
   { id: 'founder', label: 'Founder' },
   { id: 'pricing', label: 'Pricing' },
-  { id: 'contact', label: 'Contact' },
+  { id: 'contact', label: 'Scope' },
 ]
 
 export function SectionGuide() {
@@ -27,13 +22,11 @@ export function SectionGuide() {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        // Pick the entry closest to the top of the viewport that is visible.
         const visible = entries
           .filter((e) => e.isIntersecting)
           .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
         if (visible[0]) setActive(visible[0].target.id)
       },
-      // A band around the upper-middle of the viewport decides "current".
       { rootMargin: '-45% 0px -45% 0px', threshold: 0 },
     )
 
@@ -57,7 +50,7 @@ export function SectionGuide() {
             className="group flex items-center justify-end gap-2.5"
           >
             <span
-              className={`rounded-full border border-border/70 bg-surface/85 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] backdrop-blur transition-all duration-300 ${
+              className={`rounded-md border border-border/70 bg-surface/90 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] backdrop-blur transition-all duration-200 whitespace-nowrap ${
                 isActive
                   ? 'text-blue-deep opacity-100'
                   : 'text-muted opacity-0 group-hover:opacity-100'
@@ -66,10 +59,10 @@ export function SectionGuide() {
               {s.label}
             </span>
             <span
-              className={`h-2 w-2 shrink-0 rounded-full ring-1 ring-inset transition-all duration-300 ${
+              className={`h-2 w-2 shrink-0 rounded-full ring-1 ring-inset transition-all duration-200 ${
                 isActive
                   ? 'scale-110 bg-blue-deep ring-blue-deep'
-                  : 'bg-surface/70 ring-dim/60 group-hover:ring-blue-deep'
+                  : 'bg-surface/80 ring-dim/60 group-hover:ring-blue-deep'
               }`}
             />
           </a>
