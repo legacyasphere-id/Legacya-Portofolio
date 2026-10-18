@@ -1,11 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { asset } from '../utils/asset'
+import { triggerProjectScope } from '../core/identity'
 
-/**
- * Nav link with a soft indigo/violet glow that fades in on hover and follows
- * the cursor horizontally (Linear/Vercel-style). Position is written straight
- * to the element inside a rAF; width is never animated.
- */
 function GlowNavLink({ href, label }: { href: string; label: string }) {
   const linkRef = useRef<HTMLAnchorElement>(null)
   const glowRef = useRef<HTMLSpanElement>(null)
@@ -28,7 +23,7 @@ function GlowNavLink({ href, label }: { href: string; label: string }) {
       ref={linkRef}
       href={href}
       onMouseMove={handleMove}
-      className="nav-glow-link relative text-[14px] text-muted"
+      className="nav-glow-link relative text-[14px] text-muted whitespace-nowrap shrink-0"
     >
       <span ref={glowRef} className="nav-glow" aria-hidden="true" />
       {label}
@@ -37,8 +32,9 @@ function GlowNavLink({ href, label }: { href: string; label: string }) {
 }
 
 const LINKS = [
-  { href: '#process', label: 'Solutions' },
+  { href: '#solutions', label: 'Solutions' },
   { href: '#work', label: 'Case Studies' },
+  { href: '#process', label: 'Process' },
   { href: '#pricing', label: 'Pricing' },
   { href: '#contact', label: 'Contact' },
 ]
@@ -64,37 +60,46 @@ export function SiteNav() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-[100] flex items-center justify-between px-6 py-4 transition-all duration-300 md:px-10 ${
+        className={`fixed inset-x-0 top-0 z-[100] flex items-center justify-between gap-8 px-6 py-4 transition-all duration-300 md:px-10 ${
           scrolled
-            ? 'border-b border-border bg-bg/80 backdrop-blur-xl'
-            : 'border-b border-transparent bg-transparent'
+            ? 'border-b border-border bg-bg/85 backdrop-blur-xl'
+            : 'border-b border-transparent bg-bg/40 backdrop-blur-sm'
         }`}
       >
-        <a href="#top" className="flex items-center gap-2.5" aria-label="Legacya Sphere, home">
-          <span className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full border border-border bg-surface">
-            <img src={asset('logo.png')} alt="" className="h-full w-full object-cover" />
-          </span>
-          <span className="text-[15px] font-semibold tracking-tight text-text">
-            Legacya Sphere
-          </span>
+        {/* Zone 1: Single text element wordmark */}
+        <a
+          href="#top"
+          className="display text-[16px] font-semibold tracking-tight text-text whitespace-nowrap shrink-0"
+        >
+          Legacya Sphere
         </a>
 
+        {/* Zone 2: 5 concise single-line text navigation links */}
         <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
           {LINKS.map((l) =>
             l.href === '#pricing' ? (
               <GlowNavLink key={l.href} href={l.href} label={l.label} />
             ) : (
-              <a key={l.href} href={l.href} className="nav-link">
+              <a
+                key={l.href}
+                href={l.href}
+                className="nav-link whitespace-nowrap shrink-0"
+              >
                 {l.label}
               </a>
             ),
           )}
         </nav>
 
-        <div className="hidden lg:block">
-          <a href="#contact" className="btn-primary">
-            Free Consultation
-          </a>
+        {/* Zone 3: 1 primary action */}
+        <div className="hidden shrink-0 lg:block">
+          <button
+            type="button"
+            onClick={() => triggerProjectScope({})}
+            className="btn-primary whitespace-nowrap shrink-0"
+          >
+            Scope Your System
+          </button>
         </div>
 
         <button
@@ -122,9 +127,9 @@ export function SiteNav() {
         <a
           href="#contact"
           onClick={() => setOpen(false)}
-          className="nav-cta mt-4 rounded-[10px] bg-blue-deep px-6 py-3 text-[15px] font-medium text-white"
+          className="nav-cta mt-4 rounded-[10px] bg-blue-deep px-6 py-3 text-[15px] font-medium text-white whitespace-nowrap"
         >
-          Free Consultation
+          Scope Your System
         </a>
       </nav>
     </>

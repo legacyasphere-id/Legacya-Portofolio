@@ -1,35 +1,52 @@
 export function PhilosophySection() {
   return (
-    <section className="px-5 py-28 md:px-10 md:py-40">
-      <div className="mx-auto max-w-[900px]">
-        <p className="eyebrow mb-8" data-animate>
-          Philosophy
-        </p>
-
-        <h2
-          className="display text-[clamp(2.4rem,5.6vw,4.2rem)] leading-[1.06]"
+    <section className="px-5 py-20 md:px-10 md:py-28">
+      <div className="mx-auto max-w-[1180px]">
+        <div
+          className="rounded-3xl border border-border bg-surface/90 p-8 shadow-sm backdrop-blur-md sm:p-12 md:p-16"
           data-animate
-          data-delay="100"
         >
-          Systems over <span className="text-blue-accent">software</span>.
-        </h2>
+          <p className="eyebrow mb-6">Studio Philosophy</p>
 
-        <div className="mt-10 max-w-[60ch] space-y-6 text-[clamp(1.15rem,1.8vw,1.5rem)] font-light leading-[1.5] text-white">
-          <p data-animate data-delay="200">
-            Most businesses don&rsquo;t need more tools. They need better
-            systems.
-          </p>
-          <p data-animate data-delay="300">
-            Technology should simplify operations, remove friction, and create
-            leverage, not add another login to an already crowded screen.
-          </p>
-          <p data-animate data-delay="400">
-            Our work focuses on building{' '}
-            <span className="font-normal text-white">
-              operational foundations that scale alongside business growth
-            </span>
-            .
-          </p>
+          <h2 className="display max-w-[22ch] text-[clamp(2.25rem,4.8vw,3.75rem)] leading-[1.08] [text-wrap:balance]">
+            Systems over <span className="text-blue-deep">software</span>.
+          </h2>
+
+          <div className="mt-8 grid gap-8 border-t border-border pt-8 lg:grid-cols-3">
+            <div>
+              <p className="font-mono text-[11px] font-semibold text-blue-deep tabular-nums">
+                01. The Core Premise
+              </p>
+              <p className="mt-2.5 text-[16px] font-medium leading-relaxed text-text">
+                Most businesses don&rsquo;t need more tools. They need better
+                systems.
+              </p>
+            </div>
+
+            <div>
+              <p className="font-mono text-[11px] font-semibold text-blue-deep tabular-nums">
+                02. Operational Leverage
+              </p>
+              <p className="mt-2.5 text-[15px] leading-relaxed text-muted">
+                Technology should simplify operations, remove manual friction,
+                and create compounding leverage—not add another subscription
+                login to an already crowded screen.
+              </p>
+            </div>
+
+            <div>
+              <p className="font-mono text-[11px] font-semibold text-blue-deep tabular-nums">
+                03. Built for Legacy
+              </p>
+              <p className="mt-2.5 text-[15px] leading-relaxed text-muted">
+                Our work focuses on architecting{' '}
+                <span className="font-medium text-text">
+                  operational foundations that scale alongside business growth
+                </span>{' '}
+                and outlast the individuals who set them up.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

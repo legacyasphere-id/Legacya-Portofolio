@@ -1,5 +1,28 @@
 import { asset } from '../utils/asset'
 
+export interface ScopeSelectionDetail {
+  tier?: string
+  systemType?: string
+  bottleneck?: string
+  projectReference?: string
+}
+
+export function triggerProjectScope(detail: ScopeSelectionDetail) {
+  window.dispatchEvent(new CustomEvent<ScopeSelectionDetail>('legacya:select-scope', { detail }))
+  const el = document.getElementById('contact')
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth' })
+  }
+}
+
+export function triggerProjectInspect(projectId: string) {
+  window.dispatchEvent(new CustomEvent<string>('legacya:select-project', { detail: projectId }))
+  const el = document.getElementById('work')
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth' })
+  }
+}
+
 export const identity = {
   // ── Core identity ──────────────────────────────────────────────────────
   title:          'AI-Native Business Systems Studio',
@@ -11,22 +34,23 @@ export const identity = {
 
   // ── Public-facing identity badges ─────────────────────────────────────
   badges: [
-    'AI-Native Founder',
-    'AI-Native System Builder',
-    'Product System Thinker',
+    'AI-Native Systems Studio',
+    'Custom Operations Architecture',
+    'Deterministic AI Engineering',
   ] as const,
 
-  // ── Personal ──────────────────────────────────────────────────────────
+  // ── Personal / Founder ────────────────────────────────────────────────
   name:         'Yoga Pratama Effendi',
   company:      'Legacya Sphere',
   location:     'Bekasi, Indonesia',
   timezone:     'GMT+7',
-  availability: 'Available for selective engagements',
+  availability: 'Accepting Q4/Q1 B2B System Builds',
   languages:    ['English', 'Bahasa Indonesia'] as const,
 
   // ── Social / contact ──────────────────────────────────────────────────
   social: {
     email:    'legacyasphere@gmail.com',
+    whatsapp: '6285156862140',
     github:   'https://github.com/legacyasphere-id',
     linkedin: 'https://www.linkedin.com/in/yoga-pratamaeffendi-59b376245',
     fiverr:   'https://www.fiverr.com/yogapratama',
@@ -39,30 +63,19 @@ export const identity = {
   },
 
   // ── Execution layer classification ────────────────────────────────────
-  // Stack is framed as execution tooling, NOT as identity attributes.
   executionLayers: {
-    tools:      ['React', 'TypeScript', 'Vue.js', 'Supabase', 'PostgreSQL', 'Tailwind CSS'],
-    coEngineer: ['Claude', 'Claude Code', 'GPT', 'Gemini', 'n8n'],
-    deployment: ['Vercel', 'GitHub', 'Cloudflare'],
+    tools:      ['React', 'TypeScript', 'Next.js', 'Vue.js', 'Supabase', 'PostgreSQL', 'Tailwind CSS'],
+    coEngineer: ['Claude', 'Claude Code', 'GPT-4o', 'Gemini', 'n8n', 'Make.com'],
+    deployment: ['Vercel', 'GitHub Actions CI/CD', 'Docker'],
   },
 
-  // ── Project narrative tone (applied consistently to all case studies) ─
-  narrativeTone: {
-    problem:           'system-level, what process or data flow was broken at scale',
-    thinkingProcess:   'AI-assisted reasoning, how the system was deconstructed before coding',
-    aiRole:            'co-engineer framing, Claude as architecture + review partner, not a shortcut',
-    architectureNote:  'data flow first, entities, roles, boundaries, then tech choices',
-    technicalExecution:'implementation precision, RLS, state management, schema constraints',
-    outcome:           'impact / operational result, what changed for the user or team',
-  },
-
-  // ── Founder OS system text ────────────────────────────────────────────
+  // ── Studio operating system text ──────────────────────────────────────
   founderOS: {
-    name:    'Founder OS',
+    name:    'Legacya Operating Standard',
     version: '2.0',
-    tagline: 'The OS beneath every system I ship.',
+    tagline: 'The architectural standard beneath every system we ship.',
     systemDescription:
-      'An operating system for building products, not a portfolio. Principles, workflows, and tools organized as a coherent execution machine.',
+      'Data-first modeling, deterministic AI boundaries, and production-grade access control built so businesses own their operational infrastructure outright.',
   },
 }
 

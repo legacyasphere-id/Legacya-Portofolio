@@ -6,7 +6,6 @@ interface Logo {
   shine?: boolean
 }
 
-// Layer 1, the technology stack we build on.
 const STACK: Logo[] = [
   { name: 'React', file: 'react' },
   { name: 'TypeScript', file: 'typescript' },
@@ -24,7 +23,6 @@ const STACK: Logo[] = [
   { name: 'GitHub', file: 'github' },
 ]
 
-// Layer 2, the AI models in the workflow. Claude is highlighted.
 const AI: Logo[] = [
   { name: 'GPT', file: 'gpt' },
   { name: 'Gemini', file: 'gemini' },
@@ -33,10 +31,11 @@ const AI: Logo[] = [
 
 function Badge({ item }: { item: Logo }) {
   return (
-    <div className={`tech-badge ${item.shine ? 'tech-badge--shine' : ''}`}>
+    <div className={`tech-badge ${item.shine ? 'tech-badge--shine' : ''}`} title={item.name}>
       <img
         src={asset(`logos/${item.file}.svg`)}
         alt={item.name}
+        referrerPolicy="no-referrer"
         className="relative h-7 w-7 object-contain"
         loading="lazy"
       />
@@ -51,7 +50,6 @@ function Marquee({ items, reverse }: { items: Logo[]; reverse?: boolean }) {
         {items.map((item, i) => (
           <Badge key={`a-${i}`} item={item} />
         ))}
-        {/* Duplicate set for a seamless loop */}
         {items.map((item, i) => (
           <Badge key={`b-${i}`} item={item} />
         ))}
@@ -61,7 +59,6 @@ function Marquee({ items, reverse }: { items: Logo[]; reverse?: boolean }) {
 }
 
 export function TechStackSection() {
-  // Repeat the small AI set so the row fills the width before duplicating.
   const aiRow = [...AI, ...AI, ...AI, ...AI]
 
   return (
@@ -70,48 +67,47 @@ export function TechStackSection() {
       className="border-y border-border bg-bg px-5 py-24 md:px-10 md:py-28"
     >
       <div className="mx-auto grid max-w-[1180px] items-center gap-12 lg:grid-cols-[42%_58%] lg:gap-16">
-        {/* Left, copy */}
         <div>
-          <p
-            className="mb-5 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-blue-deep"
-            data-animate
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-blue-deep" />
-            Our Tech Stack
+          <p className="eyebrow mb-4" data-animate>
+            Execution Infrastructure
           </p>
           <h2
-            className="display text-[clamp(2.1rem,4vw,3.3rem)] leading-[1.08]"
+            className="display text-[clamp(2.1rem,4vw,3.3rem)] leading-[1.08] [text-wrap:balance]"
             data-animate
             data-delay="100"
           >
-            Key Technologies &amp; Platforms
+            Production stack &amp; AI models
           </h2>
           <p
-            className="mt-5 max-w-[46ch] text-[1.05rem] leading-relaxed text-muted"
+            className="mt-5 max-w-[46ch] text-[15.5px] leading-relaxed text-muted"
             data-animate
             data-delay="200"
           >
-            We build on leading platforms and models, chosen for reliability,
-            speed, and long-term maintainability, with AI as a co-engineer at
-            every stage.
+            We build on battle-tested relational databases, type-safe web
+            frameworks, and frontier LLMs—chosen for long-term maintainability,
+            security, and speed of execution.
           </p>
-          <a href="#work" className="btn-primary mt-8 inline-flex" data-animate data-delay="300">
-            Explore Tech Stack
+          <a
+            href="#work"
+            className="btn-secondary mt-8 inline-flex whitespace-nowrap"
+            data-animate
+            data-delay="300"
+          >
+            See Stack in Production
           </a>
         </div>
 
-        {/* Right, two horizontal marquee layers */}
         <div className="min-w-0 space-y-8" data-animate data-delay="200">
           <div className="min-w-0">
             <p className="mb-3 font-mono text-[10.5px] uppercase tracking-[0.18em] text-dim">
-              Stack
+              Core Engineering &amp; Cloud Platforms
             </p>
             <Marquee items={STACK} />
           </div>
 
           <div className="min-w-0">
             <p className="mb-3 font-mono text-[10.5px] uppercase tracking-[0.18em] text-dim">
-              AI Models
+              AI Co-Engineering &amp; Reasoning Models
             </p>
             <Marquee items={aiRow} reverse />
           </div>
