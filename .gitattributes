@@ -1,0 +1,7 @@
+# Ensure GitHub Linguist highlights TypeScript (Blue #3178C6) as the primary repository language
+*.css linguist-vendored
+*.html linguist-vendored
+*.js linguist-vendored
+*.json linguist-vendored
+*.md linguist-documentation
+public/** linguist-vendored

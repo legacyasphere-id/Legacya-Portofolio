@@ -9,3 +9,6 @@ coverage/
 .aistudio/
 bun.lock
 metadata.json
+.playwright-cli/
+playwright-report/
+test-results/

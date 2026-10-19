@@ -1,18 +1,123 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Google AI Studio App</title>
-    <meta name="description" content="An application built with Google AI Studio." />
-    <meta property="og:title" content="My Google AI Studio App" />
-    <meta property="og:description" content="An application built with Google AI Studio." />
+    <meta name="theme-color" content="#F5F0E8" />
+    <title>Legacya Sphere | Brand, Digital Experience &amp; Creative Studio</title>
+    <meta
+      name="description"
+      content="Legacya Sphere helps businesses build stronger brands, modern websites, connected business systems, advertising campaign visuals, and cinematic video stories."
+    />
+    <meta
+      property="og:title"
+      content="Legacya Sphere | Brand, Digital Experience &amp; Creative Studio"
+    />
+    <meta
+      property="og:description"
+      content="Partner with Legacya Sphere for digital experiences, connected business operations, advertising campaign visuals, and cinematic video production."
+    />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Legacya Sphere" />
+    <meta property="og:url" content="https://legacyasphere-id.github.io/Legacya-Portofolio/" />
+    <meta property="og:image" content="https://legacyasphere-id.github.io/Legacya-Portofolio/img-04.webp" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Legacya Sphere | Brand, Digital Experience &amp; Creative Studio"
+    />
+    <meta
+      name="twitter:description"
+      content="Building Brands. Creating Experiences. Shaping What's Next. Digital experiences, advertising campaign visuals, and cinematic video production."
+    />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Legacya Sphere",
+        "description": "B2B creative and digital studio providing digital experiences, connected business systems, advertising campaign assets, and cinematic video production.",
+        "founder": {
+          "@type": "Person",
+          "name": "Yoga Pratama Effendi"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Bekasi",
+          "addressCountry": "ID"
+        },
+        "email": "legacyasphere@gmail.com",
+        "url": "https://legacyasphere-id.github.io/Legacya-Portofolio/"
+      }
+    </script>
+    <style>
+      #ls-splash {
+        position: fixed;
+        inset: 0;
+        background: #F5F0E8;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 99999;
+        transition: opacity 0.4s ease;
+      }
+      #ls-splash.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+      #ls-splash-ring {
+        width: 76px;
+        height: 76px;
+        border-radius: 50%;
+        background: #FAF7F2;
+        border: 1px solid #E5DDD0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      #ls-splash-ring img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      #ls-splash-text {
+        margin-top: 18px;
+        font-family: 'Geist Mono', 'Courier New', monospace;
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #66625D;
+      }
+    </style>
   </head>
   <body>
+    <div id="ls-splash" aria-hidden="true">
+      <div id="ls-splash-ring"><img src="/logo.png" alt="Legacya Sphere" /></div>
+      <p id="ls-splash-text">Legacya Sphere</p>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      window.__spl = false;
+      setTimeout(function () {
+        if (window.__spl) return;
+        var s = document.getElementById('ls-splash');
+        if (s) {
+          s.style.opacity = '0';
+          setTimeout(function () {
+            if (s && s.parentNode) s.parentNode.removeChild(s);
+          }, 450);
+        }
+      }, 5000);
+    </script>
   </body>
 </html>
-

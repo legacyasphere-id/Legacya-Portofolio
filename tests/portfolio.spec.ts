@@ -3,18 +3,20 @@ import { test, expect } from '@playwright/test'
 // ── Navigation ────────────────────────────────────────────────────────────────
 
 test.describe('Navigation', () => {
-  test('fixed nav renders brand and primary links', async ({ page, isMobile }) => {
+  test('fixed nav renders brand emblem, wordmark, and primary links', async ({ page, isMobile }) => {
     await page.goto('/')
-    await expect(page.locator('header a[href="#top"]')).toContainText('Legacya Sphere')
+    const brandLink = page.locator('header a[href="#top"]')
+    await expect(brandLink).toContainText('Legacya Sphere')
+    await expect(brandLink.locator('img[alt="Legacya Sphere emblem"]')).toBeVisible()
 
     test.skip(isMobile, 'desktop links hidden on mobile behind burger menu')
     const nav = page.locator('header nav[aria-label="Primary"]')
+    await expect(nav.locator('a[href="#about"]')).toBeVisible()
+    await expect(nav.locator('a[href="#services"]')).toBeVisible()
     await expect(nav.locator('a[href="#work"]')).toBeVisible()
-    await expect(nav.locator('a[href="#pricing"]')).toBeVisible()
-    await expect(nav.locator('a[href="#contact"]')).toBeVisible()
-    await expect(page.locator('header a.btn-primary[href="#contact"]')).toContainText(
-      'Start a Project',
-    )
+    await expect(nav.locator('a[href="#creative-work"]')).toBeVisible()
+    await expect(nav.locator('a[href="#process"]')).toBeVisible()
+    await expect(page.locator('header button.btn-primary')).toContainText('Start a Project')
   })
 
   test('burger menu opens and closes on mobile', async ({ page, isMobile }) => {
@@ -32,68 +34,63 @@ test.describe('Navigation', () => {
 // ── Hero ──────────────────────────────────────────────────────────────────────
 
 test.describe('Hero', () => {
-  test('headline renders AI-native studio positioning', async ({ page }) => {
+  test('headline renders B2B studio positioning', async ({ page }) => {
     await page.goto('/')
     const h1 = page.locator('h1')
-    await expect(h1).toContainText('AI-Native')
-    await expect(h1).toContainText('solving every')
-    await expect(h1).toContainText('your business.')
+    await expect(h1).toContainText('Building Brands.')
+    await expect(h1).toContainText('Creating Experiences.')
+    await expect(h1).toContainText('Shaping What')
   })
 
-  test('hero CTAs point to contact and case studies', async ({ page }) => {
+  test('hero CTAs trigger project inquiry and explore work', async ({ page }) => {
     await page.goto('/')
     await expect(
-      page.locator('main a.btn-primary[href="#contact"]', { hasText: 'Discuss Your System' }),
+      page.locator('#hero button.btn-primary', { hasText: 'Start Your Project' }),
     ).toBeVisible()
     await expect(
-      page.locator('a.btn-secondary[href="#work"]', { hasText: 'View Case Studies' }),
+      page.locator('#hero a.btn-secondary[href="#work"]', { hasText: 'Explore Our Work' }),
     ).toBeVisible()
   })
 })
 
-// ── Tech stack ─────────────────────────────────────────────────────────────────
+// ── Services / What We Do ────────────────────────────────────────────────────
 
-test.describe('Tech Stack', () => {
-  test('renders the technology marquee and AI logos', async ({ page }) => {
+test.describe('What We Do', () => {
+  test('renders the three core service categories', async ({ page }) => {
     await page.goto('/')
+    const services = page.locator('#services')
     await expect(
-      page.getByRole('heading', { name: 'Key Technologies & Platforms' }),
+      services.getByRole('heading', { name: 'Digital Experiences & Business Systems' }),
     ).toBeVisible()
-    for (const logo of ['React', 'Supabase', 'Claude']) {
-      await expect(page.getByAltText(logo, { exact: true }).first()).toBeVisible()
-    }
+    await expect(
+      services.getByRole('heading', { name: 'Advertising & Campaign Assets' }),
+    ).toBeVisible()
+    await expect(
+      services.getByRole('heading', { name: 'Cinematic Video & Visual Production' }),
+    ).toBeVisible()
   })
 })
 
-// ── Work / case studies ─────────────────────────────────────────────────────────
+// ── Work / case studies ──────────────────────────────────────────────────────
 
-test.describe('Work', () => {
+test.describe('Digital Work', () => {
   test('renders a folder tab per curated project, opening its case study', async ({ page }) => {
     await page.goto('/')
     const work = page.locator('#work')
     const tabs = work.locator('[role="tab"]')
     await expect(tabs).toHaveCount(4)
 
-    // First tab is open by default.
     await expect(work.locator('h3', { hasText: 'InventoryOS' })).toBeVisible()
 
     const remaining: [string, string][] = [
-      ['HR Tech', 'AI-CV Screening'],
-      ['Healthcare', 'BrightPath Dental'],
-      ['Food & Beverage', 'Legacya POS'],
+      ['Hiring & HR', 'AI-CV Screening'],
+      ['Healthcare & Clinics', 'BrightPath Dental'],
+      ['Restaurants & Hospitality', 'Legacya POS'],
     ]
     for (const [industry, name] of remaining) {
       await tabs.filter({ hasText: industry }).click()
       await expect(work.locator('h3', { hasText: name })).toBeVisible()
     }
-  })
-
-  test('each case study exposes problem, solution and outcome', async ({ page }) => {
-    await page.goto('/')
-    const work = page.locator('#work')
-    await expect(work.getByText('Problem').first()).toBeVisible()
-    await expect(work.getByText('Solution').first()).toBeVisible()
-    await expect(work.getByText('Outcome').first()).toBeVisible()
   })
 
   test('every project folder links to a live deployment', async ({ page }) => {
@@ -111,92 +108,44 @@ test.describe('Work', () => {
   })
 })
 
-// ── Process ──────────────────────────────────────────────────────────────────────
+// ── Process ──────────────────────────────────────────────────────────────────
 
 test.describe('Process', () => {
-  test('renders the four-step framework', async ({ page }) => {
+  test('renders the five-step collaboration framework', async ({ page }) => {
     await page.goto('/')
     const process = page.locator('#process')
-    await expect(process.locator('h3', { hasText: 'Discover' })).toBeVisible()
-    await expect(process.locator('h3', { hasText: 'Architect' })).toBeVisible()
-    await expect(process.locator('h3', { hasText: 'Build' })).toBeVisible()
-    await expect(process.locator('h3', { hasText: 'Evolve' })).toBeVisible()
-  })
-})
-
-// ── Pricing ───────────────────────────────────────────────────────────────────────
-
-test.describe('Pricing', () => {
-  test('renders the three service tiers', async ({ page }) => {
-    await page.goto('/')
-    const pricing = page.locator('#pricing')
-    await expect(pricing.locator('h2', { hasText: 'Find the right build' })).toBeVisible()
-    for (const tier of ['Starter', 'Business', 'Enterprise']) {
-      await expect(pricing.locator('h3', { hasText: tier })).toBeVisible()
+    for (const step of ['Discover', 'Define', 'Create', 'Refine', 'Deliver']) {
+      await expect(process.locator('h3', { hasText: step })).toBeVisible()
     }
-    await expect(pricing.getByText('Rp2.500.000')).toBeVisible()
   })
 })
 
-// ── Contact / CTA ───────────────────────────────────────────────────────────────
+// ── Contact / Project Inquiry ────────────────────────────────────────────────
 
-test.describe('Contact', () => {
-  test('closing CTA has the growth headline and a mailto button', async ({ page }) => {
+test.describe('Contact & Project Inquiry', () => {
+  test('renders interactive project scope builder and direct email link', async ({ page }) => {
     await page.goto('/')
     const cta = page.locator('#contact')
-    await expect(cta.locator('h2')).toContainText('Let')
-    await expect(cta.locator('h2')).toContainText('growth')
-    await expect(cta.locator('a[href^="mailto:"]')).toHaveAttribute(
+    await expect(cta.locator('h2')).toContainText('Tell us about your business')
+    await expect(cta.locator('a[href^="mailto:"]').first()).toHaveAttribute(
       'href',
-      'mailto:legacyasphere@gmail.com',
+      /mailto:legacyasphere@gmail\.com/,
     )
   })
 })
 
-// ── Footer ─────────────────────────────────────────────────────────────────────
+// ── Footer ───────────────────────────────────────────────────────────────────
 
 test.describe('Footer', () => {
-  test('renders the three-column structure', async ({ page }) => {
+  test('renders the studio structure and real channels', async ({ page }) => {
     await page.goto('/')
     const footer = page.locator('footer')
     await expect(footer.getByText('Studio', { exact: true })).toBeVisible()
-    await expect(footer.getByText('Capabilities', { exact: true })).toBeVisible()
-    await expect(footer.getByText('Connect', { exact: true })).toBeVisible()
-  })
-
-  test('connect links point to real channels', async ({ page }) => {
-    await page.goto('/')
-    const footer = page.locator('footer')
-    await expect(footer.locator('a', { hasText: 'GitHub' })).toHaveAttribute(
+    await expect(footer.getByText('Inquire by Service', { exact: true })).toBeVisible()
+    await expect(footer.getByText('Direct Contact', { exact: true })).toBeVisible()
+    await expect(footer.locator('a', { hasText: 'WhatsApp Business' })).toHaveAttribute(
       'href',
-      /github\.com\/legacyasphere-id/,
+      /wa\.me\/6281316303245/,
     )
-    await expect(footer.locator('a', { hasText: 'Email' })).toHaveAttribute(
-      'href',
-      /^mailto:/,
-    )
-  })
-
-  test('bottom line carries the studio positioning', async ({ page }) => {
-    await page.goto('/')
-    await expect(page.locator('footer')).toContainText(
-      'AI-Native Business Systems Studio',
-    )
-  })
-})
-
-// ── Animations ────────────────────────────────────────────────────────────────
-
-test.describe('Scroll reveal', () => {
-  test('hero reveal elements become visible on load', async ({ page }) => {
-    await page.goto('/')
-    const headline = page.locator('h1')
-    await expect(headline).toHaveClass(/is-visible/)
-  })
-
-  test('below-fold sections reveal when scrolled into view', async ({ page }) => {
-    await page.goto('/')
-    await page.locator('#contact h2').scrollIntoViewIfNeeded()
-    await expect(page.locator('#contact h2')).toHaveClass(/is-visible/)
   })
 })
