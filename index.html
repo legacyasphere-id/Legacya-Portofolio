@@ -1,86 +1,18 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#F5F0E8" />
-    <title>Legacya Sphere, AI-Native Business Systems Studio</title>
-    <meta name="description" content="Legacya Sphere helps companies transform manual operations into scalable business systems, custom platforms, operational dashboards, automation workflows, and intelligent infrastructure." />
-    <meta property="og:title" content="Legacya Sphere, AI-Native Business Systems Studio" />
-    <meta property="og:description" content="We design and build business operating systems, internal platforms, dashboards, automation workflows, and digital infrastructure that help companies operate more efficiently." />
+    <title>My Google AI Studio App</title>
+    <meta name="description" content="An application built with Google AI Studio." />
+    <meta property="og:title" content="My Google AI Studio App" />
+    <meta property="og:description" content="An application built with Google AI Studio." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://legacyasphere-id.github.io/Legacya-Portofolio/" />
-    <meta property="og:image" content="https://legacyasphere-id.github.io/Legacya-Portofolio/img-04.webp" />
-    <link rel="icon" type="image/png" href="logo.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <style>
-    #ls-splash {
-      position: fixed;
-      inset: 0;
-      background: #F5F0E8;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 99999;
-      transition: opacity 0.5s ease;
-    }
-    #ls-splash.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-    #ls-splash-ring {
-      width: 76px;
-      height: 76px;
-      border-radius: 50%;
-      background: #FAF7F2;
-      border: 1px solid #E5DDD0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      animation: ls-pulse 1.8s ease-in-out infinite;
-    }
-    #ls-splash-ring img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    #ls-splash-text {
-      margin-top: 18px;
-      font-family: 'Geist Mono', 'Courier New', monospace;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: #66625D;
-    }
-    @keyframes ls-pulse {
-      0%   { box-shadow: 0 0 0 0   rgba(47,79,127,0.16); }
-      50%  { box-shadow: 0 0 0 12px rgba(47,79,127,0);   }
-      100% { box-shadow: 0 0 0 0   rgba(47,79,127,0);    }
-    }
-  </style>
+    <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body>
-    <!-- Splash screen, replaced by React on first render -->
-    <div id="ls-splash" aria-hidden="true">
-      <div id="ls-splash-ring"><img src="logo.png" alt="Legacya Sphere" /></div>
-      <p id="ls-splash-text">Legacya Sphere</p>
-    </div>
-
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <!-- Fallback: only clear splash if React never mounted after 30s (handles true JS failures) -->
-    <script>
-      window.__spl=false;
-      setTimeout(function(){
-        if(window.__spl)return;
-        var s=document.getElementById('ls-splash');
-        if(s){s.style.opacity='0';setTimeout(function(){if(s&&s.parentNode)s.parentNode.removeChild(s)},520)}
-      },30000)
-    </script>
   </body>
 </html>
+
