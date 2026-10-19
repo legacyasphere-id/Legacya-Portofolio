@@ -14,28 +14,28 @@ const CERTS: Cert[] = [
   {
     title: 'Claude Code 101',
     issuer: 'Anthropic Verified',
-    focus: 'AI Co-Engineered Architecture & Codebase Execution',
+    focus: 'Structured Digital Product & Workflow Execution',
     thumb: asset('assets/certificates/claude-code-101.webp'),
     pdf: asset('assets/certificates/claude-code-101-anthropic.pdf'),
   },
   {
     title: 'AI Fluency: Framework & Foundations',
     issuer: 'Anthropic Verified',
-    focus: 'Deterministic Prompting & System Reliability',
+    focus: 'Practical AI Solutions & Reliable Business Workflows',
     thumb: asset('assets/certificates/ai-fluency-framework.webp'),
     pdf: asset('assets/certificates/ai-fluency-framework-anthropic.pdf'),
   },
   {
     title: 'Introduction to Claude Cowork',
     issuer: 'Anthropic Verified',
-    focus: 'Agentic Workflows & Multi-Step Operations',
+    focus: 'Collaborative Process Design & Task Automation',
     thumb: asset('assets/certificates/claude-cowork.webp'),
     pdf: asset('assets/certificates/claude-cowork-anthropic.pdf'),
   },
   {
     title: 'Claude 101',
     issuer: 'Anthropic Verified',
-    focus: 'Enterprise LLM Integration & Safety Boundaries',
+    focus: 'Responsible Business Integration & Quality Standards',
     thumb: asset('assets/certificates/claude-101.webp'),
     pdf: asset('assets/certificates/claude-101-anthropic.pdf'),
   },
@@ -56,17 +56,17 @@ export function FounderSection() {
   return (
     <section
       id="founder"
-      className="border-t border-border bg-bg px-5 py-24 md:px-10 md:py-32"
+      className="border-t border-border bg-surface/80 px-5 py-24 md:px-10 md:py-32"
     >
       <div className="mx-auto max-w-[1180px]">
         {/* Top Grid: Portrait + Founder Bio */}
-        <div className="grid items-center gap-12 md:grid-cols-[340px_1fr] md:gap-16">
+        <div className="grid items-center gap-12 md:grid-cols-[320px_1fr] md:gap-16">
           {/* Portrait */}
-          <div className="mx-auto w-full max-w-[340px]" data-animate>
+          <div className="mx-auto w-full max-w-[320px]" data-animate>
             <div className="overflow-hidden rounded-2xl border border-border bg-raised shadow-sm">
               <img
                 src={`${asset('img-04.webp')}?v=updated`}
-                alt={`${identity.name}, Founder & Lead Systems Architect at ${identity.company}`}
+                alt={`${identity.name}, Founder of ${identity.company}`}
                 referrerPolicy="no-referrer"
                 className="aspect-[3/4] w-full object-cover object-center"
                 loading="lazy"
@@ -77,11 +77,11 @@ export function FounderSection() {
           {/* Bio & Studio Leadership */}
           <div>
             <p className="eyebrow mb-4" data-animate>
-              Founder &amp; Lead Systems Architect
+              Studio Leadership
             </p>
 
             <h2
-              className="display text-[clamp(1.9rem,3.4vw,2.8rem)] leading-[1.1]"
+              className="display text-[clamp(1.9rem,3.4vw,2.75rem)] leading-[1.1]"
               data-animate
               data-delay="100"
             >
@@ -92,29 +92,25 @@ export function FounderSection() {
               data-animate
               data-delay="100"
             >
-              Founder · {identity.company} · {identity.badges.join(' · ')}
+              {identity.role} · {identity.company}
             </p>
 
             <div
-              className="mt-6 max-w-[62ch] space-y-4 text-[clamp(1rem,1.35vw,1.12rem)] leading-relaxed text-muted"
+              className="mt-6 max-w-[62ch] space-y-4 text-[clamp(1rem,1.35vw,1.1rem)] leading-relaxed text-muted"
               data-animate
               data-delay="200"
             >
               <p>
-                Every engagement at Legacya Sphere is architected and led
-                directly by me—no account-manager handoffs or junior outsourcing.
-                I partner with founders and operations leaders who have outgrown
-                spreadsheets to design and ship production platforms, mini-ERPs,
-                and deterministic AI workflows.
+                Every project at Legacya Sphere is guided directly by me from our
+                first discovery conversation through final delivery. You never get
+                passed off to disconnected layers of account managers.
               </p>
               <p>
-                By pairing rigorous database-first systems engineering with
-                Anthropic-certified AI co-engineering workflows,{' '}
-                <span className="font-medium text-text">
-                  we compress multi-month development cycles into focused weeks
-                </span>
-                —delivering clean, documented infrastructure built to outlast
-                the people who set it up.
+                My focus is helping business owners and brand teams bring their
+                ideas to life, whether that means building a modern website,
+                simplifying daily operations with a custom tool, or developing
+                visual campaigns and cinematic product stories that leave a strong
+                impression.
               </p>
             </div>
 
@@ -124,16 +120,16 @@ export function FounderSection() {
               data-animate
               data-delay="300"
             >
-              <span className="font-medium text-blue-deep">4 Systems in Production</span>
+              <span className="font-medium text-blue-deep">Direct Founder Collaboration</span>
               <span aria-hidden="true">·</span>
               <span>{identity.location} ({identity.timezone})</span>
               <span aria-hidden="true">·</span>
               <span>{identity.availability}</span>
               <span aria-hidden="true">·</span>
-              <span>EN / ID Bilingual</span>
+              <span>English &amp; Bahasa Indonesia</span>
             </div>
 
-            {/* Direct Founder Links */}
+            {/* Direct Links */}
             <div
               className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2"
               data-animate
@@ -148,12 +144,12 @@ export function FounderSection() {
                 LinkedIn Profile &nearr;
               </a>
               <a
-                href={identity.social.github}
+                href={identity.social.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="link-sweep whitespace-nowrap"
               >
-                GitHub Architecture &nearr;
+                Instagram ({identity.social.instagramHandle}) &nearr;
               </a>
               <a
                 href={`mailto:${identity.social.email}`}
@@ -161,11 +157,19 @@ export function FounderSection() {
               >
                 Direct Email
               </a>
+              <a
+                href={`https://wa.me/${identity.social.whatsapp}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-sweep whitespace-nowrap"
+              >
+                WhatsApp Direct &nearr;
+              </a>
             </div>
           </div>
         </div>
 
-        {/* Relocated Anthropic Credentials Sub-Panel */}
+        {/* Verified Credentials Sub-Panel */}
         <div
           className="mt-16 border-t border-border pt-12"
           data-animate
@@ -173,13 +177,13 @@ export function FounderSection() {
         >
           <div className="mb-7 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
             <div>
-              <p className="eyebrow mb-2">Verified Founder Credentials</p>
+              <p className="eyebrow mb-2">Verified Credentials</p>
               <h3 className="text-[1.35rem] font-semibold tracking-[-0.02em] text-text">
-                Anthropic AI Engineering &amp; Fluency Certifications
+                Certified in Modern AI &amp; Digital Workflow Execution
               </h3>
             </div>
             <p className="font-mono text-[11.5px] text-muted">
-              Click any credential to inspect the verified certificate or download PDF
+              Select any credential to preview the official Anthropic certificate
             </p>
           </div>
 
@@ -192,7 +196,7 @@ export function FounderSection() {
                 <button
                   type="button"
                   onClick={() => setSelectedCert(c)}
-                  className="group relative aspect-[4/3] w-full overflow-hidden border-b border-border bg-raised text-left"
+                  className="group relative aspect-[4/3] w-full overflow-hidden border-b border-border bg-raised text-left cursor-pointer"
                 >
                   <img
                     src={c.thumb}
@@ -202,7 +206,7 @@ export function FounderSection() {
                     loading="lazy"
                   />
                   <span className="absolute bottom-2.5 right-2.5 rounded-md bg-black/75 px-2.5 py-1 font-mono text-[10px] font-medium text-white backdrop-blur-sm">
-                    Preview &#x26F6;
+                    Preview &nearr;
                   </span>
                 </button>
 
@@ -223,9 +227,9 @@ export function FounderSection() {
                     <button
                       type="button"
                       onClick={() => setSelectedCert(c)}
-                      className="font-medium text-blue-deep hover:underline whitespace-nowrap"
+                      className="font-medium text-blue-deep hover:underline whitespace-nowrap cursor-pointer"
                     >
-                      Inspect Image
+                      View Certificate
                     </button>
                     <a
                       href={c.pdf}
@@ -266,9 +270,9 @@ export function FounderSection() {
               <button
                 type="button"
                 onClick={() => setSelectedCert(null)}
-                className="rounded-lg border border-white/15 bg-white/10 px-3 py-1 text-[12px] font-medium text-white hover:bg-white/20"
+                className="rounded-lg border border-white/15 bg-white/10 px-3 py-1 text-[12px] font-medium text-white hover:bg-white/20 cursor-pointer"
               >
-                Close (ESC) &#x2715;
+                Close (ESC) &times;
               </button>
             </div>
 

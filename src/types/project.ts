@@ -2,42 +2,68 @@ export interface Project {
   id: string
   name: string
   tagline: string
+  category: 'Digital Experiences & Business Systems'
   type: string
-  industry?: string
-  status: 'live' | 'in-progress' | 'archived'
+  industry: string
+  workClassification: string
+  status: 'live' | 'in-progress' | 'concept'
   featured: boolean
   caseStudy: CaseStudy
-  techStack: ProjectTechStack
-  stack: string[]
+  deliverables: string[]
   links: ProjectLinks
   screenshots: Screenshot[]
 }
 
 export interface CaseStudy {
-  problem: string
-  thinkingProcess: string
-  aiRole: string
-  architectureNote: string
-  technicalExecution: string
-  outcome: string
-}
-
-export interface ProjectTechStack {
-  frontend?: string
-  backend?: string
-  database?: string
-  deploy?: string
-  realtime?: string
-  auth?: string
-  automation?: string
+  challenge: string
+  solution: string
+  intendedValue: string
+  highlights: string
 }
 
 export interface ProjectLinks {
-  github?: string
   live?: string
 }
 
 export interface Screenshot {
   src: string
   alt: string
+}
+
+export type CreativeServiceCategory =
+  | 'Advertising & Campaign Assets'
+  | 'Cinematic Video & Visual Production'
+
+export interface CreativeWorkItem {
+  id: string
+  title: string
+  brandOrConcept: string
+  category: CreativeServiceCategory
+  format: string
+  classification:
+    | 'Studio Campaign Showcase'
+    | 'Studio Video Showcase'
+    | 'Conceptual Campaign Study'
+    | 'Studio Visual Direction'
+    | 'Verified Brand Work'
+  availabilityStatus: 'Available Now' | 'Custom Production · In Development'
+  objective: string
+  creativeDirection: string
+  deliverables: string[]
+  intendedValue: string
+  palette: {
+    primary: string
+    secondary: string
+    accent: string
+    label: string
+  }
+  aspectRatio: '16:9' | '4:3' | '9:16'
+  mediaType: 'image-board' | 'video-storyboard' | 'uploaded-media'
+  previewImage?: string
+  videoUrl?: string
+  storyboardFrames: {
+    step: string
+    title: string
+    caption: string
+  }[]
 }

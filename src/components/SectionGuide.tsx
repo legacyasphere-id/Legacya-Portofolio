@@ -2,14 +2,13 @@ import { useEffect, useState } from 'react'
 
 const SECTIONS = [
   { id: 'hero', label: 'Home' },
-  { id: 'solutions', label: 'Solutions' },
-  { id: 'work', label: 'Case Studies' },
-  { id: 'proof', label: 'Proof' },
+  { id: 'about', label: 'Studio' },
+  { id: 'services', label: 'Services' },
+  { id: 'work', label: 'Digital Work' },
+  { id: 'creative-work', label: 'Creative Work' },
   { id: 'process', label: 'Process' },
-  { id: 'tech-stack', label: 'Stack' },
-  { id: 'founder', label: 'Founder' },
-  { id: 'pricing', label: 'Pricing' },
-  { id: 'contact', label: 'Scope' },
+  { id: 'why-legacya', label: 'Why Legacya' },
+  { id: 'contact', label: 'Inquire' },
 ]
 
 export function SectionGuide() {
@@ -50,11 +49,7 @@ export function SectionGuide() {
             className="group flex items-center justify-end gap-2.5"
           >
             <span
-              className={`rounded-md border border-border/70 bg-surface/90 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] backdrop-blur transition-all duration-200 whitespace-nowrap ${
-                isActive
-                  ? 'text-blue-deep opacity-100'
-                  : 'text-muted opacity-0 group-hover:opacity-100'
-              }`}
+              className="pointer-events-none rounded-md border border-border/70 bg-surface/95 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-blue-deep opacity-0 shadow-sm backdrop-blur transition-opacity duration-200 group-hover:opacity-100 whitespace-nowrap"
             >
               {s.label}
             </span>
