@@ -47,7 +47,9 @@ export function HeroSection() {
             >
               <span className="block">Business systems.</span>
               <span className="block">Brand visuals.</span>
-              <span className="block text-blue-deep">One AI-native studio.</span>
+              <span className="block text-blue-deep">
+                One <span className="whitespace-nowrap">AI-native</span> studio.
+              </span>
             </h1>
 
             <p
