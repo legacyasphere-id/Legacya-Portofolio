@@ -45,17 +45,11 @@ Every piece of work on the site says exactly what it is. This is the most import
 |-------|-------|---------|
 | **Self-initiated reference build · Live demo** | `WorkSection` (`engagement: 'reference'`) | Systems I designed and built myself to show capability. Not client work. |
 | **Concept work · not commissioned by the brand** | `CreativeWorkSection` (`engagement: 'concept'`) | Campaign studies made on my own initiative. Brand names shown belong to their owners. |
-| **Client project** | `WorkSection` (`engagement: 'commissioned'`) | Real paid work. Hidden until `SHOW_CLIENT_CASE` is turned on with approved facts. |
 | **Training · Anthropic courses completed** | `FounderSection` | Course completion certificates from Anthropic Academy. Not professional certifications. |
 
-### Feature flags
+### Feature flag
 
-Defined in `src/core/identity.ts`. Both stay `false` until the `TODO(yoga)` data they gate is real and approved.
-
-| Flag | Gates |
-|------|-------|
-| `SHOW_PRICING` | "Starting from" prices on the service cards in `SolutionsSection` |
-| `SHOW_CLIENT_CASE` | The Gudang Variasi 712 client case in `src/data/projects.ts` |
+`SHOW_PRICING` in `src/core/identity.ts` gates the "Starting from" prices on the service cards in `SolutionsSection`. It stays `false` until the `TODO(yoga)` prices are real and approved.
 
 Search the codebase for `TODO(yoga)` to find every missing fact.
 
@@ -127,7 +121,7 @@ Legacya-Portofolio/
 │   │   ├── inquiry.ts            # Inquiry validation and WhatsApp/email brief composer
 │   │   └── inquiry.test.ts       # Unit tests and customer-facing copy audit
 │   ├── data/
-│   │   ├── projects.ts           # Digital work (reference builds + hidden client case)
+│   │   ├── projects.ts           # Digital work (self-initiated reference builds)
 │   │   └── creativeWork.ts       # Concept campaign studies
 │   ├── components/               # SiteNav, SectionGuide, Footer
 │   ├── sections/                 # One file per page section (see table above)

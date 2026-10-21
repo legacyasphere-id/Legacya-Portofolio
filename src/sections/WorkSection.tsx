@@ -1,16 +1,7 @@
 import { useEffect, useState } from 'react'
 import { ArrowUpRight } from 'lucide-react'
-import { projects as allProjects } from '../data/projects'
-import { SHOW_CLIENT_CASE, triggerProjectScope } from '../core/identity'
-
-// Commissioned client work is hidden until SHOW_CLIENT_CASE is on, and then
-// listed first, ahead of the self-initiated reference builds.
-const projects = SHOW_CLIENT_CASE
-  ? [
-      ...allProjects.filter((p) => p.engagement === 'commissioned'),
-      ...allProjects.filter((p) => p.engagement !== 'commissioned'),
-    ]
-  : allProjects.filter((p) => p.engagement !== 'commissioned')
+import { projects } from '../data/projects'
+import { triggerProjectScope } from '../core/identity'
 
 export function WorkSection() {
   const [activeId, setActiveId] = useState(projects[0]?.id ?? 'inventory-os')
@@ -100,7 +91,7 @@ export function WorkSection() {
                 }`}
               >
                 <span className="block font-mono text-[10.5px] text-blue-deep tabular-nums">
-                  {String(i + 1).padStart(2, '0')} · {project.engagement === 'commissioned' ? 'Client project' : project.industry}
+                  {String(i + 1).padStart(2, '0')} · {project.industry}
                 </span>
                 <span className="mt-0.5 block text-[14px] font-semibold tracking-tight">
                   {project.name}
@@ -240,13 +231,7 @@ export function WorkSection() {
                   <span aria-hidden="true">·</span>
                   <span className="text-muted">{active.industry}</span>
                 </div>
-                {active.engagement === 'commissioned' ? (
-                  <span className="rounded border border-blue-deep/40 bg-blue/[0.08] px-2 py-0.5 font-medium text-blue-deep">
-                    Client project
-                  </span>
-                ) : (
-                  <span className="text-dim">{active.workClassification}</span>
-                )}
+                <span className="text-dim">{active.workClassification}</span>
               </div>
 
               {/* Title & Tagline */}

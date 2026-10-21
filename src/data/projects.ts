@@ -2,35 +2,6 @@ import type { Project } from '../types/project'
 import { asset } from '../utils/asset'
 
 export const projects: Project[] = [
-  // Real client work. Hidden until SHOW_CLIENT_CASE is true in src/core/identity.ts.
-  // TODO(yoga): fill every field below before enabling:
-  //   - written client permission to show this work
-  //   - the brief
-  //   - what was delivered (number of posts/assets)
-  //   - timeline (14-day social media project)
-  //   - 1 to 3 images in screenshots
-  //   - result or client quote, only if real
-  {
-    id: 'gudang-variasi-712',
-    name: 'Gudang Variasi 712',
-    tagline: 'TODO(yoga)',
-    category: 'Advertising & Campaign Assets',
-    type: 'TODO(yoga)',
-    industry: 'TODO(yoga)',
-    workClassification: 'Client project',
-    engagement: 'commissioned',
-    status: 'live',
-    featured: false,
-    caseStudy: {
-      challenge: 'TODO(yoga)',
-      solution: 'TODO(yoga)',
-      intendedValue: 'TODO(yoga)',
-      highlights: 'TODO(yoga)',
-    },
-    deliverables: ['TODO(yoga)'],
-    links: {},
-    screenshots: [],
-  },
   {
     id: 'inventory-os',
     name: 'InventoryOS',

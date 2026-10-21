@@ -33,10 +33,9 @@ export function triggerCreativeInspect(categoryOrId?: string) {
 }
 
 // ── Feature flags ────────────────────────────────────────────────────────
-// Both stay false until the TODO(yoga) data they gate is filled in with real,
-// approved information. Nothing behind them renders while they are false.
+// Stays false until the TODO(yoga) prices it gates are real and approved.
+// Nothing behind it renders while it is false.
 export const SHOW_PRICING = false
-export const SHOW_CLIENT_CASE = false
 
 export const identity = {
   // ── Core studio identity ───────────────────────────────────────────────
