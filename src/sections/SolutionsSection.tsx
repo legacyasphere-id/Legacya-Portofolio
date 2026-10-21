@@ -1,4 +1,5 @@
 import {
+  SHOW_PRICING,
   triggerCreativeInspect,
   triggerProjectInspect,
   triggerProjectScope,
@@ -11,9 +12,9 @@ interface ServicePillar {
   subtitle: string
   availability: string
   problemAddressed: string
-  description: string
   deliverables: string[]
-  visualDirection: string
+  /** Rendered only when SHOW_PRICING is true in identity.ts. */
+  startingPrice?: { idr: string; usd: string }
   workTarget: 'digital' | 'creative-ads' | 'creative-video'
   workActionLabel: string
 }
@@ -26,17 +27,14 @@ const SERVICE_PILLARS: ServicePillar[] = [
     subtitle: 'Websites · Customer Portals · Internal Tools & Automation',
     availability: 'Available Now · Full Studio Execution',
     problemAddressed:
-      'Outdated websites that fail to win customer trust, or manual spreadsheets and repetitive tasks that slow down daily operations.',
-    description:
-      'We create modern websites, customer-facing portals, and connected internal business tools that help your company serve customers more effectively, simplify daily operations, and establish a stronger digital presence.',
+      'Outdated websites and manual spreadsheets that slow down customers and teams.',
     deliverables: [
-      'Business websites and company profiles designed for phones, tablets, and computers',
-      'Landing pages and customer booking or inquiry experiences',
-      'Custom internal tools for inventory, point-of-sale, recruitment, or team operations',
-      'Workflow automation and intelligent assistants that reduce repetitive manual work',
+      'Business websites and landing pages',
+      'Internal tools for stock, sales or hiring',
+      'AI assistants and workflow automation',
     ],
-    visualDirection:
-      'Clean, structured interfaces with clear navigation, fast performance, and intuitive layouts your team and customers can use effortlessly.',
+    // TODO(yoga): real starting price for digital systems
+    startingPrice: { idr: 'TODO(yoga)', usd: 'TODO(yoga)' },
     workTarget: 'digital',
     workActionLabel: 'Explore Live Digital Systems',
   },
@@ -47,17 +45,14 @@ const SERVICE_PILLARS: ServicePillar[] = [
     subtitle: 'Campaign Imagery · Product Visuals · Creative Direction',
     availability: 'Available Now · Campaign & Brand Creative',
     problemAddressed:
-      'Inconsistent promotional graphics and generic product photos that blend into crowded feeds and fail to communicate brand value.',
-    description:
-      'We develop cohesive visual concepts and campaign-ready creative assets tailored to your brand objectives, connecting visual storytelling, brand identity, and promotional goals so your products stand out.',
+      'Generic product photos that blend into crowded feeds and say nothing about the brand.',
     deliverables: [
-      'Advertising campaign imagery and key visuals for digital and print placements',
-      'High-impact product and promotional visuals crafted around your brand identity',
-      'Coordinated social media advertising assets (feed, story, and carousel formats)',
-      'Brand campaign concepts and creative direction for product launches and promotions',
+      'Campaign key visuals for digital and print',
+      'Product imagery built around your brand',
+      'Social ads in feed and story formats',
     ],
-    visualDirection:
-      'Editorial lighting, purposeful composition, and disciplined typography that elevate product perception and campaign recall.',
+    // TODO(yoga): real starting price for campaign assets
+    startingPrice: { idr: 'TODO(yoga)', usd: 'TODO(yoga)' },
     workTarget: 'creative-ads',
     workActionLabel: 'View Advertising Concepts',
   },
@@ -68,17 +63,14 @@ const SERVICE_PILLARS: ServicePillar[] = [
     subtitle: 'Promotional Films · Campaign Reels · Visual Storytelling',
     availability: 'Short-Form & Concept Production Available Now · Extended Films Scoped Custom',
     problemAddressed:
-      'Difficulty capturing customer attention quickly or explaining the quality and story behind a product through static text and images alone.',
-    description:
-      'We produce cinematic video assets and visual stories that help brands communicate their value, create stronger first impressions, and showcase products in motion across digital campaigns and social platforms.',
+      'Static images that cannot show the quality or story behind a product quickly.',
     deliverables: [
-      'Cinematic advertising videos and product-focused promotional films (Available Now)',
-      'Short-form campaign videos and cinematic social media reels (Available Now)',
-      'Visual concepts, storyboards, and motion direction for product launches (Available Now)',
-      'Extended narrative brand films and multi-scene storytelling (Custom Scoped / Developing)',
+      'Short product films for ads',
+      'Vertical reels for social campaigns',
+      'Storyboards and motion direction for launches',
     ],
-    visualDirection:
-      'Atmospheric lighting, deliberate pacing, and filmic color grading focused on product craft and clear brand messaging.',
+    // TODO(yoga): real starting price for video production
+    startingPrice: { idr: 'TODO(yoga)', usd: 'TODO(yoga)' },
     workTarget: 'creative-video',
     workActionLabel: 'View Cinematic Production Studies',
   },
@@ -107,15 +99,15 @@ export function SolutionsSection() {
           data-animate
         >
           <div className="max-w-[640px]">
-            <p className="eyebrow mb-4">What We Do</p>
+            <p className="eyebrow mb-4">What I Do</p>
             <h2 className="display text-[clamp(1.95rem,3.4vw,2.85rem)] leading-[1.1] [text-wrap:balance]">
-              Three focused ways we help your business grow and operate
+              Three focused ways I help your business grow and operate
             </h2>
           </div>
           <p className="max-w-[46ch] text-[15.5px] leading-relaxed text-muted">
-            Engage Legacya Sphere for a single capability, such as a new business
-            website, a product launch campaign, or a promotional video, or combine
-            them into one cohesive brand and digital rollout.
+            Hire me for one capability, such as a business website, a launch
+            campaign or a promotional video, or combine them into one brand and
+            digital rollout.
           </p>
         </div>
 
@@ -147,14 +139,10 @@ export function SolutionsSection() {
                   {service.availability}
                 </p>
 
-                <p className="mt-3.5 text-[14.5px] leading-relaxed text-muted">
-                  {service.description}
-                </p>
-
-                {/* Business Problem Addressed */}
+                {/* Problem */}
                 <div className="mt-5 border-t border-border pt-4">
                   <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-dim">
-                    Business Problem Addressed
+                    Problem
                   </p>
                   <p className="mt-1.5 text-[13.5px] leading-snug text-text">
                     {service.problemAddressed}
@@ -164,7 +152,7 @@ export function SolutionsSection() {
                 {/* Deliverables List */}
                 <div className="mt-5 border-t border-border pt-4">
                   <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-dim">
-                    Example Deliverables
+                    Deliverables
                   </p>
                   <ul className="mt-2.5 space-y-2">
                     {service.deliverables.map((item) => (
@@ -181,15 +169,11 @@ export function SolutionsSection() {
                   </ul>
                 </div>
 
-                {/* Visual Direction Note */}
-                <div className="mt-5 border-t border-border pt-4">
-                  <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-dim">
-                    Visual &amp; Execution Direction
+                {SHOW_PRICING && service.startingPrice && (
+                  <p className="mt-5 border-t border-border pt-4 font-mono text-[12px] text-text">
+                    Starting from Rp {service.startingPrice.idr} · approx. ${service.startingPrice.usd}
                   </p>
-                  <p className="mt-1.5 text-[13px] leading-relaxed text-muted">
-                    {service.visualDirection}
-                  </p>
-                </div>
+                )}
               </div>
 
               {/* Action Footer */}

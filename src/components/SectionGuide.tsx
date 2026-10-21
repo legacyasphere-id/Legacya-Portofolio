@@ -7,6 +7,7 @@ const SECTIONS = [
   { id: 'work', label: 'Digital Work' },
   { id: 'creative-work', label: 'Creative Work' },
   { id: 'process', label: 'Process' },
+  { id: 'ai-workflow', label: 'AI Workflow' },
   { id: 'why-legacya', label: 'Why Legacya' },
   { id: 'contact', label: 'Inquire' },
 ]

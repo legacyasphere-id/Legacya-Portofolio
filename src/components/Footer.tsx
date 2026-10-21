@@ -4,10 +4,11 @@ import { asset } from '../utils/asset'
 
 const STUDIO_LINKS = [
   { label: 'About Legacya Sphere', href: '#about' },
-  { label: 'What We Do', href: '#services' },
+  { label: 'What I Do', href: '#services' },
   { label: 'Selected Digital Work', href: '#work' },
   { label: 'Advertising & Film Showcase', href: '#creative-work' },
-  { label: 'How We Work', href: '#process' },
+  { label: 'How I Work', href: '#process' },
+  { label: 'AI Workflow', href: '#ai-workflow' },
   { label: 'Why Legacya', href: '#why-legacya' },
 ]
 

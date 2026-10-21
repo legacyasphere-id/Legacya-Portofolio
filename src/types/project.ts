@@ -2,10 +2,12 @@ export interface Project {
   id: string
   name: string
   tagline: string
-  category: 'Digital Experiences & Business Systems'
+  category: 'Digital Experiences & Business Systems' | 'Advertising & Campaign Assets'
   type: string
   industry: string
   workClassification: string
+  /** 'reference' = self-initiated build; 'commissioned' = real client work. */
+  engagement: 'reference' | 'commissioned'
   status: 'live' | 'in-progress' | 'concept'
   featured: boolean
   caseStudy: CaseStudy

@@ -4,21 +4,21 @@ const STEPS = [
     title: 'Discover',
     deliverable: 'Shared Understanding & Project Brief',
     detail:
-      'We start by listening and understanding your business, your audience, the challenge you are solving, and what a successful outcome looks like for your team.',
+      'I start by listening and understanding your business, your audience, the challenge you are solving, and what a successful outcome looks like for your team.',
   },
   {
     n: '02.',
     title: 'Define',
     deliverable: 'Clear Direction, Scope & Timeline',
     detail:
-      'We establish the visual direction, functional structure, deliverables, and realistic project milestones so everyone is aligned before production begins.',
+      'I establish the visual direction, functional structure, deliverables, and realistic project milestones so everyone is aligned before production begins.',
   },
   {
     n: '03.',
     title: 'Create',
     deliverable: 'Working Previews & Campaign Drafts',
     detail:
-      'We design and build your website, business system, campaign visuals, or promotional video, sharing structured progress updates at agreed checkpoints.',
+      'I design and build your website, business system, campaign visuals, or promotional video, sharing structured progress updates at agreed checkpoints.',
   },
   {
     n: '04.',
@@ -32,7 +32,7 @@ const STEPS = [
     title: 'Deliver',
     deliverable: 'Final Launch & Complete Asset Handover',
     detail:
-      'We launch the finished digital experience or hand over your ready-to-use campaign and video assets, complete with clear guidance for your team.',
+      'I launch the finished digital experience or hand over your ready-to-use campaign and video assets, complete with clear guidance for your team.',
   },
 ]
 
@@ -48,14 +48,14 @@ export function ProcessSection() {
           data-animate
         >
           <div className="max-w-[640px]">
-            <p className="eyebrow mb-4">How We Work</p>
+            <p className="eyebrow mb-4">How I Work</p>
             <h2 className="display text-[clamp(1.95rem,3.4vw,2.85rem)] leading-[1.1] [text-wrap:balance]">
               A straightforward five-step collaboration from first conversation to delivery
             </h2>
           </div>
           <p className="max-w-[44ch] text-[15.5px] leading-relaxed text-muted">
             Whether you are commissioning a new business website, an internal
-            operational tool, or a campaign asset suite, our process keeps things
+            operational tool, or a campaign asset suite, my process keeps things
             clear, organized, and predictable.
           </p>
         </div>
