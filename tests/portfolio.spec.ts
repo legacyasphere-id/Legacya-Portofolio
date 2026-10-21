@@ -101,10 +101,8 @@ test.describe('Digital Work', () => {
     await expect(work.getByText('Verified Live Product')).toHaveCount(0)
   })
 
-  test('keeps the unfinished client case hidden while its flag is off', async ({ page }) => {
+  test('never renders TODO(yoga) placeholders', async ({ page }) => {
     await page.goto('/')
-    const work = page.locator('#work')
-    await expect(work.locator('[role="tab"]', { hasText: 'Client project' })).toHaveCount(0)
     await expect(page.getByText('TODO(yoga)')).toHaveCount(0)
   })
 

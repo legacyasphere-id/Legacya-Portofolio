@@ -6,19 +6,20 @@
 
 <br /><br />
 
-# Legacya Sphere · Brand, Digital Experience & Creative Studio
+# Legacya Sphere · AI-Native Studio for Systems & Brand
 
-### Building Brands. Creating Experiences. Shaping What's Next.
+### Business systems. Brand visuals. One AI-native studio.
 
-*Digital Experiences & Business Systems · Advertising & Campaign Assets · Cinematic Video & Visual Production*
+*Websites, internal tools and AI automations, plus the campaign visuals that go with them.*
 
 <br />
 
 [![Live Site](https://img.shields.io/badge/Live-legacya--portofolio.vercel.app-2F4F7F?style=flat-square&logo=vercel&logoColor=white)](https://legacya-portofolio.vercel.app)
 [![GitHub Pages](https://img.shields.io/badge/Mirror-GitHub_Pages-2F4F7F?style=flat-square&logo=github&logoColor=white)](https://legacyasphere-id.github.io/Legacya-Portofolio/)
-[![React](https://img.shields.io/badge/React-18-3178C6?style=flat-square&logo=react&logoColor=white)](https://react.dev)
+[![React](https://img.shields.io/badge/React-19-3178C6?style=flat-square&logo=react&logoColor=white)](https://react.dev)
+[![Vite](https://img.shields.io/badge/Vite-8-2F4F7F?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-2F4F7F?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Strict-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
-[![Vite](https://img.shields.io/badge/Vite-6-2F4F7F?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev)
 
 <br />
 
@@ -28,39 +29,63 @@
 
 ## Overview
 
-The official B2B studio website and portfolio for **Legacya Sphere**, a brand, digital experience, and creative production studio based in Bekasi, Indonesia.
+This is the studio website and portfolio for **Legacya Sphere**, the one-founder studio I run from Bekasi, Indonesia (Yoga Pratama Effendi).
 
-Designed for business owners, consumer brands, and growing companies, the website communicates Legacya Sphere's capabilities in clear, outcome-driven business language without technical jargon:
+I build business websites, internal tools and AI automations, and create the campaign visuals and short-form video that sell them. The site is written for business owners, not developers, so the copy stays in plain business language.
 
-1. **Digital Experiences & Business Systems**: Business websites, company profiles, customer portals, custom internal tools, and intelligent workflow automation.
-2. **Advertising & Campaign Assets**: Campaign key visuals, product photography direction, social media advertising assets, and launch creative suites.
-3. **Cinematic Video & Visual Production**: Animated product commercials, luxury fragrance and culinary films, short-form campaign reels, and visual storytelling.
+The site is a static React single-page app. There is no backend: project inquiries are composed in the browser and sent through WhatsApp or email.
 
 ---
 
-## What Was Updated in This Release
+## How the work is labeled
 
-* **Expanded B2B Studio Positioning**: Repositioned Legacya Sphere from a technical developer portfolio into a complete B2B studio covering Digital Systems, Advertising Visuals, and Cinematic Video Production.
-* **Dedicated Creative & Video Showcase (`CreativeWorkSection`)**: Added 6 studio productions across two filterable categories:
-  * **Advertising & Campaign Assets**:
-    * *Hanasui Cosmetics: Tactile Product & Shade Campaign* (`public/creative-work/hanasui-product-ad.webp`)
-    * *Flame-Grilled Burger: Culinary Campaign Key Visual* (`public/creative-work/burger-campaign.webp`)
-    * *LATE Black Cold Brew: Dynamic Social & Launch Visual* (`public/creative-work/cold-brew-campaign.webp`)
-  * **Cinematic Video & Visual Production**:
-    * *Hanasui Lip Cream: 3D Liquid Ribbon & Macro Commercial* (`public/creative-work/cosmetic-commercial.mp4`)
-    * *Ethereal Bloom Fragrance: Botanical Splash & Flacon Film* (`public/creative-work/perfume-commercial.mp4`)
-    * *Artisanal Cheeseburger: Slow-Motion Culinary Commercial* (`public/creative-work/burger-commercial.mp4`)
-* **Global Edge CDN & Low-Bandwidth Optimization**: All campaign visuals and video poster frames are compressed into lightweight `.webp` (`15 KB` to `86 KB`), MP4 videos are encoded with `faststart` streaming headers and lazy-loaded via `IntersectionObserver` + Network Information API awareness, and `vercel.json` serves immutable Edge cache headers globally.
-* **Customer-Friendly Digital Systems Showcase (`WorkSection`)**: Rewrote all four live business system case studies (*InventoryOS*, *AI-CV Screening*, *BrightPath Dental*, *Legacya POS*) around business challenges, operational solutions, and customer value.
-* **New Studio Introduction & Why Legacya Sections**: Replaced developer-centric tech stack marquees with `StudioIntroSection` and `WhyLegacyaSection`, highlighting practical advantages of partnering with one studio across digital and creative execution.
-* **Custom Project Inquiry & Scope Builder (`CTASection`)**: Replaced fixed pricing tiers with an interactive project scope builder that lets prospective clients choose a service pillar, objective, and timeline, then send a structured project brief directly via WhatsApp or Email.
-* **Editorial Copy & Typography Audit**: Removed technical acronyms, framework jargon, and em-dashes from all customer-facing pages, backed by automated unit tests (`src/core/inquiry.test.ts`).
+Every piece of work on the site says exactly what it is. This is the most important rule in the repo.
+
+| Label | Where | Meaning |
+|-------|-------|---------|
+| **Self-initiated reference build · Live demo** | `WorkSection` (`engagement: 'reference'`) | Systems I designed and built myself to show capability. Not client work. |
+| **Concept work · not commissioned by the brand** | `CreativeWorkSection` (`engagement: 'concept'`) | Campaign studies made on my own initiative. Brand names shown belong to their owners. |
+| **Training · Anthropic courses completed** | `FounderSection` | Course completion certificates from Anthropic Academy. Not professional certifications. |
+
+### Feature flag
+
+`SHOW_PRICING` in `src/core/identity.ts` gates the "Starting from" prices on the service cards in `SolutionsSection`. It stays `false` until the `TODO(yoga)` prices are real and approved.
+
+Search the codebase for `TODO(yoga)` to find every missing fact.
+
+### Copy rules
+
+- First person ("I build", "Tell me about your business"). It is one founder, not an agency "we".
+- No em dashes in customer-facing copy.
+- No technical jargon in customer-facing files. `npm test` (`src/core/inquiry.test.ts`) fails if words like PostgreSQL, Prisma, Supabase or JWT appear, or if an em dash slips in.
+- Never invent client names, testimonials, metrics, prices or results.
+
+---
+
+## Website Structure
+
+Composed in order by `src/App.tsx`:
+
+| # | Section | Component | Description |
+|---|---------|-----------|-------------|
+| 0 | **Navigation** | `SiteNav`, `SectionGuide` | Fixed glass header with section links and a "Start a Project" action, plus the side section guide |
+| 1 | **Hero** | `HeroSection` | "Business systems. Brand visuals. One AI-native studio." with a 4-pillar strip: Systems, Automation & AI, Campaign visuals, Short-form video |
+| 2 | **About** | `StudioIntroSection` | Who the studio works with and how |
+| 3 | **Services** | `SolutionsSection` | Three service pillars. Prices are hidden behind `SHOW_PRICING` |
+| 4 | **Digital Work** | `WorkSection` | Four self-initiated reference builds with live demos (InventoryOS, Allure Talent Evaluation System, BrightPath Clinic, Legacya Restaurant & Kitchen System) |
+| 5 | **Creative Work** | `CreativeWorkSection` | Six concept campaign studies (images and MP4 films), each badged as concept work |
+| 6 | **Process** | `ProcessSection` | Five steps: Discover, Define, Create, Refine, Deliver |
+| 7 | **AI Workflow** | `AIWorkflowSection` | How AI is used: brief to spec, AI drafts and I direct, human review gates, you own everything |
+| 8 | **Why Legacya** | `WhyLegacyaSection` | Practical reasons to work with one partner across digital and creative |
+| 9 | **Founder** | `FounderSection` | Founder profile, Anthropic training certificates, contact links |
+| 10 | **Project Inquiry** | `CTASection` | Scope builder that composes a brief and sends it by WhatsApp or email |
+| 11 | **Footer** | `Footer` | Navigation, "What I Do", "How I Work" and contact channels |
 
 ---
 
 ## Design System
 
-A calm warm-stone canvas paired with Legacya Sphere's signature deep architectural blue:
+A warm stone canvas paired with a deep architectural blue. Tokens live in `src/index.css`.
 
 | Token | Hex | Purpose |
 |-------|-----|---------|
@@ -72,28 +97,8 @@ A calm warm-stone canvas paired with Legacya Sphere's signature deep architectur
 | `muted` | `#66625D` | Supporting descriptions |
 | `dim` | `#9A958C` | Metadata and labels |
 | `blue` | `#5E7EBE` | Secondary blue accent and highlights |
-| `blue-deep` | `#2F4F7F` | Primary authority blue for actions, headlines, and badges |
+| `blue-deep` | `#2F4F7F` | Primary blue for actions, headlines and badges |
 | `blue-dark` | `#26416B` | Hover state for deep blue |
-
----
-
-## Website Structure
-
-Composed in order by `src/App.tsx`:
-
-| # | Section | Component | Description |
-|---|---------|-----------|-------------|
-| 0 | **Navigation** | `SiteNav` | Fixed glass header featuring the Legacya Sphere emblem, wordmark, section links, and "Start a Project" action |
-| 1 | **Hero** | `HeroSection` | Studio positioning headline ("Building Brands. Creating Experiences. Shaping What's Next."), value proposition, and 4-pillar capability strip |
-| 2 | **Studio Introduction** | `StudioIntroSection` | Who Legacya Sphere is, how the studio approaches engagements, and why businesses partner with the studio |
-| 3 | **What We Do** | `SolutionsSection` | Interactive three-pillar breakdown of Digital Systems, Advertising Assets, and Cinematic Production |
-| 4 | **Digital Work** | `WorkSection` | Curated live business systems (InventoryOS, AI-CV Screening, BrightPath Dental, Legacya POS) presented around business outcomes |
-| 5 | **Creative Work** | `CreativeWorkSection` | Real campaign visuals and MP4 commercial films across beauty, beverage, fragrance, and culinary brands |
-| 6 | **How We Work** | `ProcessSection` | Five-step studio collaboration framework: Discover, Define, Create, Refine, Deliver |
-| 7 | **Why Legacya** | `WhyLegacyaSection` | Practical B2B advantages of partnering with one studio across digital and creative execution |
-| 8 | **Founder & Credentials** | `FounderSection` | Founder profile, verified professional credentials, and direct contact links |
-| 9 | **Project Inquiry** | `CTASection` | Interactive custom project scope builder with instant WhatsApp and Email brief generation |
-| 10 | **Footer** | `Footer` | Studio navigation, capabilities directory, and direct contact channels |
 
 ---
 
@@ -102,40 +107,36 @@ Composed in order by `src/App.tsx`:
 ```text
 Legacya-Portofolio/
 ├── public/
-│   ├── creative-work/            # Compressed WebP campaign visuals, posters & faststart MP4s
-│   │   ├── hanasui-product-ad.webp
-│   │   ├── burger-campaign.webp
-│   │   ├── cold-brew-campaign.webp
-│   │   ├── cosmetic-commercial.mp4
-│   │   ├── cosmetic-poster.webp
-│   │   ├── perfume-commercial.mp4
-│   │   ├── perfume-poster.webp
-│   │   ├── burger-commercial.mp4
-│   │   └── burger-poster.webp
-│   ├── assets/certificates/      # Verified professional credentials (.webp previews + .pdf)
-│   ├── logo.png                  # Legacya Sphere circular emblem (navbar, footer & splash)
-│   ├── img-04.webp               # Founder portrait
-│   ├── img-15.webp               # Legacya Sphere full brand mark
-│   └── img-16..23.webp           # Live business system screenshots
+│   ├── creative-work/            # Concept campaign visuals (.webp), posters and faststart MP4s
+│   ├── assets/certificates/      # Anthropic Academy course certificates (.webp previews + .pdf)
+│   ├── logos/                    # Tool logos (SVG), not used by the current site
+│   ├── logo.png                  # Circular emblem (navbar, footer)
+│   ├── img-04.webp               # Founder portrait, also the Open Graph image
+│   ├── img-15.webp               # Full brand mark
+│   └── img-16..23.webp           # Reference build screenshots
 ├── src/
 │   ├── core/
-│   │   ├── identity.ts           # Studio identity, contact channels, and navigation events
-│   │   ├── inquiry.ts            # Project inquiry validation and WhatsApp/Email brief composer
-│   │   └── inquiry.test.ts       # Unit tests & customer-facing copy audit
+│   │   ├── identity.ts           # Studio identity, contact channels, feature flags, navigation events
+│   │   ├── site.ts               # SITE_URL and OG_IMAGE_URL used in index.html
+│   │   ├── inquiry.ts            # Inquiry validation and WhatsApp/email brief composer
+│   │   └── inquiry.test.ts       # Unit tests and customer-facing copy audit
 │   ├── data/
-│   │   ├── projects.ts           # Business systems portfolio data
-│   │   └── creativeWork.ts       # Advertising & cinematic video portfolio data
+│   │   ├── projects.ts           # Digital work (self-initiated reference builds)
+│   │   └── creativeWork.ts       # Concept campaign studies
 │   ├── components/               # SiteNav, SectionGuide, Footer
-│   ├── sections/                 # Hero, StudioIntro, Solutions, Work, CreativeWork, Process, WhyLegacya, Founder, CTA
+│   ├── sections/                 # One file per page section (see table above)
+│   ├── hooks/useScrollReveal.ts  # Reveal-on-scroll for [data-animate] elements
 │   ├── types/project.ts          # Shared TypeScript interfaces
-│   ├── utils/asset.ts            # BASE_URL-aware asset resolver for Vercel & GitHub Pages
+│   ├── utils/asset.ts            # BASE_URL-aware asset resolver for Vercel and GitHub Pages
 │   ├── App.tsx                   # Root layout composition
-│   ├── main.tsx                  # React 18 entry point
-│   └── index.css                 # Tailwind v4 theme tokens & component utilities
-├── index.html                    # Entry HTML with SEO, OpenGraph, and JSON-LD structured data
-├── vite.config.ts                # Dual-target Vite configuration (Vercel + GitHub Pages)
-├── vercel.json                   # Vercel SPA routing config
-└── .github/workflows/deploy.yml  # GitHub Actions CI validation & Pages deployment
+│   ├── main.tsx                  # React entry point
+│   └── index.css                 # Tailwind v4 theme tokens and component utilities
+├── tests/portfolio.spec.ts       # Playwright end-to-end tests (desktop + mobile)
+├── index.html                    # Entry HTML with SEO, Open Graph and JSON-LD
+├── vite.config.ts                # Vite config: base path per target, %SITE_URL% injection
+├── playwright.config.ts          # E2E config (runs against `npm run preview`)
+├── vercel.json                   # Vercel SPA routing and cache headers
+└── .github/workflows/deploy.yml  # GitHub Actions validation and Pages deployment
 ```
 
 ---
@@ -146,21 +147,29 @@ Legacya-Portofolio/
 git clone https://github.com/legacyasphere-id/Legacya-Portofolio.git
 cd Legacya-Portofolio
 
-npm install                   # install dependencies
-npm run dev                   # start local dev server on port 3000
-node --test src/core/inquiry.test.ts  # run unit & copy audit tests
-npm run build                 # type-check + production bundle into dist/
+npm install           # install dependencies
+npm run dev           # dev server on http://localhost:3000
+npm run lint          # type-check (tsc --noEmit)
+npm test              # unit tests and copy audit
+npm run build         # production bundle into dist/
+npm run test:e2e      # Playwright tests against a preview build (run `npm run build` first)
 ```
+
+`playwright.config.ts` points `executablePath` at the Chromium bundled in the Claude Code cloud environment. On another machine, remove that line and run `npx playwright install chromium` once.
 
 ---
 
 ## Deployment
 
-### Vercel (Primary)
+### Vercel (primary)
 Build command: `npm run build` · Output directory: `dist`
 
-### GitHub Pages (Mirror)
-`.github/workflows/deploy.yml` validates source and media assets, runs `npm ci && npm run build`, and deploys `dist/` to GitHub Pages on every push to `main`.
+### GitHub Pages (mirror)
+`.github/workflows/deploy.yml` validates sources and media, runs `npm ci && npm run build`, and deploys `dist/` on every push to `main`. When `GITHUB_ACTIONS` is set, Vite builds with the base path `/Legacya-Portofolio/`.
+
+### Notes
+- Canonical, Open Graph and JSON-LD URLs come from `SITE_URL` in `src/core/site.ts`. Change it there when the custom domain goes live.
+- Renaming the repository breaks the GitHub Pages base path. Update `base` in `vite.config.ts` and the workflow if you rename it.
 
 ---
 
@@ -177,4 +186,4 @@ Founder · Legacya Sphere · Bekasi, Indonesia · GMT+7
 
 ## License
 
-[MIT](LICENSE) · Brand, copy, and client work belong to Legacya Sphere.
+[MIT](LICENSE) for the code. Studio copy and visuals belong to Legacya Sphere. Brand names shown in concept work belong to their owners.
