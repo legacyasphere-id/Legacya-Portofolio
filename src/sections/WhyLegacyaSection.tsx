@@ -5,19 +5,19 @@ const DIFFERENTIATORS = [
     index: '01.',
     title: 'One Partner for Connected Creative & Digital Needs',
     description:
-      'Your website, internal business tools, advertising visuals, and promotional videos are developed with one consistent vision, avoiding the disconnect of managing separate agencies and freelancers.',
+      'Your website, internal tools, advertising visuals and promotional videos come from one focused partner with one consistent vision, without the overhead of a large agency or the disconnect of managing separate freelancers.',
   },
   {
     index: '02.',
     title: 'Solutions Shaped Around Your Business Objective',
     description:
-      'We do not force your company into a rigid template. Every website layout, operational workflow, or campaign visual is tailored to solve a real goal for your business and customers.',
+      'I do not force your company into a rigid template. Every website layout, operational workflow, or campaign visual is tailored to solve a real goal for your business and customers.',
   },
   {
     index: '03.',
     title: 'Thoughtful Visual Direction & Practical Execution',
     description:
-      'We pair strong editorial design and visual storytelling with dependable digital execution, so your brand looks credible on the outside and works smoothly behind the scenes.',
+      'I pair strong editorial design and visual storytelling with dependable digital execution, so your brand looks credible on the outside and works smoothly behind the scenes.',
   },
   {
     index: '04.',
@@ -52,7 +52,7 @@ export function WhyLegacyaSection() {
             </h2>
           </div>
           <p className="max-w-[44ch] text-[15.5px] leading-relaxed text-muted">
-            We focus on clarity, craftsmanship, and business relevance, helping
+            I focus on clarity, craftsmanship, and business relevance, helping
             companies move forward with confidence without unnecessary complexity.
           </p>
         </div>
@@ -96,7 +96,7 @@ export function WhyLegacyaSection() {
               <p className="mt-2.5 text-[13.5px] leading-relaxed text-white/75">
                 Share your business goal or current challenge, whether it involves
                 your website, internal operations, or upcoming campaign visuals, and
-                we will recommend a clear, practical starting point.
+                I will recommend a clear, practical starting point.
               </p>
             </div>
             <button

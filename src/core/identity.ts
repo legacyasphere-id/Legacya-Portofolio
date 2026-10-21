@@ -32,17 +32,23 @@ export function triggerCreativeInspect(categoryOrId?: string) {
   }
 }
 
+// ── Feature flags ────────────────────────────────────────────────────────
+// Both stay false until the TODO(yoga) data they gate is filled in with real,
+// approved information. Nothing behind them renders while they are false.
+export const SHOW_PRICING = false
+export const SHOW_CLIENT_CASE = false
+
 export const identity = {
   // ── Core studio identity ───────────────────────────────────────────────
-  title:          'Brand, Digital Experience & Creative Studio',
-  positioning:    'Brand, Digital Experience & Creative Studio',
-  tagline:        "Building Brands. Creating Experiences. Shaping What's Next.",
+  title:       'AI-Native Studio for Systems & Brand',
+  positioning: 'AI-Native Studio for Systems & Brand',
+  tagline:     'The system and the brand behind it. Built by one founder, accelerated by AI.',
   description:
-    'Legacya Sphere helps businesses build stronger brands, modern websites, connected business systems, advertising campaign visuals, and cinematic video productions.',
+    'Legacya Sphere is an AI-native studio run by Yoga Pratama Effendi. I build business websites, internal tools and AI automations, and create the campaign visuals that sell them, using AI workflows to deliver at studio quality without agency overhead.',
   brandStatement:
-    'A creative and digital studio helping businesses strengthen their presence, streamline daily operations, and tell compelling visual stories.',
+    'An AI-native studio building business systems and brand visuals with one founder and a disciplined AI workflow.',
   coreMessage:
-    'Thoughtful digital experiences, connected operations, and campaign-ready creative work under one roof.',
+    'One partner for the software your team runs on and the visuals your customers see.',
 
   // ── Public-facing studio pillars ───────────────────────────────────────
   pillars: [

@@ -2,14 +2,18 @@ export interface Project {
   id: string
   name: string
   tagline: string
-  category: 'Digital Experiences & Business Systems'
+  category: 'Digital Experiences & Business Systems' | 'Advertising & Campaign Assets'
   type: string
   industry: string
   workClassification: string
+  /** 'reference' = self-initiated build; 'commissioned' = real client work. */
+  engagement: 'reference' | 'commissioned'
   status: 'live' | 'in-progress' | 'concept'
   featured: boolean
   caseStudy: CaseStudy
   deliverables: string[]
+  /** One mono line under "What was delivered", e.g. timeline and stack. Hidden when empty. */
+  buildNotes?: string
   links: ProjectLinks
   screenshots: Screenshot[]
 }
@@ -46,6 +50,8 @@ export interface CreativeWorkItem {
     | 'Conceptual Campaign Study'
     | 'Studio Visual Direction'
     | 'Verified Brand Work'
+  /** 'concept' = self-initiated study, not commissioned by the brand shown. */
+  engagement: 'commissioned' | 'concept'
   availabilityStatus: 'Available Now' | 'Custom Production · In Development'
   objective: string
   creativeDirection: string

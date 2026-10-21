@@ -8,6 +8,9 @@ type CreativeFilter =
   | 'Advertising & Campaign Assets'
   | 'Cinematic Video & Visual Production'
 
+// Shown on every self-initiated study so no piece implies a client relationship.
+const CONCEPT_BADGE = 'Concept work · not commissioned by the brand'
+
 const FILTER_TABS: CreativeFilter[] = [
   'All Creative Work',
   'Advertising & Campaign Assets',
@@ -308,11 +311,17 @@ export function CreativeWorkSection() {
               Campaign visuals and cinematic stories crafted around brand objectives
             </h2>
           </div>
-          <p className="max-w-[46ch] text-[15.5px] leading-relaxed text-muted">
-            Product campaign imagery, vertical social advertising creatives, and
-            cinematic product commercial films produced by Legacya Sphere. Click
-            any showcase to watch the full film or inspect the high-resolution key visual.
-          </p>
+          <div className="max-w-[46ch]">
+            <p className="text-[15.5px] leading-relaxed text-muted">
+              Campaign key visuals and short product films, created as concept
+              studies to show art direction, lighting and motion. Click any piece
+              to watch the full film or inspect the high-resolution key visual.
+            </p>
+            <p className="mt-3 font-mono text-[11.5px] leading-relaxed text-dim">
+              Concept studies created to show creative direction. Brand names
+              belong to their owners. Commissioned client work is marked separately.
+            </p>
+          </div>
         </div>
 
         {/* Filter Bar + Count */}
@@ -345,7 +354,7 @@ export function CreativeWorkSection() {
           </div>
 
           <p className="font-mono text-[11.5px] text-muted">
-            Showing {filteredItems.length} curated advertising &amp; video productions
+            Showing {filteredItems.length} advertising &amp; video concept studies
           </p>
         </div>
 
@@ -377,7 +386,13 @@ export function CreativeWorkSection() {
                     </span>
                   </div>
 
-                  <h3 className="mt-4 text-[clamp(1.3rem,2vw,1.6rem)] font-semibold tracking-[-0.02em] text-text">
+                  {item.engagement === 'concept' && (
+                    <p className="mt-3 font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted">
+                      {CONCEPT_BADGE}
+                    </p>
+                  )}
+
+                  <h3 className="mt-3 text-[clamp(1.3rem,2vw,1.6rem)] font-semibold tracking-[-0.02em] text-text">
                     {item.title}
                   </h3>
                   <p className="mt-1 font-mono text-[11.5px] text-dim">
@@ -466,6 +481,11 @@ export function CreativeWorkSection() {
                 <h3 className="mt-0.5 text-[1.25rem] font-semibold text-white">
                   {selectedItem.title}
                 </h3>
+                {selectedItem.engagement === 'concept' && (
+                  <p className="mt-1 font-mono text-[10.5px] uppercase tracking-[0.14em] text-white/55">
+                    {CONCEPT_BADGE}
+                  </p>
+                )}
               </div>
               <button
                 type="button"

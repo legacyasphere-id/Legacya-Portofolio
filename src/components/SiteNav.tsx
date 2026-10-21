@@ -8,6 +8,7 @@ const LINKS = [
   { href: '#work', label: 'Digital Work' },
   { href: '#creative-work', label: 'Creative Work' },
   { href: '#process', label: 'Process' },
+  { href: '#ai-workflow', label: 'AI Workflow' },
 ]
 
 export function SiteNav() {

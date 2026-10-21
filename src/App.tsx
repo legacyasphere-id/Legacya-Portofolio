@@ -7,6 +7,7 @@ import { SolutionsSection } from './sections/SolutionsSection'
 import { WorkSection } from './sections/WorkSection'
 import { CreativeWorkSection } from './sections/CreativeWorkSection'
 import { ProcessSection } from './sections/ProcessSection'
+import { AIWorkflowSection } from './sections/AIWorkflowSection'
 import { WhyLegacyaSection } from './sections/WhyLegacyaSection'
 import { FounderSection } from './sections/FounderSection'
 import { CTASection } from './sections/CTASection'
@@ -36,6 +37,7 @@ export default function App() {
         <WorkSection />
         <CreativeWorkSection />
         <ProcessSection />
+        <AIWorkflowSection />
         <WhyLegacyaSection />
         <FounderSection />
         <CTASection />

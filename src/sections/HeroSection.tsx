@@ -3,27 +3,23 @@ import { triggerProjectScope } from '../core/identity'
 const STUDIO_PILLARS = [
   {
     index: '01.',
-    unit: 'Digital Experiences & Systems',
-    detail:
-      'Modern business websites, customer portals, and custom operational tools that simplify how your team works every day.',
+    unit: 'Systems',
+    detail: 'Websites, portals and internal tools that replace spreadsheets.',
   },
   {
     index: '02.',
-    unit: 'Advertising & Campaign Assets',
-    detail:
-      'Campaign key visuals, product imagery, and promotional creative direction tailored to your brand and launch goals.',
+    unit: 'Automation & AI',
+    detail: 'Assistants and workflows that remove repetitive manual work.',
   },
   {
     index: '03.',
-    unit: 'Cinematic Video & Production',
-    detail:
-      'Cinematic promotional videos, short-form campaign reels, and visual storytelling designed to create lasting brand impressions.',
+    unit: 'Campaign visuals',
+    detail: 'Key visuals, product imagery and social creatives for launches.',
   },
   {
     index: '04.',
-    unit: 'Direct Studio Partnership',
-    detail:
-      'One focused partner connecting your brand visuals and digital execution without the overhead of a large agency.',
+    unit: 'Short-form video',
+    detail: 'Product films and reels for social and ads.',
   },
 ]
 
@@ -49,8 +45,11 @@ export function HeroSection() {
               data-animate
               data-delay="100"
             >
-              Building Brands. Creating Experiences.{' '}
-              <span className="text-blue-deep">Shaping What&rsquo;s Next.</span>
+              <span className="block">Business systems.</span>
+              <span className="block">Brand visuals.</span>
+              <span className="block text-blue-deep">
+                One <span className="whitespace-nowrap">AI-native</span> studio.
+              </span>
             </h1>
 
             <p
@@ -58,11 +57,9 @@ export function HeroSection() {
               data-animate
               data-delay="200"
             >
-              Legacya Sphere is a creative and digital studio that helps businesses
-              strengthen their presence, serve customers more effectively, and tell
-              compelling visual stories through modern websites, connected
-              business systems, advertising campaign visuals, and cinematic video
-              production.
+              I build websites, internal tools and AI automations, and create the
+              campaign visuals that go with them. One founder, a tested AI
+              workflow, delivered faster than an agency.
             </p>
           </div>
 
@@ -86,7 +83,7 @@ export function HeroSection() {
               Explore Our Work
             </a>
             <p className="mt-0.5 text-center font-mono text-[11px] leading-snug text-text/80 lg:text-left">
-              Founder-led execution · Tailored to your business goals
+              Founder-led · Bekasi, Indonesia · Working with clients locally and remotely
             </p>
           </div>
         </div>

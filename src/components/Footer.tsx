@@ -1,12 +1,14 @@
+import { ArrowUpRight } from 'lucide-react'
 import { identity, triggerProjectScope } from '../core/identity'
 import { asset } from '../utils/asset'
 
 const STUDIO_LINKS = [
   { label: 'About Legacya Sphere', href: '#about' },
-  { label: 'What We Do', href: '#services' },
+  { label: 'What I Do', href: '#services' },
   { label: 'Selected Digital Work', href: '#work' },
   { label: 'Advertising & Film Showcase', href: '#creative-work' },
-  { label: 'How We Work', href: '#process' },
+  { label: 'How I Work', href: '#process' },
+  { label: 'AI Workflow', href: '#ai-workflow' },
   { label: 'Why Legacya', href: '#why-legacya' },
 ]
 
@@ -106,7 +108,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="block py-1.5 text-[13.5px] text-white/75 transition-colors duration-200 hover:text-white"
             >
-              WhatsApp Business &nearr;
+              WhatsApp Business <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
             </a>
             <a
               href={identity.social.instagram}
@@ -114,7 +116,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="block py-1.5 text-[13.5px] text-white/75 transition-colors duration-200 hover:text-white"
             >
-              Instagram ({identity.social.instagramHandle}) &nearr;
+              Instagram ({identity.social.instagramHandle}) <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
             </a>
             <a
               href={identity.social.linkedin}
@@ -122,7 +124,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="block py-1.5 text-[13.5px] text-white/75 transition-colors duration-200 hover:text-white"
             >
-              LinkedIn Profile &nearr;
+              LinkedIn Profile <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
             </a>
           </div>
         </div>

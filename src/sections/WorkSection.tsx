@@ -1,6 +1,16 @@
 import { useEffect, useState } from 'react'
-import { projects } from '../data/projects'
-import { triggerProjectScope } from '../core/identity'
+import { ArrowUpRight } from 'lucide-react'
+import { projects as allProjects } from '../data/projects'
+import { SHOW_CLIENT_CASE, triggerProjectScope } from '../core/identity'
+
+// Commissioned client work is hidden until SHOW_CLIENT_CASE is on, and then
+// listed first, ahead of the self-initiated reference builds.
+const projects = SHOW_CLIENT_CASE
+  ? [
+      ...allProjects.filter((p) => p.engagement === 'commissioned'),
+      ...allProjects.filter((p) => p.engagement !== 'commissioned'),
+    ]
+  : allProjects.filter((p) => p.engagement !== 'commissioned')
 
 export function WorkSection() {
   const [activeId, setActiveId] = useState(projects[0]?.id ?? 'inventory-os')
@@ -60,9 +70,8 @@ export function WorkSection() {
             </h2>
           </div>
           <p className="max-w-[46ch] text-[15.5px] leading-relaxed text-muted">
-            Each system below is a working digital product developed by Legacya
-            Sphere to solve a real operational challenge, from warehouse stock
-            management and recruitment to clinic bookings and restaurant service.
+            Working products I designed and built end to end to show how I
+            approach real operational problems. Each one is live and clickable.
           </p>
         </div>
 
@@ -91,7 +100,7 @@ export function WorkSection() {
                 }`}
               >
                 <span className="block font-mono text-[10.5px] text-blue-deep tabular-nums">
-                  {String(i + 1).padStart(2, '0')} · {project.industry}
+                  {String(i + 1).padStart(2, '0')} · {project.engagement === 'commissioned' ? 'Client project' : project.industry}
                 </span>
                 <span className="mt-0.5 block text-[14px] font-semibold tracking-tight">
                   {project.name}
@@ -122,7 +131,7 @@ export function WorkSection() {
                   onClick={() => setLightboxOpen(true)}
                   className="font-medium text-blue-deep hover:underline whitespace-nowrap cursor-pointer"
                 >
-                  Expand Fullscreen &nearr;
+                  Expand Fullscreen <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
                 </button>
               </div>
 
@@ -231,7 +240,13 @@ export function WorkSection() {
                   <span aria-hidden="true">·</span>
                   <span className="text-muted">{active.industry}</span>
                 </div>
-                <span className="text-dim">{active.workClassification}</span>
+                {active.engagement === 'commissioned' ? (
+                  <span className="rounded border border-blue-deep/40 bg-blue/[0.08] px-2 py-0.5 font-medium text-blue-deep">
+                    Client project
+                  </span>
+                ) : (
+                  <span className="text-dim">{active.workClassification}</span>
+                )}
               </div>
 
               {/* Title & Tagline */}
@@ -258,7 +273,7 @@ export function WorkSection() {
 
                   <div>
                     <p className="mb-1.5 font-mono text-[10.5px] uppercase tracking-[0.16em] text-dim">
-                      Our Solution
+                      What I Built
                     </p>
                     <p className="text-[13.5px] leading-relaxed text-muted">
                       {active.caseStudy.solution}
@@ -284,6 +299,11 @@ export function WorkSection() {
                       </li>
                     ))}
                   </ul>
+                  {active.buildNotes && (
+                    <p className="mt-3 font-mono text-[11.5px] leading-relaxed text-dim">
+                      {active.buildNotes}
+                    </p>
+                  )}
                 </div>
 
                 {/* Intended Value */}
@@ -305,14 +325,14 @@ export function WorkSection() {
                   Need a website or business system like {active.name}?
                 </p>
                 <p className="text-[12px] text-muted">
-                  We tailor every solution around how your business and team actually work.
+                  I tailor every solution around how your business and team actually work.
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() =>
                   triggerProjectScope({
-                    serviceCategory: 'Digital Experiences & Business Systems',
+                    serviceCategory: active.category,
                     projectReference: active.name,
                   })
                 }

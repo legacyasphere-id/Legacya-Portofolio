@@ -16,6 +16,7 @@ test.describe('Navigation', () => {
     await expect(nav.locator('a[href="#work"]')).toBeVisible()
     await expect(nav.locator('a[href="#creative-work"]')).toBeVisible()
     await expect(nav.locator('a[href="#process"]')).toBeVisible()
+    await expect(nav.locator('a[href="#ai-workflow"]')).toBeVisible()
     await expect(page.locator('header button.btn-primary')).toContainText('Start a Project')
   })
 
@@ -34,12 +35,12 @@ test.describe('Navigation', () => {
 // ── Hero ──────────────────────────────────────────────────────────────────────
 
 test.describe('Hero', () => {
-  test('headline renders B2B studio positioning', async ({ page }) => {
+  test('headline renders AI-native studio positioning', async ({ page }) => {
     await page.goto('/')
     const h1 = page.locator('h1')
-    await expect(h1).toContainText('Building Brands.')
-    await expect(h1).toContainText('Creating Experiences.')
-    await expect(h1).toContainText('Shaping What')
+    await expect(h1).toContainText('Business systems.')
+    await expect(h1).toContainText('Brand visuals.')
+    await expect(h1).toContainText('One AI-native studio.')
   })
 
   test('hero CTAs trigger project inquiry and explore work', async ({ page }) => {
@@ -53,9 +54,9 @@ test.describe('Hero', () => {
   })
 })
 
-// ── Services / What We Do ────────────────────────────────────────────────────
+// ── Services / What I Do ─────────────────────────────────────────────────────
 
-test.describe('What We Do', () => {
+test.describe('What I Do', () => {
   test('renders the three core service categories', async ({ page }) => {
     await page.goto('/')
     const services = page.locator('#services')
@@ -83,14 +84,28 @@ test.describe('Digital Work', () => {
     await expect(work.locator('h3', { hasText: 'InventoryOS' })).toBeVisible()
 
     const remaining: [string, string][] = [
-      ['Hiring & HR', 'AI-CV Screening'],
-      ['Healthcare & Clinics', 'BrightPath Dental'],
-      ['Restaurants & Hospitality', 'Legacya POS'],
+      ['Human Resources & Recruitment', 'Allure Talent Evaluation System'],
+      ['Healthcare & Dental Clinics', 'BrightPath Clinic Website & Patient Portal'],
+      ['Food & Beverage · Hospitality', 'Legacya Restaurant & Kitchen System'],
     ]
     for (const [industry, name] of remaining) {
       await tabs.filter({ hasText: industry }).click()
       await expect(work.locator('h3', { hasText: name })).toBeVisible()
     }
+  })
+
+  test('labels every project as a self-initiated reference build', async ({ page }) => {
+    await page.goto('/')
+    const work = page.locator('#work')
+    await expect(work.getByText('Self-initiated reference build · Live demo').first()).toBeVisible()
+    await expect(work.getByText('Verified Live Product')).toHaveCount(0)
+  })
+
+  test('keeps the unfinished client case hidden while its flag is off', async ({ page }) => {
+    await page.goto('/')
+    const work = page.locator('#work')
+    await expect(work.locator('[role="tab"]', { hasText: 'Client project' })).toHaveCount(0)
+    await expect(page.getByText('TODO(yoga)')).toHaveCount(0)
   })
 
   test('every project folder links to a live deployment', async ({ page }) => {
@@ -108,6 +123,21 @@ test.describe('Digital Work', () => {
   })
 })
 
+// ── Creative work ────────────────────────────────────────────────────────────
+
+test.describe('Creative Work', () => {
+  test('marks every concept study as not commissioned by the brand', async ({ page }) => {
+    await page.goto('/')
+    const creative = page.locator('#creative-work')
+    const cards = creative.locator('article')
+    const count = await cards.count()
+    expect(count).toBeGreaterThan(0)
+    await expect(
+      creative.getByText('Concept work · not commissioned by the brand'),
+    ).toHaveCount(count)
+  })
+})
+
 // ── Process ──────────────────────────────────────────────────────────────────
 
 test.describe('Process', () => {
@@ -120,17 +150,46 @@ test.describe('Process', () => {
   })
 })
 
+// ── AI Workflow ──────────────────────────────────────────────────────────────
+
+test.describe('AI Workflow', () => {
+  test('renders the four AI workflow steps', async ({ page }) => {
+    await page.goto('/')
+    const section = page.locator('#ai-workflow')
+    await expect(section.locator('h2')).toContainText('How I work with AI')
+    for (const step of [
+      'Brief → structured spec',
+      'AI drafts, I direct',
+      'Human review gates',
+      'You own everything',
+    ]) {
+      await expect(section.locator('h3', { hasText: step })).toBeVisible()
+    }
+  })
+})
+
+// ── Founder / Training ───────────────────────────────────────────────────────
+
+test.describe('Training', () => {
+  test('presents Anthropic courses as training, not verified credentials', async ({ page }) => {
+    await page.goto('/')
+    const founder = page.locator('#founder')
+    await expect(founder.getByText('Anthropic courses completed')).toBeVisible()
+    await expect(founder.getByText('Anthropic Academy').first()).toBeVisible()
+    await expect(founder.getByText('Verified Credentials')).toHaveCount(0)
+  })
+})
+
 // ── Contact / Project Inquiry ────────────────────────────────────────────────
 
 test.describe('Contact & Project Inquiry', () => {
   test('renders interactive project scope builder and direct email link', async ({ page }) => {
     await page.goto('/')
     const cta = page.locator('#contact')
-    await expect(cta.locator('h2')).toContainText('Tell us about your business')
-    await expect(cta.locator('a[href^="mailto:"]').first()).toHaveAttribute(
-      'href',
-      /mailto:legacyasphere@gmail\.com/,
-    )
+    await expect(cta.locator('h2')).toContainText('Tell me about your business')
+    await expect(
+      cta.getByRole('button', { name: /Send Inquiry via Email \(legacyasphere@gmail\.com\)/ }),
+    ).toBeVisible()
   })
 })
 
@@ -145,7 +204,7 @@ test.describe('Footer', () => {
     await expect(footer.getByText('Direct Contact', { exact: true })).toBeVisible()
     await expect(footer.locator('a', { hasText: 'WhatsApp Business' })).toHaveAttribute(
       'href',
-      /wa\.me\/6281316303245/,
+      /wa\.me\/6285156862140/,
     )
   })
 })

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
+import { ArrowUpRight } from 'lucide-react'
 import { identity } from '../core/identity'
 import { asset } from '../utils/asset'
 
 interface Cert {
   title: string
   issuer: string
-  focus: string
   thumb: string
   pdf: string
 }
@@ -13,29 +13,25 @@ interface Cert {
 const CERTS: Cert[] = [
   {
     title: 'Claude Code 101',
-    issuer: 'Anthropic Verified',
-    focus: 'Structured Digital Product & Workflow Execution',
+    issuer: 'Anthropic Academy',
     thumb: asset('assets/certificates/claude-code-101.webp'),
     pdf: asset('assets/certificates/claude-code-101-anthropic.pdf'),
   },
   {
     title: 'AI Fluency: Framework & Foundations',
-    issuer: 'Anthropic Verified',
-    focus: 'Practical AI Solutions & Reliable Business Workflows',
+    issuer: 'Anthropic Academy',
     thumb: asset('assets/certificates/ai-fluency-framework.webp'),
     pdf: asset('assets/certificates/ai-fluency-framework-anthropic.pdf'),
   },
   {
     title: 'Introduction to Claude Cowork',
-    issuer: 'Anthropic Verified',
-    focus: 'Collaborative Process Design & Task Automation',
+    issuer: 'Anthropic Academy',
     thumb: asset('assets/certificates/claude-cowork.webp'),
     pdf: asset('assets/certificates/claude-cowork-anthropic.pdf'),
   },
   {
     title: 'Claude 101',
-    issuer: 'Anthropic Verified',
-    focus: 'Responsible Business Integration & Quality Standards',
+    issuer: 'Anthropic Academy',
     thumb: asset('assets/certificates/claude-101.webp'),
     pdf: asset('assets/certificates/claude-101-anthropic.pdf'),
   },
@@ -141,7 +137,7 @@ export function FounderSection() {
                 rel="noopener noreferrer"
                 className="link-sweep whitespace-nowrap"
               >
-                LinkedIn Profile &nearr;
+                LinkedIn Profile <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
               </a>
               <a
                 href={identity.social.instagram}
@@ -149,7 +145,7 @@ export function FounderSection() {
                 rel="noopener noreferrer"
                 className="link-sweep whitespace-nowrap"
               >
-                Instagram ({identity.social.instagramHandle}) &nearr;
+                Instagram ({identity.social.instagramHandle}) <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
               </a>
               <a
                 href={`mailto:${identity.social.email}`}
@@ -163,13 +159,13 @@ export function FounderSection() {
                 rel="noopener noreferrer"
                 className="link-sweep whitespace-nowrap"
               >
-                WhatsApp Direct &nearr;
+                WhatsApp Direct <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
               </a>
             </div>
           </div>
         </div>
 
-        {/* Verified Credentials Sub-Panel */}
+        {/* Training Sub-Panel */}
         <div
           className="mt-16 border-t border-border pt-12"
           data-animate
@@ -177,13 +173,13 @@ export function FounderSection() {
         >
           <div className="mb-7 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
             <div>
-              <p className="eyebrow mb-2">Verified Credentials</p>
+              <p className="eyebrow mb-2">Training</p>
               <h3 className="text-[1.35rem] font-semibold tracking-[-0.02em] text-text">
-                Certified in Modern AI &amp; Digital Workflow Execution
+                Anthropic courses completed
               </h3>
             </div>
             <p className="font-mono text-[11.5px] text-muted">
-              Select any credential to preview the official Anthropic certificate
+              Select any course to preview the Anthropic certificate
             </p>
           </div>
 
@@ -206,7 +202,7 @@ export function FounderSection() {
                     loading="lazy"
                   />
                   <span className="absolute bottom-2.5 right-2.5 rounded-md bg-black/75 px-2.5 py-1 font-mono text-[10px] font-medium text-white backdrop-blur-sm">
-                    Preview &nearr;
+                    Preview <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
                   </span>
                 </button>
 
@@ -217,9 +213,6 @@ export function FounderSection() {
                     </p>
                     <p className="mt-1 text-[14px] font-semibold tracking-tight text-text">
                       {c.title}
-                    </p>
-                    <p className="mt-1 text-[12px] leading-snug text-muted">
-                      {c.focus}
                     </p>
                   </div>
 
@@ -237,7 +230,7 @@ export function FounderSection() {
                       rel="noopener noreferrer"
                       className="font-mono text-[11px] text-muted hover:text-text whitespace-nowrap"
                     >
-                      Official PDF &nearr;
+                      Official PDF <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
                     </a>
                   </div>
                 </div>
@@ -264,7 +257,7 @@ export function FounderSection() {
               <div>
                 <p className="text-[14px] font-semibold">{selectedCert.title}</p>
                 <p className="font-mono text-[11px] text-white/65">
-                  {selectedCert.issuer} · {selectedCert.focus}
+                  {selectedCert.issuer}
                 </p>
               </div>
               <button
@@ -295,7 +288,7 @@ export function FounderSection() {
                 rel="noopener noreferrer"
                 className="btn-primary px-4 py-2 text-[12.5px] whitespace-nowrap"
               >
-                Open Full Certificate PDF &nearr;
+                Open Full Certificate PDF <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
               </a>
             </div>
           </div>

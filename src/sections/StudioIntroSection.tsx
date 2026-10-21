@@ -47,7 +47,7 @@ export function StudioIntroSection() {
                 Legacya Sphere was built to bridge that divide.
               </p>
               <p>
-                We help companies present themselves with clarity, run daily operations
+                I help companies present themselves with clarity, run daily operations
                 more smoothly, and communicate their value through thoughtful websites,
                 custom business systems, advertising campaign imagery, and cinematic
                 video production. Every project begins with a straightforward question:
@@ -68,16 +68,16 @@ export function StudioIntroSection() {
                 href="#services"
                 className="link-sweep text-[14px] whitespace-nowrap"
               >
-                Explore Our Three Core Services
+                Explore My Three Core Services
                 <span aria-hidden="true">&rarr;</span>
               </a>
             </div>
           </div>
 
-          {/* Right Column: Who We Partner With */}
+          {/* Right Column: Who I Partner With */}
           <div className="card p-6 sm:p-8" data-animate data-delay="100">
             <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-blue-deep">
-              Who We Partner With
+              Who I Partner With
             </p>
             <p className="mt-2 text-[14px] leading-relaxed text-muted">
               Designed for business owners, founders, and brand leaders who want

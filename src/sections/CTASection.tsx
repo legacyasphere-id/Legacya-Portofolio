@@ -124,7 +124,7 @@ export function CTASection() {
         <div className="mb-12 max-w-[680px]" data-animate>
           <p className="eyebrow mb-4">Contact &amp; Project Inquiry</p>
           <h2 className="display text-[clamp(1.95rem,3.5vw,2.9rem)] leading-[1.1] [text-wrap:balance]">
-            Tell us about your business and what you want to{' '}
+            Tell me about your business and what you want to{' '}
             <span className="text-blue-deep">build or create</span>.
           </h2>
           <p className="mt-4 text-[15.5px] leading-relaxed text-muted">
@@ -398,8 +398,8 @@ export function CTASection() {
               <div className="mt-6 rounded-xl border border-white/10 bg-white/[0.04] p-4 text-[12.5px] leading-relaxed text-white/75">
                 <p className="font-semibold text-white">What happens next:</p>
                 <ol className="mt-2 list-inside list-decimal space-y-1 text-[12px]">
-                  <li>We review your project goals and any reference work you selected.</li>
-                  <li>We reply within 1 business day to schedule a brief discovery call.</li>
+                  <li>I review your project goals and any reference work you selected.</li>
+                  <li>I reply within 1 business day to schedule a brief discovery call.</li>
                   <li>You receive a clear project recommendation, scope, and timeline.</li>
                 </ol>
               </div>
