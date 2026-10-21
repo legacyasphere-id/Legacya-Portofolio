@@ -61,9 +61,8 @@ export function WorkSection() {
             </h2>
           </div>
           <p className="max-w-[46ch] text-[15.5px] leading-relaxed text-muted">
-            Each system below is a working digital product developed by Legacya
-            Sphere to solve a real operational challenge, from warehouse stock
-            management and recruitment to clinic bookings and restaurant service.
+            Working products I designed and built end to end to show how I
+            approach real operational problems. Each one is live and clickable.
           </p>
         </div>
 
@@ -259,7 +258,7 @@ export function WorkSection() {
 
                   <div>
                     <p className="mb-1.5 font-mono text-[10.5px] uppercase tracking-[0.16em] text-dim">
-                      Our Solution
+                      What I Built
                     </p>
                     <p className="text-[13.5px] leading-relaxed text-muted">
                       {active.caseStudy.solution}
@@ -285,6 +284,11 @@ export function WorkSection() {
                       </li>
                     ))}
                   </ul>
+                  {active.buildNotes && (
+                    <p className="mt-3 font-mono text-[11.5px] leading-relaxed text-dim">
+                      {active.buildNotes}
+                    </p>
+                  )}
                 </div>
 
                 {/* Intended Value */}

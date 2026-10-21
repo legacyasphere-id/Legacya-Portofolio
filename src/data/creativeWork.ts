@@ -5,10 +5,11 @@ export const CREATIVE_WORK_ITEMS: CreativeWorkItem[] = [
   {
     id: 'hanasui-cosmetic-campaign',
     title: 'Hanasui Cosmetics: Tactile Product & Shade Campaign',
-    brandOrConcept: 'Studio Advertising Showcase · Beauty & Cosmetics',
+    brandOrConcept: 'Unofficial concept · Beauty & Cosmetics',
     category: 'Advertising & Campaign Assets',
     format: '4:3 Campaign Key Visual · Product & Texture Direction',
-    classification: 'Studio Campaign Showcase',
+    classification: 'Conceptual Campaign Study',
+    engagement: 'concept',
     availabilityStatus: 'Available Now',
     objective:
       'Communicate formula richness, shade accuracy, and packaging quality in a single hero visual that elevates brand perception across digital campaigns.',
@@ -55,7 +56,8 @@ export const CREATIVE_WORK_ITEMS: CreativeWorkItem[] = [
     brandOrConcept: 'Studio Advertising Showcase · Food, Beverage & Hospitality',
     category: 'Advertising & Campaign Assets',
     format: '4:3 Campaign Key Visual · Atmospheric Food Direction',
-    classification: 'Studio Campaign Showcase',
+    classification: 'Conceptual Campaign Study',
+    engagement: 'concept',
     availabilityStatus: 'Available Now',
     objective:
       'Create unmistakable appetite appeal and premium culinary positioning that drives customer cravings, menu promotions, and restaurant foot traffic.',
@@ -102,7 +104,8 @@ export const CREATIVE_WORK_ITEMS: CreativeWorkItem[] = [
     brandOrConcept: 'Studio Advertising Showcase · Ready-to-Drink Beverage (250 ML)',
     category: 'Advertising & Campaign Assets',
     format: '9:16 Vertical Social Ad · Product Launch Creative',
-    classification: 'Studio Campaign Showcase',
+    classification: 'Conceptual Campaign Study',
+    engagement: 'concept',
     availabilityStatus: 'Available Now',
     objective:
       'Capture attention immediately in vertical social feeds with a high-energy beverage visual that highlights packaging design and fresh coffee ingredients.',
@@ -146,10 +149,11 @@ export const CREATIVE_WORK_ITEMS: CreativeWorkItem[] = [
   {
     id: 'hanasui-cosmetic-commercial-video',
     title: 'Hanasui Lip Cream: 3D Liquid Ribbon & Macro Commercial',
-    brandOrConcept: 'Studio Video Showcase · Beauty & Cosmetics Motion Film',
+    brandOrConcept: 'Unofficial concept · Beauty & Cosmetics Motion Film',
     category: 'Cinematic Video & Visual Production',
     format: '9:16 Animated Commercial Film · Full Motion & Sound',
-    classification: 'Studio Video Showcase',
+    classification: 'Conceptual Campaign Study',
+    engagement: 'concept',
     availabilityStatus: 'Available Now',
     objective:
       'Turn static beauty packaging into a captivating motion commercial that demonstrates liquid texture, applicator precision, and shade richness in seconds.',
@@ -197,7 +201,8 @@ export const CREATIVE_WORK_ITEMS: CreativeWorkItem[] = [
     brandOrConcept: 'Studio Video Showcase · Luxury Perfume & Botanical Storytelling',
     category: 'Cinematic Video & Visual Production',
     format: '9:16 Cinematic Brand Film · Botanical & Water Motion',
-    classification: 'Studio Video Showcase',
+    classification: 'Conceptual Campaign Study',
+    engagement: 'concept',
     availabilityStatus: 'Available Now',
     objective:
       'Evoke the fresh citrus and floral scent profile of a signature fragrance visually through natural water movement, sunlight, and botanical storytelling.',
@@ -245,7 +250,8 @@ export const CREATIVE_WORK_ITEMS: CreativeWorkItem[] = [
     brandOrConcept: 'Studio Video Showcase · Culinary & Hospitality Motion Film',
     category: 'Cinematic Video & Visual Production',
     format: '9:16 Culinary Commercial · Slow-Motion Assembly & Sound Design',
-    classification: 'Studio Video Showcase',
+    classification: 'Conceptual Campaign Study',
+    engagement: 'concept',
     availabilityStatus: 'Available Now',
     objective:
       'Showcase ingredient freshness and kitchen craftsmanship through a mouth-watering slow-motion assembly commercial that drives immediate food orders.',

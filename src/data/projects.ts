@@ -9,7 +9,7 @@ export const projects: Project[] = [
     category: 'Digital Experiences & Business Systems',
     type: 'Internal Business Operations System',
     industry: 'Warehouse & Distribution',
-    workClassification: 'Verified Live Product · Interactive Reference System',
+    workClassification: 'Self-initiated reference build · Live demo',
     status: 'live',
     featured: true,
     caseStudy: {
@@ -28,6 +28,8 @@ export const projects: Project[] = [
       'End-to-end purchase order workflow from draft request to received stock confirmation',
       'Automated low-stock warning center so purchasing teams know exactly when to reorder',
     ],
+    // TODO(yoga): add buildNotes, e.g. "Built in 3 weeks · React · role-based access".
+    // Stack names are limited here: src/core/inquiry.test.ts bans developer jargon in this file.
     links: {
       live: 'https://mini-erp-frontend-tau.vercel.app/',
     },
@@ -49,11 +51,13 @@ export const projects: Project[] = [
   {
     id: 'ai-cv-screening',
     name: 'Allure Talent Evaluation System',
-    tagline: 'Structured Candidate Review & Recruitment Workspace',
+    // TODO(yoga): confirm this wording. The product name still contains "Allure";
+    // consider renaming it so it does not read as a client engagement.
+    tagline: 'Recruitment screening concept built around a real hiring workflow',
     category: 'Digital Experiences & Business Systems',
     type: 'Custom Business Tool & Workflow Automation',
     industry: 'Human Resources & Recruitment',
-    workClassification: 'Verified Live Product · Interactive Reference System',
+    workClassification: 'Self-initiated reference build · Live demo',
     status: 'live',
     featured: true,
     caseStudy: {
@@ -72,6 +76,8 @@ export const projects: Project[] = [
       'Clear, transparent scoring breakdown across skills, relevant experience, education, and role fit',
       'Side-by-side visual comparison charts and one-click summary exports for hiring reviews',
     ],
+    // TODO(yoga): add buildNotes, e.g. "Built in 3 weeks · React · role-based access".
+    // Stack names are limited here: src/core/inquiry.test.ts bans developer jargon in this file.
     links: {
       live: 'https://ai-powered-cv-screening-platform-fo.vercel.app',
     },
@@ -93,7 +99,7 @@ export const projects: Project[] = [
     category: 'Digital Experiences & Business Systems',
     type: 'Business Website & Customer Experience',
     industry: 'Healthcare & Dental Clinics',
-    workClassification: 'Verified Live Product · Interactive Reference System',
+    workClassification: 'Self-initiated reference build · Live demo',
     status: 'live',
     featured: true,
     caseStudy: {
@@ -112,6 +118,8 @@ export const projects: Project[] = [
       'Streamlined online appointment request form connected to automatic front-desk staff notifications',
       'Simple management view allowing clinic staff to update treatment guides and FAQs anytime',
     ],
+    // TODO(yoga): add buildNotes, e.g. "Built in 3 weeks · React · role-based access".
+    // Stack names are limited here: src/core/inquiry.test.ts bans developer jargon in this file.
     links: {
       live: 'https://brightpath-dental.vercel.app',
     },
@@ -137,7 +145,7 @@ export const projects: Project[] = [
     category: 'Digital Experiences & Business Systems',
     type: 'Custom Operations & Point-of-Sale System',
     industry: 'Food & Beverage · Hospitality',
-    workClassification: 'Verified Live Product · Interactive Reference System',
+    workClassification: 'Self-initiated reference build · Live demo',
     status: 'live',
     featured: true,
     caseStudy: {
@@ -156,6 +164,8 @@ export const projects: Project[] = [
       'Owner business dashboard tracking daily sales revenue, popular menu categories, and order volume',
       'Dedicated staff views so cashiers, kitchen crew, and managers each see the exact screen they need',
     ],
+    // TODO(yoga): add buildNotes, e.g. "Built in 3 weeks · React · role-based access".
+    // Stack names are limited here: src/core/inquiry.test.ts bans developer jargon in this file.
     links: {
       live: 'https://legacya-pos-ui.vercel.app',
     },

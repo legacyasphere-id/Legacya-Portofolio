@@ -10,6 +10,8 @@ export interface Project {
   featured: boolean
   caseStudy: CaseStudy
   deliverables: string[]
+  /** One mono line under "What was delivered", e.g. timeline and stack. Hidden when empty. */
+  buildNotes?: string
   links: ProjectLinks
   screenshots: Screenshot[]
 }
@@ -46,6 +48,8 @@ export interface CreativeWorkItem {
     | 'Conceptual Campaign Study'
     | 'Studio Visual Direction'
     | 'Verified Brand Work'
+  /** 'concept' = self-initiated study, not commissioned by the brand shown. */
+  engagement: 'commissioned' | 'concept'
   availabilityStatus: 'Available Now' | 'Custom Production · In Development'
   objective: string
   creativeDirection: string
