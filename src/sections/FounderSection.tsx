@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { ArrowUpRight } from 'lucide-react'
 import { identity } from '../core/identity'
 import { asset } from '../utils/asset'
 
@@ -141,7 +142,7 @@ export function FounderSection() {
                 rel="noopener noreferrer"
                 className="link-sweep whitespace-nowrap"
               >
-                LinkedIn Profile &nearr;
+                LinkedIn Profile <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
               </a>
               <a
                 href={identity.social.instagram}
@@ -149,7 +150,7 @@ export function FounderSection() {
                 rel="noopener noreferrer"
                 className="link-sweep whitespace-nowrap"
               >
-                Instagram ({identity.social.instagramHandle}) &nearr;
+                Instagram ({identity.social.instagramHandle}) <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
               </a>
               <a
                 href={`mailto:${identity.social.email}`}
@@ -163,7 +164,7 @@ export function FounderSection() {
                 rel="noopener noreferrer"
                 className="link-sweep whitespace-nowrap"
               >
-                WhatsApp Direct &nearr;
+                WhatsApp Direct <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
               </a>
             </div>
           </div>
@@ -206,7 +207,7 @@ export function FounderSection() {
                     loading="lazy"
                   />
                   <span className="absolute bottom-2.5 right-2.5 rounded-md bg-black/75 px-2.5 py-1 font-mono text-[10px] font-medium text-white backdrop-blur-sm">
-                    Preview &nearr;
+                    Preview <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
                   </span>
                 </button>
 
@@ -237,7 +238,7 @@ export function FounderSection() {
                       rel="noopener noreferrer"
                       className="font-mono text-[11px] text-muted hover:text-text whitespace-nowrap"
                     >
-                      Official PDF &nearr;
+                      Official PDF <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
                     </a>
                   </div>
                 </div>
@@ -295,7 +296,7 @@ export function FounderSection() {
                 rel="noopener noreferrer"
                 className="btn-primary px-4 py-2 text-[12.5px] whitespace-nowrap"
               >
-                Open Full Certificate PDF &nearr;
+                Open Full Certificate PDF <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
               </a>
             </div>
           </div>

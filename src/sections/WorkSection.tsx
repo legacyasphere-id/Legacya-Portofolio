@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { ArrowUpRight } from 'lucide-react'
 import { projects } from '../data/projects'
 import { triggerProjectScope } from '../core/identity'
 
@@ -122,7 +123,7 @@ export function WorkSection() {
                   onClick={() => setLightboxOpen(true)}
                   className="font-medium text-blue-deep hover:underline whitespace-nowrap cursor-pointer"
                 >
-                  Expand Fullscreen &nearr;
+                  Expand Fullscreen <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
                 </button>
               </div>
 

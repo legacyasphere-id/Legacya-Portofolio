@@ -1,3 +1,4 @@
+import { ArrowUpRight } from 'lucide-react'
 import { identity, triggerProjectScope } from '../core/identity'
 import { asset } from '../utils/asset'
 
@@ -106,7 +107,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="block py-1.5 text-[13.5px] text-white/75 transition-colors duration-200 hover:text-white"
             >
-              WhatsApp Business &nearr;
+              WhatsApp Business <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
             </a>
             <a
               href={identity.social.instagram}
@@ -114,7 +115,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="block py-1.5 text-[13.5px] text-white/75 transition-colors duration-200 hover:text-white"
             >
-              Instagram ({identity.social.instagramHandle}) &nearr;
+              Instagram ({identity.social.instagramHandle}) <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
             </a>
             <a
               href={identity.social.linkedin}
@@ -122,7 +123,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="block py-1.5 text-[13.5px] text-white/75 transition-colors duration-200 hover:text-white"
             >
-              LinkedIn Profile &nearr;
+              LinkedIn Profile <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
             </a>
           </div>
         </div>
