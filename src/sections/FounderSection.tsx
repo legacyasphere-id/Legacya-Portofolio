@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import { identity } from '../core/identity'
+import { useT } from '../i18n/context'
 import { asset } from '../utils/asset'
 
 interface Cert {
@@ -38,6 +39,7 @@ const CERTS: Cert[] = [
 ]
 
 export function FounderSection() {
+  const { t } = useT()
   const [selectedCert, setSelectedCert] = useState<Cert | null>(null)
 
   useEffect(() => {
@@ -62,7 +64,7 @@ export function FounderSection() {
             <div className="overflow-hidden rounded-2xl border border-border bg-raised shadow-sm">
               <img
                 src={`${asset('img-04.webp')}?v=updated`}
-                alt={`${identity.name}, Founder of ${identity.company}`}
+                alt={t.founder.portraitAlt}
                 referrerPolicy="no-referrer"
                 className="aspect-[3/4] w-full object-cover object-center"
                 loading="eager"
@@ -74,7 +76,7 @@ export function FounderSection() {
           {/* Bio & Studio Leadership */}
           <div>
             <p className="eyebrow mb-2" data-animate>
-              Founder
+              {t.founder.eyebrow}
             </p>
 
             <h2
@@ -89,7 +91,7 @@ export function FounderSection() {
               data-animate
               data-delay="100"
             >
-              {identity.role} · {identity.company} · {identity.location} ({identity.timezone})
+              {t.founder.role} · {identity.company} · {identity.location} ({identity.timezone})
             </p>
 
             <p
@@ -97,8 +99,7 @@ export function FounderSection() {
               data-animate
               data-delay="200"
             >
-              I handle every project personally from discovery to handover, in
-              English or Bahasa Indonesia.
+              {t.founder.bio}
             </p>
 
             {/* Direct Links */}
@@ -149,9 +150,9 @@ export function FounderSection() {
         >
           <div className="mb-4 flex flex-col justify-between gap-1 sm:flex-row sm:items-end">
             <div>
-              <p className="eyebrow mb-1">Training</p>
+              <p className="eyebrow mb-1">{t.founder.trainingEyebrow}</p>
               <h3 className="text-[1.15rem] font-semibold tracking-[-0.02em] text-text">
-                Anthropic courses completed
+                {t.founder.trainingHeading}
               </h3>
             </div>
           </div>
@@ -169,7 +170,7 @@ export function FounderSection() {
                 >
                   <img
                     src={c.thumb}
-                    alt={`${c.title} certificate from Anthropic`}
+                    alt={`${c.title} ${t.founder.certAltSuffix}`}
                     referrerPolicy="no-referrer"
                     className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-[1.03]"
                     loading="lazy"
@@ -192,7 +193,7 @@ export function FounderSection() {
                       onClick={() => setSelectedCert(c)}
                       className="min-h-[44px] inline-flex items-center font-medium text-blue-deep hover:underline whitespace-nowrap cursor-pointer"
                     >
-                      Preview
+                      {t.founder.preview}
                     </button>
                     <a
                       href={c.pdf}
@@ -215,7 +216,7 @@ export function FounderSection() {
         <div
           role="dialog"
           aria-modal="true"
-          aria-label={`${selectedCert.title} certificate preview`}
+          aria-label={`${selectedCert.title} ${t.founder.modalAriaSuffix}`}
           className="fixed inset-0 z-[200] flex items-center justify-center bg-black/80 p-4 backdrop-blur-md md:p-8"
           onClick={() => setSelectedCert(null)}
         >
@@ -235,7 +236,7 @@ export function FounderSection() {
                 onClick={() => setSelectedCert(null)}
                 className="min-h-[44px] rounded-lg border border-white/15 bg-white/10 px-3 py-1 text-[12px] font-medium text-white hover:bg-white/20 cursor-pointer"
               >
-                Close (ESC) &times;
+                {t.founder.closeEsc} &times;
               </button>
             </div>
 
@@ -250,7 +251,7 @@ export function FounderSection() {
 
             <div className="flex items-center justify-between border-t border-white/10 px-5 py-3.5 text-white">
               <span className="font-mono text-[11.5px] text-white/70">
-                Issued to {identity.name}
+                {t.founder.issuedToPrefix} {identity.name}
               </span>
               <a
                 href={selectedCert.pdf}
@@ -258,7 +259,7 @@ export function FounderSection() {
                 rel="noopener noreferrer"
                 className="btn-primary px-4 py-2 text-[12.5px] whitespace-nowrap"
               >
-                Open PDF <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
+                {t.founder.openPdf} <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
               </a>
             </div>
           </div>

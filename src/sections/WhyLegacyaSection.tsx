@@ -1,27 +1,9 @@
 import { triggerProjectScope } from '../core/identity'
-
-const DIFFERENTIATORS = [
-  {
-    index: '01.',
-    title: 'Direct to the builder',
-    description:
-      'You talk directly to me from brief to launch. No account managers or agency handoffs.',
-  },
-  {
-    index: '02.',
-    title: 'System + visuals in one scope',
-    description:
-      'Your website or internal tool ships with the product photos and ad reels that promote it.',
-  },
-  {
-    index: '03.',
-    title: 'Fast delivery, full ownership',
-    description:
-      'AI speeds up drafting while I review every detail. You keep all code, files and logins.',
-  },
-]
+import { useT } from '../i18n/context'
 
 export function WhyLegacyaSection() {
+  const { t } = useT()
+
   return (
     <section
       id="why-legacya"
@@ -33,15 +15,15 @@ export function WhyLegacyaSection() {
           data-animate
         >
           <div className="max-w-[640px]">
-            <p className="eyebrow mb-2.5">Why Legacya Sphere</p>
+            <p className="eyebrow mb-2.5">{t.whyLegacya.eyebrow}</p>
             <h2 className="display text-[clamp(1.85rem,3.4vw,2.75rem)] leading-[1.08] [text-wrap:balance]">
-              Why business owners work with a one-founder studio
+              {t.whyLegacya.heading}
             </h2>
           </div>
         </div>
 
         <div className="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
-          {DIFFERENTIATORS.map((item, i) => (
+          {t.whyLegacya.differentiators.map((item, i) => (
             <article
               key={item.index}
               className="card flex flex-col justify-between p-4 sm:p-5"
@@ -70,13 +52,13 @@ export function WhyLegacyaSection() {
           >
             <div>
               <span className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-blue-accent">
-                Next Step
+                {t.whyLegacya.callout.eyebrow}
               </span>
               <h3 className="mt-1.5 text-[1.1rem] font-semibold tracking-[-0.01em] text-white">
-                Tell me about your business
+                {t.whyLegacya.callout.heading}
               </h3>
               <p className="mt-1 text-[13px] leading-snug text-white/75">
-                Share your goal and I will reply within 1 business day.
+                {t.whyLegacya.callout.body}
               </p>
             </div>
             <button
@@ -84,7 +66,7 @@ export function WhyLegacyaSection() {
               onClick={() => triggerProjectScope({})}
               className="btn-primary mt-3.5 w-full whitespace-nowrap"
             >
-              Start a Project
+              {t.whyLegacya.callout.cta}
             </button>
           </div>
         </div>
