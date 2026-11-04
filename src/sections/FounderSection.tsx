@@ -61,7 +61,7 @@ export function FounderSection() {
           <div className="w-[140px] sm:w-full" data-animate>
             <div className="overflow-hidden rounded-2xl border border-border bg-raised shadow-sm">
               <img
-                src={asset('img-04.webp')}
+                src={`${asset('img-04.webp')}?v=updated`}
                 alt={`${identity.name}, Founder of ${identity.company}`}
                 referrerPolicy="no-referrer"
                 className="aspect-[3/4] w-full object-cover object-center"
