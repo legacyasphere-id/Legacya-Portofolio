@@ -448,6 +448,8 @@ export const en = {
       type: 'Internal Business Operations System',
       industry: 'Warehouse & Distribution',
       workClassification: 'Self-initiated reference build · Live demo',
+      buildNotes:
+        'Built in 1-2 weeks · Multi-team role access · Complete purchase order tracking · Automatic low-stock alerts',
       caseStudy: {
         challenge:
           'Growing warehouse and distribution teams often rely on disconnected spreadsheets to track inventory. This leads to stock count errors, delayed restocking decisions, and a lack of clear visibility between warehouse staff and purchasing managers.',
@@ -471,11 +473,13 @@ export const en = {
       ],
     },
     'ai-cv-screening': {
-      name: 'Allure Talent Evaluation System',
+      name: 'Talent Evaluation System',
       tagline: 'Recruitment screening concept built around a real hiring workflow',
       type: 'Custom Business Tool & Workflow Automation',
       industry: 'Human Resources & Recruitment',
       workClassification: 'Self-initiated reference build · Live demo',
+      buildNotes:
+        'Built in 1-2 weeks · Consistent applicant evaluation · Side-by-side candidate comparisons · Exportable summaries',
       caseStudy: {
         challenge:
           'Hiring teams reviewing hundreds of resumes per job opening spend days reading differently formatted documents by hand, making it slow to shortlist qualified applicants and difficult to compare candidates fairly.',
@@ -493,8 +497,8 @@ export const en = {
         'Side-by-side visual comparison charts and one-click summary exports for hiring reviews',
       ],
       screenshotAlts: [
-        'Allure Talent Evaluation System dashboard showing applicant summaries and top-3 candidate comparison chart',
-        'Allure Talent Evaluation System job criteria setup and transparent candidate evaluation breakdown',
+        'Talent Evaluation System dashboard showing applicant summaries and top-3 candidate comparison chart',
+        'Talent Evaluation System job criteria setup and transparent candidate evaluation breakdown',
       ],
     },
     'brightpath-dental': {
@@ -503,6 +507,8 @@ export const en = {
       type: 'Business Website & Customer Experience',
       industry: 'Healthcare & Dental Clinics',
       workClassification: 'Self-initiated reference build · Live demo',
+      buildNotes:
+        'Built in 1-2 weeks · 24/7 bilingual patient Q&A (EN / ID) · Online appointment requests · Front-desk alerts',
       caseStudy: {
         challenge:
           'Clinics and service businesses frequently lose prospective customers outside business hours when visitors cannot get immediate, trustworthy answers about treatments, pricing, and doctor availability without calling the front desk.',
@@ -531,6 +537,8 @@ export const en = {
       type: 'Custom Operations & Point-of-Sale System',
       industry: 'Food & Beverage · Hospitality',
       workClassification: 'Self-initiated reference build · Live demo',
+      buildNotes:
+        'Built in 1-2 weeks · 9 tailored operational screens · Connected Cashier, Kitchen & Owner views · Live order timers',
       caseStudy: {
         challenge:
           'Restaurants and cafes relying on handwritten paper tickets and standalone cash registers face frequent kitchen bottlenecks, missed order notes, and slow end-of-day sales reconciliation.',

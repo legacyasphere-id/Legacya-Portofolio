@@ -23,8 +23,6 @@ const PROJECT_BASES: ProjectBase[] = [
     engagement: 'reference',
     status: 'live',
     featured: true,
-    // TODO(yoga): add buildNotes, e.g. "Built in 3 weeks · React · role-based access".
-    // Stack names are limited here: src/core/inquiry.test.ts bans developer jargon in this file.
     links: {
       live: 'https://mini-erp-frontend-tau.vercel.app/',
     },
@@ -36,14 +34,10 @@ const PROJECT_BASES: ProjectBase[] = [
   },
   {
     id: 'ai-cv-screening',
-    // TODO(yoga): confirm this wording. The product name still contains "Allure";
-    // consider renaming it so it does not read as a client engagement.
     category: 'Digital Experiences & Business Systems',
     engagement: 'reference',
     status: 'live',
     featured: true,
-    // TODO(yoga): add buildNotes, e.g. "Built in 3 weeks · React · role-based access".
-    // Stack names are limited here: src/core/inquiry.test.ts bans developer jargon in this file.
     links: {
       live: 'https://ai-powered-cv-screening-platform-fo.vercel.app',
     },
@@ -58,8 +52,6 @@ const PROJECT_BASES: ProjectBase[] = [
     engagement: 'reference',
     status: 'live',
     featured: true,
-    // TODO(yoga): add buildNotes, e.g. "Built in 3 weeks · React · role-based access".
-    // Stack names are limited here: src/core/inquiry.test.ts bans developer jargon in this file.
     links: {
       live: 'https://brightpath-dental.vercel.app',
     },
@@ -75,8 +67,6 @@ const PROJECT_BASES: ProjectBase[] = [
     engagement: 'reference',
     status: 'live',
     featured: true,
-    // TODO(yoga): add buildNotes, e.g. "Built in 3 weeks · React · role-based access".
-    // Stack names are limited here: src/core/inquiry.test.ts bans developer jargon in this file.
     links: {
       live: 'https://legacya-pos-ui.vercel.app',
     },
@@ -103,6 +93,7 @@ export function getProjects(lang: Lang = 'en'): Project[] {
       engagement: base.engagement,
       status: base.status,
       featured: base.featured,
+      buildNotes: copy.buildNotes,
       caseStudy: { ...copy.caseStudy },
       deliverables: [...copy.deliverables],
       links: base.links,

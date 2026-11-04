@@ -87,7 +87,7 @@ test.describe('Digital Work', () => {
     await expect(work.locator('h3', { hasText: 'InventoryOS' })).toBeVisible()
 
     const remaining: [string, string][] = [
-      ['Human Resources & Recruitment', 'Allure Talent Evaluation System'],
+      ['Human Resources & Recruitment', 'Talent Evaluation System'],
       ['Healthcare & Dental Clinics', 'BrightPath Clinic Website & Patient Portal'],
       ['Food & Beverage · Hospitality', 'Legacya Restaurant & Kitchen System'],
     ]

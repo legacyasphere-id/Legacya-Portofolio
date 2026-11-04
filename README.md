@@ -53,10 +53,11 @@ Every piece of work on the site says exactly what it is. This is the most import
 
 Search the codebase for `TODO(yoga)` to find every missing fact.
 
-### Copy rules
+### Copy & Language rules
 
-- First person ("I build", "Tell me about your business"). It is one founder, not an agency "we".
-- No em dashes in customer-facing copy.
+- Bilingual (`EN | ID`): Every visitor-facing string lives in `src/i18n/en.ts` and `src/i18n/id.ts` (`export const id: Dictionary = ...`). First visit uses `navigator.language` (`id*` starts in Bahasa Indonesia; otherwise English) and remembers the choice in `localStorage` under `legacya-lang`.
+- First person singular ("I build", "Tell me about your business" / "Saya membangun", "Ceritakan tentang bisnismu"). It is one founder, not an agency "we" / "kami". Indonesian copy uses the approachable, professional "kamu" tone.
+- No em dashes in customer-facing copy in either language.
 - No technical jargon in customer-facing files. `npm test` (`src/core/inquiry.test.ts`) fails if words like PostgreSQL, Prisma, Supabase or JWT appear, or if an em dash slips in.
 - Never invent client names, testimonials, metrics, prices or results.
 
@@ -68,24 +69,24 @@ Composed in order by `src/App.tsx`:
 
 | # | Section | Component | Description |
 |---|---------|-----------|-------------|
-| 0 | **Navigation** | `SiteNav`, `SectionGuide` | Fixed glass header with section links and a "Start a Project" action, plus the side section guide |
-| 1 | **Hero** | `HeroSection` | "Business systems. Brand visuals. One AI-native studio." with a 4-pillar strip: Systems, Automation & AI, Campaign visuals, Short-form video |
+| 0 | **Navigation** | `SiteNav`, `SectionGuide` | Fixed glass header with section links, `EN \| ID` language toggle, "Start a Project" action, plus the side section guide |
+| 1 | **Hero** | `HeroSection` | "Business systems. Brand visuals. One AI-native studio." with interactive "What do you need?" chooser chips |
 | 2 | **About** | `StudioIntroSection` | Who the studio works with and how |
 | 3 | **Services** | `SolutionsSection` | Three service pillars. Prices are hidden behind `SHOW_PRICING` |
-| 4 | **Digital Work** | `WorkSection` | Four self-initiated reference builds with live demos (InventoryOS, Allure Talent Evaluation System, BrightPath Clinic, Legacya Restaurant & Kitchen System) |
-| 5 | **Creative Work** | `CreativeWorkSection` | Six concept campaign studies (images and MP4 films), each badged as concept work |
-| 6 | **Process** | `ProcessSection` | Five steps: Discover, Define, Create, Refine, Deliver |
+| 4 | **Digital Work** | `WorkSection` | Four self-initiated reference builds with live demos (InventoryOS, Talent Evaluation System, BrightPath Clinic, Legacya Restaurant & Kitchen System) |
+| 5 | **Creative Work** | `CreativeWorkSection` | Six concept campaign studies (images and lazy-mounted MP4 films behind the video tab), each badged as concept work |
+| 6 | **Process** | `ProcessSection` | Four steps: Brief, Scope, Build, Handover |
 | 7 | **AI Workflow** | `AIWorkflowSection` | How AI is used: brief to spec, AI drafts and I direct, human review gates, you own everything |
-| 8 | **Why Legacya** | `WhyLegacyaSection` | Practical reasons to work with one partner across digital and creative |
+| 8 | **Why Legacya** | `WhyLegacyaSection` | Practical reasons to work with a one-founder studio across digital and creative |
 | 9 | **Founder** | `FounderSection` | Founder profile, Anthropic training certificates, contact links |
-| 10 | **Project Inquiry** | `CTASection` | Scope builder that composes a brief and sends it by WhatsApp or email |
-| 11 | **Footer** | `Footer` | Navigation, "What I Do", "How I Work" and contact channels |
+| 10 | **Project Inquiry** | `CTASection` | Scope builder that composes a brief in the active language (`EN` or `ID`) and sends it by WhatsApp or email |
+| 11 | **Footer** | `Footer` | Navigation, "Inquire by Service" links and direct contact channels |
 
 ---
 
 ## Design System
 
-A warm stone canvas paired with a deep architectural blue. Tokens live in `src/index.css`.
+A warm stone canvas paired with a deep architectural blue. Typography pairs **Instrument Serif** (editorial display headings) and **Sora** (UI headings) with **Inter** (body copy) and **Geist Mono** (metadata and numbered labels). Tokens live in `src/index.css`.
 
 | Token | Hex | Purpose |
 |-------|-----|---------|
@@ -119,7 +120,11 @@ Legacya-Portofolio/
 │   │   ├── identity.ts           # Studio identity, contact channels, feature flags, navigation events
 │   │   ├── site.ts               # SITE_URL and OG_IMAGE_URL used in index.html
 │   │   ├── inquiry.ts            # Inquiry validation and WhatsApp/email brief composer
-│   │   └── inquiry.test.ts       # Unit tests and customer-facing copy audit
+│   │   └── inquiry.test.ts       # Unit tests, i18n key parity checks, and customer-facing copy audit
+│   ├── i18n/
+│   │   ├── en.ts                 # English visitor-facing dictionary (source of truth for Dictionary type)
+│   │   ├── id.ts                 # Indonesian visitor-facing dictionary ("saya" / "kamu" tone)
+│   │   └── context.tsx           # LanguageProvider, useT() hook, localStorage & <html lang> sync
 │   ├── data/
 │   │   ├── projects.ts           # Digital work (self-initiated reference builds)
 │   │   └── creativeWork.ts       # Concept campaign studies
@@ -129,9 +134,9 @@ Legacya-Portofolio/
 │   ├── types/project.ts          # Shared TypeScript interfaces
 │   ├── utils/asset.ts            # BASE_URL-aware asset resolver for Vercel and GitHub Pages
 │   ├── App.tsx                   # Root layout composition
-│   ├── main.tsx                  # React entry point
+│   ├── main.tsx                  # React entry point wrapped in LanguageProvider
 │   └── index.css                 # Tailwind v4 theme tokens and component utilities
-├── tests/portfolio.spec.ts       # Playwright end-to-end tests (desktop + mobile)
+├── tests/portfolio.spec.ts       # Playwright end-to-end tests (desktop + mobile + EN/ID toggle)
 ├── index.html                    # Entry HTML with SEO, Open Graph and JSON-LD
 ├── vite.config.ts                # Vite config: base path per target, %SITE_URL% injection
 ├── playwright.config.ts          # E2E config (runs against `npm run preview`)
