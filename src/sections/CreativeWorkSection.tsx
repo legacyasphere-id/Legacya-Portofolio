@@ -1,14 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
-import { CREATIVE_WORK_ITEMS } from '../data/creativeWork'
+import { getCreativeWorkItems } from '../data/creativeWork'
 import type { CreativeWorkItem } from '../types/project'
 import { triggerProjectScope } from '../core/identity'
+import { useT } from '../i18n/context'
 
 type CreativeFilter =
   | 'Advertising & Campaign Assets'
   | 'Cinematic Video & Visual Production'
-
-// Shown on every self-initiated study so no piece implies a client relationship.
-const CONCEPT_BADGE = 'Concept work · not commissioned by the brand'
 
 const FILTER_TABS: CreativeFilter[] = [
   'Advertising & Campaign Assets',
@@ -100,7 +98,15 @@ function SmartPreviewVideo({
   )
 }
 
-function CreativeVisualPreview({ item }: { item: CreativeWorkItem }) {
+function CreativeVisualPreview({
+  item,
+  watchFilmBadge,
+  fullVisualBadge,
+}: {
+  item: CreativeWorkItem
+  watchFilmBadge: string
+  fullVisualBadge: string
+}) {
   return (
     <div
       className="relative h-[175px] w-full overflow-hidden sm:h-[230px]"
@@ -125,15 +131,19 @@ function CreativeVisualPreview({ item }: { item: CreativeWorkItem }) {
       )}
 
       <span className="pointer-events-none absolute bottom-2.5 right-2.5 rounded-md bg-black/75 px-2 py-0.5 font-mono text-[10px] font-medium text-white backdrop-blur-sm">
-        {item.videoUrl ? 'Watch Film +' : 'Full Visual +'}
+        {item.videoUrl ? watchFilmBadge : fullVisualBadge}
       </span>
     </div>
   )
 }
 
 export function CreativeWorkSection() {
+  const { lang, t } = useT()
+  const creativeItems = getCreativeWorkItems(lang)
   const [filter, setFilter] = useState<CreativeFilter>('Advertising & Campaign Assets')
-  const [selectedItem, setSelectedItem] = useState<CreativeWorkItem | null>(null)
+  const [selectedItemId, setSelectedItemId] = useState<string | null>(null)
+  const selectedItem =
+    creativeItems.find((item) => item.id === selectedItemId) ?? null
 
   useEffect(() => {
     const onSelectCreative = (e: Event) => {
@@ -149,15 +159,15 @@ export function CreativeWorkSection() {
   }, [])
 
   useEffect(() => {
-    if (!selectedItem) return
+    if (!selectedItemId) return
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setSelectedItem(null)
+      if (e.key === 'Escape') setSelectedItemId(null)
     }
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [selectedItem])
+  }, [selectedItemId])
 
-  const filteredItems = CREATIVE_WORK_ITEMS.filter((item) => item.category === filter)
+  const filteredItems = creativeItems.filter((item) => item.category === filter)
 
   return (
     <section
@@ -171,15 +181,13 @@ export function CreativeWorkSection() {
           data-animate
         >
           <div className="max-w-[640px]">
-            <p className="eyebrow mb-3">
-              Selected Work · Campaign Visuals &amp; Short Film
-            </p>
+            <p className="eyebrow mb-3">{t.creativeWork.eyebrow}</p>
             <h2 className="display text-[clamp(1.95rem,3.4vw,2.85rem)] leading-[1.08] [text-wrap:balance]">
-              Campaign visuals and product films built for launches
+              {t.creativeWork.heading}
             </h2>
           </div>
           <p className="max-w-[42ch] text-[15.5px] leading-relaxed text-muted">
-            Click any piece to watch the film or inspect the full campaign breakdown.
+            {t.creativeWork.subline}
           </p>
         </div>
 
@@ -190,7 +198,7 @@ export function CreativeWorkSection() {
         >
           <div
             role="group"
-            aria-label="Filter creative work by service category"
+            aria-label={t.creativeWork.filterAria}
             className="inline-flex flex-wrap gap-1 rounded-xl border border-border bg-surface p-1"
           >
             {FILTER_TABS.map((tab) => {
@@ -206,7 +214,7 @@ export function CreativeWorkSection() {
                       : 'text-muted hover:text-text'
                   }`}
                 >
-                  {tab}
+                  {t.creativeWork.tabs[tab]}
                 </button>
               )
             })}
@@ -221,28 +229,32 @@ export function CreativeWorkSection() {
             return (
               <article
                 key={item.id}
-                onClick={() => setSelectedItem(item)}
+                onClick={() => setSelectedItemId(item.id)}
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault()
-                    setSelectedItem(item)
+                    setSelectedItemId(item.id)
                   }
                 }}
-                aria-label={`Inspect ${item.title}`}
+                aria-label={`${t.creativeWork.inspectPrefix} ${item.title}`}
                 className="card card-hover group flex cursor-pointer flex-col justify-between overflow-hidden text-left"
                 data-animate
               >
                 <div className="w-full border-b border-border">
-                  <CreativeVisualPreview item={item} />
+                  <CreativeVisualPreview
+                    item={item}
+                    watchFilmBadge={t.creativeWork.watchFilmBadge}
+                    fullVisualBadge={t.creativeWork.fullVisualBadge}
+                  />
                 </div>
 
                 <div className="flex flex-1 flex-col justify-between p-3.5 sm:p-5">
                   <div>
                     {item.engagement === 'concept' && (
                       <p className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-[0.08em] text-muted">
-                        {CONCEPT_BADGE}
+                        {t.creativeWork.conceptBadge}
                       </p>
                     )}
 
@@ -266,9 +278,9 @@ export function CreativeWorkSection() {
         <div
           role="dialog"
           aria-modal="true"
-          aria-label={`${selectedItem.title} creative direction details`}
+          aria-label={`${selectedItem.title} ${t.creativeWork.modalAriaSuffix}`}
           className="fixed inset-0 z-[200] flex items-center justify-center bg-black/85 p-4 backdrop-blur-md md:p-10"
-          onClick={() => setSelectedItem(null)}
+          onClick={() => setSelectedItemId(null)}
         >
           <div
             className="relative flex max-h-[92vh] w-full max-w-[980px] flex-col overflow-hidden rounded-2xl border border-white/15 bg-[#121620] text-white shadow-2xl"
@@ -277,23 +289,23 @@ export function CreativeWorkSection() {
             <div className="flex items-center justify-between border-b border-white/10 px-6 py-4">
               <div>
                 <p className="font-mono text-[11px] text-white/70">
-                  {selectedItem.category} · {selectedItem.brandOrConcept}
+                  {t.creativeWork.tabs[selectedItem.category]} · {selectedItem.brandOrConcept}
                 </p>
                 <h3 className="mt-0.5 text-[1.2rem] font-semibold text-white">
                   {selectedItem.title}
                 </h3>
                 {selectedItem.engagement === 'concept' && (
                   <p className="mt-1 font-mono text-[10.5px] uppercase tracking-[0.14em] text-white/55">
-                    {CONCEPT_BADGE}
+                    {t.creativeWork.conceptBadge}
                   </p>
                 )}
               </div>
               <button
                 type="button"
-                onClick={() => setSelectedItem(null)}
+                onClick={() => setSelectedItemId(null)}
                 className="min-h-[44px] rounded-lg border border-white/15 bg-white/10 px-3 py-1.5 text-[12px] font-medium text-white hover:bg-white/20 cursor-pointer"
               >
-                Close (ESC) &times;
+                {t.creativeWork.closeEsc} &times;
               </button>
             </div>
 
@@ -344,7 +356,7 @@ export function CreativeWorkSection() {
               <div className="grid gap-6 md:grid-cols-2">
                 <div className="rounded-xl border border-white/10 bg-white/[0.04] p-5">
                   <p className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-blue-accent">
-                    Campaign Deliverables
+                    {t.creativeWork.campaignDeliverables}
                   </p>
                   <ul className="mt-3 space-y-2 text-[13.5px] leading-snug text-white/85">
                     {selectedItem.deliverables.map((d) => (
@@ -358,13 +370,13 @@ export function CreativeWorkSection() {
 
                 <div className="rounded-xl border border-white/10 bg-white/[0.04] p-5">
                   <p className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-blue-accent">
-                    Creative Direction &amp; Brand Impact
+                    {t.creativeWork.creativeDirectionHeading}
                   </p>
                   <p className="mt-3 text-[13.5px] leading-relaxed text-white/85">
                     {selectedItem.creativeDirection}
                   </p>
                   <p className="mt-3 border-t border-white/10 pt-3 text-[13px] text-white/75">
-                    <strong className="text-white">Intended Value:</strong>{' '}
+                    <strong className="text-white">{t.creativeWork.intendedValueLabel}</strong>{' '}
                     {selectedItem.intendedValue}
                   </p>
                 </div>
@@ -379,7 +391,7 @@ export function CreativeWorkSection() {
                 type="button"
                 onClick={() => {
                   const item = selectedItem
-                  setSelectedItem(null)
+                  setSelectedItemId(null)
                   triggerProjectScope({
                     serviceCategory: item.category,
                     projectReference: item.title,
@@ -387,7 +399,7 @@ export function CreativeWorkSection() {
                 }}
                 className="btn-primary px-5 py-2 text-[13px] whitespace-nowrap"
               >
-                Request Similar Work
+                {t.creativeWork.requestSimilar}
               </button>
             </div>
           </div>

@@ -1,30 +1,11 @@
-const STEPS = [
-  {
-    n: '01.',
-    title: 'Brief → structured spec',
-    detail: 'Your goals become a clear written spec before build starts.',
-  },
-  {
-    n: '02.',
-    title: 'AI drafts, I direct',
-    detail: 'Claude and Gemini draft fast; I direct architecture and design.',
-  },
-  {
-    n: '03.',
-    title: 'Human review gates',
-    detail: 'I review and test every screen, fact and asset before you see it.',
-  },
-  {
-    n: '04.',
-    title: 'You own everything',
-    detail: 'Full code, design files and account ownership at handover.',
-  },
-]
+import { useT } from '../i18n/context'
 
 // TODO(yoga): confirm tool list.
 const TOOLS = ['Claude Code', 'Gemini', 'Google Flow', 'Figma', 'Supabase', 'Vercel', 'n8n']
 
 export function AIWorkflowSection() {
+  const { t } = useT()
+
   return (
     <section
       id="ai-workflow"
@@ -36,18 +17,18 @@ export function AIWorkflowSection() {
           data-animate
         >
           <div className="max-w-[640px]">
-            <p className="eyebrow mb-3">AI Workflow</p>
+            <p className="eyebrow mb-3">{t.aiWorkflow.eyebrow}</p>
             <h2 className="display text-[clamp(1.95rem,3.4vw,2.85rem)] leading-[1.08] [text-wrap:balance]">
-              How I work with AI
+              {t.aiWorkflow.heading}
             </h2>
           </div>
           <p className="max-w-[44ch] text-[15.5px] leading-relaxed text-muted">
-            AI does the drafting. I own the decisions, the review and the result.
+            {t.aiWorkflow.subline}
           </p>
         </div>
 
         <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border lg:grid-cols-4">
-          {STEPS.map((step, i) => (
+          {t.aiWorkflow.steps.map((step, i) => (
             <div
               key={step.n}
               className="flex flex-col bg-surface p-4 sm:p-6"
@@ -58,7 +39,9 @@ export function AIWorkflowSection() {
                 <span className="font-mono text-[12.5px] font-semibold text-blue-deep tabular-nums">
                   {step.n}
                 </span>
-                <span className="font-mono text-[10px] text-dim">Step {i + 1}</span>
+                <span className="font-mono text-[10px] text-dim">
+                  {t.aiWorkflow.stepLabel} {i + 1}
+                </span>
               </div>
               <h3 className="text-[1.05rem] sm:text-[1.15rem] font-semibold tracking-[-0.02em] text-text">
                 {step.title}

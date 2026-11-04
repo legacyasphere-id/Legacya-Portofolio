@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react'
 import { ArrowUpRight } from 'lucide-react'
-import { projects } from '../data/projects'
+import { getProjects } from '../data/projects'
 import { triggerProjectScope } from '../core/identity'
+import { useT } from '../i18n/context'
 
 export function WorkSection() {
+  const { lang, t } = useT()
+  const projects = getProjects(lang)
   const [activeId, setActiveId] = useState(projects[0]?.id ?? 'inventory-os')
   const [screenshotIdx, setScreenshotIdx] = useState(0)
   const [lightboxOpen, setLightboxOpen] = useState(false)
@@ -24,7 +27,7 @@ export function WorkSection() {
     }
     window.addEventListener('legacya:select-project', onSelectProject)
     return () => window.removeEventListener('legacya:select-project', onSelectProject)
-  }, [])
+  }, [projects])
 
   useEffect(() => {
     if (!lightboxOpen) return
@@ -55,9 +58,9 @@ export function WorkSection() {
           data-animate
         >
           <div className="max-w-[640px]">
-            <p className="eyebrow mb-2.5">Selected Work · Digital Systems</p>
+            <p className="eyebrow mb-2.5">{t.work.eyebrow}</p>
             <h2 className="display text-[clamp(1.85rem,3.4vw,2.75rem)] leading-[1.08] [text-wrap:balance]">
-              Live websites and business tools you can try today
+              {t.work.heading}
             </h2>
           </div>
         </div>
@@ -65,7 +68,7 @@ export function WorkSection() {
         {/* Interactive Folder Tabs */}
         <div
           role="tablist"
-          aria-label="Selected digital systems by industry"
+          aria-label={t.work.tablistAria}
           className="scrollbar-none -mb-px flex gap-1.5 overflow-x-auto"
           data-animate
         >
@@ -117,7 +120,7 @@ export function WorkSection() {
                   setLightboxOpen(true)
                 }
               }}
-              aria-label={`Expand ${currentScreenshot?.alt ?? active.name} preview`}
+              aria-label={`${t.work.expandPreviewPrefix} ${currentScreenshot?.alt ?? active.name} ${t.work.expandPreviewSuffix}`}
               className="group relative aspect-[16/10] w-full cursor-zoom-in overflow-hidden rounded-xl border border-border bg-surface shadow-sm"
             >
               {currentScreenshot ? (
@@ -133,7 +136,7 @@ export function WorkSection() {
                 </div>
               )}
               <span className="pointer-events-none absolute bottom-3 right-3 rounded-md bg-black/75 px-2.5 py-1 font-mono text-[10.5px] font-medium text-white backdrop-blur-sm">
-                View Details +
+                {t.work.viewDetailsBadge}
               </span>
             </div>
 
@@ -146,7 +149,7 @@ export function WorkSection() {
                       key={shot.src}
                       type="button"
                       onClick={() => setScreenshotIdx(idx)}
-                      aria-label={`View screen ${idx + 1}: ${shot.alt}`}
+                      aria-label={`${t.work.viewScreenPrefix} ${idx + 1}: ${shot.alt}`}
                       className={`group relative aspect-[16/10] overflow-hidden rounded-lg border transition-all duration-150 cursor-pointer ${
                         isSelected
                           ? 'border-blue-deep ring-2 ring-blue-deep/25'
@@ -197,7 +200,7 @@ export function WorkSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Try Live Demo
+                  {t.work.tryLiveDemo}
                   <span aria-hidden="true">&rarr;</span>
                 </a>
               )}
@@ -207,7 +210,7 @@ export function WorkSection() {
                 onClick={() => setLightboxOpen(true)}
                 className="btn-secondary px-4 py-2 text-[13.5px] whitespace-nowrap"
               >
-                View Details
+                {t.work.viewDetails}
               </button>
 
               <button
@@ -220,7 +223,7 @@ export function WorkSection() {
                 }
                 className="btn-primary px-4 py-2 text-[13.5px] whitespace-nowrap"
               >
-                Request Similar Work
+                {t.work.requestSimilar}
               </button>
             </div>
           </div>
@@ -232,7 +235,7 @@ export function WorkSection() {
         <div
           role="dialog"
           aria-modal="true"
-          aria-label={`${active.name} screen preview`}
+          aria-label={`${active.name} ${t.work.modalAriaSuffix}`}
           className="fixed inset-0 z-[200] flex items-center justify-center bg-black/85 p-4 backdrop-blur-md md:p-10"
           onClick={() => setLightboxOpen(false)}
         >
@@ -254,7 +257,7 @@ export function WorkSection() {
                 onClick={() => setLightboxOpen(false)}
                 className="min-h-[44px] rounded-lg border border-white/15 bg-white/10 px-3 py-1.5 text-[12px] font-medium text-white hover:bg-white/20 cursor-pointer"
               >
-                Close (ESC) &times;
+                {t.work.closeEsc} &times;
               </button>
             </div>
 
@@ -280,7 +283,7 @@ export function WorkSection() {
                         }
                         className="min-h-[44px] inline-flex items-center rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 text-[12px] text-white hover:bg-white/15 whitespace-nowrap cursor-pointer"
                       >
-                        &larr; Previous
+                        &larr; {t.work.previous}
                       </button>
                       <button
                         type="button"
@@ -289,7 +292,7 @@ export function WorkSection() {
                         }
                         className="min-h-[44px] inline-flex items-center rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 text-[12px] text-white hover:bg-white/15 whitespace-nowrap cursor-pointer"
                       >
-                        Next &rarr;
+                        {t.work.next} &rarr;
                       </button>
                     </div>
                   )}
@@ -299,7 +302,7 @@ export function WorkSection() {
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="rounded-xl border border-white/10 bg-white/[0.04] p-4">
                   <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-blue-accent">
-                    Business Challenge
+                    {t.work.businessChallenge}
                   </p>
                   <p className="mt-1.5 text-[13.5px] leading-relaxed text-white/80">
                     {active.caseStudy.challenge}
@@ -307,7 +310,7 @@ export function WorkSection() {
                 </div>
                 <div className="rounded-xl border border-white/10 bg-white/[0.04] p-4">
                   <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-blue-accent">
-                    What I Built
+                    {t.work.whatIBuilt}
                   </p>
                   <p className="mt-1.5 text-[13.5px] leading-relaxed text-white/80">
                     {active.caseStudy.solution}
@@ -317,7 +320,7 @@ export function WorkSection() {
 
               <div className="rounded-xl border border-white/10 bg-white/[0.04] p-4">
                 <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-blue-accent">
-                  Deliverables
+                  {t.work.deliverables}
                 </p>
                 <ul className="mt-2.5 grid gap-2 sm:grid-cols-2 text-[13px] text-white/85">
                   {active.deliverables.map((item) => (
@@ -338,7 +341,7 @@ export function WorkSection() {
                   rel="noopener noreferrer"
                   className="font-mono text-[12px] text-blue-accent hover:underline"
                 >
-                  Open Live Demo <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
+                  {t.work.openLiveDemo} <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
                 </a>
               )}
               <button
@@ -352,7 +355,7 @@ export function WorkSection() {
                 }}
                 className="btn-primary px-4 py-2 text-[13px] whitespace-nowrap"
               >
-                Request Similar Work
+                {t.work.requestSimilar}
               </button>
             </div>
           </div>

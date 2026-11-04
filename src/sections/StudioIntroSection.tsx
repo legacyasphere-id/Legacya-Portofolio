@@ -1,24 +1,9 @@
 import { triggerProjectScope } from '../core/identity'
-
-const AUDIENCE_SEGMENTS = [
-  {
-    index: '01.',
-    title: 'Spreadsheets slowing daily operations',
-    detail: 'One live dashboard for stock, sales or bookings.',
-  },
-  {
-    index: '02.',
-    title: 'Outdated website losing buyer trust',
-    detail: 'A fast, mobile-first site that turns visitors into inquiries.',
-  },
-  {
-    index: '03.',
-    title: 'Product launch without visuals',
-    detail: 'Key visuals, social ads and short product films ready for ads.',
-  },
-]
+import { useT } from '../i18n/context'
 
 export function StudioIntroSection() {
+  const { t } = useT()
+
   return (
     <section
       id="about"
@@ -28,15 +13,13 @@ export function StudioIntroSection() {
         <div className="grid gap-6 lg:grid-cols-[1.15fr_1fr] lg:items-start lg:gap-12">
           {/* Left Column: Concrete Problem & Result */}
           <div data-animate>
-            <p className="eyebrow mb-2.5">About</p>
+            <p className="eyebrow mb-2.5">{t.about.eyebrow}</p>
             <h2 className="display text-[clamp(1.85rem,3.4vw,2.85rem)] leading-[1.08] [text-wrap:balance]">
-              Your website, internal tools and campaign visuals, built by one person.
+              {t.about.heading}
             </h2>
 
             <p className="mt-3.5 text-[16.5px] leading-[1.6] text-muted">
-              Web vendors rarely care about brand look, and creative agencies do
-              not build software. I do both directly with an AI-assisted workflow,
-              so your system and your visuals ship together in weeks.
+              {t.about.body}
             </p>
 
             <div className="mt-5 flex flex-wrap items-center gap-4 border-t border-border pt-4">
@@ -45,13 +28,13 @@ export function StudioIntroSection() {
                 onClick={() => triggerProjectScope({})}
                 className="btn-primary whitespace-nowrap"
               >
-                Start a Project
+                {t.about.primaryCta}
               </button>
               <a
                 href="#work"
                 className="link-sweep whitespace-nowrap"
               >
-                See My Work
+                {t.about.secondaryCta}
                 <span aria-hidden="true">&rarr;</span>
               </a>
             </div>
@@ -60,11 +43,11 @@ export function StudioIntroSection() {
           {/* Right Column: Concrete Situations */}
           <div className="card p-4 sm:p-6" data-animate data-delay="100">
             <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-blue-deep">
-              Problems I Solve
+              {t.about.cardTitle}
             </p>
 
             <div className="mt-3 divide-y divide-border">
-              {AUDIENCE_SEGMENTS.map((seg) => (
+              {t.about.segments.map((seg) => (
                 <div key={seg.index} className="py-2.5 first:pt-0 last:pb-0">
                   <div className="flex items-baseline gap-2">
                     <span className="font-mono text-[12px] font-semibold text-blue-deep tabular-nums">

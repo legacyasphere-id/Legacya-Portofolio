@@ -1,37 +1,8 @@
-const STEPS = [
-  {
-    n: '01.',
-    title: 'Discover',
-    deliverable: 'Written Brief',
-    detail: 'You share your goal, audience and current bottleneck.',
-  },
-  {
-    n: '02.',
-    title: 'Define',
-    deliverable: 'Scope & Timeline',
-    detail: 'I lock the deliverables, screens and schedule before work starts.',
-  },
-  {
-    n: '03.',
-    title: 'Create',
-    deliverable: 'Working Drafts',
-    detail: 'I build the site, tool or campaign visuals and share live previews.',
-  },
-  {
-    n: '04.',
-    title: 'Refine',
-    deliverable: 'Focused Revisions',
-    detail: 'You and I review the work together and adjust copy, flow and visuals.',
-  },
-  {
-    n: '05.',
-    title: 'Deliver',
-    deliverable: 'Launch & Handover',
-    detail: 'Your project goes live and I hand over every file, repo and login.',
-  },
-]
+import { useT } from '../i18n/context'
 
 export function ProcessSection() {
+  const { t } = useT()
+
   return (
     <section
       id="process"
@@ -43,15 +14,15 @@ export function ProcessSection() {
           data-animate
         >
           <div className="max-w-[640px]">
-            <p className="eyebrow mb-2.5">How I Work</p>
+            <p className="eyebrow mb-2.5">{t.process.eyebrow}</p>
             <h2 className="display text-[clamp(1.85rem,3.4vw,2.75rem)] leading-[1.08] [text-wrap:balance]">
-              Five clear steps from brief to launch
+              {t.process.heading}
             </h2>
           </div>
         </div>
 
         <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border lg:grid-cols-5">
-          {STEPS.map((step, i) => (
+          {t.process.steps.map((step, i) => (
             <div
               key={step.n}
               className="group relative flex flex-col justify-between bg-surface p-4 sm:p-6"

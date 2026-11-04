@@ -1,53 +1,33 @@
 import { triggerProjectScope } from '../core/identity'
 import { SERVICE_OPTIONS } from '../core/inquiry'
-
-const NEED_CHIPS = [
-  {
-    label: 'Website',
-    serviceCategory: SERVICE_OPTIONS[0].label,
-    objective: SERVICE_OPTIONS[0].objectives[0],
-  },
-  {
-    label: 'Internal tool',
-    serviceCategory: SERVICE_OPTIONS[0].label,
-    objective: SERVICE_OPTIONS[0].objectives[1],
-  },
-  {
-    label: 'Automation',
-    serviceCategory: SERVICE_OPTIONS[0].label,
-    objective: SERVICE_OPTIONS[0].objectives[2],
-  },
-  {
-    label: 'Visuals',
-    serviceCategory: SERVICE_OPTIONS[1].label,
-    objective: SERVICE_OPTIONS[1].objectives[0],
-  },
-] as const
-
-const STUDIO_PILLARS = [
-  {
-    index: '01.',
-    unit: 'Systems',
-    detail: 'Websites, portals and tools that replace spreadsheets.',
-  },
-  {
-    index: '02.',
-    unit: 'Automation & AI',
-    detail: 'Workflows that cut repetitive manual tasks.',
-  },
-  {
-    index: '03.',
-    unit: 'Campaign visuals',
-    detail: 'Key visuals and product imagery for launches.',
-  },
-  {
-    index: '04.',
-    unit: 'Short-form video',
-    detail: 'Product films and vertical reels for ads.',
-  },
-]
+import { useT } from '../i18n/context'
 
 export function HeroSection() {
+  const { t } = useT()
+
+  const needChips = [
+    {
+      label: t.hero.chips.website,
+      serviceCategory: SERVICE_OPTIONS[0].id,
+      objective: SERVICE_OPTIONS[0].objectives[0],
+    },
+    {
+      label: t.hero.chips.internalTool,
+      serviceCategory: SERVICE_OPTIONS[0].id,
+      objective: SERVICE_OPTIONS[0].objectives[1],
+    },
+    {
+      label: t.hero.chips.automation,
+      serviceCategory: SERVICE_OPTIONS[0].id,
+      objective: SERVICE_OPTIONS[0].objectives[2],
+    },
+    {
+      label: t.hero.chips.visuals,
+      serviceCategory: SERVICE_OPTIONS[1].id,
+      objective: SERVICE_OPTIONS[1].objectives[0],
+    },
+  ]
+
   return (
     <section
       id="hero"
@@ -69,10 +49,12 @@ export function HeroSection() {
               data-animate
               data-delay="100"
             >
-              <span className="block">Business systems.</span>
-              <span className="block">Brand visuals.</span>
+              <span className="block">{t.hero.headlineLine1}</span>
+              <span className="block">{t.hero.headlineLine2}</span>
               <span className="block text-blue-deep">
-                One <span className="whitespace-nowrap">AI-native</span> studio.
+                {t.hero.headlineLine3Prefix}
+                <span className="whitespace-nowrap">{t.hero.headlineLine3NoWrap}</span>
+                {t.hero.headlineLine3Suffix}
               </span>
             </h1>
 
@@ -81,8 +63,7 @@ export function HeroSection() {
               data-animate
               data-delay="200"
             >
-              Websites, internal tools and AI automations, plus the campaign
-              visuals that sell them. One founder, faster than an agency.
+              {t.hero.subline}
             </p>
 
             {/* "What do you need?" Service Chooser Chips */}
@@ -92,10 +73,10 @@ export function HeroSection() {
               data-delay="250"
             >
               <span className="font-mono text-[11.5px] font-medium uppercase tracking-[0.12em] text-muted sm:mr-1">
-                What do you need?
+                {t.hero.needPrompt}
               </span>
               <div className="grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto sm:flex-wrap">
-                {NEED_CHIPS.map((chip) => (
+                {needChips.map((chip) => (
                   <button
                     key={chip.label}
                     type="button"
@@ -125,16 +106,16 @@ export function HeroSection() {
               onClick={() => triggerProjectScope({})}
               className="btn-primary btn-lg w-full whitespace-nowrap"
             >
-              Start a Project
+              {t.hero.primaryCta}
             </button>
             <a
               href="#work"
               className="btn-secondary btn-lg w-full bg-bg/70 text-center whitespace-nowrap"
             >
-              See My Work
+              {t.hero.secondaryCta}
             </a>
             <p className="mt-0.5 text-center font-mono text-[11px] leading-snug text-text/80 lg:text-left">
-              Founder-led · Bekasi, Indonesia
+              {t.hero.locationLine}
             </p>
           </div>
         </div>
@@ -147,9 +128,9 @@ export function HeroSection() {
         data-delay="400"
       >
         <div className="grid w-full grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border lg:grid-cols-4">
-          {STUDIO_PILLARS.map((item) => (
+          {t.hero.pillars.map((item) => (
             <div
-              key={item.unit}
+              key={item.index}
               className="flex flex-col justify-between bg-surface/95 p-4 sm:p-5 text-left backdrop-blur-md"
             >
               <div>

@@ -1,22 +1,24 @@
 import { useEffect, useState } from 'react'
+import { useT } from '../i18n/context'
 
-const SECTIONS = [
-  { id: 'hero', label: 'Home' },
-  { id: 'about', label: 'Studio' },
-  { id: 'services', label: 'Services' },
-  { id: 'work', label: 'Digital Work' },
-  { id: 'creative-work', label: 'Creative Work' },
-  { id: 'process', label: 'Process' },
-  { id: 'ai-workflow', label: 'AI Workflow' },
-  { id: 'why-legacya', label: 'Why Legacya' },
-  { id: 'contact', label: 'Inquire' },
-]
+const SECTION_IDS = [
+  'hero',
+  'about',
+  'services',
+  'work',
+  'creative-work',
+  'process',
+  'ai-workflow',
+  'why-legacya',
+  'contact',
+] as const
 
 export function SectionGuide() {
+  const { t } = useT()
   const [active, setActive] = useState<string>('hero')
 
   useEffect(() => {
-    const targets = SECTIONS.map((s) => document.getElementById(s.id)).filter(
+    const targets = SECTION_IDS.map((id) => document.getElementById(id)).filter(
       (el): el is HTMLElement => el !== null,
     )
 
@@ -36,23 +38,24 @@ export function SectionGuide() {
 
   return (
     <nav
-      aria-label="Section guide"
+      aria-label={t.sectionGuide.ariaLabel}
       className="fixed right-4 top-1/2 z-50 hidden -translate-y-1/2 flex-col items-end gap-3 lg:flex"
     >
-      {SECTIONS.map((s) => {
-        const isActive = active === s.id
+      {SECTION_IDS.map((id) => {
+        const isActive = active === id
+        const label = t.sectionGuide.sections[id]
         return (
           <a
-            key={s.id}
-            href={`#${s.id}`}
-            aria-label={s.label}
+            key={id}
+            href={`#${id}`}
+            aria-label={label}
             aria-current={isActive ? 'true' : undefined}
             className="group flex items-center justify-end gap-2.5"
           >
             <span
               className="pointer-events-none rounded-md border border-border/70 bg-surface/95 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-blue-deep opacity-0 shadow-sm backdrop-blur transition-opacity duration-200 group-hover:opacity-100 whitespace-nowrap"
             >
-              {s.label}
+              {label}
             </span>
             <span
               className={`h-2 w-2 shrink-0 rounded-full ring-1 ring-inset transition-all duration-200 ${
