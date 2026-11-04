@@ -1,8 +1,19 @@
+import { en } from '../i18n/en.ts'
+import { id } from '../i18n/id.ts'
+import type { Lang } from '../i18n/context.tsx'
+
 export type ServiceCategoryId =
   | 'digital-systems'
   | 'advertising-assets'
   | 'cinematic-video'
   | 'combined-engagement'
+
+export const SERVICE_CATEGORY_IDS: ServiceCategoryId[] = [
+  'digital-systems',
+  'advertising-assets',
+  'cinematic-video',
+  'combined-engagement',
+]
 
 export interface ServiceOption {
   id: ServiceCategoryId
@@ -12,66 +23,31 @@ export interface ServiceOption {
   objectives: string[]
 }
 
-export const SERVICE_OPTIONS: ServiceOption[] = [
-  {
-    id: 'digital-systems',
-    label: 'Digital Experiences & Business Systems',
-    shortLabel: 'Digital & Business Systems',
-    summary:
-      'Websites, customer portals, internal tools and workflow automation.',
-    objectives: [
-      'Launch or modernize a company website & digital customer experience',
-      'Replace manual spreadsheets with a connected internal business system',
-      'Simplify repetitive daily workflows & customer inquiry handling',
-      'Unify sales, stock, or operations into one central dashboard',
-    ],
-  },
-  {
-    id: 'advertising-assets',
-    label: 'Advertising & Campaign Assets',
-    shortLabel: 'Advertising & Campaign Assets',
-    summary:
-      'Campaign key visuals, product imagery and social ad creatives.',
-    objectives: [
-      'Develop visual concepts and campaign imagery for an upcoming product launch',
-      'Create high-impact product and promotional visuals for digital advertising',
-      'Produce cohesive social media advertising assets for a campaign',
-      'Establish visual direction and campaign materials to grow brand awareness',
-    ],
-  },
-  {
-    id: 'cinematic-video',
-    label: 'Cinematic Video & Visual Production',
-    shortLabel: 'Cinematic Video & Production',
-    summary:
-      'Short product films, vertical reels and motion storyboards.',
-    objectives: [
-      'Produce a cinematic advertising video or product promotional film',
-      'Create short-form campaign videos and cinematic social media reels',
-      'Develop a visual brand story or launch film for a product',
-      'Explore visual storyboards and motion concepts for a campaign',
-    ],
-  },
-  {
-    id: 'combined-engagement',
-    label: 'Combined Brand, Creative & Digital Engagement',
-    shortLabel: 'Combined Studio Partnership',
-    summary:
-      'Website or internal tool plus launch visuals and video in one scope.',
-    objectives: [
-      'Launch a brand or product with both a website and campaign visuals',
-      'Refresh digital presence alongside coordinated advertising & video assets',
-      'Partner on ongoing digital improvements and seasonal campaign production',
-    ],
-  },
-]
+function getDict(lang: Lang = 'en') {
+  return lang === 'id' ? id : en
+}
 
-export const TIMELINE_OPTIONS = [
-  'Immediate (Ready to start within 1 to 2 weeks)',
-  'Within 30 Days',
-  '1 to 3 Months (Planning upcoming launch or quarter)',
-  'Flexible / Exploring options & scope',
-] as const
+export function getServiceOptions(lang: Lang = 'en'): ServiceOption[] {
+  const dict = getDict(lang)
+  return SERVICE_CATEGORY_IDS.map((serviceId) => {
+    const item = dict.inquiry.serviceOptions[serviceId]
+    return {
+      id: serviceId,
+      label: item.label,
+      shortLabel: item.shortLabel,
+      summary: item.summary,
+      objectives: [...item.objectives],
+    }
+  })
+}
+
+export function getTimelineOptions(lang: Lang = 'en'): readonly string[] {
+  return getDict(lang).inquiry.timelineOptions
+}
+
+export const SERVICE_OPTIONS: ServiceOption[] = getServiceOptions('en')
+
+export const TIMELINE_OPTIONS = en.inquiry.timelineOptions
 
 export interface InquiryFormInput {
   serviceCategory: string
@@ -89,38 +65,71 @@ export interface ValidationResult {
   error: string | null
 }
 
-export function getObjectivesForService(serviceLabelOrId: string): string[] {
-  const found = SERVICE_OPTIONS.find(
-    (s) =>
-      s.id === serviceLabelOrId ||
-      s.label.toLowerCase() === serviceLabelOrId.toLowerCase() ||
-      s.shortLabel.toLowerCase() === serviceLabelOrId.toLowerCase(),
-  )
-  return found ? found.objectives : SERVICE_OPTIONS[0].objectives
+export function resolveServiceId(serviceLabelOrId: string): ServiceCategoryId {
+  const normalized = serviceLabelOrId.trim().toLowerCase()
+  for (const serviceId of SERVICE_CATEGORY_IDS) {
+    if (serviceId === normalized) return serviceId
+    const enOpt = en.inquiry.serviceOptions[serviceId]
+    const idOpt = id.inquiry.serviceOptions[serviceId]
+    if (
+      enOpt.label.toLowerCase() === normalized ||
+      enOpt.shortLabel.toLowerCase() === normalized ||
+      idOpt.label.toLowerCase() === normalized ||
+      idOpt.shortLabel.toLowerCase() === normalized
+    ) {
+      return serviceId
+    }
+  }
+  return 'digital-systems'
 }
 
-export function resolveServiceLabel(serviceLabelOrId: string): string {
-  const found = SERVICE_OPTIONS.find(
-    (s) =>
-      s.id === serviceLabelOrId ||
-      s.label.toLowerCase() === serviceLabelOrId.toLowerCase() ||
-      s.shortLabel.toLowerCase() === serviceLabelOrId.toLowerCase(),
-  )
-  return found ? found.label : SERVICE_OPTIONS[0].label
+export function resolveObjectiveIndex(
+  serviceId: ServiceCategoryId,
+  objectiveText?: string,
+): number {
+  if (!objectiveText) return 0
+  const normalized = objectiveText.trim().toLowerCase()
+  const enObjs = en.inquiry.serviceOptions[serviceId].objectives
+  const idObjs = id.inquiry.serviceOptions[serviceId].objectives
+  const enIdx = enObjs.findIndex((o) => o.toLowerCase() === normalized)
+  if (enIdx !== -1) return enIdx
+  const idIdx = idObjs.findIndex((o) => o.toLowerCase() === normalized)
+  if (idIdx !== -1) return idIdx
+  return 0
 }
 
-export function validateInquiryInput(input: Pick<InquiryFormInput, 'name' | 'contactInfo'>): ValidationResult {
+export function getObjectivesForService(
+  serviceLabelOrId: string,
+  lang: Lang = 'en',
+): string[] {
+  const serviceId = resolveServiceId(serviceLabelOrId)
+  return [...getDict(lang).inquiry.serviceOptions[serviceId].objectives]
+}
+
+export function resolveServiceLabel(
+  serviceLabelOrId: string,
+  lang: Lang = 'en',
+): string {
+  const serviceId = resolveServiceId(serviceLabelOrId)
+  return getDict(lang).inquiry.serviceOptions[serviceId].label
+}
+
+export function validateInquiryInput(
+  input: Pick<InquiryFormInput, 'name' | 'contactInfo'>,
+  lang: Lang = 'en',
+): ValidationResult {
+  const v = getDict(lang).inquiry.validation
   if (!input.name.trim()) {
     return {
       valid: false,
-      error: 'Please enter your name so I know how to address you.',
+      error: v.missingName,
     }
   }
   const contact = input.contactInfo.trim()
   if (!contact) {
     return {
       valid: false,
-      error: 'Please provide your email or WhatsApp number so I can reply.',
+      error: v.missingContact,
     }
   }
   const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact)
@@ -128,25 +137,29 @@ export function validateInquiryInput(input: Pick<InquiryFormInput, 'name' | 'con
   if (!isEmail && !isPhone) {
     return {
       valid: false,
-      error: 'Please enter a valid email address (e.g. name@company.com) or phone/WhatsApp number.',
+      error: v.invalidContact,
     }
   }
   return { valid: true, error: null }
 }
 
-export function composeInquiryBrief(input: InquiryFormInput): string {
+export function composeInquiryBrief(
+  input: InquiryFormInput,
+  lang: Lang = 'en',
+): string {
+  const b = getDict(lang).inquiry.brief
   const lines = [
-    `Hello Yoga (Legacya Sphere),`,
+    b.greeting,
     ``,
-    `I would like to discuss a project with you:`,
-    `• Name: ${input.name.trim() || 'Not specified'}`,
-    `• Business / Brand: ${input.company.trim() || 'Not specified'}`,
-    `• Contact (Email / WhatsApp): ${input.contactInfo.trim() || 'Not specified'}`,
-    `• Service of Interest: ${input.serviceCategory}`,
-    `• Primary Objective: ${input.objective}`,
-    input.referenceWork ? `• Reference Work: ${input.referenceWork}` : null,
-    `• Desired Timeline: ${input.timeline}`,
-    input.notes.trim() ? `• Project Context & Goals: ${input.notes.trim()}` : null,
+    b.intro,
+    `• ${b.name}: ${input.name.trim() || b.notSpecified}`,
+    `• ${b.company}: ${input.company.trim() || b.notSpecified}`,
+    `• ${b.contact}: ${input.contactInfo.trim() || b.notSpecified}`,
+    `• ${b.service}: ${input.serviceCategory}`,
+    `• ${b.objective}: ${input.objective}`,
+    input.referenceWork ? `• ${b.referenceWork}: ${input.referenceWork}` : null,
+    `• ${b.timeline}: ${input.timeline}`,
+    input.notes.trim() ? `• ${b.notes}: ${input.notes.trim()}` : null,
   ].filter(Boolean)
 
   return lines.join('\n')

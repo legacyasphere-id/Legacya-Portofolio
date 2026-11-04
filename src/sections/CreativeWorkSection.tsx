@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { CREATIVE_WORK_ITEMS } from '../data/creativeWork'
+import { getCreativeWorkItems } from '../data/creativeWork'
 import type { CreativeWorkItem } from '../types/project'
 import { triggerProjectScope } from '../core/identity'
 import { useT } from '../i18n/context'
@@ -138,9 +138,12 @@ function CreativeVisualPreview({
 }
 
 export function CreativeWorkSection() {
-  const { t } = useT()
+  const { lang, t } = useT()
+  const creativeItems = getCreativeWorkItems(lang)
   const [filter, setFilter] = useState<CreativeFilter>('Advertising & Campaign Assets')
-  const [selectedItem, setSelectedItem] = useState<CreativeWorkItem | null>(null)
+  const [selectedItemId, setSelectedItemId] = useState<string | null>(null)
+  const selectedItem =
+    creativeItems.find((item) => item.id === selectedItemId) ?? null
 
   useEffect(() => {
     const onSelectCreative = (e: Event) => {
@@ -156,15 +159,15 @@ export function CreativeWorkSection() {
   }, [])
 
   useEffect(() => {
-    if (!selectedItem) return
+    if (!selectedItemId) return
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setSelectedItem(null)
+      if (e.key === 'Escape') setSelectedItemId(null)
     }
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [selectedItem])
+  }, [selectedItemId])
 
-  const filteredItems = CREATIVE_WORK_ITEMS.filter((item) => item.category === filter)
+  const filteredItems = creativeItems.filter((item) => item.category === filter)
 
   return (
     <section
@@ -226,13 +229,13 @@ export function CreativeWorkSection() {
             return (
               <article
                 key={item.id}
-                onClick={() => setSelectedItem(item)}
+                onClick={() => setSelectedItemId(item.id)}
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault()
-                    setSelectedItem(item)
+                    setSelectedItemId(item.id)
                   }
                 }}
                 aria-label={`${t.creativeWork.inspectPrefix} ${item.title}`}
@@ -277,7 +280,7 @@ export function CreativeWorkSection() {
           aria-modal="true"
           aria-label={`${selectedItem.title} ${t.creativeWork.modalAriaSuffix}`}
           className="fixed inset-0 z-[200] flex items-center justify-center bg-black/85 p-4 backdrop-blur-md md:p-10"
-          onClick={() => setSelectedItem(null)}
+          onClick={() => setSelectedItemId(null)}
         >
           <div
             className="relative flex max-h-[92vh] w-full max-w-[980px] flex-col overflow-hidden rounded-2xl border border-white/15 bg-[#121620] text-white shadow-2xl"
@@ -299,7 +302,7 @@ export function CreativeWorkSection() {
               </div>
               <button
                 type="button"
-                onClick={() => setSelectedItem(null)}
+                onClick={() => setSelectedItemId(null)}
                 className="min-h-[44px] rounded-lg border border-white/15 bg-white/10 px-3 py-1.5 text-[12px] font-medium text-white hover:bg-white/20 cursor-pointer"
               >
                 {t.creativeWork.closeEsc} &times;
@@ -388,7 +391,7 @@ export function CreativeWorkSection() {
                 type="button"
                 onClick={() => {
                   const item = selectedItem
-                  setSelectedItem(null)
+                  setSelectedItemId(null)
                   triggerProjectScope({
                     serviceCategory: item.category,
                     projectReference: item.title,

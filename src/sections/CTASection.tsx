@@ -1,22 +1,22 @@
 import { useEffect, useState } from 'react'
 import { identity, type ScopeSelectionDetail } from '../core/identity'
 import {
-  SERVICE_OPTIONS,
-  TIMELINE_OPTIONS,
+  type ServiceCategoryId,
   composeInquiryBrief,
-  getObjectivesForService,
-  resolveServiceLabel,
+  getServiceOptions,
+  getTimelineOptions,
+  resolveObjectiveIndex,
+  resolveServiceId,
   validateInquiryInput,
 } from '../core/inquiry'
+import { useT } from '../i18n/context'
 
 export function CTASection() {
-  const [serviceCategory, setServiceCategory] = useState<string>(
-    SERVICE_OPTIONS[0].label,
-  )
-  const [objective, setObjective] = useState<string>(
-    SERVICE_OPTIONS[0].objectives[0],
-  )
-  const [timeline, setTimeline] = useState<string>(TIMELINE_OPTIONS[1])
+  const { lang, t } = useT()
+
+  const [serviceId, setServiceId] = useState<ServiceCategoryId>('digital-systems')
+  const [objectiveIdx, setObjectiveIdx] = useState<number>(0)
+  const [timelineIdx, setTimelineIdx] = useState<number>(1)
   const [referenceWork, setReferenceWork] = useState<string>('')
 
   const [name, setName] = useState('')
@@ -28,15 +28,18 @@ export function CTASection() {
   const [copied, setCopied] = useState(false)
   const [submittedChannel, setSubmittedChannel] = useState<'whatsapp' | 'email' | null>(null)
 
-  const currentObjectives = getObjectivesForService(serviceCategory)
+  const serviceOptions = getServiceOptions(lang)
+  const timelineOptions = getTimelineOptions(lang)
+  const activeServiceOption =
+    serviceOptions.find((s) => s.id === serviceId) ?? serviceOptions[0]
+  const currentObjectives = activeServiceOption.objectives
+  const serviceCategory = activeServiceOption.label
+  const objective = currentObjectives[objectiveIdx] ?? currentObjectives[0]
+  const timeline = timelineOptions[timelineIdx] ?? timelineOptions[1]
 
-  const handleServiceSelect = (newServiceLabel: string) => {
-    const resolved = resolveServiceLabel(newServiceLabel)
-    setServiceCategory(resolved)
-    const objs = getObjectivesForService(resolved)
-    if (!objs.includes(objective)) {
-      setObjective(objs[0])
-    }
+  const handleServiceSelect = (nextServiceId: ServiceCategoryId) => {
+    setServiceId(nextServiceId)
+    setObjectiveIdx(0)
     setSubmittedChannel(null)
   }
 
@@ -46,12 +49,13 @@ export function CTASection() {
       const d = custom.detail
       if (!d) return
       if (d.serviceCategory) {
-        const resolved = resolveServiceLabel(d.serviceCategory)
-        setServiceCategory(resolved)
-        const objs = getObjectivesForService(resolved)
-        setObjective(d.objective ?? objs[0])
+        const resolvedId = resolveServiceId(d.serviceCategory)
+        setServiceId(resolvedId)
+        setObjectiveIdx(resolveObjectiveIndex(resolvedId, d.objective))
       } else if (d.objective) {
-        setObjective(d.objective)
+        setObjectiveIdx((prevIdx) =>
+          resolveObjectiveIndex(serviceId, d.objective) ?? prevIdx,
+        )
       }
       if (d.projectReference) {
         setReferenceWork(d.projectReference)
@@ -60,22 +64,25 @@ export function CTASection() {
     }
     window.addEventListener('legacya:select-scope', onScopeSelect)
     return () => window.removeEventListener('legacya:select-scope', onScopeSelect)
-  }, [])
+  }, [serviceId])
 
   const getBriefText = () =>
-    composeInquiryBrief({
-      serviceCategory,
-      objective,
-      timeline,
-      referenceWork: referenceWork || undefined,
-      name,
-      company,
-      contactInfo,
-      notes,
-    })
+    composeInquiryBrief(
+      {
+        serviceCategory,
+        objective,
+        timeline,
+        referenceWork: referenceWork || undefined,
+        name,
+        company,
+        contactInfo,
+        notes,
+      },
+      lang,
+    )
 
   const checkValid = () => {
-    const res = validateInquiryInput({ name, contactInfo })
+    const res = validateInquiryInput({ name, contactInfo }, lang)
     setError(res.error)
     return res.valid
   }
@@ -97,7 +104,7 @@ export function CTASection() {
   const handleEmailDispatch = () => {
     if (!checkValid()) return
     const brief = getBriefText()
-    const subject = `Project Inquiry: ${company.trim() || name.trim()} | ${serviceCategory}`
+    const subject = `${t.cta.emailSubjectPrefix} ${company.trim() || name.trim()} | ${serviceCategory}`
     const mailtoUrl = `mailto:${identity.social.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(brief)}`
     setSubmittedChannel('email')
     window.location.href = mailtoUrl
@@ -110,7 +117,7 @@ export function CTASection() {
       setCopied(true)
       setTimeout(() => setCopied(false), 3000)
     } catch {
-      setError('Could not copy automatically. Please use the WhatsApp or Email button.')
+      setError(t.cta.copyError)
     }
   }
 
@@ -122,13 +129,14 @@ export function CTASection() {
       <div className="mx-auto max-w-[1180px]">
         {/* Section Header */}
         <div className="mb-8 max-w-[640px]" data-animate>
-          <p className="eyebrow mb-3">Start a Project</p>
+          <p className="eyebrow mb-3">{t.cta.eyebrow}</p>
           <h2 className="display text-[clamp(1.95rem,3.5vw,2.9rem)] leading-[1.08] [text-wrap:balance]">
-            Tell me about your business and what you want to{' '}
-            <span className="text-blue-deep">build or create</span>.
+            {t.cta.headingPrefix}
+            <span className="text-blue-deep">{t.cta.headingAccent}</span>
+            {t.cta.headingSuffix}
           </h2>
           <p className="mt-3 text-[16px] leading-relaxed text-muted">
-            Pick a service below and send your brief directly via WhatsApp or email.
+            {t.cta.subline}
           </p>
         </div>
 
@@ -143,7 +151,7 @@ export function CTASection() {
             {referenceWork && (
               <div className="mb-5 flex items-center justify-between gap-3 rounded-xl border border-blue/30 bg-blue/[0.06] px-4 py-2.5">
                 <p className="font-mono text-[12px] text-blue-deep">
-                  Reference:{' '}
+                  {t.cta.referenceLabel}{' '}
                   <strong className="font-semibold">{referenceWork}</strong>
                 </p>
                 <button
@@ -151,7 +159,7 @@ export function CTASection() {
                   onClick={() => setReferenceWork('')}
                   className="font-mono text-[11px] text-muted hover:text-text whitespace-nowrap cursor-pointer"
                 >
-                  Clear &times;
+                  {t.cta.clearBtn} &times;
                 </button>
               </div>
             )}
@@ -159,16 +167,16 @@ export function CTASection() {
             {/* Step 1: Service Category */}
             <div>
               <label className="block font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-blue-deep">
-                01. Service
+                {t.cta.step1Label}
               </label>
               <div className="mt-2.5 grid grid-cols-2 gap-2">
-                {SERVICE_OPTIONS.map((opt) => {
-                  const active = serviceCategory === opt.label
+                {serviceOptions.map((opt) => {
+                  const active = serviceId === opt.id
                   return (
                     <button
                       key={opt.id}
                       type="button"
-                      onClick={() => handleServiceSelect(opt.label)}
+                      onClick={() => handleServiceSelect(opt.id)}
                       className={`min-h-[44px] rounded-xl border px-3 py-2 text-left transition-all duration-150 cursor-pointer ${
                         active
                           ? 'border-blue-deep bg-blue-deep text-white shadow-sm'
@@ -191,16 +199,16 @@ export function CTASection() {
                   htmlFor="scoper-objective"
                   className="block font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-blue-deep"
                 >
-                  02. Goal
+                  {t.cta.step2Label}
                 </label>
                 <select
                   id="scoper-objective"
-                  value={objective}
-                  onChange={(e) => setObjective(e.target.value)}
+                  value={objectiveIdx}
+                  onChange={(e) => setObjectiveIdx(Number(e.target.value))}
                   className="mt-2 min-h-[44px] w-full rounded-xl border border-border bg-bg px-3.5 py-2 text-[13.5px] text-text focus:border-blue-deep focus:outline-none"
                 >
-                  {currentObjectives.map((obj) => (
-                    <option key={obj} value={obj}>
+                  {currentObjectives.map((obj, idx) => (
+                    <option key={obj} value={idx}>
                       {obj}
                     </option>
                   ))}
@@ -212,16 +220,16 @@ export function CTASection() {
                   htmlFor="scoper-timeline"
                   className="block font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-blue-deep"
                 >
-                  03. Timeline
+                  {t.cta.step3Label}
                 </label>
                 <select
                   id="scoper-timeline"
-                  value={timeline}
-                  onChange={(e) => setTimeline(e.target.value)}
+                  value={timelineIdx}
+                  onChange={(e) => setTimelineIdx(Number(e.target.value))}
                   className="mt-2 min-h-[44px] w-full rounded-xl border border-border bg-bg px-3.5 py-2 text-[13.5px] text-text focus:border-blue-deep focus:outline-none"
                 >
-                  {TIMELINE_OPTIONS.map((tl) => (
-                    <option key={tl} value={tl}>
+                  {timelineOptions.map((tl, idx) => (
+                    <option key={tl} value={idx}>
                       {tl}
                     </option>
                   ))}
@@ -232,7 +240,7 @@ export function CTASection() {
             {/* Step 3: Business / Brand & Contact Details */}
             <div className="mt-5 border-t border-border pt-5">
               <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-blue-deep">
-                04. Your Details
+                {t.cta.step4Label}
               </p>
 
               <div className="mt-3 grid gap-3.5 sm:grid-cols-3">
@@ -241,7 +249,7 @@ export function CTASection() {
                     htmlFor="scoper-name"
                     className="block text-[12.5px] font-medium text-text"
                   >
-                    Your Name *
+                    {t.cta.nameLabel}
                   </label>
                   <input
                     id="scoper-name"
@@ -251,7 +259,7 @@ export function CTASection() {
                       setName(e.target.value)
                       if (error) setError(null)
                     }}
-                    placeholder="e.g. Budi Santoso"
+                    placeholder={t.cta.namePlaceholder}
                     className="mt-1 min-h-[44px] w-full rounded-xl border border-border bg-bg px-3.5 py-2 text-[13.5px] text-text placeholder:text-dim focus:border-blue-deep focus:outline-none"
                   />
                 </div>
@@ -261,14 +269,14 @@ export function CTASection() {
                     htmlFor="scoper-company"
                     className="block text-[12.5px] font-medium text-text"
                   >
-                    Business / Brand
+                    {t.cta.companyLabel}
                   </label>
                   <input
                     id="scoper-company"
                     type="text"
                     value={company}
                     onChange={(e) => setCompany(e.target.value)}
-                    placeholder="e.g. Nusantara Retail"
+                    placeholder={t.cta.companyPlaceholder}
                     className="mt-1 min-h-[44px] w-full rounded-xl border border-border bg-bg px-3.5 py-2 text-[13.5px] text-text placeholder:text-dim focus:border-blue-deep focus:outline-none"
                   />
                 </div>
@@ -278,7 +286,7 @@ export function CTASection() {
                     htmlFor="scoper-contact"
                     className="block text-[12.5px] font-medium text-text"
                   >
-                    Email or WhatsApp *
+                    {t.cta.contactLabel}
                   </label>
                   <input
                     id="scoper-contact"
@@ -288,7 +296,7 @@ export function CTASection() {
                       setContactInfo(e.target.value)
                       if (error) setError(null)
                     }}
-                    placeholder="name@company.com or +62..."
+                    placeholder={t.cta.contactPlaceholder}
                     className="mt-1 min-h-[44px] w-full rounded-xl border border-border bg-bg px-3.5 py-2 text-[13.5px] text-text placeholder:text-dim focus:border-blue-deep focus:outline-none"
                   />
                 </div>
@@ -299,14 +307,14 @@ export function CTASection() {
                   htmlFor="scoper-notes"
                   className="block text-[12.5px] font-medium text-text"
                 >
-                  Project Notes (Optional)
+                  {t.cta.notesLabel}
                 </label>
                 <textarea
                   id="scoper-notes"
                   rows={2}
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  placeholder="Any context on what you want to build or promote..."
+                  placeholder={t.cta.notesPlaceholder}
                   className="mt-1 w-full rounded-xl border border-border bg-bg p-3 text-[13.5px] text-text placeholder:text-dim focus:border-blue-deep focus:outline-none"
                 />
               </div>
@@ -326,8 +334,8 @@ export function CTASection() {
                   className="mt-3.5 rounded-xl border border-blue-deep/30 bg-blue/[0.08] px-4 py-2.5 text-[13px] font-medium text-blue-deep"
                 >
                   {submittedChannel === 'whatsapp'
-                    ? 'Your brief is ready in WhatsApp.'
-                    : 'Your email app has been opened with your project brief.'}
+                    ? t.cta.whatsappStatus
+                    : t.cta.emailStatus}
                 </div>
               )}
             </div>
@@ -338,17 +346,17 @@ export function CTASection() {
             <div>
               <div className="flex items-center justify-between border-b border-white/10 pb-3.5">
                 <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-blue-accent">
-                  Inquiry Summary
+                  {t.cta.summaryEyebrow}
                 </span>
                 <span className="font-mono text-[11px] text-white/60">
-                  Reply within 1 business day
+                  {t.cta.summaryReplyTime}
                 </span>
               </div>
 
               <div className="mt-4 space-y-3 font-mono text-[12px]">
                 <div>
                   <span className="block text-[10px] uppercase tracking-[0.14em] text-white/45">
-                    Service
+                    {t.cta.summaryService}
                   </span>
                   <span className="mt-0.5 block text-[13.5px] font-semibold text-white">
                     {serviceCategory}
@@ -357,29 +365,29 @@ export function CTASection() {
 
                 <div>
                   <span className="block text-[10px] uppercase tracking-[0.14em] text-white/45">
-                    Goal
+                    {t.cta.summaryGoal}
                   </span>
                   <span className="mt-0.5 block text-white/90">
                     {objective}
-                    {referenceWork ? ` (Ref: ${referenceWork})` : ''}
+                    {referenceWork ? ` (${t.cta.summaryRefPrefix} ${referenceWork})` : ''}
                   </span>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3 pt-1">
                   <div>
                     <span className="block text-[10px] uppercase tracking-[0.14em] text-white/45">
-                      Timeline
+                      {t.cta.summaryTimeline}
                     </span>
                     <span className="mt-0.5 block text-white/85">{timeline}</span>
                   </div>
                   <div>
                     <span className="block text-[10px] uppercase tracking-[0.14em] text-white/45">
-                      Client
+                      {t.cta.summaryClient}
                     </span>
                     <span className="mt-0.5 block truncate text-white/85">
                       {name.trim()
                         ? `${name}${company ? ` · ${company}` : ''}`
-                        : 'Awaiting your details...'}
+                        : t.cta.summaryAwaiting}
                     </span>
                   </div>
                 </div>
@@ -393,7 +401,7 @@ export function CTASection() {
                 onClick={handleWhatsAppDispatch}
                 className="btn w-full bg-[#25D366] font-semibold text-[#0D1418] hover:brightness-105 whitespace-nowrap"
               >
-                Send Inquiry via WhatsApp &rarr;
+                {t.cta.sendWhatsApp} &rarr;
               </button>
 
               <button
@@ -401,7 +409,7 @@ export function CTASection() {
                 onClick={handleEmailDispatch}
                 className="btn-primary w-full whitespace-nowrap"
               >
-                Send Inquiry via Email ({identity.social.email})
+                {t.cta.sendEmailPrefix} ({identity.social.email})
               </button>
 
               <button
@@ -409,7 +417,7 @@ export function CTASection() {
                 onClick={handleCopyBrief}
                 className="btn w-full border border-white/15 bg-white/5 text-[13px] text-white/85 hover:bg-white/10 whitespace-nowrap"
               >
-                {copied ? 'Copied Project Brief ✓' : 'Copy Brief to Clipboard'}
+                {copied ? t.cta.copiedBrief : t.cta.copyBrief}
               </button>
             </div>
           </div>

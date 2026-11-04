@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import { ArrowUpRight } from 'lucide-react'
-import { projects } from '../data/projects'
+import { getProjects } from '../data/projects'
 import { triggerProjectScope } from '../core/identity'
 import { useT } from '../i18n/context'
 
 export function WorkSection() {
-  const { t } = useT()
+  const { lang, t } = useT()
+  const projects = getProjects(lang)
   const [activeId, setActiveId] = useState(projects[0]?.id ?? 'inventory-os')
   const [screenshotIdx, setScreenshotIdx] = useState(0)
   const [lightboxOpen, setLightboxOpen] = useState(false)
@@ -26,7 +27,7 @@ export function WorkSection() {
     }
     window.addEventListener('legacya:select-project', onSelectProject)
     return () => window.removeEventListener('legacya:select-project', onSelectProject)
-  }, [])
+  }, [projects])
 
   useEffect(() => {
     if (!lightboxOpen) return
