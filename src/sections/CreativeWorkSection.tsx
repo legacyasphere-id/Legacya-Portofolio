@@ -4,7 +4,6 @@ import type { CreativeWorkItem } from '../types/project'
 import { triggerProjectScope } from '../core/identity'
 
 type CreativeFilter =
-  | 'All Creative Work'
   | 'Advertising & Campaign Assets'
   | 'Cinematic Video & Visual Production'
 
@@ -12,7 +11,6 @@ type CreativeFilter =
 const CONCEPT_BADGE = 'Concept work · not commissioned by the brand'
 
 const FILTER_TABS: CreativeFilter[] = [
-  'All Creative Work',
   'Advertising & Campaign Assets',
   'Cinematic Video & Visual Production',
 ]
@@ -75,7 +73,7 @@ function SmartPreviewVideo({
   return (
     <div
       ref={containerRef}
-      className="relative mx-auto h-full aspect-[9/16] overflow-hidden rounded-xl border border-white/25 bg-black shadow-2xl transition-transform duration-300 group-hover:scale-[1.02]"
+      className="relative h-full w-full overflow-hidden bg-black"
     >
       {shouldLoadVideo && !lowBandwidth ? (
         <video
@@ -87,7 +85,7 @@ function SmartPreviewVideo({
           loop
           playsInline
           preload="none"
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
         />
       ) : (
         <img
@@ -95,183 +93,55 @@ function SmartPreviewVideo({
           alt={title}
           loading="lazy"
           decoding="async"
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
         />
       )}
     </div>
   )
 }
 
-function CreativeVisualPreview({
-  item,
-  onExpand,
-}: {
-  item: CreativeWorkItem
-  onExpand: () => void
-}) {
-  // 1. Real MP4 Video Commercials (9:16 Vertical Cinema Stage with Smart Viewport & Connection Awareness)
-  if (item.videoUrl) {
-    return (
-      <div
-        onClick={onExpand}
-        className="group relative flex h-[360px] w-full cursor-pointer items-center justify-between gap-4 overflow-hidden p-5 sm:h-[380px] sm:px-7"
-        style={{
-          background: `linear-gradient(135deg, ${item.palette.primary} 0%, #141821 62%, ${item.palette.accent} 100%)`,
-        }}
-      >
-        {/* Left Editorial Film Spec Column */}
-        <div className="hidden max-w-[215px] flex-col justify-between self-stretch py-2 text-white sm:flex">
-          <div>
-            <span className="inline-flex items-center gap-1.5 rounded-md border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-white">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-              9 : 16 Motion Film
-            </span>
-            <p className="mt-3 font-display text-[1.1rem] font-semibold leading-snug text-white">
-              {item.title.split(':')[0]}
-            </p>
-            <p className="mt-2 text-[12.5px] leading-relaxed text-white/80">
-              {item.storyboardFrames[0]?.caption}
-            </p>
-          </div>
-
-          <div className="space-y-2 border-t border-white/15 pt-3">
-            <div className="flex items-center gap-1.5">
-              <span
-                className="h-2.5 w-2.5 rounded-full border border-white/40"
-                style={{ backgroundColor: item.palette.primary }}
-              />
-              <span
-                className="h-2.5 w-2.5 rounded-full border border-white/40"
-                style={{ backgroundColor: item.palette.secondary }}
-              />
-              <span
-                className="h-2.5 w-2.5 rounded-full border border-white/40"
-                style={{ backgroundColor: item.palette.accent }}
-              />
-              <span className="ml-1 font-mono text-[9.5px] text-white/75 truncate">
-                {item.palette.label}
-              </span>
-            </div>
-            <p className="font-mono text-[10.5px] font-medium text-white/90">
-              Click to watch with sound &rarr;
-            </p>
-          </div>
-        </div>
-
-        {/* Right 9:16 Vertical Video Viewport (Lazy-streamed only when in view) */}
+function CreativeVisualPreview({ item }: { item: CreativeWorkItem }) {
+  return (
+    <div
+      className="relative h-[175px] w-full overflow-hidden sm:h-[230px]"
+      style={{
+        background: `linear-gradient(135deg, ${item.palette.primary} 0%, #141821 70%, ${item.palette.accent} 100%)`,
+      }}
+    >
+      {item.videoUrl ? (
         <SmartPreviewVideo
           videoUrl={item.videoUrl}
           posterUrl={item.previewImage}
           title={item.title}
         />
+      ) : (
+        <img
+          src={item.previewImage}
+          alt={item.title}
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+        />
+      )}
 
-        <span className="pointer-events-none absolute bottom-3 right-3 rounded-md bg-black/75 px-2.5 py-1 font-mono text-[10px] font-medium text-white backdrop-blur-sm">
-          Watch Film +
-        </span>
-      </div>
-    )
-  }
-
-  // 2. Vertical 9:16 Static Social Ad Stage (LATE Cold Brew)
-  if (item.aspectRatio === '9:16') {
-    return (
-      <div
-        onClick={onExpand}
-        className="group relative flex h-[360px] w-full cursor-pointer items-center justify-between gap-4 overflow-hidden bg-gradient-to-br from-[#231C18] via-[#1C1613] to-[#20334F] p-5 sm:h-[380px] sm:px-7"
-      >
-        <div className="hidden max-w-[215px] flex-col justify-between self-stretch py-2 text-white sm:flex">
-          <div>
-            <span className="inline-block rounded-md border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-white/95">
-              9 : 16 Vertical Social Ad
-            </span>
-            <p className="mt-3 font-display text-[1.1rem] font-semibold leading-snug text-white">
-              Built natively for mobile stories &amp; social feeds
-            </p>
-            <p className="mt-2 text-[12.5px] leading-relaxed text-white/80">
-              Mid-air product motion and floating coffee beans designed to stop vertical scrollers.
-            </p>
-          </div>
-
-          <div className="space-y-2 border-t border-white/15 pt-3">
-            <div className="flex items-center gap-1.5">
-              <span
-                className="h-2.5 w-2.5 rounded-full border border-white/40"
-                style={{ backgroundColor: item.palette.primary }}
-              />
-              <span
-                className="h-2.5 w-2.5 rounded-full border border-white/40"
-                style={{ backgroundColor: item.palette.secondary }}
-              />
-              <span
-                className="h-2.5 w-2.5 rounded-full border border-white/40"
-                style={{ backgroundColor: item.palette.accent }}
-              />
-              <span className="ml-1 font-mono text-[9.5px] text-white/75 truncate">
-                {item.palette.label}
-              </span>
-            </div>
-            <p className="font-mono text-[10.5px] font-medium text-white/90">
-              Click to inspect full 9:16 frame &rarr;
-            </p>
-          </div>
-        </div>
-
-        <div className="relative mx-auto h-full aspect-[9/16] overflow-hidden rounded-xl border border-white/25 bg-[#F3ECE1] shadow-2xl transition-transform duration-300 group-hover:scale-[1.02]">
-          <img
-            src={item.previewImage}
-            alt={item.title}
-            loading="lazy"
-            decoding="async"
-            className="h-full w-full object-cover"
-          />
-        </div>
-
-        <span className="pointer-events-none absolute bottom-3 right-3 rounded-md bg-black/75 px-2.5 py-1 font-mono text-[10px] font-medium text-white backdrop-blur-sm">
-          Full Frame +
-        </span>
-      </div>
-    )
-  }
-
-  // 3. 4:3 High-Resolution Studio Campaign Key Visuals (Hanasui & Artisanal Burger)
-  return (
-    <div
-      onClick={onExpand}
-      className="group relative h-[320px] w-full cursor-pointer overflow-hidden bg-[#14110F] sm:h-[380px]"
-    >
-      <img
-        src={item.previewImage}
-        alt={item.title}
-        loading="lazy"
-        decoding="async"
-        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-      />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-between bg-gradient-to-t from-black/80 via-black/35 to-transparent px-5 py-3.5 text-white">
-        <span className="font-mono text-[10.5px] uppercase tracking-[0.12em] text-white/90">
-          {item.format}
-        </span>
-        <span className="rounded-md bg-black/75 px-2.5 py-1 font-mono text-[10px] font-medium text-white backdrop-blur-sm">
-          Full Frame +
-        </span>
-      </div>
+      <span className="pointer-events-none absolute bottom-2.5 right-2.5 rounded-md bg-black/75 px-2 py-0.5 font-mono text-[10px] font-medium text-white backdrop-blur-sm">
+        {item.videoUrl ? 'Watch Film +' : 'Full Visual +'}
+      </span>
     </div>
   )
 }
 
 export function CreativeWorkSection() {
-  const [filter, setFilter] = useState<CreativeFilter>('All Creative Work')
+  const [filter, setFilter] = useState<CreativeFilter>('Advertising & Campaign Assets')
   const [selectedItem, setSelectedItem] = useState<CreativeWorkItem | null>(null)
 
   useEffect(() => {
     const onSelectCreative = (e: Event) => {
       const custom = e as CustomEvent<string>
-      if (
-        custom.detail === 'Advertising & Campaign Assets' ||
-        custom.detail === 'Cinematic Video & Visual Production'
-      ) {
-        setFilter(custom.detail)
+      if (custom.detail === 'Cinematic Video & Visual Production') {
+        setFilter('Cinematic Video & Visual Production')
       } else {
-        setFilter('All Creative Work')
+        setFilter('Advertising & Campaign Assets')
       }
     }
     window.addEventListener('legacya:select-creative', onSelectCreative)
@@ -287,46 +157,35 @@ export function CreativeWorkSection() {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [selectedItem])
 
-  const filteredItems =
-    filter === 'All Creative Work'
-      ? CREATIVE_WORK_ITEMS
-      : CREATIVE_WORK_ITEMS.filter((item) => item.category === filter)
+  const filteredItems = CREATIVE_WORK_ITEMS.filter((item) => item.category === filter)
 
   return (
     <section
       id="creative-work"
-      className="border-t border-border bg-bg/95 px-5 py-24 backdrop-blur-sm md:px-10 md:py-32"
+      className="border-t border-border bg-bg/95 px-5 py-12 backdrop-blur-sm md:px-10 md:py-20"
     >
       <div className="mx-auto max-w-[1180px]">
         {/* Section Header */}
         <div
-          className="mb-10 flex flex-col justify-between gap-6 lg:flex-row lg:items-end"
+          className="mb-6 flex flex-col justify-between gap-4 lg:flex-row lg:items-end"
           data-animate
         >
           <div className="max-w-[640px]">
-            <p className="eyebrow mb-4">
-              Selected Work · Advertising &amp; Cinematic Production
+            <p className="eyebrow mb-3">
+              Selected Work · Campaign Visuals &amp; Short Film
             </p>
-            <h2 className="display text-[clamp(1.95rem,3.4vw,2.85rem)] leading-[1.1] [text-wrap:balance]">
-              Campaign visuals and cinematic stories crafted around brand objectives
+            <h2 className="display text-[clamp(1.95rem,3.4vw,2.85rem)] leading-[1.08] [text-wrap:balance]">
+              Campaign visuals and product films built for launches
             </h2>
           </div>
-          <div className="max-w-[46ch]">
-            <p className="text-[15.5px] leading-relaxed text-muted">
-              Campaign key visuals and short product films, created as concept
-              studies to show art direction, lighting and motion. Click any piece
-              to watch the full film or inspect the high-resolution key visual.
-            </p>
-            <p className="mt-3 font-mono text-[11.5px] leading-relaxed text-dim">
-              Concept studies created to show creative direction. Brand names
-              belong to their owners. Commissioned client work is marked separately.
-            </p>
-          </div>
+          <p className="max-w-[42ch] text-[15.5px] leading-relaxed text-muted">
+            Click any piece to watch the film or inspect the full campaign breakdown.
+          </p>
         </div>
 
-        {/* Filter Bar + Count */}
+        {/* Filter Bar */}
         <div
-          className="mb-8 flex flex-wrap items-center justify-between gap-4"
+          className="mb-6 flex flex-wrap items-center justify-between gap-3"
           data-animate
         >
           <div
@@ -341,7 +200,7 @@ export function CreativeWorkSection() {
                   key={tab}
                   type="button"
                   onClick={() => setFilter(tab)}
-                  className={`rounded-lg px-4 py-2 text-[13px] font-medium transition-colors whitespace-nowrap cursor-pointer ${
+                  className={`min-h-[40px] rounded-lg px-3.5 py-1.5 text-[13px] font-medium transition-colors whitespace-nowrap cursor-pointer ${
                     active
                       ? 'bg-blue-deep text-white shadow-sm'
                       : 'text-muted hover:text-text'
@@ -352,111 +211,53 @@ export function CreativeWorkSection() {
               )
             })}
           </div>
-
-          <p className="font-mono text-[11.5px] text-muted">
-            Showing {filteredItems.length} advertising &amp; video concept studies
-          </p>
         </div>
 
-        {/* 2-Column Editorial Creative Showcase Grid */}
-        <div className="grid gap-8 lg:grid-cols-2">
-          {filteredItems.map((item) => (
-            <article
-              key={item.id}
-              className="card card-hover flex flex-col justify-between overflow-hidden"
-              data-animate
-            >
-              <div>
-                {/* Visual Media Viewport */}
-                <div className="relative w-full border-b border-border">
-                  <CreativeVisualPreview
-                    item={item}
-                    onExpand={() => setSelectedItem(item)}
-                  />
-                </div>
-
-                {/* Card Body */}
-                <div className="p-6 sm:p-8">
-                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-3 font-mono text-[11px]">
-                    <span className="font-medium text-blue-deep">
-                      {item.category}
-                    </span>
-                    <span className="text-muted">
-                      {item.classification} · {item.availabilityStatus}
-                    </span>
-                  </div>
-
-                  {item.engagement === 'concept' && (
-                    <p className="mt-3 font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted">
-                      {CONCEPT_BADGE}
-                    </p>
-                  )}
-
-                  <h3 className="mt-3 text-[clamp(1.3rem,2vw,1.6rem)] font-semibold tracking-[-0.02em] text-text">
-                    {item.title}
-                  </h3>
-                  <p className="mt-1 font-mono text-[11.5px] text-dim">
-                    {item.brandOrConcept} · {item.format}
-                  </p>
-
-                  <div className="mt-5 grid gap-4 sm:grid-cols-2">
-                    <div>
-                      <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-dim">
-                        Campaign Objective
-                      </p>
-                      <p className="mt-1 text-[13.5px] leading-relaxed text-muted">
-                        {item.objective}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-dim">
-                        Creative Direction
-                      </p>
-                      <p className="mt-1 text-[13.5px] leading-relaxed text-muted">
-                        {item.creativeDirection}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="mt-5 border-t border-border pt-4">
-                    <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-blue-deep">
-                      Intended Brand Value
-                    </p>
-                    <p className="mt-1.5 text-[13.5px] font-medium leading-relaxed text-text">
-                      {item.intendedValue}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Card Footer Actions */}
-              <div className="flex flex-wrap items-center justify-between gap-4 border-t border-border bg-surface px-6 py-4 sm:px-8">
-                <button
-                  type="button"
-                  onClick={() => setSelectedItem(item)}
-                  className="link-sweep text-[13.5px] whitespace-nowrap"
-                >
-                  {item.videoUrl
-                    ? 'Watch Commercial & Deliverables'
-                    : 'Inspect Full Visual & Deliverables'}
-                  <span aria-hidden="true">&rarr;</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() =>
-                    triggerProjectScope({
-                      serviceCategory: item.category,
-                      projectReference: item.title,
-                    })
+        {/* Compact Work Cards Grid: Image + Badge + Title + One Line */}
+        <div className="grid grid-cols-2 gap-3.5 sm:gap-5 lg:grid-cols-3">
+          {filteredItems.map((item) => {
+            const shortTitle = item.title.split(':')[0] ?? item.title
+            const oneLine = item.storyboardFrames[0]?.title ?? item.format
+            return (
+              <article
+                key={item.id}
+                onClick={() => setSelectedItem(item)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    setSelectedItem(item)
                   }
-                  className="btn-secondary px-4 py-2 text-[13px] whitespace-nowrap"
-                >
-                  Request Similar Creative
-                </button>
-              </div>
-            </article>
-          ))}
+                }}
+                aria-label={`Inspect ${item.title}`}
+                className="card card-hover group flex cursor-pointer flex-col justify-between overflow-hidden text-left"
+                data-animate
+              >
+                <div className="w-full border-b border-border">
+                  <CreativeVisualPreview item={item} />
+                </div>
+
+                <div className="flex flex-1 flex-col justify-between p-3.5 sm:p-5">
+                  <div>
+                    {item.engagement === 'concept' && (
+                      <p className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-[0.08em] text-muted">
+                        {CONCEPT_BADGE}
+                      </p>
+                    )}
+
+                    <h3 className="mt-1.5 text-[14.5px] sm:text-[17px] font-semibold leading-snug tracking-[-0.01em] text-text">
+                      {shortTitle}
+                    </h3>
+
+                    <p className="mt-1 line-clamp-1 text-[12.5px] sm:text-[13.5px] text-muted">
+                      {oneLine}
+                    </p>
+                  </div>
+                </div>
+              </article>
+            )
+          })}
         </div>
       </div>
 
@@ -476,9 +277,9 @@ export function CreativeWorkSection() {
             <div className="flex items-center justify-between border-b border-white/10 px-6 py-4">
               <div>
                 <p className="font-mono text-[11px] text-white/70">
-                  {selectedItem.category} · {selectedItem.classification}
+                  {selectedItem.category} · {selectedItem.brandOrConcept}
                 </p>
-                <h3 className="mt-0.5 text-[1.25rem] font-semibold text-white">
+                <h3 className="mt-0.5 text-[1.2rem] font-semibold text-white">
                   {selectedItem.title}
                 </h3>
                 {selectedItem.engagement === 'concept' && (
@@ -490,7 +291,7 @@ export function CreativeWorkSection() {
               <button
                 type="button"
                 onClick={() => setSelectedItem(null)}
-                className="rounded-lg border border-white/15 bg-white/10 px-3 py-1.5 text-[12px] font-medium text-white hover:bg-white/20 cursor-pointer"
+                className="min-h-[40px] rounded-lg border border-white/15 bg-white/10 px-3 py-1.5 text-[12px] font-medium text-white hover:bg-white/20 cursor-pointer"
               >
                 Close (ESC) &times;
               </button>
@@ -572,7 +373,7 @@ export function CreativeWorkSection() {
 
             <div className="flex flex-wrap items-center justify-between gap-4 border-t border-white/10 px-6 py-4">
               <span className="font-mono text-[11.5px] text-white/65">
-                Status: {selectedItem.availabilityStatus}
+                {selectedItem.format}
               </span>
               <button
                 type="button"
@@ -586,7 +387,7 @@ export function CreativeWorkSection() {
                 }}
                 className="btn-primary px-5 py-2 text-[13px] whitespace-nowrap"
               >
-                Inquire About Similar Creative Work
+                Request Similar Work
               </button>
             </div>
           </div>

@@ -2,37 +2,32 @@ const STEPS = [
   {
     n: '01.',
     title: 'Discover',
-    deliverable: 'Shared Understanding & Project Brief',
-    detail:
-      'I start by listening and understanding your business, your audience, the challenge you are solving, and what a successful outcome looks like for your team.',
+    deliverable: 'Written Brief',
+    detail: 'You share your goal, audience and current bottleneck.',
   },
   {
     n: '02.',
     title: 'Define',
-    deliverable: 'Clear Direction, Scope & Timeline',
-    detail:
-      'I establish the visual direction, functional structure, deliverables, and realistic project milestones so everyone is aligned before production begins.',
+    deliverable: 'Scope & Timeline',
+    detail: 'I lock the deliverables, screens and schedule before work starts.',
   },
   {
     n: '03.',
     title: 'Create',
-    deliverable: 'Working Previews & Campaign Drafts',
-    detail:
-      'I design and build your website, business system, campaign visuals, or promotional video, sharing structured progress updates at agreed checkpoints.',
+    deliverable: 'Working Drafts',
+    detail: 'I build the site, tool or campaign visuals and share live previews.',
   },
   {
     n: '04.',
     title: 'Refine',
-    deliverable: 'Focused Review & Adjustments',
-    detail:
-      'We review the work together against your business objectives, refining visual details, copy clarity, and user flows until everything feels cohesive.',
+    deliverable: 'Focused Revisions',
+    detail: 'You and I review the work together and adjust copy, flow and visuals.',
   },
   {
     n: '05.',
     title: 'Deliver',
-    deliverable: 'Final Launch & Complete Asset Handover',
-    detail:
-      'I launch the finished digital experience or hand over your ready-to-use campaign and video assets, complete with clear guidance for your team.',
+    deliverable: 'Launch & Handover',
+    detail: 'Your project goes live and I hand over every file, repo and login.',
   },
 ]
 
@@ -40,57 +35,43 @@ export function ProcessSection() {
   return (
     <section
       id="process"
-      className="grid-blueprint border-t border-border bg-surface/85 px-5 py-24 backdrop-blur-sm md:px-10 md:py-32"
+      className="grid-blueprint border-t border-border bg-surface/85 px-5 py-10 backdrop-blur-sm md:px-10 md:py-16"
     >
       <div className="mx-auto max-w-[1180px]">
         <div
-          className="mb-14 flex flex-col justify-between gap-6 lg:flex-row lg:items-end"
+          className="mb-6 flex flex-col justify-between gap-3 lg:flex-row lg:items-end"
           data-animate
         >
           <div className="max-w-[640px]">
-            <p className="eyebrow mb-4">How I Work</p>
-            <h2 className="display text-[clamp(1.95rem,3.4vw,2.85rem)] leading-[1.1] [text-wrap:balance]">
-              A straightforward five-step collaboration from first conversation to delivery
+            <p className="eyebrow mb-2.5">How I Work</p>
+            <h2 className="display text-[clamp(1.85rem,3.4vw,2.75rem)] leading-[1.08] [text-wrap:balance]">
+              Five clear steps from brief to launch
             </h2>
           </div>
-          <p className="max-w-[44ch] text-[15.5px] leading-relaxed text-muted">
-            Whether you are commissioning a new business website, an internal
-            operational tool, or a campaign asset suite, my process keeps things
-            clear, organized, and predictable.
-          </p>
         </div>
 
-        <div className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border lg:grid-cols-5">
           {STEPS.map((step, i) => (
             <div
               key={step.n}
-              className="group relative flex flex-col justify-between bg-surface p-6 md:p-7"
+              className="group relative flex flex-col justify-between bg-surface p-4 sm:p-6"
               data-animate
               data-delay={String((i + 1) * 100)}
             >
               <div>
-                <div className="mb-4 flex items-center justify-between border-b border-border pb-3">
-                  <span className="font-mono text-[13px] font-semibold text-blue-deep tabular-nums">
+                <div className="mb-2.5 flex items-center justify-between border-b border-border pb-2">
+                  <span className="font-mono text-[12.5px] font-semibold text-blue-deep tabular-nums">
                     {step.n}
                   </span>
-                  <span className="font-mono text-[10.5px] text-dim">
-                    Step {i + 1}
+                  <span className="font-mono text-[10px] text-dim">
+                    {step.deliverable}
                   </span>
                 </div>
-                <h3 className="text-[1.2rem] font-semibold tracking-[-0.02em] text-text">
+                <h3 className="text-[1.1rem] font-semibold tracking-[-0.02em] text-text">
                   {step.title}
                 </h3>
-                <p className="mt-2.5 text-[13.5px] leading-relaxed text-muted">
+                <p className="mt-1.5 text-[13px] leading-snug text-muted">
                   {step.detail}
-                </p>
-              </div>
-
-              <div className="mt-6 border-t border-border pt-3.5">
-                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-dim">
-                  Outcome
-                </p>
-                <p className="mt-1 font-mono text-[11px] font-medium text-blue-deep">
-                  {step.deliverable}
                 </p>
               </div>
             </div>

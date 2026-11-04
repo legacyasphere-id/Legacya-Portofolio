@@ -35,10 +35,10 @@
   body {
     background-color: var(--color-bg);
     color: var(--color-text);
-    font-family: var(--font-sans);
+    font-family: var(--color-sans, var(--font-sans));
     overflow-x: hidden;
     max-width: 100%;
-    font-size: 16px;
+    font-size: 16.5px;
     line-height: 1.6;
   }
 
@@ -131,11 +131,12 @@ body::after {
 /* ── Buttons ─────────────────────────────────────────────────────────────── */
 .btn {
   display: inline-flex;
+  min-height: 44px;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   border-radius: 10px;
-  padding: 0.75rem 1.5rem;
+  padding: 0.7rem 1.4rem;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -153,11 +154,12 @@ body::after {
 
 .btn-primary {
   display: inline-flex;
+  min-height: 44px;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   border-radius: 10px;
-  padding: 0.75rem 1.5rem;
+  padding: 0.7rem 1.4rem;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -176,11 +178,12 @@ body::after {
 
 .btn-secondary {
   display: inline-flex;
+  min-height: 44px;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   border-radius: 10px;
-  padding: 0.75rem 1.5rem;
+  padding: 0.7rem 1.4rem;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -199,7 +202,8 @@ body::after {
 }
 
 .btn-lg {
-  padding: 0.95rem 2rem;
+  min-height: 48px;
+  padding: 0.85rem 1.75rem;
   font-size: 15px;
 }
 
@@ -220,6 +224,9 @@ body::after {
 /* ── Nav link ────────────────────────────────────────────────────────────── */
 .nav-link {
   position: relative;
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
   font-size: 14px;
   color: var(--color-muted);
   transition: color 0.2s ease;
@@ -233,7 +240,7 @@ body::after {
   content: '';
   position: absolute;
   left: 0;
-  bottom: -5px;
+  bottom: 6px;
   height: 1.5px;
   width: 0;
   background: #2F4F7F;
@@ -248,9 +255,12 @@ body::after {
 .link-sweep {
   position: relative;
   display: inline-flex;
+  min-height: 44px;
   width: fit-content;
   align-items: center;
   gap: 0.375rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
   font-size: 14px;
   font-weight: 500;
   color: var(--color-blue-deep);

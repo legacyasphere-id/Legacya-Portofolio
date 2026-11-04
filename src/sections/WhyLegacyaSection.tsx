@@ -3,33 +3,21 @@ import { triggerProjectScope } from '../core/identity'
 const DIFFERENTIATORS = [
   {
     index: '01.',
-    title: 'One Partner for Connected Creative & Digital Needs',
+    title: 'Direct to the builder',
     description:
-      'Your website, internal tools, advertising visuals and promotional videos come from one focused partner with one consistent vision, without the overhead of a large agency or the disconnect of managing separate freelancers.',
+      'You talk directly to me from brief to launch. No account managers or agency handoffs.',
   },
   {
     index: '02.',
-    title: 'Solutions Shaped Around Your Business Objective',
+    title: 'System + visuals in one scope',
     description:
-      'I do not force your company into a rigid template. Every website layout, operational workflow, or campaign visual is tailored to solve a real goal for your business and customers.',
+      'Your website or internal tool ships with the product photos and ad reels that promote it.',
   },
   {
     index: '03.',
-    title: 'Thoughtful Visual Direction & Practical Execution',
+    title: 'Fast delivery, full ownership',
     description:
-      'I pair strong editorial design and visual storytelling with dependable digital execution, so your brand looks credible on the outside and works smoothly behind the scenes.',
-  },
-  {
-    index: '04.',
-    title: 'Flexible Collaboration Appropriate to Your Scope',
-    description:
-      'Start with a focused project, such as a company website refresh, a launch campaign asset kit, or a single workflow tool, and expand only when your business is ready.',
-  },
-  {
-    index: '05.',
-    title: 'Direct Communication & Complete Ownership',
-    description:
-      'You collaborate directly with the studio founder from initial discovery to final handover, and you retain full ownership of all agreed digital platforms and creative assets delivered.',
+      'AI speeds up drafting while I review every detail. You keep all code, files and logins.',
   },
 ]
 
@@ -37,74 +25,66 @@ export function WhyLegacyaSection() {
   return (
     <section
       id="why-legacya"
-      className="border-t border-border bg-bg/95 px-5 py-24 backdrop-blur-sm md:px-10 md:py-32"
+      className="border-t border-border bg-bg/95 px-5 py-10 backdrop-blur-sm md:px-10 md:py-16"
     >
       <div className="mx-auto max-w-[1180px]">
-        {/* Section Header */}
         <div
-          className="mb-14 flex flex-col justify-between gap-6 lg:flex-row lg:items-end"
+          className="mb-6 flex flex-col justify-between gap-3 lg:flex-row lg:items-end"
           data-animate
         >
           <div className="max-w-[640px]">
-            <p className="eyebrow mb-4">Why Legacya Sphere</p>
-            <h2 className="display text-[clamp(1.95rem,3.4vw,2.85rem)] leading-[1.1] [text-wrap:balance]">
-              Practical advantages of working with a unified creative and digital studio
+            <p className="eyebrow mb-2.5">Why Legacya Sphere</p>
+            <h2 className="display text-[clamp(1.85rem,3.4vw,2.75rem)] leading-[1.08] [text-wrap:balance]">
+              Why business owners work with a one-founder studio
             </h2>
           </div>
-          <p className="max-w-[44ch] text-[15.5px] leading-relaxed text-muted">
-            I focus on clarity, craftsmanship, and business relevance, helping
-            companies move forward with confidence without unnecessary complexity.
-          </p>
         </div>
 
-        {/* Differentiators Grid */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
           {DIFFERENTIATORS.map((item, i) => (
             <article
               key={item.index}
-              className="card flex flex-col justify-between p-7"
+              className="card flex flex-col justify-between p-4 sm:p-5"
               data-animate
               data-delay={String(((i % 3) + 1) * 100)}
             >
               <div>
-                <span className="font-mono text-[12.5px] font-semibold text-blue-deep tabular-nums">
+                <span className="font-mono text-[12px] font-semibold text-blue-deep tabular-nums">
                   {item.index}
                 </span>
-                <h3 className="mt-3 text-[1.2rem] font-semibold tracking-[-0.01em] text-text">
+                <h3 className="mt-1.5 text-[1.05rem] font-semibold tracking-[-0.01em] text-text">
                   {item.title}
                 </h3>
-                <p className="mt-2.5 text-[14px] leading-relaxed text-muted">
+                <p className="mt-1 text-[13.5px] leading-snug text-muted">
                   {item.description}
                 </p>
               </div>
             </article>
           ))}
 
-          {/* 6th Card: Direct Action Callout */}
+          {/* 4th Card: Direct Action Callout */}
           <div
-            className="flex flex-col justify-between rounded-2xl border border-border bg-[#17181B] p-7 text-white"
+            className="flex flex-col justify-between rounded-2xl border border-border bg-[#17181B] p-4 sm:p-5 text-white"
             data-animate
             data-delay="300"
           >
             <div>
-              <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-blue-accent">
-                Ready When You Are
+              <span className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-blue-accent">
+                Next Step
               </span>
-              <h3 className="mt-3 text-[1.25rem] font-semibold tracking-[-0.01em] text-white">
-                Not sure where to begin?
+              <h3 className="mt-1.5 text-[1.1rem] font-semibold tracking-[-0.01em] text-white">
+                Tell me about your business
               </h3>
-              <p className="mt-2.5 text-[13.5px] leading-relaxed text-white/75">
-                Share your business goal or current challenge, whether it involves
-                your website, internal operations, or upcoming campaign visuals, and
-                I will recommend a clear, practical starting point.
+              <p className="mt-1 text-[13px] leading-snug text-white/75">
+                Share your goal and I will reply within 1 business day.
               </p>
             </div>
             <button
               type="button"
               onClick={() => triggerProjectScope({})}
-              className="btn-primary mt-6 w-full whitespace-nowrap"
+              className="btn-primary mt-3.5 w-full whitespace-nowrap"
             >
-              Start a Conversation
+              Start a Project
             </button>
           </div>
         </div>

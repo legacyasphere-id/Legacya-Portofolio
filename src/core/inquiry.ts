@@ -18,12 +18,12 @@ export const SERVICE_OPTIONS: ServiceOption[] = [
     label: 'Digital Experiences & Business Systems',
     shortLabel: 'Digital & Business Systems',
     summary:
-      'Business websites, customer portals, custom operational tools, and intelligent workflow automation.',
+      'Websites, customer portals, internal tools and workflow automation.',
     objectives: [
-      'Launch or modernize our company website & digital customer experience',
+      'Launch or modernize a company website & digital customer experience',
       'Replace manual spreadsheets with a connected internal business system',
       'Simplify repetitive daily workflows & customer inquiry handling',
-      'Unify sales, stock, or team operations into one central dashboard',
+      'Unify sales, stock, or operations into one central dashboard',
     ],
   },
   {
@@ -31,12 +31,12 @@ export const SERVICE_OPTIONS: ServiceOption[] = [
     label: 'Advertising & Campaign Assets',
     shortLabel: 'Advertising & Campaign Assets',
     summary:
-      'Campaign imagery, product visuals, social media advertising creatives, and visual direction.',
+      'Campaign key visuals, product imagery and social ad creatives.',
     objectives: [
       'Develop visual concepts and campaign imagery for an upcoming product launch',
       'Create high-impact product and promotional visuals for digital advertising',
-      'Produce cohesive social media advertising assets aligned with our brand',
-      'Establish visual direction and campaign materials to strengthen brand awareness',
+      'Produce cohesive social media advertising assets for a campaign',
+      'Establish visual direction and campaign materials to grow brand awareness',
     ],
   },
   {
@@ -44,12 +44,12 @@ export const SERVICE_OPTIONS: ServiceOption[] = [
     label: 'Cinematic Video & Visual Production',
     shortLabel: 'Cinematic Video & Production',
     summary:
-      'Cinematic advertising videos, product promotional films, short-form campaign reels, and visual storytelling.',
+      'Short product films, vertical reels and motion storyboards.',
     objectives: [
-      'Produce a cinematic advertising video or product-focused promotional film',
+      'Produce a cinematic advertising video or product promotional film',
       'Create short-form campaign videos and cinematic social media reels',
-      'Develop a visual brand story or launch film to introduce our offering',
-      'Explore visual storyboards and motion concepts for a promotional campaign',
+      'Develop a visual brand story or launch film for a product',
+      'Explore visual storyboards and motion concepts for a campaign',
     ],
   },
   {
@@ -57,10 +57,10 @@ export const SERVICE_OPTIONS: ServiceOption[] = [
     label: 'Combined Brand, Creative & Digital Engagement',
     shortLabel: 'Combined Studio Partnership',
     summary:
-      'Unified digital experience, campaign visuals, and cinematic storytelling under one studio roof.',
+      'Website or internal tool plus launch visuals and video in one scope.',
     objectives: [
-      'Launch a new brand or product with both a website and campaign visuals',
-      'Refresh our digital presence alongside coordinated advertising & video assets',
+      'Launch a brand or product with both a website and campaign visuals',
+      'Refresh digital presence alongside coordinated advertising & video assets',
       'Partner on ongoing digital improvements and seasonal campaign production',
     ],
   },
@@ -113,14 +113,14 @@ export function validateInquiryInput(input: Pick<InquiryFormInput, 'name' | 'con
   if (!input.name.trim()) {
     return {
       valid: false,
-      error: 'Please enter your name so we know how to address you.',
+      error: 'Please enter your name so I know how to address you.',
     }
   }
   const contact = input.contactInfo.trim()
   if (!contact) {
     return {
       valid: false,
-      error: 'Please provide your business email or WhatsApp number so we can reply.',
+      error: 'Please provide your email or WhatsApp number so I can reply.',
     }
   }
   const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact)
@@ -136,9 +136,9 @@ export function validateInquiryInput(input: Pick<InquiryFormInput, 'name' | 'con
 
 export function composeInquiryBrief(input: InquiryFormInput): string {
   const lines = [
-    `Hello Legacya Sphere Studio,`,
+    `Hello Yoga (Legacya Sphere),`,
     ``,
-    `I would like to discuss a project with your team:`,
+    `I would like to discuss a project with you:`,
     `• Name: ${input.name.trim() || 'Not specified'}`,
     `• Business / Brand: ${input.company.trim() || 'Not specified'}`,
     `• Contact (Email / WhatsApp): ${input.contactInfo.trim() || 'Not specified'}`,

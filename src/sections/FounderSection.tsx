@@ -52,84 +52,60 @@ export function FounderSection() {
   return (
     <section
       id="founder"
-      className="border-t border-border bg-surface/80 px-5 py-24 md:px-10 md:py-32"
+      className="border-t border-border bg-surface/80 px-5 py-10 md:px-10 md:py-16"
     >
       <div className="mx-auto max-w-[1180px]">
         {/* Top Grid: Portrait + Founder Bio */}
-        <div className="grid items-center gap-12 md:grid-cols-[320px_1fr] md:gap-16">
+        <div className="grid items-center gap-5 sm:grid-cols-[180px_1fr] md:grid-cols-[220px_1fr] md:gap-10">
           {/* Portrait */}
-          <div className="mx-auto w-full max-w-[320px]" data-animate>
+          <div className="w-[140px] sm:w-full" data-animate>
             <div className="overflow-hidden rounded-2xl border border-border bg-raised shadow-sm">
               <img
-                src={`${asset('img-04.webp')}?v=updated`}
+                src={asset('img-04.webp')}
                 alt={`${identity.name}, Founder of ${identity.company}`}
                 referrerPolicy="no-referrer"
                 className="aspect-[3/4] w-full object-cover object-center"
-                loading="lazy"
+                loading="eager"
+                decoding="async"
               />
             </div>
           </div>
 
           {/* Bio & Studio Leadership */}
           <div>
-            <p className="eyebrow mb-4" data-animate>
-              Studio Leadership
+            <p className="eyebrow mb-2" data-animate>
+              Founder
             </p>
 
             <h2
-              className="display text-[clamp(1.9rem,3.4vw,2.75rem)] leading-[1.1]"
+              className="display text-[clamp(1.8rem,3.4vw,2.65rem)] leading-[1.08]"
               data-animate
               data-delay="100"
             >
               {identity.name}
             </h2>
             <p
-              className="mt-2 font-mono text-[13px] font-medium text-blue-deep"
+              className="mt-1 font-mono text-[12px] font-medium text-blue-deep"
               data-animate
               data-delay="100"
             >
-              {identity.role} · {identity.company}
+              {identity.role} · {identity.company} · {identity.location} ({identity.timezone})
             </p>
 
-            <div
-              className="mt-6 max-w-[62ch] space-y-4 text-[clamp(1rem,1.35vw,1.1rem)] leading-relaxed text-muted"
+            <p
+              className="mt-3 max-w-[58ch] text-[16.5px] leading-relaxed text-muted"
               data-animate
               data-delay="200"
             >
-              <p>
-                Every project at Legacya Sphere is guided directly by me from our
-                first discovery conversation through final delivery. You never get
-                passed off to disconnected layers of account managers.
-              </p>
-              <p>
-                My focus is helping business owners and brand teams bring their
-                ideas to life, whether that means building a modern website,
-                simplifying daily operations with a custom tool, or developing
-                visual campaigns and cinematic product stories that leave a strong
-                impression.
-              </p>
-            </div>
-
-            {/* Clean Unboxed Metadata Line */}
-            <div
-              className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-border pt-5 font-mono text-[11.5px] text-muted"
-              data-animate
-              data-delay="300"
-            >
-              <span className="font-medium text-blue-deep">Direct Founder Collaboration</span>
-              <span aria-hidden="true">·</span>
-              <span>{identity.location} ({identity.timezone})</span>
-              <span aria-hidden="true">·</span>
-              <span>{identity.availability}</span>
-              <span aria-hidden="true">·</span>
-              <span>English &amp; Bahasa Indonesia</span>
-            </div>
+              I handle every project personally from discovery to handover, in
+              English or Bahasa Indonesia.
+            </p>
 
             {/* Direct Links */}
             <div
-              className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2"
+              className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-1 border-t border-border pt-3"
               data-animate
-              data-delay="400"
+              data-delay="300"
             >
               <a
                 href={identity.social.linkedin}
@@ -137,7 +113,7 @@ export function FounderSection() {
                 rel="noopener noreferrer"
                 className="link-sweep whitespace-nowrap"
               >
-                LinkedIn Profile <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
+                LinkedIn <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
               </a>
               <a
                 href={identity.social.instagram}
@@ -145,13 +121,13 @@ export function FounderSection() {
                 rel="noopener noreferrer"
                 className="link-sweep whitespace-nowrap"
               >
-                Instagram ({identity.social.instagramHandle}) <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
+                Instagram <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
               </a>
               <a
                 href={`mailto:${identity.social.email}`}
                 className="link-sweep whitespace-nowrap"
               >
-                Direct Email
+                Email
               </a>
               <a
                 href={`https://wa.me/${identity.social.whatsapp}`}
@@ -159,7 +135,7 @@ export function FounderSection() {
                 rel="noopener noreferrer"
                 className="link-sweep whitespace-nowrap"
               >
-                WhatsApp Direct <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
+                WhatsApp <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
               </a>
             </div>
           </div>
@@ -167,23 +143,20 @@ export function FounderSection() {
 
         {/* Training Sub-Panel */}
         <div
-          className="mt-16 border-t border-border pt-12"
+          className="mt-8 border-t border-border pt-6"
           data-animate
           data-delay="200"
         >
-          <div className="mb-7 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
+          <div className="mb-4 flex flex-col justify-between gap-1 sm:flex-row sm:items-end">
             <div>
-              <p className="eyebrow mb-2">Training</p>
-              <h3 className="text-[1.35rem] font-semibold tracking-[-0.02em] text-text">
+              <p className="eyebrow mb-1">Training</p>
+              <h3 className="text-[1.15rem] font-semibold tracking-[-0.02em] text-text">
                 Anthropic courses completed
               </h3>
             </div>
-            <p className="font-mono text-[11.5px] text-muted">
-              Select any course to preview the Anthropic certificate
-            </p>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
             {CERTS.map((c) => (
               <div
                 key={c.title}
@@ -201,36 +174,33 @@ export function FounderSection() {
                     className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-[1.03]"
                     loading="lazy"
                   />
-                  <span className="absolute bottom-2.5 right-2.5 rounded-md bg-black/75 px-2.5 py-1 font-mono text-[10px] font-medium text-white backdrop-blur-sm">
-                    Preview <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
-                  </span>
                 </button>
 
-                <div className="flex flex-1 flex-col justify-between p-4">
+                <div className="flex flex-1 flex-col justify-between p-3 sm:p-4">
                   <div>
-                    <p className="font-mono text-[10.5px] text-blue-deep">
+                    <p className="font-mono text-[10px] text-blue-deep">
                       {c.issuer}
                     </p>
-                    <p className="mt-1 text-[14px] font-semibold tracking-tight text-text">
+                    <p className="mt-0.5 text-[13px] sm:text-[14px] font-semibold leading-snug tracking-tight text-text">
                       {c.title}
                     </p>
                   </div>
 
-                  <div className="mt-4 flex items-center justify-between border-t border-border pt-3 text-[12px]">
+                  <div className="mt-2.5 flex items-center justify-between border-t border-border pt-2 text-[11.5px]">
                     <button
                       type="button"
                       onClick={() => setSelectedCert(c)}
-                      className="font-medium text-blue-deep hover:underline whitespace-nowrap cursor-pointer"
+                      className="min-h-[36px] inline-flex items-center font-medium text-blue-deep hover:underline whitespace-nowrap cursor-pointer"
                     >
-                      View Certificate
+                      Preview
                     </button>
                     <a
                       href={c.pdf}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-mono text-[11px] text-muted hover:text-text whitespace-nowrap"
+                      className="min-h-[36px] inline-flex items-center font-mono text-[10.5px] text-muted hover:text-text whitespace-nowrap"
                     >
-                      Official PDF <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
+                      PDF <ArrowUpRight className="inline h-3 w-3" aria-hidden="true" />
                     </a>
                   </div>
                 </div>
@@ -263,7 +233,7 @@ export function FounderSection() {
               <button
                 type="button"
                 onClick={() => setSelectedCert(null)}
-                className="rounded-lg border border-white/15 bg-white/10 px-3 py-1 text-[12px] font-medium text-white hover:bg-white/20 cursor-pointer"
+                className="min-h-[40px] rounded-lg border border-white/15 bg-white/10 px-3 py-1 text-[12px] font-medium text-white hover:bg-white/20 cursor-pointer"
               >
                 Close (ESC) &times;
               </button>
@@ -288,7 +258,7 @@ export function FounderSection() {
                 rel="noopener noreferrer"
                 className="btn-primary px-4 py-2 text-[12.5px] whitespace-nowrap"
               >
-                Open Full Certificate PDF <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
+                Open PDF <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
               </a>
             </div>
           </div>
