@@ -1,15 +1,20 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import { getProjects } from '../data/projects'
+import { getCreativeWorkItems } from '../data/creativeWork'
 import { triggerProjectScope } from '../core/identity'
 import { useT } from '../i18n/context'
+import { CurveShowcaseCard } from '../components/CurveShowcaseCard'
 
 export function WorkSection() {
   const { lang, t } = useT()
   const projects = getProjects(lang)
+  const creativeItems = getCreativeWorkItems(lang)
   const [activeId, setActiveId] = useState(projects[0]?.id ?? 'inventory-os')
   const [screenshotIdx, setScreenshotIdx] = useState(0)
   const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [panelHighlighted, setPanelHighlighted] = useState(false)
+  const detailPanelRef = useRef<HTMLElement | null>(null)
 
   const active = projects.find((p) => p.id === activeId) ?? projects[0]
   const currentScreenshot = active.screenshots[screenshotIdx] ?? active.screenshots[0]
@@ -46,66 +51,39 @@ export function WorkSection() {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [lightboxOpen, active.screenshots.length])
 
+  const handleInspectActiveProject = () => {
+    detailPanelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+    setPanelHighlighted(true)
+    window.setTimeout(() => setPanelHighlighted(false), 900)
+  }
+
+  const handleOpenCreativeItem = (itemId: string) => {
+    window.dispatchEvent(new CustomEvent('legacya:open-creative-item', { detail: itemId }))
+  }
+
   return (
     <section
       id="work"
       className="border-t border-border bg-surface/75 px-5 py-10 backdrop-blur-sm md:px-10 md:py-16"
     >
       <div className="mx-auto max-w-[1180px]">
-        {/* Section Header */}
-        <div
-          className="mb-6 flex flex-col justify-between gap-3 lg:flex-row lg:items-end"
-          data-animate
-        >
-          <div className="max-w-[640px]">
-            <p className="eyebrow mb-2.5">{t.work.eyebrow}</p>
-            <h2 className="display text-[clamp(1.85rem,3.4vw,2.75rem)] leading-[1.08] [text-wrap:balance]">
-              {t.work.heading}
-            </h2>
-          </div>
-        </div>
-
-        {/* Interactive Folder Tabs */}
-        <div
-          role="tablist"
-          aria-label={t.work.tablistAria}
-          className="scrollbar-none -mb-px flex gap-1.5 overflow-x-auto"
-          data-animate
-        >
-          {projects.map((project, i) => {
-            const isActive = project.id === active.id
-            return (
-              <button
-                key={project.id}
-                type="button"
-                role="tab"
-                id={`work-tab-${project.id}`}
-                aria-selected={isActive}
-                aria-controls="work-panel"
-                onClick={() => setActiveId(project.id)}
-                className={`min-h-[44px] shrink-0 rounded-t-xl border px-4 py-2 text-left transition-all duration-200 whitespace-nowrap cursor-pointer ${
-                  isActive
-                    ? 'relative z-10 border-border border-b-surface bg-surface text-text'
-                    : 'translate-y-1 border-transparent bg-raised/85 text-muted hover:translate-y-0 hover:bg-surface/70 hover:text-text'
-                }`}
-              >
-                <span className="block font-mono text-[10.5px] text-blue-deep tabular-nums">
-                  {String(i + 1).padStart(2, '0')} · {project.industry}
-                </span>
-                <span className="mt-0.5 block text-[13.5px] font-semibold tracking-tight">
-                  {project.name}
-                </span>
-              </button>
-            )
-          })}
-        </div>
+        {/* Dark Curve Showcase Card */}
+        <CurveShowcaseCard
+          projects={projects}
+          activeProjectId={active.id}
+          onSelectProject={setActiveId}
+          onInspectActiveProject={handleInspectActiveProject}
+          creativeItems={creativeItems}
+          onOpenCreativeItem={handleOpenCreativeItem}
+        />
 
         {/* Active Project Card: Image + Title + One Line + Actions */}
         <article
+          ref={detailPanelRef}
           id="work-panel"
-          role="tabpanel"
-          aria-labelledby={`work-tab-${active.id}`}
-          className="card relative z-0 overflow-hidden rounded-t-none lg:grid lg:grid-cols-[1.2fr_1fr] lg:items-center"
+          className={`card relative z-0 overflow-hidden transition-shadow duration-300 lg:grid lg:grid-cols-[1.2fr_1fr] lg:items-center ${
+            panelHighlighted ? 'ring-2 ring-blue-deep' : ''
+          }`}
           data-animate
         >
           {/* Left Column: Screenshot + Thumbnails */}

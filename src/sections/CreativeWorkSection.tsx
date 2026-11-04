@@ -154,8 +154,18 @@ export function CreativeWorkSection() {
         setFilter('Advertising & Campaign Assets')
       }
     }
+    const onOpenCreativeItem = (e: Event) => {
+      const custom = e as CustomEvent<string>
+      if (custom.detail) {
+        setSelectedItemId(custom.detail)
+      }
+    }
     window.addEventListener('legacya:select-creative', onSelectCreative)
-    return () => window.removeEventListener('legacya:select-creative', onSelectCreative)
+    window.addEventListener('legacya:open-creative-item', onOpenCreativeItem)
+    return () => {
+      window.removeEventListener('legacya:select-creative', onSelectCreative)
+      window.removeEventListener('legacya:open-creative-item', onOpenCreativeItem)
+    }
   }, [])
 
   useEffect(() => {
@@ -172,25 +182,9 @@ export function CreativeWorkSection() {
   return (
     <section
       id="creative-work"
-      className="border-t border-border bg-bg/95 px-5 py-12 backdrop-blur-sm md:px-10 md:py-20"
+      className="border-t border-border bg-bg/95 px-5 py-10 backdrop-blur-sm md:px-10 md:py-16"
     >
       <div className="mx-auto max-w-[1180px]">
-        {/* Section Header */}
-        <div
-          className="mb-6 flex flex-col justify-between gap-4 lg:flex-row lg:items-end"
-          data-animate
-        >
-          <div className="max-w-[640px]">
-            <p className="eyebrow mb-3">{t.creativeWork.eyebrow}</p>
-            <h2 className="display text-[clamp(1.95rem,3.4vw,2.85rem)] leading-[1.08] [text-wrap:balance]">
-              {t.creativeWork.heading}
-            </h2>
-          </div>
-          <p className="max-w-[42ch] text-[15.5px] leading-relaxed text-muted">
-            {t.creativeWork.subline}
-          </p>
-        </div>
-
         {/* Filter Bar */}
         <div
           className="mb-6 flex flex-wrap items-center justify-between gap-3"
