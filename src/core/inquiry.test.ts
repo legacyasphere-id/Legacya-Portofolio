@@ -9,6 +9,8 @@ import {
   validateInquiryInput,
   composeInquiryBrief,
 } from './inquiry.ts'
+import { en } from '../i18n/en.ts'
+import { id } from '../i18n/id.ts'
 
 test('SERVICE_OPTIONS includes all three core studio capabilities plus combined engagement', () => {
   const labels = SERVICE_OPTIONS.map((s) => s.label)
@@ -67,6 +69,77 @@ test('composeInquiryBrief generates a clean customer-ready project inquiry summa
   assert.ok(brief.includes('Launching 3 new products next month'))
 })
 
+test('composeInquiryBrief and validateInquiryInput support Indonesian language (id)', () => {
+  const invalidRes = validateInquiryInput({ name: '', contactInfo: '' }, 'id')
+  assert.equal(invalidRes.valid, false)
+  assert.ok(invalidRes.error?.includes('namamu'))
+
+  const briefId = composeInquiryBrief(
+    {
+      serviceCategory: resolveServiceLabel('digital-systems', 'id'),
+      objective: getObjectivesForService('digital-systems', 'id')[0],
+      timeline: 'Dalam 30 Hari',
+      name: 'Budi Santoso',
+      company: 'Nusantara Retail',
+      contactInfo: '+62 812-3456-7890',
+      notes: 'Ingin membuat sistem stok gudang terpadu.',
+    },
+    'id',
+  )
+
+  assert.ok(briefId.includes('Halo Yoga (Legacya Sphere),'))
+  assert.ok(briefId.includes('Layanan yang Diminati: Pengalaman Digital & Sistem Bisnis'))
+  assert.ok(briefId.includes('Tujuan Utama: Meluncurkan atau memperbarui website perusahaan'))
+  assert.ok(briefId.includes('Target Waktu: Dalam 30 Hari'))
+})
+
+test('en and id dictionaries have identical keys and no empty strings', () => {
+  function verifyNode(enNode: unknown, idNode: unknown, keyPath: string) {
+    assert.equal(typeof enNode, typeof idNode, `Type mismatch at ${keyPath}`)
+
+    if (typeof enNode === 'string') {
+      assert.equal(typeof idNode, 'string', `Expected string at ${keyPath}`)
+      assert.ok(
+        (enNode as string).trim().length > 0,
+        `Empty English string at ${keyPath}`,
+      )
+      assert.ok(
+        (idNode as string).trim().length > 0,
+        `Empty Indonesian string at ${keyPath}`,
+      )
+      return
+    }
+
+    if (Array.isArray(enNode)) {
+      assert.ok(Array.isArray(idNode), `Expected array at ${keyPath}`)
+      assert.equal(
+        enNode.length,
+        (idNode as unknown[]).length,
+        `Array length mismatch at ${keyPath}`,
+      )
+      for (let i = 0; i < enNode.length; i++) {
+        verifyNode(enNode[i], (idNode as unknown[])[i], `${keyPath}[${i}]`)
+      }
+      return
+    }
+
+    if (enNode && typeof enNode === 'object') {
+      const enKeys = Object.keys(enNode as Record<string, unknown>).sort()
+      const idKeys = Object.keys(idNode as Record<string, unknown>).sort()
+      assert.deepEqual(enKeys, idKeys, `Key mismatch at ${keyPath}`)
+      for (const k of enKeys) {
+        verifyNode(
+          (enNode as Record<string, unknown>)[k],
+          (idNode as Record<string, unknown>)[k],
+          keyPath ? `${keyPath}.${k}` : k,
+        )
+      }
+    }
+  }
+
+  verifyNode(en, id, '')
+})
+
 test('All customer-facing sections and portfolio data contain zero developer jargon and zero em-dashes', () => {
   const bannedTerms = [
     'postgresql',
@@ -89,6 +162,8 @@ test('All customer-facing sections and portfolio data contain zero developer jar
 
   const filesToAudit = [
     'index.html',
+    'src/i18n/en.ts',
+    'src/i18n/id.ts',
     'src/core/identity.ts',
     'src/core/inquiry.ts',
     'src/data/projects.ts',
@@ -103,6 +178,7 @@ test('All customer-facing sections and portfolio data contain zero developer jar
     'src/sections/FounderSection.tsx',
     'src/sections/CTASection.tsx',
     'src/components/SiteNav.tsx',
+    'src/components/SectionGuide.tsx',
     'src/components/Footer.tsx',
   ]
 

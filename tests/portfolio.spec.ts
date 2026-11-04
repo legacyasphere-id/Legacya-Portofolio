@@ -220,3 +220,86 @@ test.describe('Footer', () => {
     )
   })
 })
+
+// ── Language Toggle (EN | ID) ────────────────────────────────────────────────
+
+test.describe('Language Toggle', () => {
+  test('defaults to English H1, switches to Indonesian H1 with lang="id", and persists across reload', async ({
+    page,
+  }) => {
+    await page.goto('/')
+    const h1 = page.locator('h1')
+    await expect(h1).toContainText('Business systems.')
+    await expect(h1).toContainText('Brand visuals.')
+    await expect(h1).toContainText('One AI-native studio.')
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en')
+
+    const toggleBtn = page.locator(
+      'header button[aria-label="Switch language to Indonesian"]',
+    )
+    await expect(toggleBtn).toBeVisible()
+    await toggleBtn.click()
+
+    await expect(page.locator('html')).toHaveAttribute('lang', 'id')
+    await expect(h1).toContainText('Sistem bisnis.')
+    await expect(h1).toContainText('Visual brand.')
+    await expect(h1).toContainText('Satu studio AI-native.')
+
+    await page.reload()
+    await expect(page.locator('html')).toHaveAttribute('lang', 'id')
+    await expect(h1).toContainText('Sistem bisnis.')
+    await expect(h1).toContainText('Visual brand.')
+    await expect(h1).toContainText('Satu studio AI-native.')
+  })
+
+  test('builds the WhatsApp inquiry link in Indonesian after choosing ID', async ({
+    page,
+  }) => {
+    await page.goto('/')
+    await page
+      .locator('header button[aria-label="Switch language to Indonesian"]')
+      .click()
+
+    await page.evaluate(() => {
+      window.addEventListener(
+        'click',
+        (e) => {
+          const anchor = (e.target as HTMLElement).closest('a')
+          if (anchor && anchor.href.includes('wa.me')) {
+            e.preventDefault()
+            ;(window as unknown as { __waHref?: string }).__waHref = anchor.href
+          }
+        },
+        true,
+      )
+    })
+
+    const cta = page.locator('#contact')
+    await cta.locator('#scoper-name').fill('Budi Santoso')
+    await cta.locator('#scoper-company').fill('Nusantara Retail')
+    await cta.locator('#scoper-contact').fill('+62 812-3456-7890')
+    await cta.getByRole('button', { name: /Kirim via WhatsApp/ }).click()
+
+    const waHref = await page.evaluate(
+      () => (window as unknown as { __waHref?: string }).__waHref ?? '',
+    )
+    expect(waHref).toContain('https://wa.me/6285156862140?text=')
+    const decodedText = decodeURIComponent(waHref.split('?text=')[1] ?? '')
+    expect(decodedText).toContain('Halo Yoga (Legacya Sphere),')
+    expect(decodedText).toContain('Layanan yang Diminati: Pengalaman Digital & Sistem Bisnis')
+    expect(decodedText).toContain('Tujuan Utama:')
+    expect(decodedText).toContain('Budi Santoso')
+  })
+
+  test('language toggle is at least 44 px tall on phone', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    await page.goto('/')
+    const toggleBtn = page
+      .locator('header button[aria-label="Switch language to Indonesian"]')
+      .first()
+    await expect(toggleBtn).toBeVisible()
+    const box = await toggleBtn.boundingBox()
+    expect(box).not.toBeNull()
+    expect(box!.height).toBeGreaterThanOrEqual(44)
+  })
+})
