@@ -180,6 +180,7 @@ test('All customer-facing sections and portfolio data contain zero developer jar
     'src/components/SiteNav.tsx',
     'src/components/SectionGuide.tsx',
     'src/components/Footer.tsx',
+    'src/components/CurveShowcaseCard.tsx',
   ]
 
   for (const relPath of filesToAudit) {

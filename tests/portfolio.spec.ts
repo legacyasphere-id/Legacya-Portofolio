@@ -75,52 +75,166 @@ test.describe('What I Do', () => {
   })
 })
 
-// ── Work / case studies ──────────────────────────────────────────────────────
+// ── Work / Curve Showcase & Case Studies ─────────────────────────────────────
 
-test.describe('Digital Work', () => {
-  test('renders a folder tab per curated project, opening its case study', async ({ page }) => {
+test.describe('Digital Work & Curve Showcase', () => {
+  test('renders the dark curve showcase card with both lines and honest-label badges', async ({
+    page,
+  }) => {
     await page.goto('/')
-    const work = page.locator('#work')
-    const tabs = work.locator('[role="tab"]')
-    await expect(tabs).toHaveCount(4)
+    const card = page.getByTestId('curve-showcase-card')
+    await expect(card).toBeVisible()
 
-    await expect(work.locator('h3', { hasText: 'InventoryOS' })).toBeVisible()
-
-    const remaining: [string, string][] = [
-      ['Human Resources & Recruitment', 'Talent Evaluation System'],
-      ['Healthcare & Dental Clinics', 'BrightPath Clinic Website & Patient Portal'],
-      ['Food & Beverage · Hospitality', 'Legacya Restaurant & Kitchen System'],
-    ]
-    for (const [industry, name] of remaining) {
-      await tabs.filter({ hasText: industry }).click()
-      await expect(work.locator('h3', { hasText: name })).toBeVisible()
-    }
+    await expect(card.getByText('My live websites and business systems')).toBeVisible()
+    await expect(card.getByText('My campaign visuals and product films')).toBeVisible()
+    await expect(card.getByText('Self-initiated reference build · Live demo')).toBeVisible()
+    await expect(card.getByText('Concept work · not commissioned by the brand')).toBeVisible()
+    await expect(card.getByText('1 / 4', { exact: true })).toBeVisible()
+    await expect(card.getByText('1 / 6', { exact: true })).toBeVisible()
+    await expect(page.locator('video')).toHaveCount(0)
   })
 
-  test('labels every project as a self-initiated reference build', async ({ page }) => {
+  test('top curve next button reaches every digital project and syncs the detail panel below', async ({
+    page,
+  }) => {
+    await page.goto('/')
+    const work = page.locator('#work')
+    const card = work.getByTestId('curve-showcase-card')
+    const topRegion = card.getByRole('region', {
+      name: 'My live websites and business systems',
+    })
+    const nextBtn = topRegion.getByRole('button', { name: 'Next project' })
+    const detailHeading = work.locator('#work-panel h3')
+    const liveLink = work.locator('#work-panel a.link-sweep')
+
+    const expectedNames = [
+      'InventoryOS',
+      'Talent Evaluation System',
+      'BrightPath Clinic Website & Patient Portal',
+      'Legacya Restaurant & Kitchen System',
+    ]
+
+    for (let i = 0; i < expectedNames.length; i++) {
+      await expect(detailHeading).toHaveText(expectedNames[i])
+      await expect(liveLink).toHaveCount(1)
+      await expect(liveLink).toHaveAttribute('href', /^https:\/\//)
+      await nextBtn.click()
+    }
+    // Loops back to first project
+    await expect(detailHeading).toHaveText('InventoryOS')
+  })
+
+  test('bottom curve next button cycles creative items and clicking active creative photo opens its modal', async ({
+    page,
+  }) => {
+    await page.goto('/')
+    const card = page.getByTestId('curve-showcase-card')
+    const bottomRegion = card.getByRole('region', {
+      name: 'My campaign visuals and product films',
+    })
+    const nextBtn = bottomRegion.getByRole('button', { name: 'Next project' })
+
+    await expect(bottomRegion.getByText('Hanasui Cosmetics')).toBeVisible()
+    await expect(bottomRegion.getByText('1 / 6')).toBeVisible()
+
+    await nextBtn.click()
+    await expect(bottomRegion.getByText('Flame-Grilled Burger')).toBeVisible()
+    await expect(bottomRegion.getByText('2 / 6')).toBeVisible()
+
+    const activePhotoBtn = bottomRegion.locator('button[aria-current="true"]')
+    await activePhotoBtn.click()
+    const modal = page.getByRole('dialog')
+    await expect(modal).toBeVisible()
+    await expect(modal.locator('h3')).toContainText('Flame-Grilled Burger')
+  })
+
+  test('supports Left and Right arrow keys when focus is inside the curve showcase card', async ({
+    page,
+  }) => {
+    await page.goto('/')
+    const work = page.locator('#work')
+    const card = work.getByTestId('curve-showcase-card')
+    const topRegion = card.getByRole('region', {
+      name: 'My live websites and business systems',
+    })
+    const nextBtn = topRegion.getByRole('button', { name: 'Next project' })
+
+    await nextBtn.focus()
+    await page.keyboard.press('ArrowRight')
+    await expect(work.locator('#work-panel h3')).toHaveText('Talent Evaluation System')
+
+    await page.keyboard.press('ArrowLeft')
+    await expect(work.locator('#work-panel h3')).toHaveText('InventoryOS')
+  })
+
+  test('labels every project as a self-initiated reference build and never renders TODO(yoga)', async ({
+    page,
+  }) => {
     await page.goto('/')
     const work = page.locator('#work')
     await expect(work.getByText('Self-initiated reference build · Live demo').first()).toBeVisible()
     await expect(work.getByText('Verified Live Product')).toHaveCount(0)
-  })
-
-  test('never renders TODO(yoga) placeholders', async ({ page }) => {
-    await page.goto('/')
     await expect(page.getByText('TODO(yoga)')).toHaveCount(0)
   })
 
-  test('every project folder links to a live deployment', async ({ page }) => {
+  test('nav links Digital Work and Creative Work land on #work card and #creative-work section', async ({
+    page,
+    isMobile,
+  }) => {
     await page.goto('/')
-    const work = page.locator('#work')
-    const tabs = work.locator('[role="tab"]')
-    const count = await tabs.count()
-
-    for (let i = 0; i < count; i++) {
-      await tabs.nth(i).click()
-      const link = work.locator('a.link-sweep')
-      await expect(link).toHaveCount(1)
-      await expect(link).toHaveAttribute('href', /^https:\/\//)
+    if (isMobile) {
+      await page.locator('button[aria-label="Toggle menu"]').click()
+      await page.locator('nav[aria-label="Mobile"] a[href="#work"]').click()
+    } else {
+      await page.locator('header nav[aria-label="Primary"] a[href="#work"]').click()
     }
+    await expect(page).toHaveURL(/#work$/)
+    await expect(page.getByTestId('curve-showcase-card')).toBeInViewport()
+
+    if (isMobile) {
+      await page.locator('button[aria-label="Toggle menu"]').click()
+      await page.locator('nav[aria-label="Mobile"] a[href="#creative-work"]').click()
+    } else {
+      await page.locator('header nav[aria-label="Primary"] a[href="#creative-work"]').click()
+    }
+    await expect(page).toHaveURL(/#creative-work$/)
+    await expect(page.locator('#creative-work')).toBeInViewport()
+  })
+
+  test('curve card tap targets are at least 44px at 390px and page has no horizontal overflow in EN or ID', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    await page.goto('/')
+    const card = page.getByTestId('curve-showcase-card')
+    await card.scrollIntoViewIfNeeded()
+
+    const buttons = card.locator('button')
+    const btnCount = await buttons.count()
+    expect(btnCount).toBe(10)
+    for (let i = 0; i < btnCount; i++) {
+      const box = await buttons.nth(i).boundingBox()
+      expect(box).not.toBeNull()
+      expect(box!.height).toBeGreaterThanOrEqual(44)
+      expect(box!.width).toBeGreaterThanOrEqual(44)
+    }
+
+    const overflowEn = await page.evaluate(
+      () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    )
+    expect(overflowEn).toBe(false)
+
+    await page
+      .locator('header button[aria-label="Switch language to Indonesian"]')
+      .first()
+      .click()
+    await expect(card.getByText('Website aktif dan sistem bisnis buatan saya')).toBeVisible()
+    await expect(card.getByText('Visual kampanye dan film produk buatan saya')).toBeVisible()
+
+    const overflowId = await page.evaluate(
+      () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    )
+    expect(overflowId).toBe(false)
   })
 })
 

@@ -122,8 +122,7 @@ export function CurveShowcaseCard({
     >
       {/* Screen-reader polite announcement for active items */}
       <div className="sr-only" aria-live="polite" aria-atomic="true">
-        {activeProject.name} ({projectIdx + 1} / {totalProjects}) · {activeCreativeMeta.shortTitle} (
-        {safeCreativeIdx + 1} / {totalCreative})
+        {activeProject.name} · {activeCreativeMeta.shortTitle}
       </div>
 
       {/* ── TOP WAVE LINE: Digital Projects ── */}
