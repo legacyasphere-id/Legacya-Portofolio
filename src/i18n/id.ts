@@ -451,6 +451,8 @@ export const id: typeof en = {
       type: 'Sistem Operasional Internal Bisnis',
       industry: 'Gudang & Distribusi',
       workClassification: 'Proyek referensi inisiatif sendiri · Demo langsung',
+      buildNotes:
+        'Dibangun dalam 1-2 minggu · Akses multi-peran tim · Pelacakan pesanan pembelian lengkap · Peringatan stok menipis otomatis',
       caseStudy: {
         challenge:
           'Tim gudang dan distribusi yang sedang berkembang sering kali masih mengandalkan spreadsheet terpisah untuk mencatat stok. Hal ini memicu selisih hitungan barang, keterlambatan pemesanan ulang, dan kurangnya visibilitas antara staf gudang dengan manajer pembelian.',
@@ -474,11 +476,13 @@ export const id: typeof en = {
       ],
     },
     'ai-cv-screening': {
-      name: 'Allure Talent Evaluation System',
+      name: 'Talent Evaluation System',
       tagline: 'Konsep penyaringan rekrutmen yang dirancang mengikuti alur kerja HR nyata',
       type: 'Sistem Bisnis Khusus & Otomasi Alur Kerja',
       industry: 'SDM & Rekrutmen',
       workClassification: 'Proyek referensi inisiatif sendiri · Demo langsung',
+      buildNotes:
+        'Dibangun dalam 1-2 minggu · Evaluasi pelamar konsisten · Perbandingan kandidat berdampingan · Ringkasan siap ekspor',
       caseStudy: {
         challenge:
           'Tim rekrutmen yang memeriksa ratusan CV untuk setiap lowongan kerja menghabiskan berhari-hari membaca dokumen dengan format berbeda secara manual, sehingga proses seleksi awal berjalan lambat dan sulit membandingkan kandidat secara objektif.',
@@ -496,8 +500,8 @@ export const id: typeof en = {
         'Grafik perbandingan visual berdampingan serta ekspor ringkasan satu klik untuk rapat evaluasi tim',
       ],
       screenshotAlts: [
-        'Dasbor Allure Talent Evaluation System yang menampilkan ringkasan pelamar dan grafik perbandingan 3 kandidat teratas',
-        'Pengaturan kriteria lowongan dan rincian evaluasi kandidat transparan pada Allure Talent Evaluation System',
+        'Dasbor Talent Evaluation System yang menampilkan ringkasan pelamar dan grafik perbandingan 3 kandidat teratas',
+        'Pengaturan kriteria lowongan dan rincian evaluasi kandidat transparan pada Talent Evaluation System',
       ],
     },
     'brightpath-dental': {
@@ -506,6 +510,8 @@ export const id: typeof en = {
       type: 'Website Bisnis & Pengalaman Pelanggan',
       industry: 'Klinik Kesehatan & Gigi',
       workClassification: 'Proyek referensi inisiatif sendiri · Demo langsung',
+      buildNotes:
+        'Dibangun dalam 1-2 minggu · Tanya jawab pasien 24/7 (EN / ID) · Permintaan janji temu online · Notifikasi resepsionis',
       caseStudy: {
         challenge:
           'Klinik dan bisnis layanan sering kehilangan calon pasien di luar jam operasional ketika pengunjung website tidak bisa segera mendapatkan jawaban tepercaya mengenai tindakan perawatan, estimasi biaya, dan jadwal dokter tanpa menelepon resepsionis.',
@@ -534,6 +540,8 @@ export const id: typeof en = {
       type: 'Sistem Operasional & Kasir Khusus',
       industry: 'Kuliner · Restoran & Kafe',
       workClassification: 'Proyek referensi inisiatif sendiri · Demo langsung',
+      buildNotes:
+        'Dibangun dalam 1-2 minggu · 9 tampilan operasional khusus · Layar Kasir, Dapur & Pemilik terhubung · Penghitung waktu pesanan',
       caseStudy: {
         challenge:
           'Restoran dan kafe yang masih mengandalkan nota kertas tulis tangan serta mesin kasir terpisah sering mengalami antrean pesanan di dapur, catatan pesanan yang terlewat, dan rekap penjualan harian yang memakan waktu lama.',

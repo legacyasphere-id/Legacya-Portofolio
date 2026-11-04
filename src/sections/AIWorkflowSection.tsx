@@ -1,7 +1,6 @@
 import { useT } from '../i18n/context'
 
-// TODO(yoga): confirm tool list.
-const TOOLS = ['Claude Code', 'Gemini', 'Google Flow', 'Figma', 'Supabase', 'Vercel', 'n8n']
+const TOOLS = ['Claude', 'Hermes', 'Gemini', 'Figma', 'Google Flow', 'Seedance']
 
 export function AIWorkflowSection() {
   const { t } = useT()
