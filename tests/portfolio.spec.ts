@@ -141,6 +141,9 @@ test.describe('Creative Work', () => {
       .getByRole('button', { name: 'Cinematic Video & Visual Production' })
       .click()
     await expect(cards).toHaveCount(3)
+    await cards.first().scrollIntoViewIfNeeded()
+    await expect(creative.locator('video').first()).toBeAttached()
+    expect(await creative.locator('video').count()).toBeGreaterThan(0)
     await expect(
       creative.getByText('Concept work · not commissioned by the brand'),
     ).toHaveCount(3)
