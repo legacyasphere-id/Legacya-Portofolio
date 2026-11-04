@@ -200,7 +200,7 @@ export function CreativeWorkSection() {
                   key={tab}
                   type="button"
                   onClick={() => setFilter(tab)}
-                  className={`min-h-[40px] rounded-lg px-3.5 py-1.5 text-[13px] font-medium transition-colors whitespace-nowrap cursor-pointer ${
+                  className={`min-h-[44px] rounded-lg px-3.5 py-2 text-[13px] font-medium transition-colors whitespace-nowrap cursor-pointer ${
                     active
                       ? 'bg-blue-deep text-white shadow-sm'
                       : 'text-muted hover:text-text'
@@ -291,7 +291,7 @@ export function CreativeWorkSection() {
               <button
                 type="button"
                 onClick={() => setSelectedItem(null)}
-                className="min-h-[40px] rounded-lg border border-white/15 bg-white/10 px-3 py-1.5 text-[12px] font-medium text-white hover:bg-white/20 cursor-pointer"
+                className="min-h-[44px] rounded-lg border border-white/15 bg-white/10 px-3 py-1.5 text-[12px] font-medium text-white hover:bg-white/20 cursor-pointer"
               >
                 Close (ESC) &times;
               </button>

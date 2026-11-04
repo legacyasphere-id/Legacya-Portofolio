@@ -41,7 +41,7 @@ export function SiteNav() {
         {/* Zone 1: Legacya Sphere emblem + wordmark */}
         <a
           href="#top"
-          className="flex items-center gap-2.5 whitespace-nowrap shrink-0"
+          className="flex min-h-[44px] items-center gap-2.5 whitespace-nowrap shrink-0"
         >
           <span className="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border bg-surface shadow-xs">
             <img
@@ -85,7 +85,7 @@ export function SiteNav() {
 
         <button
           type="button"
-          className={`burger z-[101] flex flex-col gap-1.5 p-2 lg:hidden ${open ? 'open' : ''}`}
+          className={`burger z-[101] flex min-h-[44px] min-w-[44px] flex-col items-center justify-center gap-1.5 p-2 lg:hidden ${open ? 'open' : ''}`}
           aria-label="Toggle menu"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}

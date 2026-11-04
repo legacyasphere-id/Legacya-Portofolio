@@ -66,7 +66,7 @@ export function Footer() {
               <a
                 key={link.label}
                 href={link.href}
-                className="flex min-h-[40px] items-center py-1 text-[13.5px] text-white/75 transition-colors duration-200 hover:text-white"
+                className="flex min-h-[44px] items-center py-1 text-[13.5px] text-white/75 transition-colors duration-200 hover:text-white"
               >
                 {link.label}
               </a>
@@ -86,7 +86,7 @@ export function Footer() {
                     serviceCategory: item.serviceCategory,
                   })
                 }
-                className="flex min-h-[40px] items-center py-1 text-left text-[13.5px] text-white/75 transition-colors duration-200 hover:text-white cursor-pointer"
+                className="flex min-h-[44px] items-center py-1 text-left text-[13.5px] text-white/75 transition-colors duration-200 hover:text-white cursor-pointer"
               >
                 {item.label}
               </button>
@@ -98,7 +98,7 @@ export function Footer() {
             <p className="eyebrow mb-2 text-white/90">Direct Contact</p>
             <a
               href={`mailto:${identity.social.email}`}
-              className="flex min-h-[40px] items-center py-1 text-[13.5px] text-white/75 transition-colors duration-200 hover:text-white"
+              className="flex min-h-[44px] items-center py-1 text-[13.5px] text-white/75 transition-colors duration-200 hover:text-white"
             >
               {identity.social.email}
             </a>
@@ -106,7 +106,7 @@ export function Footer() {
               href={`https://wa.me/${identity.social.whatsapp}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex min-h-[40px] items-center gap-1 py-1 text-[13.5px] text-white/75 transition-colors duration-200 hover:text-white"
+              className="flex min-h-[44px] items-center gap-1 py-1 text-[13.5px] text-white/75 transition-colors duration-200 hover:text-white"
             >
               WhatsApp Business <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
             </a>
@@ -114,7 +114,7 @@ export function Footer() {
               href={identity.social.instagram}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex min-h-[40px] items-center gap-1 py-1 text-[13.5px] text-white/75 transition-colors duration-200 hover:text-white"
+              className="flex min-h-[44px] items-center gap-1 py-1 text-[13.5px] text-white/75 transition-colors duration-200 hover:text-white"
             >
               Instagram ({identity.social.instagramHandle}) <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
             </a>
@@ -122,7 +122,7 @@ export function Footer() {
               href={identity.social.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex min-h-[40px] items-center gap-1 py-1 text-[13.5px] text-white/75 transition-colors duration-200 hover:text-white"
+              className="flex min-h-[44px] items-center gap-1 py-1 text-[13.5px] text-white/75 transition-colors duration-200 hover:text-white"
             >
               LinkedIn Profile <ArrowUpRight className="inline h-3.5 w-3.5" aria-hidden="true" />
             </a>

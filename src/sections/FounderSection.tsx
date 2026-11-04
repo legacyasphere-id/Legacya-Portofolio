@@ -190,7 +190,7 @@ export function FounderSection() {
                     <button
                       type="button"
                       onClick={() => setSelectedCert(c)}
-                      className="min-h-[36px] inline-flex items-center font-medium text-blue-deep hover:underline whitespace-nowrap cursor-pointer"
+                      className="min-h-[44px] inline-flex items-center font-medium text-blue-deep hover:underline whitespace-nowrap cursor-pointer"
                     >
                       Preview
                     </button>
@@ -198,7 +198,7 @@ export function FounderSection() {
                       href={c.pdf}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="min-h-[36px] inline-flex items-center font-mono text-[10.5px] text-muted hover:text-text whitespace-nowrap"
+                      className="min-h-[44px] inline-flex items-center font-mono text-[10.5px] text-muted hover:text-text whitespace-nowrap"
                     >
                       PDF <ArrowUpRight className="inline h-3 w-3" aria-hidden="true" />
                     </a>
@@ -233,7 +233,7 @@ export function FounderSection() {
               <button
                 type="button"
                 onClick={() => setSelectedCert(null)}
-                className="min-h-[40px] rounded-lg border border-white/15 bg-white/10 px-3 py-1 text-[12px] font-medium text-white hover:bg-white/20 cursor-pointer"
+                className="min-h-[44px] rounded-lg border border-white/15 bg-white/10 px-3 py-1 text-[12px] font-medium text-white hover:bg-white/20 cursor-pointer"
               >
                 Close (ESC) &times;
               </button>

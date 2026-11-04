@@ -252,7 +252,7 @@ export function WorkSection() {
               <button
                 type="button"
                 onClick={() => setLightboxOpen(false)}
-                className="min-h-[40px] rounded-lg border border-white/15 bg-white/10 px-3 py-1.5 text-[12px] font-medium text-white hover:bg-white/20 cursor-pointer"
+                className="min-h-[44px] rounded-lg border border-white/15 bg-white/10 px-3 py-1.5 text-[12px] font-medium text-white hover:bg-white/20 cursor-pointer"
               >
                 Close (ESC) &times;
               </button>
@@ -278,7 +278,7 @@ export function WorkSection() {
                               (prev - 1 + active.screenshots.length) % active.screenshots.length,
                           )
                         }
-                        className="rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 text-[12px] text-white hover:bg-white/15 whitespace-nowrap cursor-pointer"
+                        className="min-h-[44px] inline-flex items-center rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 text-[12px] text-white hover:bg-white/15 whitespace-nowrap cursor-pointer"
                       >
                         &larr; Previous
                       </button>
@@ -287,7 +287,7 @@ export function WorkSection() {
                         onClick={() =>
                           setScreenshotIdx((prev) => (prev + 1) % active.screenshots.length)
                         }
-                        className="rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 text-[12px] text-white hover:bg-white/15 whitespace-nowrap cursor-pointer"
+                        className="min-h-[44px] inline-flex items-center rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 text-[12px] text-white hover:bg-white/15 whitespace-nowrap cursor-pointer"
                       >
                         Next &rarr;
                       </button>

@@ -87,28 +87,30 @@ export function HeroSection() {
 
             {/* "What do you need?" Service Chooser Chips */}
             <div
-              className="mt-4 flex flex-wrap items-center justify-center gap-2 sm:justify-start"
+              className="mt-4 flex flex-col items-center gap-2 sm:flex-row sm:flex-wrap sm:justify-start"
               data-animate
               data-delay="250"
             >
-              <span className="mr-1 font-mono text-[11.5px] font-medium uppercase tracking-[0.12em] text-muted">
+              <span className="font-mono text-[11.5px] font-medium uppercase tracking-[0.12em] text-muted sm:mr-1">
                 What do you need?
               </span>
-              {NEED_CHIPS.map((chip) => (
-                <button
-                  key={chip.label}
-                  type="button"
-                  onClick={() =>
-                    triggerProjectScope({
-                      serviceCategory: chip.serviceCategory,
-                      objective: chip.objective,
-                    })
-                  }
-                  className="inline-flex min-h-[44px] items-center rounded-full border border-border bg-surface/95 px-4 py-2 font-mono text-[12px] font-medium text-text shadow-xs backdrop-blur-sm transition-colors hover:border-blue-deep hover:bg-blue-deep hover:text-white cursor-pointer"
-                >
-                  {chip.label} &rarr;
-                </button>
-              ))}
+              <div className="grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto sm:flex-wrap">
+                {NEED_CHIPS.map((chip) => (
+                  <button
+                    key={chip.label}
+                    type="button"
+                    onClick={() =>
+                      triggerProjectScope({
+                        serviceCategory: chip.serviceCategory,
+                        objective: chip.objective,
+                      })
+                    }
+                    className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-border bg-surface/95 px-4 py-2 font-mono text-[12px] font-medium text-text shadow-xs backdrop-blur-sm transition-colors hover:border-blue-deep hover:bg-blue-deep hover:text-white cursor-pointer"
+                  >
+                    {chip.label} &rarr;
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
 
