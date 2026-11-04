@@ -6,6 +6,7 @@ import {
   type ReactNode,
 } from 'react'
 import { en, type Dictionary } from './en'
+import { id } from './id'
 
 export type Lang = 'en' | 'id'
 
@@ -60,7 +61,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     setLang(lang === 'en' ? 'id' : 'en')
   }
 
-  const t = en
+  const t = lang === 'id' ? id : en
 
   useEffect(() => {
     document.documentElement.lang = lang
