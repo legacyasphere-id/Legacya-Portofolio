@@ -65,7 +65,7 @@ export function HeroSection() {
           {/* Left Column: Headline + Lead Copy + Service Chooser Chips */}
           <div className="w-full max-w-[820px]">
             <h1
-              className="display mx-auto font-extrabold leading-[1.03] tracking-[-0.03em] text-text text-[clamp(2.15rem,6.2vw,5.25rem)] [text-wrap:balance] sm:mx-0"
+              className="display mx-auto font-normal leading-[0.98] tracking-[-0.015em] text-text text-[clamp(2.5rem,6.3vw,5.4rem)] [text-wrap:balance] sm:mx-0"
               data-animate
               data-delay="100"
             >

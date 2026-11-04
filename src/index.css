@@ -14,7 +14,7 @@
 
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, monospace;
-  --font-display: 'Sora', system-ui, sans-serif;
+  --font-display: 'Instrument Serif', Georgia, serif;
 }
 
 :root {
@@ -42,8 +42,15 @@
     line-height: 1.6;
   }
 
-  h1, h2, h3, h4 {
+  h1, h2 {
     font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    color: var(--color-text);
+  }
+
+  h3, h4 {
+    font-family: var(--font-sans);
     font-weight: 600;
     letter-spacing: -0.02em;
     color: var(--color-text);
@@ -52,8 +59,14 @@
 
 .display {
   font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+}
+
+span.display {
+  font-family: 'Sora', var(--font-sans);
   font-weight: 600;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
 }
 
 ::-webkit-scrollbar { width: 7px; }
