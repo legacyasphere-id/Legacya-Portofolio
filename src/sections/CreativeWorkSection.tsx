@@ -182,7 +182,7 @@ export function CreativeWorkSection() {
   return (
     <section
       id="creative-work"
-      className="border-t border-border bg-bg/95 px-5 py-10 backdrop-blur-sm md:px-10 md:py-16"
+      className="scroll-mt-20 border-t border-border bg-bg/95 px-5 py-10 backdrop-blur-sm md:px-10 md:py-16"
     >
       <div className="mx-auto max-w-[1180px]">
         {/* Filter Bar */}

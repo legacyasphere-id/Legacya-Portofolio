@@ -64,7 +64,7 @@ export function WorkSection() {
   return (
     <section
       id="work"
-      className="border-t border-border bg-surface/75 px-5 py-10 backdrop-blur-sm md:px-10 md:py-16"
+      className="scroll-mt-20 border-t border-border bg-surface/75 px-5 py-10 backdrop-blur-sm md:px-10 md:py-16"
     >
       <div className="mx-auto max-w-[1180px]">
         {/* Dark Curve Showcase Card */}
@@ -75,6 +75,10 @@ export function WorkSection() {
           onInspectActiveProject={handleInspectActiveProject}
           creativeItems={creativeItems}
           onOpenCreativeItem={handleOpenCreativeItem}
+          copy={{
+            ...t.showcase,
+            conceptBadge: t.creativeWork.conceptBadge,
+          }}
         />
 
         {/* Active Project Card: Image + Title + One Line + Actions */}

@@ -150,10 +150,17 @@ export const id: typeof en = {
       },
     },
   },
+  showcase: {
+    digitalCaption: 'Website aktif dan sistem bisnis buatan saya',
+    creativeCaption: 'Visual kampanye dan film produk buatan saya',
+    prevProjectAria: 'Proyek sebelumnya',
+    nextProjectAria: 'Proyek berikutnya',
+    inspectProjectAriaPrefix: 'Lihat rincian proyek',
+    selectProjectAriaPrefix: 'Pilih proyek',
+    openCreativeAriaPrefix: 'Buka studi kampanye untuk',
+    selectCreativeAriaPrefix: 'Pilih studi kampanye',
+  },
   work: {
-    eyebrow: 'Karya Pilihan · Sistem Digital',
-    heading: 'Website dan sistem bisnis aktif yang bisa kamu coba hari ini',
-    tablistAria: 'Sistem digital pilihan berdasarkan industri',
     expandPreviewPrefix: 'Perbesar pratinjau',
     expandPreviewSuffix: 'layar penuh',
     viewDetailsBadge: 'Lihat Detail +',
@@ -171,10 +178,6 @@ export const id: typeof en = {
     openLiveDemo: 'Buka Demo Langsung',
   },
   creativeWork: {
-    eyebrow: 'Karya Pilihan · Visual Kampanye & Film Pendek',
-    heading: 'Visual kampanye dan film produk untuk peluncuran brand',
-    subline:
-      'Klik karya mana pun untuk menonton video atau melihat rincian konsep kampanyenya.',
     filterAria: 'Saring karya kreatif berdasarkan kategori layanan',
     tabs: {
       'Advertising & Campaign Assets': 'Materi Iklan & Visual Kampanye',

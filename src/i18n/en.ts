@@ -148,10 +148,17 @@ export const en = {
       },
     },
   },
+  showcase: {
+    digitalCaption: 'My live websites and business systems',
+    creativeCaption: 'My campaign visuals and product films',
+    prevProjectAria: 'Previous project',
+    nextProjectAria: 'Next project',
+    inspectProjectAriaPrefix: 'View details for',
+    selectProjectAriaPrefix: 'Select project',
+    openCreativeAriaPrefix: 'Open campaign study for',
+    selectCreativeAriaPrefix: 'Select campaign study',
+  },
   work: {
-    eyebrow: 'Selected Work · Digital Systems',
-    heading: 'Live websites and business tools you can try today',
-    tablistAria: 'Selected digital systems by industry',
     expandPreviewPrefix: 'Expand',
     expandPreviewSuffix: 'preview',
     viewDetailsBadge: 'View Details +',
@@ -169,10 +176,6 @@ export const en = {
     openLiveDemo: 'Open Live Demo',
   },
   creativeWork: {
-    eyebrow: 'Selected Work · Campaign Visuals & Short Film',
-    heading: 'Campaign visuals and product films built for launches',
-    subline:
-      'Click any piece to watch the film or inspect the full campaign breakdown.',
     filterAria: 'Filter creative work by service category',
     tabs: {
       'Advertising & Campaign Assets': 'Advertising & Campaign Assets',

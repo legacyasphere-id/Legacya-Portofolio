@@ -191,14 +191,14 @@ export function CurveShowcaseCard({
               type="button"
               onClick={() => onSelectProject(prevProject.id)}
               aria-label={`${copy.selectProjectAriaPrefix}: ${prevProject.name}`}
-              className="group absolute left-[17%] top-[54%] z-10 flex min-h-[48px] min-w-[68px] -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-lg border border-white/40 bg-[#111C21] p-0.5 opacity-60 shadow-md transition-all duration-200 hover:opacity-95 focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white motion-reduce:transition-none sm:left-[18.5%] sm:top-[56%] sm:rounded-xl"
+              className="group absolute left-[13.5%] top-[55%] z-10 flex min-h-[44px] min-w-[56px] -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-lg border border-white/35 bg-[#0A1114] p-0.5 shadow-md transition-all duration-200 hover:border-white/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white motion-reduce:transition-none sm:left-[18.5%] sm:top-[56%] sm:rounded-xl"
             >
               <img
                 src={prevProject.screenshots[0]?.src}
                 alt={prevProject.screenshots[0]?.alt ?? prevProject.name}
                 loading="lazy"
                 decoding="async"
-                className="h-[46px] w-[70px] rounded-[6px] object-cover object-top sm:h-[74px] sm:w-[118px] sm:rounded-[9px]"
+                className="h-[40px] w-[58px] rounded-[6px] object-cover object-top opacity-55 transition-opacity duration-200 group-hover:opacity-90 sm:h-[74px] sm:w-[118px] sm:rounded-[9px]"
               />
             </button>
           )}
@@ -209,14 +209,14 @@ export function CurveShowcaseCard({
             aria-current="true"
             onClick={() => onInspectActiveProject(activeProject.id)}
             aria-label={`${copy.inspectProjectAriaPrefix}: ${activeProject.name}`}
-            className="group absolute left-1/2 top-[55%] z-20 flex min-h-[96px] min-w-[152px] -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-xl border-2 border-white bg-[#111C21] p-1 shadow-[0_12px_32px_rgba(0,0,0,0.65)] transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white motion-reduce:transition-none sm:top-[54%] sm:rounded-2xl"
+            className="group absolute left-1/2 top-[55%] z-20 flex min-h-[88px] min-w-[138px] -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-xl border-2 border-white bg-[#0A1114] p-1 shadow-[0_12px_32px_rgba(0,0,0,0.65)] transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white motion-reduce:transition-none sm:top-[54%] sm:rounded-2xl"
           >
             <img
               src={activeProject.screenshots[0]?.src}
               alt={activeProject.screenshots[0]?.alt ?? activeProject.name}
               loading={projectIdx === 0 ? 'eager' : 'lazy'}
               decoding="async"
-              className="h-[92px] w-[148px] rounded-[9px] object-cover object-top sm:h-[132px] sm:w-[224px] sm:rounded-xl"
+              className="h-[84px] w-[134px] rounded-[9px] object-cover object-top sm:h-[132px] sm:w-[224px] sm:rounded-xl"
             />
           </button>
 
@@ -226,14 +226,14 @@ export function CurveShowcaseCard({
               type="button"
               onClick={() => onSelectProject(nextProject.id)}
               aria-label={`${copy.selectProjectAriaPrefix}: ${nextProject.name}`}
-              className="group absolute left-[83%] top-[35%] z-10 flex min-h-[48px] min-w-[68px] -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-lg border border-white/40 bg-[#111C21] p-0.5 opacity-60 shadow-md transition-all duration-200 hover:opacity-95 focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white motion-reduce:transition-none sm:left-[81.5%] sm:top-[36%] sm:rounded-xl"
+              className="group absolute left-[86.5%] top-[36%] z-10 flex min-h-[44px] min-w-[56px] -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-lg border border-white/35 bg-[#0A1114] p-0.5 shadow-md transition-all duration-200 hover:border-white/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white motion-reduce:transition-none sm:left-[81.5%] sm:top-[36%] sm:rounded-xl"
             >
               <img
                 src={nextProject.screenshots[0]?.src}
                 alt={nextProject.screenshots[0]?.alt ?? nextProject.name}
                 loading="lazy"
                 decoding="async"
-                className="h-[46px] w-[70px] rounded-[6px] object-cover object-top sm:h-[74px] sm:w-[118px] sm:rounded-[9px]"
+                className="h-[40px] w-[58px] rounded-[6px] object-cover object-top opacity-55 transition-opacity duration-200 group-hover:opacity-90 sm:h-[74px] sm:w-[118px] sm:rounded-[9px]"
               />
             </button>
           )}
@@ -257,7 +257,7 @@ export function CurveShowcaseCard({
           <p className="mt-0.5 line-clamp-1 font-sans text-[12.5px] text-white/75 sm:text-[13.5px]">
             {activeProject.tagline}.
           </p>
-          <span className="mt-2 inline-block rounded-full border border-white/25 bg-white/[0.06] px-3 py-0.5 font-mono text-[10.5px] text-white/90">
+          <span className="mt-2 inline-block rounded-full border border-white/25 bg-white/[0.06] px-2.5 py-0.5 font-mono text-[9.5px] text-white/90 sm:px-3 sm:text-[10.5px]">
             {activeProject.workClassification}
           </span>
           <span className="mt-1 font-mono text-[11px] text-white/65 tabular-nums">
@@ -266,8 +266,8 @@ export function CurveShowcaseCard({
         </div>
       </div>
 
-      {/* Subtle Divider Space Between Mirrored Waves */}
-      <div className="my-5 border-t border-white/10 sm:my-7" />
+      {/* Clean Spacing Between Mirrored Waves */}
+      <div className="my-4 sm:my-6" />
 
       {/* ── BOTTOM WAVE LINE: Creative Campaign Items ── */}
       <div
@@ -329,14 +329,14 @@ export function CurveShowcaseCard({
               type="button"
               onClick={() => setCreativeIdx(prevCreativeIdx)}
               aria-label={`${copy.selectCreativeAriaPrefix}: ${prevCreativeMeta.shortTitle}`}
-              className="group absolute left-[17%] top-[55%] z-10 flex min-h-[54px] min-w-[60px] -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-lg border border-white/40 bg-[#111C21] p-0.5 opacity-60 shadow-md transition-all duration-200 hover:opacity-95 focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white motion-reduce:transition-none sm:left-[18.5%] sm:top-[52%] sm:rounded-xl"
+              className="group absolute left-[13.5%] top-[55%] z-10 flex min-h-[48px] min-w-[52px] -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-lg border border-white/35 bg-[#0A1114] p-0.5 shadow-md transition-all duration-200 hover:border-white/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white motion-reduce:transition-none sm:left-[18.5%] sm:top-[52%] sm:rounded-xl"
             >
               <img
                 src={prevCreative.previewImage}
                 alt={prevCreative.title}
                 loading="lazy"
                 decoding="async"
-                className="h-[52px] w-[58px] rounded-[6px] object-cover sm:h-[88px] sm:w-[92px] sm:rounded-[9px]"
+                className="h-[46px] w-[50px] rounded-[6px] object-cover opacity-55 transition-opacity duration-200 group-hover:opacity-90 sm:h-[88px] sm:w-[92px] sm:rounded-[9px]"
               />
             </button>
           )}
@@ -347,14 +347,14 @@ export function CurveShowcaseCard({
             aria-current="true"
             onClick={() => onOpenCreativeItem(activeCreative.id)}
             aria-label={`${copy.openCreativeAriaPrefix}: ${activeCreative.title}`}
-            className="group absolute left-1/2 top-[48%] z-20 flex min-h-[96px] min-w-[152px] -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-xl border-2 border-white bg-[#111C21] p-1 shadow-[0_12px_32px_rgba(0,0,0,0.65)] transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white motion-reduce:transition-none sm:top-[47%] sm:rounded-2xl"
+            className="group absolute left-1/2 top-[48%] z-20 flex min-h-[88px] min-w-[138px] -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-xl border-2 border-white bg-[#0A1114] p-1 shadow-[0_12px_32px_rgba(0,0,0,0.65)] transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white motion-reduce:transition-none sm:top-[47%] sm:rounded-2xl"
           >
             <img
               src={activeCreative.previewImage}
               alt={activeCreative.title}
               loading="lazy"
               decoding="async"
-              className="h-[92px] w-[148px] rounded-[9px] object-cover sm:h-[132px] sm:w-[214px] sm:rounded-xl"
+              className="h-[84px] w-[134px] rounded-[9px] object-cover sm:h-[132px] sm:w-[214px] sm:rounded-xl"
             />
           </button>
 
@@ -364,14 +364,14 @@ export function CurveShowcaseCard({
               type="button"
               onClick={() => setCreativeIdx(nextCreativeIdx)}
               aria-label={`${copy.selectCreativeAriaPrefix}: ${nextCreativeMeta.shortTitle}`}
-              className="group absolute left-[83%] top-[64%] z-10 flex min-h-[54px] min-w-[60px] -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-lg border border-white/40 bg-[#111C21] p-0.5 opacity-60 shadow-md transition-all duration-200 hover:opacity-95 focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white motion-reduce:transition-none sm:left-[81.5%] sm:top-[64%] sm:rounded-xl"
+              className="group absolute left-[86.5%] top-[64%] z-10 flex min-h-[48px] min-w-[52px] -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-lg border border-white/35 bg-[#0A1114] p-0.5 shadow-md transition-all duration-200 hover:border-white/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white motion-reduce:transition-none sm:left-[81.5%] sm:top-[64%] sm:rounded-xl"
             >
               <img
                 src={nextCreative.previewImage}
                 alt={nextCreative.title}
                 loading="lazy"
                 decoding="async"
-                className="h-[52px] w-[58px] rounded-[6px] object-cover sm:h-[88px] sm:w-[92px] sm:rounded-[9px]"
+                className="h-[46px] w-[50px] rounded-[6px] object-cover opacity-55 transition-opacity duration-200 group-hover:opacity-90 sm:h-[88px] sm:w-[92px] sm:rounded-[9px]"
               />
             </button>
           )}
@@ -395,7 +395,7 @@ export function CurveShowcaseCard({
           <p className="mt-0.5 line-clamp-1 font-sans text-[12.5px] text-white/75 sm:text-[13.5px]">
             {activeCreativeMeta.oneLine}.
           </p>
-          <span className="mt-2 inline-block rounded-full border border-white/25 bg-white/[0.06] px-3 py-0.5 font-mono text-[10.5px] text-white/90">
+          <span className="mt-2 inline-block rounded-full border border-white/25 bg-white/[0.06] px-2.5 py-0.5 font-mono text-[9.5px] text-white/90 sm:px-3 sm:text-[10.5px]">
             {copy.conceptBadge}
           </span>
           <span className="mt-1 font-mono text-[11px] text-white/65 tabular-nums">
