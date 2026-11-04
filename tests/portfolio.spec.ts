@@ -43,14 +43,17 @@ test.describe('Hero', () => {
     await expect(h1).toContainText('One AI-native studio.')
   })
 
-  test('hero CTAs trigger project inquiry and explore work', async ({ page }) => {
+  test('hero CTAs and service chooser chips trigger project inquiry and explore work', async ({ page }) => {
     await page.goto('/')
     await expect(
-      page.locator('#hero button.btn-primary', { hasText: 'Start Your Project' }),
+      page.locator('#hero button.btn-primary', { hasText: 'Start a Project' }),
     ).toBeVisible()
     await expect(
-      page.locator('#hero a.btn-secondary[href="#work"]', { hasText: 'Explore Our Work' }),
+      page.locator('#hero a.btn-secondary[href="#work"]', { hasText: 'See My Work' }),
     ).toBeVisible()
+    for (const chip of ['Website', 'Internal tool', 'Automation', 'Visuals']) {
+      await expect(page.locator('#hero button', { hasText: chip })).toBeVisible()
+    }
   })
 })
 
@@ -124,15 +127,26 @@ test.describe('Digital Work', () => {
 // ── Creative work ────────────────────────────────────────────────────────────
 
 test.describe('Creative Work', () => {
-  test('marks every concept study as not commissioned by the brand', async ({ page }) => {
+  test('shows campaign visuals by default and only loads video ads when Cinematic Video tab is clicked', async ({ page }) => {
     await page.goto('/')
     const creative = page.locator('#creative-work')
     const cards = creative.locator('article')
-    const count = await cards.count()
-    expect(count).toBeGreaterThan(0)
+    await expect(cards).toHaveCount(3)
+    await expect(creative.locator('video')).toHaveCount(0)
     await expect(
       creative.getByText('Concept work · not commissioned by the brand'),
-    ).toHaveCount(count)
+    ).toHaveCount(3)
+
+    await creative
+      .getByRole('button', { name: 'Cinematic Video & Visual Production' })
+      .click()
+    await expect(cards).toHaveCount(3)
+    await cards.first().scrollIntoViewIfNeeded()
+    await expect(creative.locator('video').first()).toBeAttached()
+    expect(await creative.locator('video').count()).toBeGreaterThan(0)
+    await expect(
+      creative.getByText('Concept work · not commissioned by the brand'),
+    ).toHaveCount(3)
   })
 })
 

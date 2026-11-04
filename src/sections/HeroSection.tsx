@@ -1,25 +1,49 @@
 import { triggerProjectScope } from '../core/identity'
+import { SERVICE_OPTIONS } from '../core/inquiry'
+
+const NEED_CHIPS = [
+  {
+    label: 'Website',
+    serviceCategory: SERVICE_OPTIONS[0].label,
+    objective: SERVICE_OPTIONS[0].objectives[0],
+  },
+  {
+    label: 'Internal tool',
+    serviceCategory: SERVICE_OPTIONS[0].label,
+    objective: SERVICE_OPTIONS[0].objectives[1],
+  },
+  {
+    label: 'Automation',
+    serviceCategory: SERVICE_OPTIONS[0].label,
+    objective: SERVICE_OPTIONS[0].objectives[2],
+  },
+  {
+    label: 'Visuals',
+    serviceCategory: SERVICE_OPTIONS[1].label,
+    objective: SERVICE_OPTIONS[1].objectives[0],
+  },
+] as const
 
 const STUDIO_PILLARS = [
   {
     index: '01.',
     unit: 'Systems',
-    detail: 'Websites, portals and internal tools that replace spreadsheets.',
+    detail: 'Websites, portals and tools that replace spreadsheets.',
   },
   {
     index: '02.',
     unit: 'Automation & AI',
-    detail: 'Assistants and workflows that remove repetitive manual work.',
+    detail: 'Workflows that cut repetitive manual tasks.',
   },
   {
     index: '03.',
     unit: 'Campaign visuals',
-    detail: 'Key visuals, product imagery and social creatives for launches.',
+    detail: 'Key visuals and product imagery for launches.',
   },
   {
     index: '04.',
     unit: 'Short-form video',
-    detail: 'Product films and reels for social and ads.',
+    detail: 'Product films and vertical reels for ads.',
   },
 ]
 
@@ -27,7 +51,7 @@ export function HeroSection() {
   return (
     <section
       id="hero"
-      className="grad-hero relative flex min-h-screen w-full flex-col justify-between overflow-hidden px-5 pb-16 pt-28 sm:pt-32 md:px-10 md:pb-24 md:pt-36"
+      className="grad-hero relative flex min-h-screen w-full flex-col justify-between overflow-hidden px-5 pb-12 pt-24 sm:pt-28 md:px-10 md:pb-20 md:pt-32"
     >
       {/* Editorial reading veil so dark ink and slate copy maintain WCAG AA contrast
           against the continuous background artwork without hiding the art. */}
@@ -36,12 +60,12 @@ export function HeroSection() {
         aria-hidden="true"
       />
 
-      <div className="relative z-10 mx-auto my-auto w-full max-w-[1180px] py-6 sm:py-10">
-        <div className="flex w-full flex-col items-center gap-8 text-center sm:items-stretch sm:text-left lg:flex-row lg:items-end lg:justify-between lg:gap-14">
-          {/* Left Column: Headline + Lead Copy */}
-          <div className="w-full max-w-[750px]">
+      <div className="relative z-10 mx-auto my-auto w-full max-w-[1180px] py-4 sm:py-8">
+        <div className="flex w-full flex-col items-center gap-6 text-center sm:items-stretch sm:text-left lg:flex-row lg:items-end lg:justify-between lg:gap-12">
+          {/* Left Column: Headline + Lead Copy + Service Chooser Chips */}
+          <div className="w-full max-w-[820px]">
             <h1
-              className="display mx-auto font-extrabold leading-[1.08] tracking-[-0.03em] text-text text-[clamp(2.15rem,6.5vw,3.9rem)] [text-wrap:balance] sm:mx-0"
+              className="display mx-auto font-normal leading-[0.98] tracking-[-0.015em] text-text text-[clamp(2.5rem,6.3vw,5.4rem)] [text-wrap:balance] sm:mx-0"
               data-animate
               data-delay="100"
             >
@@ -53,19 +77,46 @@ export function HeroSection() {
             </h1>
 
             <p
-              className="mx-auto mt-6 w-full max-w-[64ch] rounded-xl border border-border/85 bg-surface/90 p-5 text-[clamp(0.98rem,1.35vw,1.15rem)] leading-[1.68] text-text shadow-sm backdrop-blur-md sm:mx-0"
+              className="mx-auto mt-4 w-full max-w-[54ch] rounded-xl border border-border/85 bg-surface/90 p-4 text-[16.5px] sm:text-[17.5px] leading-[1.55] text-text shadow-sm backdrop-blur-md sm:mx-0"
               data-animate
               data-delay="200"
             >
-              I build websites, internal tools and AI automations, and create the
-              campaign visuals that go with them. One founder, a tested AI
-              workflow, delivered faster than an agency.
+              Websites, internal tools and AI automations, plus the campaign
+              visuals that sell them. One founder, faster than an agency.
             </p>
+
+            {/* "What do you need?" Service Chooser Chips */}
+            <div
+              className="mt-4 flex flex-col items-center gap-2 sm:flex-row sm:flex-wrap sm:justify-start"
+              data-animate
+              data-delay="250"
+            >
+              <span className="font-mono text-[11.5px] font-medium uppercase tracking-[0.12em] text-muted sm:mr-1">
+                What do you need?
+              </span>
+              <div className="grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto sm:flex-wrap">
+                {NEED_CHIPS.map((chip) => (
+                  <button
+                    key={chip.label}
+                    type="button"
+                    onClick={() =>
+                      triggerProjectScope({
+                        serviceCategory: chip.serviceCategory,
+                        objective: chip.objective,
+                      })
+                    }
+                    className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-border bg-surface/95 px-4 py-2 font-mono text-[12px] font-medium text-text shadow-xs backdrop-blur-sm transition-colors hover:border-blue-deep hover:bg-blue-deep hover:text-white cursor-pointer"
+                  >
+                    {chip.label} &rarr;
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* Right Column: Action Block */}
           <div
-            className="flex w-full flex-col gap-3.5 rounded-2xl border border-border/85 bg-surface/90 p-5 shadow-sm backdrop-blur-md sm:flex-row sm:items-center lg:w-[290px] lg:shrink-0 lg:flex-col lg:items-stretch"
+            className="flex w-full flex-col gap-3 rounded-2xl border border-border/85 bg-surface/90 p-5 shadow-sm backdrop-blur-md sm:flex-row sm:items-center lg:w-[280px] lg:shrink-0 lg:flex-col lg:items-stretch"
             data-animate
             data-delay="300"
           >
@@ -74,16 +125,16 @@ export function HeroSection() {
               onClick={() => triggerProjectScope({})}
               className="btn-primary btn-lg w-full whitespace-nowrap"
             >
-              Start Your Project
+              Start a Project
             </button>
             <a
               href="#work"
               className="btn-secondary btn-lg w-full bg-bg/70 text-center whitespace-nowrap"
             >
-              Explore Our Work
+              See My Work
             </a>
             <p className="mt-0.5 text-center font-mono text-[11px] leading-snug text-text/80 lg:text-left">
-              Founder-led · Bekasi, Indonesia · Working with clients locally and remotely
+              Founder-led · Bekasi, Indonesia
             </p>
           </div>
         </div>
@@ -91,26 +142,26 @@ export function HeroSection() {
 
       {/* Full-Width 4-Column Studio Capability Strip below the Hero Split */}
       <div
-        className="relative z-10 mx-auto mt-8 w-full max-w-[1180px]"
+        className="relative z-10 mx-auto mt-6 w-full max-w-[1180px]"
         data-animate
         data-delay="400"
       >
-        <div className="grid w-full gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid w-full grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border lg:grid-cols-4">
           {STUDIO_PILLARS.map((item) => (
             <div
               key={item.unit}
-              className="flex flex-col justify-between bg-surface/95 p-6 text-left backdrop-blur-md"
+              className="flex flex-col justify-between bg-surface/95 p-4 sm:p-5 text-left backdrop-blur-md"
             >
               <div>
-                <div className="flex items-baseline gap-2">
-                  <span className="display font-mono text-[14px] font-bold tracking-tight text-blue-deep tabular-nums">
+                <div className="flex items-baseline gap-1.5">
+                  <span className="display font-mono text-[13px] font-bold tracking-tight text-blue-deep tabular-nums">
                     {item.index}
                   </span>
-                  <span className="font-mono text-[11.5px] font-semibold uppercase tracking-[0.08em] text-text">
+                  <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.06em] text-text">
                     {item.unit}
                   </span>
                 </div>
-                <p className="mt-2.5 text-[13px] leading-relaxed text-muted">
+                <p className="mt-1.5 text-[12.5px] sm:text-[13px] leading-snug text-muted">
                   {item.detail}
                 </p>
               </div>

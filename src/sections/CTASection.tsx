@@ -117,36 +117,33 @@ export function CTASection() {
   return (
     <section
       id="contact"
-      className="border-t border-border bg-bg/95 px-5 py-24 backdrop-blur-md md:px-10 md:py-32"
+      className="border-t border-border bg-bg/95 px-5 py-12 backdrop-blur-md md:px-10 md:py-20"
     >
       <div className="mx-auto max-w-[1180px]">
         {/* Section Header */}
-        <div className="mb-12 max-w-[680px]" data-animate>
-          <p className="eyebrow mb-4">Contact &amp; Project Inquiry</p>
-          <h2 className="display text-[clamp(1.95rem,3.5vw,2.9rem)] leading-[1.1] [text-wrap:balance]">
+        <div className="mb-8 max-w-[640px]" data-animate>
+          <p className="eyebrow mb-3">Start a Project</p>
+          <h2 className="display text-[clamp(1.95rem,3.5vw,2.9rem)] leading-[1.08] [text-wrap:balance]">
             Tell me about your business and what you want to{' '}
             <span className="text-blue-deep">build or create</span>.
           </h2>
-          <p className="mt-4 text-[15.5px] leading-relaxed text-muted">
-            Every project is scoped around your specific goals. Select the
-            service you are interested in below, share a few details about your
-            brand or challenge, and send your inquiry directly via WhatsApp or
-            Email.
+          <p className="mt-3 text-[16px] leading-relaxed text-muted">
+            Pick a service below and send your brief directly via WhatsApp or email.
           </p>
         </div>
 
         {/* 2-Column Interactive Project Inquiry Configurator */}
         <div
-          className="grid gap-8 lg:grid-cols-[1.35fr_1fr] lg:items-stretch"
+          className="grid gap-6 lg:grid-cols-[1.35fr_1fr] lg:items-stretch"
           data-animate
           data-delay="100"
         >
           {/* Left Column: Inquiry Form */}
-          <div className="card p-6 sm:p-8 md:p-10">
+          <div className="card p-5 sm:p-7">
             {referenceWork && (
-              <div className="mb-6 flex items-center justify-between gap-3 rounded-xl border border-blue/30 bg-blue/[0.06] px-4 py-3">
+              <div className="mb-5 flex items-center justify-between gap-3 rounded-xl border border-blue/30 bg-blue/[0.06] px-4 py-2.5">
                 <p className="font-mono text-[12px] text-blue-deep">
-                  Reference Work Selected:{' '}
+                  Reference:{' '}
                   <strong className="font-semibold">{referenceWork}</strong>
                 </p>
                 <button
@@ -162,9 +159,9 @@ export function CTASection() {
             {/* Step 1: Service Category */}
             <div>
               <label className="block font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-blue-deep">
-                01. Service You Are Interested In
+                01. Service
               </label>
-              <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
+              <div className="mt-2.5 grid grid-cols-2 gap-2">
                 {SERVICE_OPTIONS.map((opt) => {
                   const active = serviceCategory === opt.label
                   return (
@@ -172,21 +169,14 @@ export function CTASection() {
                       key={opt.id}
                       type="button"
                       onClick={() => handleServiceSelect(opt.label)}
-                      className={`rounded-xl border px-4 py-3 text-left transition-all duration-150 cursor-pointer ${
+                      className={`min-h-[44px] rounded-xl border px-3 py-2 text-left transition-all duration-150 cursor-pointer ${
                         active
                           ? 'border-blue-deep bg-blue-deep text-white shadow-sm'
                           : 'border-border bg-bg/70 text-text hover:border-blue/40 hover:bg-surface'
                       }`}
                     >
-                      <span className="block text-[13.5px] font-semibold leading-snug">
+                      <span className="block text-[13px] font-semibold leading-snug">
                         {opt.shortLabel}
-                      </span>
-                      <span
-                        className={`mt-1 block text-[11.5px] leading-snug ${
-                          active ? 'text-white/80' : 'text-muted'
-                        }`}
-                      >
-                        {opt.summary}
                       </span>
                     </button>
                   )
@@ -195,19 +185,19 @@ export function CTASection() {
             </div>
 
             {/* Step 2: Primary Challenge or Objective */}
-            <div className="mt-7 grid gap-5 sm:grid-cols-2">
+            <div className="mt-5 grid gap-4 sm:grid-cols-2">
               <div>
                 <label
                   htmlFor="scoper-objective"
                   className="block font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-blue-deep"
                 >
-                  02. Primary Challenge or Objective
+                  02. Goal
                 </label>
                 <select
                   id="scoper-objective"
                   value={objective}
                   onChange={(e) => setObjective(e.target.value)}
-                  className="mt-2.5 w-full rounded-xl border border-border bg-bg px-3.5 py-2.5 text-[13.5px] text-text focus:border-blue-deep focus:outline-none"
+                  className="mt-2 min-h-[44px] w-full rounded-xl border border-border bg-bg px-3.5 py-2 text-[13.5px] text-text focus:border-blue-deep focus:outline-none"
                 >
                   {currentObjectives.map((obj) => (
                     <option key={obj} value={obj}>
@@ -222,13 +212,13 @@ export function CTASection() {
                   htmlFor="scoper-timeline"
                   className="block font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-blue-deep"
                 >
-                  03. Desired Timeline (If Known)
+                  03. Timeline
                 </label>
                 <select
                   id="scoper-timeline"
                   value={timeline}
                   onChange={(e) => setTimeline(e.target.value)}
-                  className="mt-2.5 w-full rounded-xl border border-border bg-bg px-3.5 py-2.5 text-[13.5px] text-text focus:border-blue-deep focus:outline-none"
+                  className="mt-2 min-h-[44px] w-full rounded-xl border border-border bg-bg px-3.5 py-2 text-[13.5px] text-text focus:border-blue-deep focus:outline-none"
                 >
                   {TIMELINE_OPTIONS.map((tl) => (
                     <option key={tl} value={tl}>
@@ -240,12 +230,12 @@ export function CTASection() {
             </div>
 
             {/* Step 3: Business / Brand & Contact Details */}
-            <div className="mt-7 border-t border-border pt-6">
+            <div className="mt-5 border-t border-border pt-5">
               <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-blue-deep">
-                04. Your Business &amp; Contact Information
+                04. Your Details
               </p>
 
-              <div className="mt-4 grid gap-4 sm:grid-cols-3">
+              <div className="mt-3 grid gap-3.5 sm:grid-cols-3">
                 <div>
                   <label
                     htmlFor="scoper-name"
@@ -262,7 +252,7 @@ export function CTASection() {
                       if (error) setError(null)
                     }}
                     placeholder="e.g. Budi Santoso"
-                    className="mt-1.5 w-full rounded-xl border border-border bg-bg px-3.5 py-2.5 text-[13.5px] text-text placeholder:text-dim focus:border-blue-deep focus:outline-none"
+                    className="mt-1 min-h-[44px] w-full rounded-xl border border-border bg-bg px-3.5 py-2 text-[13.5px] text-text placeholder:text-dim focus:border-blue-deep focus:outline-none"
                   />
                 </div>
 
@@ -271,7 +261,7 @@ export function CTASection() {
                     htmlFor="scoper-company"
                     className="block text-[12.5px] font-medium text-text"
                   >
-                    Business or Brand Name
+                    Business / Brand
                   </label>
                   <input
                     id="scoper-company"
@@ -279,7 +269,7 @@ export function CTASection() {
                     value={company}
                     onChange={(e) => setCompany(e.target.value)}
                     placeholder="e.g. Nusantara Retail"
-                    className="mt-1.5 w-full rounded-xl border border-border bg-bg px-3.5 py-2.5 text-[13.5px] text-text placeholder:text-dim focus:border-blue-deep focus:outline-none"
+                    className="mt-1 min-h-[44px] w-full rounded-xl border border-border bg-bg px-3.5 py-2 text-[13.5px] text-text placeholder:text-dim focus:border-blue-deep focus:outline-none"
                   />
                 </div>
 
@@ -299,32 +289,32 @@ export function CTASection() {
                       if (error) setError(null)
                     }}
                     placeholder="name@company.com or +62..."
-                    className="mt-1.5 w-full rounded-xl border border-border bg-bg px-3.5 py-2.5 text-[13.5px] text-text placeholder:text-dim focus:border-blue-deep focus:outline-none"
+                    className="mt-1 min-h-[44px] w-full rounded-xl border border-border bg-bg px-3.5 py-2 text-[13.5px] text-text placeholder:text-dim focus:border-blue-deep focus:outline-none"
                   />
                 </div>
               </div>
 
-              <div className="mt-4">
+              <div className="mt-3.5">
                 <label
                   htmlFor="scoper-notes"
                   className="block text-[12.5px] font-medium text-text"
                 >
-                  About Your Project or Goal (Optional)
+                  Project Notes (Optional)
                 </label>
                 <textarea
                   id="scoper-notes"
-                  rows={3}
+                  rows={2}
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  placeholder="Share any context about your brand, the problem you want to solve, or what you hope to create..."
-                  className="mt-1.5 w-full rounded-xl border border-border bg-bg p-3.5 text-[13.5px] text-text placeholder:text-dim focus:border-blue-deep focus:outline-none"
+                  placeholder="Any context on what you want to build or promote..."
+                  className="mt-1 w-full rounded-xl border border-border bg-bg p-3 text-[13.5px] text-text placeholder:text-dim focus:border-blue-deep focus:outline-none"
                 />
               </div>
 
               {error && (
                 <div
                   role="alert"
-                  className="mt-4 rounded-xl border border-red-700/30 bg-red-50 px-4 py-3 text-[13px] font-medium text-red-900"
+                  className="mt-3.5 rounded-xl border border-red-700/30 bg-red-50 px-4 py-2.5 text-[13px] font-medium text-red-900"
                 >
                   {error}
                 </div>
@@ -333,32 +323,32 @@ export function CTASection() {
               {submittedChannel && (
                 <div
                   role="status"
-                  className="mt-4 rounded-xl border border-blue-deep/30 bg-blue/[0.08] px-4 py-3 text-[13px] font-medium text-blue-deep"
+                  className="mt-3.5 rounded-xl border border-blue-deep/30 bg-blue/[0.08] px-4 py-2.5 text-[13px] font-medium text-blue-deep"
                 >
                   {submittedChannel === 'whatsapp'
-                    ? 'Your inquiry summary is ready in WhatsApp. You can also copy the formatted brief on the right.'
-                    : 'Your email app has been opened with your project inquiry pre-filled.'}
+                    ? 'Your brief is ready in WhatsApp.'
+                    : 'Your email app has been opened with your project brief.'}
                 </div>
               )}
             </div>
           </div>
 
           {/* Right Column: Live Project Inquiry Summary & Dispatch */}
-          <div className="flex flex-col justify-between rounded-2xl border border-border bg-[#17181B] p-6 text-white sm:p-8">
+          <div className="flex flex-col justify-between rounded-2xl border border-border bg-[#17181B] p-5 text-white sm:p-7">
             <div>
-              <div className="flex items-center justify-between border-b border-white/10 pb-4">
+              <div className="flex items-center justify-between border-b border-white/10 pb-3.5">
                 <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-blue-accent">
-                  Project Inquiry Summary
+                  Inquiry Summary
                 </span>
                 <span className="font-mono text-[11px] text-white/60">
-                  Direct Studio Response
+                  Reply within 1 business day
                 </span>
               </div>
 
-              <div className="mt-5 space-y-3.5 font-mono text-[12px]">
+              <div className="mt-4 space-y-3 font-mono text-[12px]">
                 <div>
                   <span className="block text-[10px] uppercase tracking-[0.14em] text-white/45">
-                    Service Category
+                    Service
                   </span>
                   <span className="mt-0.5 block text-[13.5px] font-semibold text-white">
                     {serviceCategory}
@@ -367,7 +357,7 @@ export function CTASection() {
 
                 <div>
                   <span className="block text-[10px] uppercase tracking-[0.14em] text-white/45">
-                    Primary Objective
+                    Goal
                   </span>
                   <span className="mt-0.5 block text-white/90">
                     {objective}
@@ -378,13 +368,13 @@ export function CTASection() {
                 <div className="grid grid-cols-2 gap-3 pt-1">
                   <div>
                     <span className="block text-[10px] uppercase tracking-[0.14em] text-white/45">
-                      Desired Timeline
+                      Timeline
                     </span>
                     <span className="mt-0.5 block text-white/85">{timeline}</span>
                   </div>
                   <div>
                     <span className="block text-[10px] uppercase tracking-[0.14em] text-white/45">
-                      Business / Brand
+                      Client
                     </span>
                     <span className="mt-0.5 block truncate text-white/85">
                       {name.trim()
@@ -394,19 +384,10 @@ export function CTASection() {
                   </div>
                 </div>
               </div>
-
-              <div className="mt-6 rounded-xl border border-white/10 bg-white/[0.04] p-4 text-[12.5px] leading-relaxed text-white/75">
-                <p className="font-semibold text-white">What happens next:</p>
-                <ol className="mt-2 list-inside list-decimal space-y-1 text-[12px]">
-                  <li>I review your project goals and any reference work you selected.</li>
-                  <li>I reply within 1 business day to schedule a brief discovery call.</li>
-                  <li>You receive a clear project recommendation, scope, and timeline.</li>
-                </ol>
-              </div>
             </div>
 
             {/* Dispatch Actions */}
-            <div className="mt-8 space-y-3 border-t border-white/10 pt-6">
+            <div className="mt-6 space-y-2.5 border-t border-white/10 pt-5">
               <button
                 type="button"
                 onClick={handleWhatsAppDispatch}
@@ -428,7 +409,7 @@ export function CTASection() {
                 onClick={handleCopyBrief}
                 className="btn w-full border border-white/15 bg-white/5 text-[13px] text-white/85 hover:bg-white/10 whitespace-nowrap"
               >
-                {copied ? 'Copied Project Brief ✓' : 'Copy Inquiry Summary to Clipboard'}
+                {copied ? 'Copied Project Brief ✓' : 'Copy Brief to Clipboard'}
               </button>
             </div>
           </div>

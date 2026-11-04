@@ -2,26 +2,22 @@ const STEPS = [
   {
     n: '01.',
     title: 'Brief → structured spec',
-    detail:
-      'Your goals become a written spec that AI and I both work from, so nothing is guessed.',
+    detail: 'Your goals become a clear written spec before build starts.',
   },
   {
     n: '02.',
     title: 'AI drafts, I direct',
-    detail:
-      'Claude and Gemini generate code, copy and visual drafts. I make the decisions and fix what is wrong.',
+    detail: 'Claude and Gemini draft fast; I direct architecture and design.',
   },
   {
     n: '03.',
     title: 'Human review gates',
-    detail:
-      'Nothing ships without my review. Facts, brand rules and quality are checked before you see it.',
+    detail: 'I review and test every screen, fact and asset before you see it.',
   },
   {
     n: '04.',
     title: 'You own everything',
-    detail:
-      'Code, files and accounts are yours at handover, with documentation.',
+    detail: 'Full code, design files and account ownership at handover.',
   },
 ]
 
@@ -32,16 +28,16 @@ export function AIWorkflowSection() {
   return (
     <section
       id="ai-workflow"
-      className="border-t border-border bg-bg/95 px-5 py-24 backdrop-blur-sm md:px-10 md:py-32"
+      className="border-t border-border bg-bg/95 px-5 py-12 backdrop-blur-sm md:px-10 md:py-20"
     >
       <div className="mx-auto max-w-[1180px]">
         <div
-          className="mb-14 flex flex-col justify-between gap-6 lg:flex-row lg:items-end"
+          className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-end"
           data-animate
         >
           <div className="max-w-[640px]">
-            <p className="eyebrow mb-4">AI Workflow</p>
-            <h2 className="display text-[clamp(1.95rem,3.4vw,2.85rem)] leading-[1.1] [text-wrap:balance]">
+            <p className="eyebrow mb-3">AI Workflow</p>
+            <h2 className="display text-[clamp(1.95rem,3.4vw,2.85rem)] leading-[1.08] [text-wrap:balance]">
               How I work with AI
             </h2>
           </div>
@@ -50,24 +46,24 @@ export function AIWorkflowSection() {
           </p>
         </div>
 
-        <div className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border lg:grid-cols-4">
           {STEPS.map((step, i) => (
             <div
               key={step.n}
-              className="flex flex-col bg-surface p-6 md:p-7"
+              className="flex flex-col bg-surface p-4 sm:p-6"
               data-animate
               data-delay={String((i + 1) * 100)}
             >
-              <div className="mb-4 flex items-center justify-between border-b border-border pb-3">
-                <span className="font-mono text-[13px] font-semibold text-blue-deep tabular-nums">
+              <div className="mb-2.5 flex items-center justify-between border-b border-border pb-2">
+                <span className="font-mono text-[12.5px] font-semibold text-blue-deep tabular-nums">
                   {step.n}
                 </span>
-                <span className="font-mono text-[10.5px] text-dim">Step {i + 1}</span>
+                <span className="font-mono text-[10px] text-dim">Step {i + 1}</span>
               </div>
-              <h3 className="text-[1.2rem] font-semibold tracking-[-0.02em] text-text">
+              <h3 className="text-[1.05rem] sm:text-[1.15rem] font-semibold tracking-[-0.02em] text-text">
                 {step.title}
               </h3>
-              <p className="mt-2.5 text-[13.5px] leading-relaxed text-muted">
+              <p className="mt-1.5 text-[13px] leading-snug text-muted">
                 {step.detail}
               </p>
             </div>
@@ -75,7 +71,7 @@ export function AIWorkflowSection() {
         </div>
 
         <p
-          className="mt-6 font-mono text-[11.5px] text-dim"
+          className="mt-4 font-mono text-[11.5px] text-dim"
           data-animate
           data-delay="200"
         >
