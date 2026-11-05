@@ -520,27 +520,27 @@ export const en = {
       industry: 'Healthcare & Dental Clinics',
       workClassification: 'Self-initiated reference build · Live demo',
       buildNotes:
-        'Built in 1-2 weeks · 24/7 bilingual patient Q&A (EN / ID) · Online appointment requests · Front-desk alerts',
+        'Built in 1-2 weeks · 24/7 AI patient assistant · Online appointment requests · Front-desk alerts',
       caseStudy: {
         challenge:
           'Clinics and service businesses frequently lose prospective customers outside business hours when visitors cannot get immediate, trustworthy answers about treatments, pricing, and doctor availability without calling the front desk.',
         solution:
           'A modern, welcoming clinic website paired with a round-the-clock virtual patient assistant trained strictly on the clinic’s official treatment guide and pricing, connected directly to appointment booking and instant front-desk email alerts.',
         intendedValue:
-          'Helps clinics serve prospective patients in both English and Bahasa Indonesia at any hour, turning website visitors into confirmed appointment requests while saving front-desk staff time.',
+          'Helps clinics answer prospective patients at any hour, turning website visitors into confirmed appointment requests while saving front-desk staff time.',
         highlights:
-          '24/7 bilingual patient Q&A (EN / ID) · Seamless online appointment requests · Instant front-desk notifications',
+          '24/7 AI patient assistant · Seamless online appointment requests · Instant front-desk notifications',
       },
       deliverables: [
         'Modern, mobile-friendly clinic website presenting treatments, specialist profiles, and transparent pricing',
-        '24/7 bilingual patient assistant that answers common questions accurately using verified clinic information',
+        '24/7 AI patient assistant that answers common questions about treatments and prices using verified clinic information',
         'Streamlined online appointment request form connected to automatic front-desk staff notifications',
         'Simple management view allowing clinic staff to update treatment guides and FAQs anytime',
       ],
       screenshotAlts: [
-        'BrightPath Dental modern clinic website hero with direct appointment booking and patient assistant access',
-        'BrightPath Dental virtual patient assistant answering treatment and pricing questions clearly',
-        'BrightPath Dental treatment catalog and specialist directory designed for patient clarity',
+        'BrightPath Dental home page with the headline Modern dental care, built around you, a booking button, an Ask our AI button, and a card with opening hours and clinic address',
+        'BrightPath Dental AI patient assistant chat answering the question how much is teeth whitening with a price and session length',
+        'BrightPath Dental doctors page with a practice day and specialty filter and specialist profiles with photos, experience and practice days',
       ],
     },
     'legacya-pos': {

@@ -523,27 +523,27 @@ export const id: typeof en = {
       industry: 'Klinik Kesehatan & Gigi',
       workClassification: 'Proyek referensi mandiri · Demo langsung',
       buildNotes:
-        'Dibangun dalam 1-2 minggu · Tanya jawab pasien 24/7 (EN / ID) · Permintaan janji temu online · Notifikasi resepsionis',
+        'Dibangun dalam 1-2 minggu · Asisten pasien AI 24/7 · Permintaan janji temu online · Notifikasi resepsionis',
       caseStudy: {
         challenge:
           'Klinik dan bisnis layanan sering kehilangan calon pasien di luar jam operasional ketika pengunjung website tidak bisa segera mendapatkan jawaban tepercaya mengenai tindakan perawatan, estimasi biaya, dan jadwal dokter tanpa menelepon resepsionis.',
         solution:
           'Website klinik modern yang ramah pengguna, dilengkapi asisten pasien virtual 24 jam yang mengacu pada panduan resmi tindakan dan biaya klinik, serta terhubung langsung ke formulir janji temu dan notifikasi instan untuk staf resepsionis.',
         intendedValue:
-          'Membantu klinik melayani pertanyaan calon pasien dalam Bahasa Indonesia maupun Bahasa Inggris kapan saja, mengubah pengunjung website menjadi permintaan janji temu sekaligus menghemat waktu staf resepsionis.',
+          'Membantu klinik menjawab pertanyaan calon pasien kapan saja, mengubah pengunjung website menjadi permintaan janji temu sekaligus menghemat waktu staf resepsionis.',
         highlights:
-          'Tanya jawab pasien dwibahasa 24/7 (EN / ID) · Permintaan janji temu online praktis · Notifikasi instan ke resepsionis',
+          'Asisten pasien AI 24/7 · Permintaan janji temu online praktis · Notifikasi instan ke resepsionis',
       },
       deliverables: [
         'Website klinik modern yang nyaman di ponsel dengan informasi layanan, profil dokter spesialis, dan rincian biaya transparan',
-        'Asisten pasien dwibahasa 24/7 yang menjawab pertanyaan umum secara akurat berdasarkan informasi resmi klinik',
+        'Asisten pasien AI 24/7 yang menjawab pertanyaan umum soal perawatan dan biaya berdasarkan informasi resmi klinik',
         'Formulir permintaan janji temu online ringkas yang terhubung dengan notifikasi otomatis untuk staf klinik',
         'Tampilan pengelolaan sederhana agar staf klinik dapat memperbarui panduan layanan dan tanya jawab kapan saja',
       ],
       screenshotAlts: [
-        'Tampilan utama website klinik modern BrightPath Dental dengan akses langsung ke pemesanan janji temu dan asisten pasien',
-        'Asisten pasien virtual BrightPath Dental yang menjawab pertanyaan seputar perawatan dan biaya dengan jelas',
-        'Katalog layanan perawatan dan direktori dokter spesialis BrightPath Dental yang dirancang jelas bagi pasien',
+        'Halaman utama BrightPath Dental dengan judul Modern dental care, built around you, tombol pesan janji temu, tombol Ask our AI, dan kartu jam buka serta alamat klinik',
+        'Obrolan asisten pasien AI BrightPath Dental yang menjawab pertanyaan biaya pemutihan gigi lengkap dengan harga dan lama tindakan',
+        'Halaman dokter BrightPath Dental dengan filter hari praktik dan spesialisasi serta profil dokter spesialis lengkap dengan foto, pengalaman, dan hari praktik',
       ],
     },
     'legacya-pos': {
