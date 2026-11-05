@@ -3,6 +3,7 @@ import type { en } from './en'
 export const id: typeof en = {
   meta: {
     title: 'Legacya Sphere | Studio AI-Native untuk Sistem & Brand',
+    workTitle: 'Karya pilihan | Legacya Sphere',
   },
   identity: {
     brandStatement:
@@ -18,8 +19,7 @@ export const id: typeof en = {
     links: {
       about: 'Tentang',
       services: 'Layanan',
-      work: 'Karya Digital',
-      creativeWork: 'Karya Kreatif',
+      work: 'Karya',
       process: 'Proses',
       aiWorkflow: 'Alur Kerja AI',
     },
@@ -31,8 +31,7 @@ export const id: typeof en = {
       hero: 'Beranda',
       about: 'Studio',
       services: 'Layanan',
-      work: 'Karya Digital',
-      'creative-work': 'Karya Kreatif',
+      work: 'Karya',
       process: 'Proses',
       'ai-workflow': 'Alur Kerja AI',
       'why-legacya': 'Mengapa Legacya',
@@ -161,6 +160,15 @@ export const id: typeof en = {
     selectProjectAriaPrefix: 'Pilih proyek',
     openCreativeAriaPrefix: 'Buka studi kampanye',
     selectCreativeAriaPrefix: 'Pilih studi kampanye',
+    seeAllWork: 'Lihat semua karya',
+  },
+  workPage: {
+    eyebrow: 'Karya',
+    heading: 'Karya pilihan',
+    subline:
+      'Proyek referensi yang bisa dicoba dan studi kampanye konsep, lengkap dengan detail di baliknya.',
+    closingLine: 'Ceritakan tentang bisnismu.',
+    closingCta: 'Mulai Proyek',
   },
   work: {
     expandPreviewPrefix: 'Perbesar pratinjau',
@@ -427,8 +435,7 @@ export const id: typeof en = {
     studioLinks: {
       about: 'Tentang Legacya Sphere',
       services: 'Layanan Saya',
-      work: 'Karya Digital Pilihan',
-      creativeWork: 'Galeri Iklan & Film Produk',
+      work: 'Karya',
       process: 'Cara Saya Bekerja',
       aiWorkflow: 'Alur Kerja AI',
       whyLegacya: 'Mengapa Legacya',
