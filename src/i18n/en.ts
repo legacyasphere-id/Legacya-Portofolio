@@ -1,6 +1,7 @@
 export const en = {
   meta: {
     title: 'Legacya Sphere | AI-Native Studio for Systems & Brand',
+    workTitle: 'Selected work | Legacya Sphere',
   },
   identity: {
     brandStatement:
@@ -16,8 +17,7 @@ export const en = {
     links: {
       about: 'About',
       services: 'Services',
-      work: 'Digital Work',
-      creativeWork: 'Creative Work',
+      work: 'Work',
       process: 'Process',
       aiWorkflow: 'AI Workflow',
     },
@@ -29,8 +29,7 @@ export const en = {
       hero: 'Home',
       about: 'Studio',
       services: 'Services',
-      work: 'Digital Work',
-      'creative-work': 'Creative Work',
+      work: 'Work',
       process: 'Process',
       'ai-workflow': 'AI Workflow',
       'why-legacya': 'Why Legacya',
@@ -159,6 +158,15 @@ export const en = {
     selectProjectAriaPrefix: 'Select project',
     openCreativeAriaPrefix: 'Open campaign study for',
     selectCreativeAriaPrefix: 'Select campaign study',
+    seeAllWork: 'See all work',
+  },
+  workPage: {
+    eyebrow: 'Work',
+    heading: 'Selected work',
+    subline:
+      'Live reference builds and concept campaign studies, with the full details behind each one.',
+    closingLine: 'Tell me about your business.',
+    closingCta: 'Start a Project',
   },
   work: {
     expandPreviewPrefix: 'Expand',
@@ -424,8 +432,7 @@ export const en = {
     studioLinks: {
       about: 'About Legacya Sphere',
       services: 'What I Do',
-      work: 'Selected Digital Work',
-      creativeWork: 'Advertising & Film Showcase',
+      work: 'Work',
       process: 'How I Work',
       aiWorkflow: 'AI Workflow',
       whyLegacya: 'Why Legacya',

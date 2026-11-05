@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test'
 // ── Navigation ────────────────────────────────────────────────────────────────
 
 test.describe('Navigation', () => {
-  test('fixed nav renders brand emblem, wordmark, and primary links', async ({ page, isMobile }) => {
+  test('fixed nav renders brand emblem, wordmark, and primary links including unified Work link', async ({ page, isMobile }) => {
     await page.goto('/')
     const brandLink = page.locator('header a[href="#top"]')
     await expect(brandLink).toContainText('Legacya Sphere')
@@ -11,12 +11,11 @@ test.describe('Navigation', () => {
 
     test.skip(isMobile, 'desktop links hidden on mobile behind burger menu')
     const nav = page.locator('header nav[aria-label="Primary"]')
-    await expect(nav.locator('a[href="#about"]')).toBeVisible()
-    await expect(nav.locator('a[href="#services"]')).toBeVisible()
-    await expect(nav.locator('a[href="#work"]')).toBeVisible()
-    await expect(nav.locator('a[href="#creative-work"]')).toBeVisible()
-    await expect(nav.locator('a[href="#process"]')).toBeVisible()
-    await expect(nav.locator('a[href="#ai-workflow"]')).toBeVisible()
+    await expect(nav.locator('a[href="/#about"]')).toBeVisible()
+    await expect(nav.locator('a[href="/#services"]')).toBeVisible()
+    await expect(nav.locator('a[href="/work"]')).toHaveText('Work')
+    await expect(nav.locator('a[href="/#process"]')).toBeVisible()
+    await expect(nav.locator('a[href="/#ai-workflow"]')).toBeVisible()
     await expect(page.locator('header button.btn-primary')).toContainText('Start a Project')
   })
 
@@ -29,6 +28,39 @@ test.describe('Navigation', () => {
     await expect(page.locator('nav[aria-label="Mobile"]')).toHaveClass(/open/)
     await burger.click()
     await expect(page.locator('nav[aria-label="Mobile"]')).not.toHaveClass(/open/)
+  })
+
+  test('Ctrl-click and middle-click on the Work nav link do not hijack navigation', async ({
+    page,
+    isMobile,
+  }) => {
+    test.skip(isMobile, 'desktop primary nav link check')
+    await page.goto('/')
+    const workLink = page.locator('header nav[aria-label="Primary"] a[href="/work"]')
+
+    // Dispatch synthetic Ctrl+click and middle-click events and verify default is NOT prevented
+    // and history URL stays on `/`
+    const hijacked = await workLink.evaluate((el) => {
+      let prevented = false
+      const onPreventProbe = (e: MouseEvent) => {
+        if (e.defaultPrevented) prevented = true
+        e.preventDefault() // stop headless browser from opening an actual popup
+      }
+      window.addEventListener('click', onPreventProbe)
+
+      el.dispatchEvent(
+        new MouseEvent('click', { bubbles: true, cancelable: true, button: 0, ctrlKey: true }),
+      )
+      el.dispatchEvent(
+        new MouseEvent('click', { bubbles: true, cancelable: true, button: 1 }),
+      )
+
+      window.removeEventListener('click', onPreventProbe)
+      return prevented
+    })
+
+    expect(hijacked).toBe(false)
+    await expect(page).toHaveURL(/\/$/)
   })
 })
 
@@ -75,13 +107,167 @@ test.describe('What I Do', () => {
   })
 })
 
-// ── Work / case studies ──────────────────────────────────────────────────────
+// ── Home Preview & Dedicated /work Page Routing ──────────────────────────────
 
-test.describe('Digital Work & Curve Showcase', () => {
-  test('renders the light curve showcase card and cycles all 4 reference builds into #work-panel', async ({
+test.describe('Work Preview & /work Routing', () => {
+  test('clicking "See all work" on the home page navigates to /work, focuses h1, and shows #work-panel and Creative cards (which are absent on /)', async ({
     page,
   }) => {
     await page.goto('/')
+    await expect(page.locator('#work-panel')).toHaveCount(0)
+    await expect(page.locator('#creative-work')).toHaveCount(0)
+
+    const seeAllBtn = page.locator('#work a.btn-primary', { hasText: 'See all work' })
+    await expect(seeAllBtn).toBeVisible()
+    await seeAllBtn.click()
+
+    await expect(page).toHaveURL(/\/work$/)
+    const h1 = page.locator('main h1')
+    await expect(h1).toBeVisible()
+    await expect(h1).toHaveText('Selected work')
+    await expect(h1).toBeFocused()
+    await expect(page.locator('#work-panel')).toBeVisible()
+    await expect(page.locator('#creative-work article')).toHaveCount(3)
+    await expect(
+      page.locator('header nav[aria-label="Primary"] a[href="/work"]'),
+    ).toHaveAttribute('aria-current', 'page')
+  })
+
+  test('direct page.goto("/work"), reload on /work, and browser back return to home page at the right place', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto('/')
+
+    const workSection = page.locator('#work')
+    await workSection.scrollIntoViewIfNeeded()
+    const homeScrollBefore = await page.evaluate(() => window.scrollY)
+    expect(homeScrollBefore).toBeGreaterThan(200)
+
+    await workSection.locator('a.btn-primary', { hasText: 'See all work' }).click()
+    await expect(page).toHaveURL(/\/work$/)
+    await expect(page.locator('main h1')).toHaveText('Selected work')
+
+    // Reload on /work works
+    await page.reload()
+    await expect(page).toHaveURL(/\/work$/)
+    await expect(page.locator('main h1')).toHaveText('Selected work')
+    await expect(page.locator('#work-panel')).toBeVisible()
+
+    // Direct goto('/work') works
+    await page.goto('/work')
+    await expect(page.locator('main h1')).toHaveText('Selected work')
+
+    // Navigate from home scrolled position and press Back
+    await page.goto('/')
+    const seeAllBtn = page.locator('#work a.btn-primary', { hasText: 'See all work' })
+    await seeAllBtn.scrollIntoViewIfNeeded()
+    const scrollBeforeNav = await page.evaluate(() => window.scrollY)
+    expect(scrollBeforeNav).toBeGreaterThan(200)
+    await seeAllBtn.click()
+    await expect(page).toHaveURL(/\/work$/)
+    await page.goBack()
+    await expect(page).toHaveURL(/\/$/)
+    await expect
+      .poll(async () => {
+        const y = await page.evaluate(() => window.scrollY)
+        return Math.abs(y - scrollBeforeNav)
+      })
+      .toBeLessThan(150)
+  })
+
+  test('clicking the active photo in the home showcase (both rows) opens /work with that exact project or opens that creative item modal', async ({
+    page,
+  }) => {
+    await page.goto('/')
+    const digitalRow = page.getByTestId('curve-row-digital')
+
+    // Step to Talent Evaluation System on home page and click center photo
+    await digitalRow.locator('button.cs-btn.cs-nx').click()
+    await expect(digitalRow.locator('.cs-title')).toHaveText('Talent Evaluation System')
+    await digitalRow.locator('button.cs-c.cs-mid').click()
+
+    await expect(page).toHaveURL(/\/work\?project=ai-cv-screening$/)
+    await expect(
+      page.locator('#work-panel h3', { hasText: 'Talent Evaluation System' }),
+    ).toBeVisible()
+
+    // Return home, step creative row to Flame-Grilled Burger, and click center photo
+    await page.goto('/')
+    const creativeRow = page.getByTestId('curve-row-creative')
+    await creativeRow.locator('button.cs-btn.cs-nx').click()
+    await expect(creativeRow.locator('.cs-title')).toHaveText('Flame-Grilled Burger')
+    await creativeRow.locator('button.cs-c.cs-mid').click()
+
+    await expect(page).toHaveURL(/\/work\?creative=artisan-burger-campaign$/)
+    const dialog = page.locator('#creative-work [role="dialog"]')
+    await expect(dialog).toBeVisible()
+    await expect(dialog).toContainText('Flame-Grilled Burger')
+  })
+
+  test('from /work, nav links to About, Services, and Contact land on the right home section', async ({
+    page,
+    isMobile,
+  }) => {
+    test.skip(isMobile, 'desktop primary nav link check')
+    await page.setViewportSize({ width: 1440, height: 900 })
+
+    await page.goto('/work')
+    await page.locator('header nav[aria-label="Primary"] a[href="/#about"]').click()
+    await expect(page).toHaveURL(/\/#about$/)
+    await expect
+      .poll(async () => {
+        const box = await page.locator('#about').boundingBox()
+        return box ? Math.abs(box.y) : 9999
+      })
+      .toBeLessThan(200)
+
+    await page.goto('/work')
+    await page.locator('header nav[aria-label="Primary"] a[href="/#services"]').click()
+    await expect(page).toHaveURL(/\/#services$/)
+    await expect
+      .poll(async () => {
+        const box = await page.locator('#services').boundingBox()
+        return box ? Math.abs(box.y) : 9999
+      })
+      .toBeLessThan(200)
+
+    await page.goto('/work')
+    await page.locator('main a.btn-primary', { hasText: 'Start a Project' }).click()
+    await expect(page).toHaveURL(/\/#contact$/)
+    await expect
+      .poll(async () => {
+        const box = await page.locator('#contact').boundingBox()
+        return box ? Math.abs(box.y) : 9999
+      })
+      .toBeLessThan(200)
+  })
+
+  test('triggerProjectScope from /work ("Request Similar Work") lands on the home contact form with the right service and reference preselected', async ({
+    page,
+  }) => {
+    await page.goto('/work')
+
+    // Open a Creative campaign card modal and click "Request Similar Work"
+    await page.locator('#creative-work article').first().click()
+    const dialog = page.locator('#creative-work [role="dialog"]')
+    await expect(dialog).toBeVisible()
+    await dialog.getByRole('button', { name: 'Request Similar Work' }).click()
+
+    await expect(page).toHaveURL(/\/#contact$/)
+    const cta = page.locator('#contact')
+    await expect(cta).toContainText('Advertising & Campaign Assets')
+    await expect(cta).toContainText('Hanasui Cosmetics: Tactile Product & Shade Campaign')
+  })
+})
+
+// ── Work / case studies on /work ─────────────────────────────────────────────
+
+test.describe('Digital Work & Curve Showcase on /work', () => {
+  test('renders the light curve showcase card and cycles all 4 reference builds into #work-panel', async ({
+    page,
+  }) => {
+    await page.goto('/work')
     const work = page.locator('#work')
     const digitalRow = work.getByTestId('curve-row-digital')
     const nextBtn = digitalRow.locator('button.cs-btn.cs-nx')
@@ -119,7 +305,7 @@ test.describe('Digital Work & Curve Showcase', () => {
   test('supports clicking side neighbor photos and keyboard ArrowLeft/ArrowRight on both rows', async ({
     page,
   }) => {
-    await page.goto('/')
+    await page.goto('/work')
     const digitalRow = page.getByTestId('curve-row-digital')
     const creativeRow = page.getByTestId('curve-row-creative')
 
@@ -307,10 +493,13 @@ test.describe('Digital Work & Curve Showcase', () => {
     await assertNoCutOffLines()
   })
 
-  test('labels every project and concept piece honestly in EN and ID and loads zero <video> on initial load', async ({
+  test('labels every project and concept piece honestly in EN and ID and loads zero <video> on initial load of both / and /work', async ({
     page,
   }) => {
     await page.goto('/')
+    await expect(page.locator('video')).toHaveCount(0)
+
+    await page.goto('/work')
     await expect(page.locator('video')).toHaveCount(0)
 
     const work = page.locator('#work')
@@ -335,12 +524,14 @@ test.describe('Digital Work & Curve Showcase', () => {
   test('never renders TODO(yoga) placeholders', async ({ page }) => {
     await page.goto('/')
     await expect(page.getByText('TODO(yoga)')).toHaveCount(0)
+    await page.goto('/work')
+    await expect(page.getByText('TODO(yoga)')).toHaveCount(0)
   })
 
-  test('every project in the showcase links to a live deployment in #work-panel', async ({
+  test('every project in the showcase links to a live deployment in #work-panel on /work', async ({
     page,
   }) => {
-    await page.goto('/')
+    await page.goto('/work')
     const work = page.locator('#work')
     const nextBtn = work.getByTestId('curve-row-digital').locator('button.cs-btn.cs-nx')
 
@@ -352,7 +543,7 @@ test.describe('Digital Work & Curve Showcase', () => {
     }
   })
 
-  test('clicking Digital Work and Creative Work nav links scrolls to #work and #creative-work', async ({
+  test('clicking Work nav link navigates to /work', async ({
     page,
     isMobile,
   }) => {
@@ -361,29 +552,18 @@ test.describe('Digital Work & Curve Showcase', () => {
     await page.goto('/')
     const nav = page.locator('header nav[aria-label="Primary"]')
 
-    await nav.locator('a[href="#work"]').click()
-    await expect
-      .poll(async () => {
-        const box = await page.locator('#work').boundingBox()
-        return box ? Math.abs(box.y) : 9999
-      })
-      .toBeLessThan(200)
-
-    await nav.locator('a[href="#creative-work"]').click()
-    await expect
-      .poll(async () => {
-        const box = await page.locator('#creative-work').boundingBox()
-        return box ? Math.abs(box.y) : 9999
-      })
-      .toBeLessThan(200)
+    await nav.locator('a[href="/work"]').click()
+    await expect(page).toHaveURL(/\/work$/)
+    await expect(page.locator('#work-panel')).toBeVisible()
+    await expect(page.locator('#creative-work')).toBeVisible()
   })
 })
 
-// ── Creative work ────────────────────────────────────────────────────────────
+// ── Creative work on /work ───────────────────────────────────────────────────
 
 test.describe('Creative Work', () => {
-  test('shows campaign visuals by default and only loads video ads when Cinematic Video tab is clicked', async ({ page }) => {
-    await page.goto('/')
+  test('shows campaign visuals by default and only loads video ads when Cinematic Video tab is clicked on /work', async ({ page }) => {
+    await page.goto('/work')
     const creative = page.locator('#creative-work')
     const cards = creative.locator('article')
     await expect(cards).toHaveCount(3)
@@ -479,7 +659,7 @@ test.describe('Footer', () => {
 // ── Language Toggle (EN | ID) ────────────────────────────────────────────────
 
 test.describe('Language Toggle', () => {
-  test('defaults to English H1, switches to Indonesian H1 with lang="id", and persists across reload', async ({
+  test('defaults to English H1, switches to Indonesian H1 with lang="id", survives navigation to /work, and persists across reload', async ({
     page,
   }) => {
     await page.goto('/')
@@ -500,11 +680,16 @@ test.describe('Language Toggle', () => {
     await expect(h1).toContainText('Visual brand.')
     await expect(h1).toContainText('Satu studio AI-native.')
 
+    // Navigate to /work via "Lihat semua karya" and verify Indonesian persists
+    await page.locator('#work a.btn-primary', { hasText: 'Lihat semua karya' }).click()
+    await expect(page).toHaveURL(/\/work$/)
+    await expect(page.locator('html')).toHaveAttribute('lang', 'id')
+    await expect(page.locator('main h1')).toHaveText('Karya pilihan')
+    await expect(page).toHaveTitle('Karya pilihan | Legacya Sphere')
+
     await page.reload()
     await expect(page.locator('html')).toHaveAttribute('lang', 'id')
-    await expect(h1).toContainText('Sistem bisnis.')
-    await expect(h1).toContainText('Visual brand.')
-    await expect(h1).toContainText('Satu studio AI-native.')
+    await expect(page.locator('main h1')).toHaveText('Karya pilihan')
   })
 
   test('builds the WhatsApp inquiry link in Indonesian after choosing ID', async ({

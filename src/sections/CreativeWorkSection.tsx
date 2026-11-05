@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { getCreativeWorkItems } from '../data/creativeWork'
 import type { CreativeWorkItem } from '../types/project'
 import { triggerProjectScope } from '../core/identity'
+import { useRoute } from '../core/router'
 import { useT } from '../i18n/context'
 
 type CreativeFilter =
@@ -12,6 +13,23 @@ const FILTER_TABS: CreativeFilter[] = [
   'Advertising & Campaign Assets',
   'Cinematic Video & Visual Production',
 ]
+
+function resolveCreativeQuery(
+  search: string,
+  items: CreativeWorkItem[],
+): { filter: CreativeFilter; selectedItemId: string | null } {
+  const param = new URLSearchParams(search).get('creative')
+  if (param) {
+    const matched = items.find((c) => c.id === param)
+    if (matched) {
+      return { filter: matched.category, selectedItemId: matched.id }
+    }
+    if (param === 'Cinematic Video & Visual Production') {
+      return { filter: 'Cinematic Video & Visual Production', selectedItemId: null }
+    }
+  }
+  return { filter: 'Advertising & Campaign Assets', selectedItemId: null }
+}
 
 interface NetworkInformationLike {
   saveData?: boolean
@@ -139,11 +157,23 @@ function CreativeVisualPreview({
 
 export function CreativeWorkSection() {
   const { lang, t } = useT()
+  const { search } = useRoute()
   const creativeItems = getCreativeWorkItems(lang)
-  const [filter, setFilter] = useState<CreativeFilter>('Advertising & Campaign Assets')
-  const [selectedItemId, setSelectedItemId] = useState<string | null>(null)
+  const initialQuery = resolveCreativeQuery(search, creativeItems)
+  const [filter, setFilter] = useState<CreativeFilter>(initialQuery.filter)
+  const [selectedItemId, setSelectedItemId] = useState<string | null>(
+    initialQuery.selectedItemId,
+  )
   const selectedItem =
     creativeItems.find((item) => item.id === selectedItemId) ?? null
+
+  useEffect(() => {
+    const next = resolveCreativeQuery(search, creativeItems)
+    if (new URLSearchParams(search).has('creative')) {
+      setFilter(next.filter)
+      setSelectedItemId(next.selectedItemId)
+    }
+  }, [search])
 
   useEffect(() => {
     const onSelectCreative = (e: Event) => {
@@ -186,7 +216,7 @@ export function CreativeWorkSection() {
   return (
     <section
       id="creative-work"
-      className="scroll-mt-20 border-t border-border bg-bg/95 px-5 py-12 backdrop-blur-sm md:px-10 md:py-20"
+      className="scroll-mt-20 border-t border-border bg-bg/95 px-5 py-12 md:px-10 md:py-20"
     >
       <div className="mx-auto max-w-[1180px]">
         {/* Filter Bar */}

@@ -1,19 +1,21 @@
 import { ArrowUpRight } from 'lucide-react'
 import { identity, triggerProjectScope } from '../core/identity'
+import { navigate, useRoute } from '../core/router'
 import { useT } from '../i18n/context'
 import { asset } from '../utils/asset'
+import { Link } from './Link'
 
 export function Footer() {
   const { t } = useT()
+  const { route } = useRoute()
 
   const studioLinks = [
-    { label: t.footer.studioLinks.about, href: '#about' },
-    { label: t.footer.studioLinks.services, href: '#services' },
-    { label: t.footer.studioLinks.work, href: '#work' },
-    { label: t.footer.studioLinks.creativeWork, href: '#creative-work' },
-    { label: t.footer.studioLinks.process, href: '#process' },
-    { label: t.footer.studioLinks.aiWorkflow, href: '#ai-workflow' },
-    { label: t.footer.studioLinks.whyLegacya, href: '#why-legacya' },
+    { label: t.footer.studioLinks.about, to: '/#about' },
+    { label: t.footer.studioLinks.services, to: '/#services' },
+    { label: t.footer.studioLinks.work, to: '/work' },
+    { label: t.footer.studioLinks.process, to: '/#process' },
+    { label: t.footer.studioLinks.aiWorkflow, to: '/#ai-workflow' },
+    { label: t.footer.studioLinks.whyLegacya, to: '/#why-legacya' },
   ]
 
   const capabilityLinks = [
@@ -41,7 +43,16 @@ export function Footer() {
         <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-[1.35fr_1fr_1.15fr_1fr]">
           {/* Brand */}
           <div>
-            <a href="#top" className="inline-flex min-h-[44px] items-center gap-2.5">
+            <a
+              href="#top"
+              onClick={(e) => {
+                if (route !== '/') {
+                  e.preventDefault()
+                  navigate('/#top')
+                }
+              }}
+              className="inline-flex min-h-[44px] items-center gap-2.5"
+            >
               <span className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full border border-white/25 bg-white/10">
                 <img
                   src={asset('logo.png')}
@@ -66,13 +77,14 @@ export function Footer() {
           <div>
             <p className="eyebrow mb-2 text-white/90">{t.footer.studioHeading}</p>
             {studioLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
+              <Link
+                key={link.to}
+                to={link.to}
+                aria-current={link.to === '/work' && route === '/work' ? 'page' : undefined}
                 className="flex min-h-[44px] items-center py-1 text-[13.5px] text-white/75 transition-colors duration-200 hover:text-white"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
 

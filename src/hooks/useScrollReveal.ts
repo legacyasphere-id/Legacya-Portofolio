@@ -8,11 +8,19 @@ import { useEffect } from 'react'
  */
 export function useScrollReveal() {
   useEffect(() => {
-    const els = Array.from(document.querySelectorAll<HTMLElement>('[data-animate]'))
+    const prefersReduced =
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      els.forEach((el) => el.classList.add('is-visible'))
-      return
+    if (prefersReduced) {
+      const revealAll = () => {
+        document
+          .querySelectorAll<HTMLElement>('[data-animate]:not(.is-visible)')
+          .forEach((el) => el.classList.add('is-visible'))
+      }
+      revealAll()
+      const mo = new MutationObserver(revealAll)
+      mo.observe(document.body, { childList: true, subtree: true })
+      return () => mo.disconnect()
     }
 
     const io = new IntersectionObserver(
@@ -27,7 +35,19 @@ export function useScrollReveal() {
       { threshold: 0.15, rootMargin: '0px 0px -50px 0px' },
     )
 
-    els.forEach((el) => io.observe(el))
-    return () => io.disconnect()
+    const observePending = () => {
+      document
+        .querySelectorAll<HTMLElement>('[data-animate]:not(.is-visible)')
+        .forEach((el) => io.observe(el))
+    }
+
+    observePending()
+    const mo = new MutationObserver(observePending)
+    mo.observe(document.body, { childList: true, subtree: true })
+
+    return () => {
+      mo.disconnect()
+      io.disconnect()
+    }
   }, [])
 }

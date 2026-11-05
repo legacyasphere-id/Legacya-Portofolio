@@ -9,6 +9,11 @@ import {
   validateInquiryInput,
   composeInquiryBrief,
 } from './inquiry.ts'
+import {
+  stripBasePath,
+  resolveRoute,
+  withBasePath,
+} from './router.ts'
 import { en } from '../i18n/en.ts'
 import { id } from '../i18n/id.ts'
 
@@ -39,6 +44,31 @@ test('resolveServiceLabel normalizes IDs and short labels to canonical service t
   assert.equal(resolveServiceLabel('cinematic-video'), 'Cinematic Video & Visual Production')
   assert.equal(resolveServiceLabel('digital-systems'), 'Digital Experiences & Business Systems')
   assert.equal(resolveServiceLabel('unknown-id'), 'Digital Experiences & Business Systems')
+})
+
+test('stripBasePath, resolveRoute, and withBasePath handle root and /Legacya-Portofolio/ base paths', () => {
+  // Root base `/`
+  assert.equal(stripBasePath('/', '/'), '/')
+  assert.equal(stripBasePath('/work', '/'), '/work')
+  assert.equal(stripBasePath('/work/', '/'), '/work')
+  assert.equal(resolveRoute('/', '/'), '/')
+  assert.equal(resolveRoute('/work', '/'), '/work')
+  assert.equal(resolveRoute('/unknown-page', '/'), '/')
+
+  // GitHub Pages base `/Legacya-Portofolio/`
+  assert.equal(stripBasePath('/Legacya-Portofolio/', '/Legacya-Portofolio/'), '/')
+  assert.equal(stripBasePath('/Legacya-Portofolio', '/Legacya-Portofolio/'), '/')
+  assert.equal(stripBasePath('/Legacya-Portofolio/work', '/Legacya-Portofolio/'), '/work')
+  assert.equal(stripBasePath('/Legacya-Portofolio/work/', '/Legacya-Portofolio/'), '/work')
+  assert.equal(resolveRoute('/Legacya-Portofolio/', '/Legacya-Portofolio/'), '/')
+  assert.equal(resolveRoute('/Legacya-Portofolio/work', '/Legacya-Portofolio/'), '/work')
+  assert.equal(resolveRoute('/Legacya-Portofolio/missing', '/Legacya-Portofolio/'), '/')
+
+  // withBasePath formatting
+  assert.equal(withBasePath('/work', '/'), '/work')
+  assert.equal(withBasePath('/#about', '/'), '/#about')
+  assert.equal(withBasePath('/work', '/Legacya-Portofolio/'), '/Legacya-Portofolio/work')
+  assert.equal(withBasePath('/#about', '/Legacya-Portofolio/'), '/Legacya-Portofolio/#about')
 })
 
 test('validateInquiryInput enforces name and valid email or phone/WhatsApp format', () => {
@@ -162,10 +192,12 @@ test('All customer-facing sections and portfolio data contain zero developer jar
 
   const filesToAudit = [
     'index.html',
+    'src/App.tsx',
     'src/i18n/en.ts',
     'src/i18n/id.ts',
     'src/core/identity.ts',
     'src/core/inquiry.ts',
+    'src/core/router.ts',
     'src/data/projects.ts',
     'src/data/creativeWork.ts',
     'src/sections/HeroSection.tsx',
@@ -177,6 +209,7 @@ test('All customer-facing sections and portfolio data contain zero developer jar
     'src/sections/WhyLegacyaSection.tsx',
     'src/sections/FounderSection.tsx',
     'src/sections/CTASection.tsx',
+    'src/components/Link.tsx',
     'src/components/SiteNav.tsx',
     'src/components/SectionGuide.tsx',
     'src/components/CurveShowcaseCard.tsx',

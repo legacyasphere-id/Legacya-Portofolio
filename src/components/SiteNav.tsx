@@ -1,26 +1,25 @@
 import { useEffect, useState } from 'react'
 import { triggerProjectScope } from '../core/identity'
+import { navigate, useRoute } from '../core/router'
 import { useT } from '../i18n/context'
 import { asset } from '../utils/asset'
+import { Link } from './Link'
 
 export function SiteNav() {
   const { lang, toggleLang, t } = useT()
+  const { route } = useRoute()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
 
   const links = [
-    { href: '#about', label: t.nav.links.about },
-    { href: '#services', label: t.nav.links.services },
-    { href: '#work', label: t.nav.links.work },
-    { href: '#creative-work', label: t.nav.links.creativeWork },
-    { href: '#process', label: t.nav.links.process },
-    { href: '#ai-workflow', label: t.nav.links.aiWorkflow },
+    { to: '/#about', label: t.nav.links.about, isWork: false },
+    { to: '/#services', label: t.nav.links.services, isWork: false },
+    { to: '/work', label: t.nav.links.work, isWork: true },
+    { to: '/#process', label: t.nav.links.process, isWork: false },
+    { to: '/#ai-workflow', label: t.nav.links.aiWorkflow, isWork: false },
   ]
 
-  const toggleAriaLabel =
-    lang === 'en'
-      ? 'Switch language to Indonesian'
-      : 'Ganti bahasa ke Bahasa Inggris'
+  const toggleAriaLabel = t.nav.switchLangAria
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -48,6 +47,12 @@ export function SiteNav() {
         {/* Zone 1: Legacya Sphere emblem + wordmark */}
         <a
           href="#top"
+          onClick={(e) => {
+            if (route !== '/') {
+              e.preventDefault()
+              navigate('/#top')
+            }
+          }}
           className="flex min-h-[44px] items-center gap-2.5 whitespace-nowrap shrink-0"
         >
           <span className="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border bg-surface shadow-xs">
@@ -68,15 +73,21 @@ export function SiteNav() {
 
         {/* Zone 2: Primary navigation links */}
         <nav className="hidden items-center gap-6 xl:gap-8 lg:flex" aria-label={t.nav.primaryAria}>
-          {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="nav-link whitespace-nowrap shrink-0"
-            >
-              {l.label}
-            </a>
-          ))}
+          {links.map((l) => {
+            const isCurrent = l.isWork && route === '/work'
+            return (
+              <Link
+                key={l.to}
+                to={l.to}
+                aria-current={isCurrent ? 'page' : undefined}
+                className={`nav-link whitespace-nowrap shrink-0 ${
+                  isCurrent ? 'font-medium text-blue-deep' : ''
+                }`}
+              >
+                {l.label}
+              </Link>
+            )
+          })}
         </nav>
 
         {/* Zone 3: Language toggle + primary action / mobile menu trigger */}
@@ -127,11 +138,19 @@ export function SiteNav() {
         aria-label={t.nav.mobileAria}
         aria-hidden={!open}
       >
-        {links.map((l) => (
-          <a key={l.href} href={l.href} onClick={() => setOpen(false)}>
-            {l.label}
-          </a>
-        ))}
+        {links.map((l) => {
+          const isCurrent = l.isWork && route === '/work'
+          return (
+            <Link
+              key={l.to}
+              to={l.to}
+              aria-current={isCurrent ? 'page' : undefined}
+              onClick={() => setOpen(false)}
+            >
+              {l.label}
+            </Link>
+          )
+        })}
         <button
           type="button"
           onClick={toggleLang}
@@ -149,13 +168,13 @@ export function SiteNav() {
             ID
           </span>
         </button>
-        <a
-          href="#contact"
+        <Link
+          to="/#contact"
           onClick={() => setOpen(false)}
           className="nav-cta mt-3 rounded-[10px] bg-blue-deep px-6 py-3 text-[15px] font-medium text-white whitespace-nowrap"
         >
           {t.nav.cta}
-        </a>
+        </Link>
       </nav>
     </>
   )

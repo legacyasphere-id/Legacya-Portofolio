@@ -7,6 +7,7 @@ import {
 } from 'react'
 import { en, type Dictionary } from './en'
 import { id } from './id'
+import { resolveRoute } from '../core/router'
 
 export type Lang = 'en' | 'id'
 
@@ -65,7 +66,10 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     document.documentElement.lang = lang
-    document.title = t.meta.title
+    const isWork =
+      typeof window !== 'undefined' &&
+      resolveRoute(window.location.pathname) === '/work'
+    document.title = isWork ? t.meta.workTitle : t.meta.title
   }, [lang, t])
 
   return (

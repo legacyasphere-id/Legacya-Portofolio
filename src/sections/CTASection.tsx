@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react'
-import { identity, type ScopeSelectionDetail } from '../core/identity'
+import {
+  consumePendingScopeSelection,
+  identity,
+  type ScopeSelectionDetail,
+} from '../core/identity'
 import {
   type ServiceCategoryId,
   composeInquiryBrief,
@@ -43,24 +47,35 @@ export function CTASection() {
     setSubmittedChannel(null)
   }
 
+  const applyScopeDetail = (d: ScopeSelectionDetail) => {
+    if (d.serviceCategory) {
+      const resolvedId = resolveServiceId(d.serviceCategory)
+      setServiceId(resolvedId)
+      setObjectiveIdx(resolveObjectiveIndex(resolvedId, d.objective))
+    } else if (d.objective) {
+      setObjectiveIdx((prevIdx) =>
+        resolveObjectiveIndex(serviceId, d.objective) ?? prevIdx,
+      )
+    }
+    if (d.projectReference) {
+      setReferenceWork(d.projectReference)
+    }
+    setSubmittedChannel(null)
+  }
+
+  useEffect(() => {
+    const pending = consumePendingScopeSelection()
+    if (pending) {
+      applyScopeDetail(pending)
+    }
+  }, [])
+
   useEffect(() => {
     const onScopeSelect = (e: Event) => {
       const custom = e as CustomEvent<ScopeSelectionDetail>
       const d = custom.detail
       if (!d) return
-      if (d.serviceCategory) {
-        const resolvedId = resolveServiceId(d.serviceCategory)
-        setServiceId(resolvedId)
-        setObjectiveIdx(resolveObjectiveIndex(resolvedId, d.objective))
-      } else if (d.objective) {
-        setObjectiveIdx((prevIdx) =>
-          resolveObjectiveIndex(serviceId, d.objective) ?? prevIdx,
-        )
-      }
-      if (d.projectReference) {
-        setReferenceWork(d.projectReference)
-      }
-      setSubmittedChannel(null)
+      applyScopeDetail(d)
     }
     window.addEventListener('legacya:select-scope', onScopeSelect)
     return () => window.removeEventListener('legacya:select-scope', onScopeSelect)
