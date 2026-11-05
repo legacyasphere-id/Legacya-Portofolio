@@ -37,6 +37,7 @@ interface CurveShowcaseCardProps {
   onInspectActiveProject: (projectId: string) => void
   creativeItems: CreativeWorkItem[]
   onOpenCreativeItem: (itemId: string) => void
+  initialCreativeId?: string
   copy?: Partial<CurveShowcaseCopy>
 }
 
@@ -58,11 +59,31 @@ export function CurveShowcaseCard({
   onInspectActiveProject,
   creativeItems,
   onOpenCreativeItem,
+  initialCreativeId,
   copy: customCopy,
 }: CurveShowcaseCardProps) {
   const copy: CurveShowcaseCopy = { ...DEFAULT_EN_COPY, ...customCopy }
-  const [creativeIdx, setCreativeIdx] = useState(0)
-  const [activeRow, setActiveRow] = useState<'digital' | 'creative'>('digital')
+  const [creativeIdx, setCreativeIdx] = useState(() => {
+    if (!initialCreativeId) return 0
+    const idx = creativeItems.findIndex(
+      (item) => item.id === initialCreativeId || item.category === initialCreativeId,
+    )
+    return idx >= 0 ? idx : 0
+  })
+  const [activeRow, setActiveRow] = useState<'digital' | 'creative'>(() =>
+    initialCreativeId ? 'creative' : 'digital',
+  )
+
+  useEffect(() => {
+    if (!initialCreativeId) return
+    const idx = creativeItems.findIndex(
+      (item) => item.id === initialCreativeId || item.category === initialCreativeId,
+    )
+    if (idx >= 0) {
+      setCreativeIdx(idx)
+      setActiveRow('creative')
+    }
+  }, [initialCreativeId, creativeItems])
 
   useEffect(() => {
     const onSelectCreative = (e: Event) => {

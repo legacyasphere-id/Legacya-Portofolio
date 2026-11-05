@@ -3,19 +3,105 @@ import { ArrowUpRight } from 'lucide-react'
 import { getProjects } from '../data/projects'
 import { getCreativeWorkItems } from '../data/creativeWork'
 import { triggerProjectScope } from '../core/identity'
+import { navigate, useRoute } from '../core/router'
 import { useT } from '../i18n/context'
 import { CurveShowcaseCard } from '../components/CurveShowcaseCard'
+import { Link } from '../components/Link'
+import { CreativeWorkSection } from './CreativeWorkSection'
 
+/**
+ * Home page preview section (`#work`):
+ * Renders the interactive `CurveShowcaseCard` and a "See all work" button.
+ * Clicking the active photo in either row opens `/work` with that item selected.
+ */
 export function WorkSection() {
   const { lang, t } = useT()
   const projects = getProjects(lang)
   const creativeItems = getCreativeWorkItems(lang)
   const [activeId, setActiveId] = useState(projects[0]?.id ?? 'inventory-os')
+
+  const active = projects.find((p) => p.id === activeId) ?? projects[0]
+
+  useEffect(() => {
+    const onSelectProject = (e: Event) => {
+      const custom = e as CustomEvent<string>
+      if (custom.detail && projects.some((p) => p.id === custom.detail)) {
+        setActiveId(custom.detail)
+      }
+    }
+    window.addEventListener('legacya:select-project', onSelectProject)
+    return () => window.removeEventListener('legacya:select-project', onSelectProject)
+  }, [projects])
+
+  return (
+    <section
+      id="work"
+      className="scroll-mt-20 border-t border-border bg-surface/75 px-5 py-10 backdrop-blur-sm md:px-10 md:py-16"
+    >
+      <div className="mx-auto max-w-[1180px]">
+        <CurveShowcaseCard
+          projects={projects}
+          activeProjectId={active.id}
+          onSelectProject={setActiveId}
+          onInspectActiveProject={(projectId) => {
+            navigate(`/work?project=${encodeURIComponent(projectId)}`)
+          }}
+          creativeItems={creativeItems}
+          onOpenCreativeItem={(itemId) => {
+            navigate(`/work?creative=${encodeURIComponent(itemId)}`)
+          }}
+          copy={{
+            ...t.showcase,
+            conceptBadge: t.creativeWork.conceptBadge,
+          }}
+        />
+
+        <div className="flex justify-center">
+          <Link
+            to="/work"
+            className="btn-primary rounded-full px-7 py-3 text-[14.5px] whitespace-nowrap"
+          >
+            {t.showcase.seeAllWork}
+          </Link>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/**
+ * Dedicated `/work` page:
+ * Holds the page header (`Selected work`), `CurveShowcaseCard`, `#work-panel`
+ * detail panel + lightbox modal, `#creative-work` tabs + card grid + modal,
+ * and the closing inquiry callout.
+ */
+export function WorkPage() {
+  const { lang, t } = useT()
+  const { search } = useRoute()
+  const projects = getProjects(lang)
+  const creativeItems = getCreativeWorkItems(lang)
+
+  const initialProjectParam = new URLSearchParams(search).get('project')
+  const initialCreativeParam = new URLSearchParams(search).get('creative') ?? undefined
+
+  const [activeId, setActiveId] = useState(() => {
+    if (initialProjectParam && projects.some((p) => p.id === initialProjectParam)) {
+      return initialProjectParam
+    }
+    return projects[0]?.id ?? 'inventory-os'
+  })
   const [screenshotIdx, setScreenshotIdx] = useState(0)
   const [lightboxOpen, setLightboxOpen] = useState(false)
 
   const active = projects.find((p) => p.id === activeId) ?? projects[0]
   const currentScreenshot = active.screenshots[screenshotIdx] ?? active.screenshots[0]
+
+  useEffect(() => {
+    const projectParam = new URLSearchParams(search).get('project')
+    if (projectParam && projects.some((p) => p.id === projectParam)) {
+      setActiveId(projectParam)
+    }
+  }, [search])
 
   useEffect(() => {
     setScreenshotIdx(0)
@@ -50,41 +136,56 @@ export function WorkSection() {
   }, [lightboxOpen, active.screenshots.length])
 
   return (
-    <section
-      id="work"
-      className="scroll-mt-20 border-t border-border bg-surface/75 px-5 py-10 backdrop-blur-sm md:px-10 md:py-16"
-    >
-      <div className="mx-auto max-w-[1180px]">
-        <CurveShowcaseCard
-          projects={projects}
-          activeProjectId={active.id}
-          onSelectProject={setActiveId}
-          onInspectActiveProject={() => {
-            document
-              .getElementById('work-panel')
-              ?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
-          }}
-          creativeItems={creativeItems}
-          onOpenCreativeItem={(itemId) => {
-            window.dispatchEvent(
-              new CustomEvent('legacya:open-creative-item', {
-                detail: itemId,
-              }),
-            )
-          }}
-          copy={{
-            ...t.showcase,
-            conceptBadge: t.creativeWork.conceptBadge,
-          }}
-        />
+    <>
+      <section
+        id="work"
+        className="scroll-mt-20 border-t border-border bg-surface/75 px-5 pb-10 pt-24 sm:pt-28 md:px-10 md:pb-16 md:pt-32"
+      >
+        <div className="mx-auto max-w-[1180px]">
+          <div className="mb-8 max-w-[680px]" data-animate>
+            <p className="eyebrow mb-2.5">{t.workPage.eyebrow}</p>
+            <h1
+              tabIndex={-1}
+              className="display text-[clamp(2.2rem,4.5vw,3.6rem)] leading-[1.05] text-text focus:outline-none [text-wrap:balance]"
+            >
+              {t.workPage.heading}
+            </h1>
+            <p className="mt-3 text-[16.5px] leading-relaxed text-muted">
+              {t.workPage.subline}
+            </p>
+          </div>
 
-        {/* Active Project Card: Image + Title + One Line + Actions */}
-        <article
-          id="work-panel"
-          aria-label={active.name}
-          className="card relative z-0 overflow-hidden lg:grid lg:grid-cols-[1.2fr_1fr] lg:items-center"
-          data-animate
-        >
+          <CurveShowcaseCard
+            projects={projects}
+            activeProjectId={active.id}
+            onSelectProject={setActiveId}
+            onInspectActiveProject={() => {
+              document
+                .getElementById('work-panel')
+                ?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+            }}
+            creativeItems={creativeItems}
+            initialCreativeId={initialCreativeParam}
+            onOpenCreativeItem={(itemId) => {
+              window.dispatchEvent(
+                new CustomEvent('legacya:open-creative-item', {
+                  detail: itemId,
+                }),
+              )
+            }}
+            copy={{
+              ...t.showcase,
+              conceptBadge: t.creativeWork.conceptBadge,
+            }}
+          />
+
+          {/* Active Project Card: Image + Title + One Line + Actions */}
+          <article
+            id="work-panel"
+            aria-label={active.name}
+            className="card scroll-mt-24 relative z-0 overflow-hidden lg:grid lg:grid-cols-[1.2fr_1fr] lg:items-center"
+            data-animate
+          >
           {/* Left Column: Screenshot + Thumbnails */}
           <div className="border-b border-border bg-raised/60 p-4 sm:p-5 lg:border-b-0 lg:border-r">
             <div
@@ -338,6 +439,23 @@ export function WorkSection() {
           </div>
         </div>
       )}
-    </section>
+      </section>
+
+      <CreativeWorkSection />
+
+      <section className="border-t border-border bg-surface/85 px-5 py-14 md:px-10 md:py-20">
+        <div className="mx-auto flex max-w-[1180px] flex-col items-center justify-center gap-5 text-center">
+          <p className="display text-[clamp(1.75rem,3vw,2.45rem)] leading-[1.12] text-text">
+            {t.workPage.closingLine}
+          </p>
+          <Link
+            to="/#contact"
+            className="btn-primary px-7 py-3 text-[14.5px] whitespace-nowrap"
+          >
+            {t.workPage.closingCta}
+          </Link>
+        </div>
+      </section>
+    </>
   )
 }
