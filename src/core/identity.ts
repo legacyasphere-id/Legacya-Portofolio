@@ -1,4 +1,5 @@
 import { asset } from '../utils/asset'
+import { navigate } from './router'
 
 export interface ScopeSelectionDetail {
   serviceCategory?: string
@@ -6,30 +7,55 @@ export interface ScopeSelectionDetail {
   projectReference?: string
 }
 
+const PENDING_SCOPE_STORAGE_KEY = 'legacya-pending-scope'
+let pendingScopeSelection: ScopeSelectionDetail | null = null
+
+export function consumePendingScopeSelection(): ScopeSelectionDetail | null {
+  const fromMemory = pendingScopeSelection
+  pendingScopeSelection = null
+  try {
+    const raw = window.sessionStorage.getItem(PENDING_SCOPE_STORAGE_KEY)
+    if (raw) {
+      window.sessionStorage.removeItem(PENDING_SCOPE_STORAGE_KEY)
+      if (!fromMemory) {
+        return JSON.parse(raw) as ScopeSelectionDetail
+      }
+    }
+  } catch {
+    // Ignore storage access errors
+  }
+  return fromMemory
+}
+
 export function triggerProjectScope(detail: ScopeSelectionDetail) {
   window.dispatchEvent(new CustomEvent<ScopeSelectionDetail>('legacya:select-scope', { detail }))
   const el = document.getElementById('contact')
   if (el) {
     el.scrollIntoView({ behavior: 'smooth' })
+    return
   }
+
+  pendingScopeSelection = detail
+  try {
+    window.sessionStorage.setItem(PENDING_SCOPE_STORAGE_KEY, JSON.stringify(detail))
+  } catch {
+    // Ignore storage access errors
+  }
+  navigate('/#contact')
 }
 
 export function triggerProjectInspect(projectId: string) {
   window.dispatchEvent(new CustomEvent<string>('legacya:select-project', { detail: projectId }))
-  const el = document.getElementById('work')
-  if (el) {
-    el.scrollIntoView({ behavior: 'smooth' })
-  }
+  navigate(`/work?project=${encodeURIComponent(projectId)}`)
 }
 
 export function triggerCreativeInspect(categoryOrId?: string) {
   if (categoryOrId) {
     window.dispatchEvent(new CustomEvent<string>('legacya:select-creative', { detail: categoryOrId }))
+    navigate(`/work?creative=${encodeURIComponent(categoryOrId)}`)
+    return
   }
-  const el = document.getElementById('creative-work')
-  if (el) {
-    el.scrollIntoView({ behavior: 'smooth' })
-  }
+  navigate('/work#creative-work')
 }
 
 // ── Feature flags ────────────────────────────────────────────────────────
