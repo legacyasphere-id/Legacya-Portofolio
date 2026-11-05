@@ -150,10 +150,19 @@ export const id: typeof en = {
       },
     },
   },
+  showcase: {
+    digitalCaption: 'Website dan sistem bisnis yang saya bangun',
+    creativeCaption: 'Visual kampanye dan film produk karya saya',
+    prevProjectAria: 'Proyek sebelumnya',
+    nextProjectAria: 'Proyek berikutnya',
+    previousLabel: 'Sebelumnya',
+    nextLabel: 'Proyek berikutnya',
+    inspectProjectAriaPrefix: 'Lihat detail',
+    selectProjectAriaPrefix: 'Pilih proyek',
+    openCreativeAriaPrefix: 'Buka studi kampanye',
+    selectCreativeAriaPrefix: 'Pilih studi kampanye',
+  },
   work: {
-    eyebrow: 'Karya Pilihan · Sistem Digital',
-    heading: 'Website dan sistem bisnis aktif yang bisa kamu coba hari ini',
-    tablistAria: 'Sistem digital pilihan berdasarkan industri',
     expandPreviewPrefix: 'Perbesar pratinjau',
     expandPreviewSuffix: 'layar penuh',
     viewDetailsBadge: 'Lihat Detail +',
@@ -171,10 +180,6 @@ export const id: typeof en = {
     openLiveDemo: 'Buka Demo Langsung',
   },
   creativeWork: {
-    eyebrow: 'Karya Pilihan · Visual Kampanye & Film Pendek',
-    heading: 'Visual kampanye dan film produk untuk peluncuran brand',
-    subline:
-      'Klik karya mana pun untuk menonton video atau melihat rincian konsep kampanyenya.',
     filterAria: 'Saring karya kreatif berdasarkan kategori layanan',
     tabs: {
       'Advertising & Campaign Assets': 'Materi Iklan & Visual Kampanye',
@@ -450,7 +455,7 @@ export const id: typeof en = {
       tagline: 'Sistem Manajemen Gudang, Stok & Pembelian',
       type: 'Sistem Operasional Internal Bisnis',
       industry: 'Gudang & Distribusi',
-      workClassification: 'Proyek referensi inisiatif sendiri · Demo langsung',
+      workClassification: 'Proyek referensi mandiri · Demo langsung',
       buildNotes:
         'Dibangun dalam 1-2 minggu · Akses multi-peran tim · Pelacakan pesanan pembelian lengkap · Peringatan stok menipis otomatis',
       caseStudy: {
@@ -480,7 +485,7 @@ export const id: typeof en = {
       tagline: 'Konsep penyaringan rekrutmen yang dirancang mengikuti alur kerja HR nyata',
       type: 'Sistem Bisnis Khusus & Otomasi Alur Kerja',
       industry: 'SDM & Rekrutmen',
-      workClassification: 'Proyek referensi inisiatif sendiri · Demo langsung',
+      workClassification: 'Proyek referensi mandiri · Demo langsung',
       buildNotes:
         'Dibangun dalam 1-2 minggu · Evaluasi pelamar konsisten · Perbandingan kandidat berdampingan · Ringkasan siap ekspor',
       caseStudy: {
@@ -509,7 +514,7 @@ export const id: typeof en = {
       tagline: 'Asisten Informasi Pasien 24/7 & Pengalaman Reservasi Janji Temu',
       type: 'Website Bisnis & Pengalaman Pelanggan',
       industry: 'Klinik Kesehatan & Gigi',
-      workClassification: 'Proyek referensi inisiatif sendiri · Demo langsung',
+      workClassification: 'Proyek referensi mandiri · Demo langsung',
       buildNotes:
         'Dibangun dalam 1-2 minggu · Tanya jawab pasien 24/7 (EN / ID) · Permintaan janji temu online · Notifikasi resepsionis',
       caseStudy: {
@@ -539,7 +544,7 @@ export const id: typeof en = {
       tagline: 'Platform Kasir, Layar Dapur & Laporan Penjualan Harian Terpadu',
       type: 'Sistem Operasional & Kasir Khusus',
       industry: 'Kuliner · Restoran & Kafe',
-      workClassification: 'Proyek referensi inisiatif sendiri · Demo langsung',
+      workClassification: 'Proyek referensi mandiri · Demo langsung',
       buildNotes:
         'Dibangun dalam 1-2 minggu · 9 tampilan operasional khusus · Layar Kasir, Dapur & Pemilik terhubung · Penghitung waktu pesanan',
       caseStudy: {

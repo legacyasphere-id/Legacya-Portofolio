@@ -77,31 +77,259 @@ test.describe('What I Do', () => {
 
 // ── Work / case studies ──────────────────────────────────────────────────────
 
-test.describe('Digital Work', () => {
-  test('renders a folder tab per curated project, opening its case study', async ({ page }) => {
+test.describe('Digital Work & Curve Showcase', () => {
+  test('renders the light curve showcase card and cycles all 4 reference builds into #work-panel', async ({
+    page,
+  }) => {
     await page.goto('/')
     const work = page.locator('#work')
-    const tabs = work.locator('[role="tab"]')
-    await expect(tabs).toHaveCount(4)
+    const digitalRow = work.getByTestId('curve-row-digital')
+    const nextBtn = digitalRow.locator('button.cs-btn.cs-nx')
+    const prevBtn = digitalRow.locator('button.cs-btn.cs-pl')
+    const panel = work.locator('#work-panel')
 
-    await expect(work.locator('h3', { hasText: 'InventoryOS' })).toBeVisible()
+    await expect(digitalRow.locator('.cs-title')).toHaveText('InventoryOS')
+    await expect(digitalRow.locator('.cs-cnt')).toHaveText('1 / 4')
+    await expect(panel.locator('h3', { hasText: 'InventoryOS' })).toBeVisible()
 
-    const remaining: [string, string][] = [
-      ['Human Resources & Recruitment', 'Talent Evaluation System'],
-      ['Healthcare & Dental Clinics', 'BrightPath Clinic Website & Patient Portal'],
-      ['Food & Beverage · Hospitality', 'Legacya Restaurant & Kitchen System'],
+    const expectedSequence: [string, string][] = [
+      ['Talent Evaluation System', '2 / 4'],
+      ['BrightPath Clinic Website & Patient Portal', '3 / 4'],
+      ['Legacya Restaurant & Kitchen System', '4 / 4'],
     ]
-    for (const [industry, name] of remaining) {
-      await tabs.filter({ hasText: industry }).click()
-      await expect(work.locator('h3', { hasText: name })).toBeVisible()
+
+    for (const [name, counter] of expectedSequence) {
+      await nextBtn.click()
+      await expect(digitalRow.locator('.cs-title')).toHaveText(name)
+      await expect(digitalRow.locator('.cs-cnt')).toHaveText(counter)
+      await expect(panel.locator('h3', { hasText: name })).toBeVisible()
+    }
+
+    // Wrap back to first and test Previous button
+    await nextBtn.click()
+    await expect(digitalRow.locator('.cs-title')).toHaveText('InventoryOS')
+    await expect(digitalRow.locator('.cs-cnt')).toHaveText('1 / 4')
+
+    await nextBtn.click()
+    await expect(digitalRow.locator('.cs-title')).toHaveText('Talent Evaluation System')
+    await prevBtn.click()
+    await expect(digitalRow.locator('.cs-title')).toHaveText('InventoryOS')
+  })
+
+  test('supports clicking side neighbor photos and keyboard ArrowLeft/ArrowRight on both rows', async ({
+    page,
+  }) => {
+    await page.goto('/')
+    const digitalRow = page.getByTestId('curve-row-digital')
+    const creativeRow = page.getByTestId('curve-row-creative')
+
+    // Click right neighbor photo on row 1 (top-left of side card, outside the centered round button)
+    await digitalRow.locator('button.cs-c.cs-side.cs-nx').click({ position: { x: 75, y: 20 } })
+    await expect(digitalRow.locator('.cs-title')).toHaveText('Talent Evaluation System')
+    await expect(digitalRow.locator('.cs-cnt')).toHaveText('2 / 4')
+
+    // Keyboard ArrowRight / ArrowLeft on row 1
+    await digitalRow.focus()
+    await page.keyboard.press('ArrowRight')
+    await expect(digitalRow.locator('.cs-title')).toHaveText(
+      'BrightPath Clinic Website & Patient Portal',
+    )
+    await page.keyboard.press('ArrowLeft')
+    await expect(digitalRow.locator('.cs-title')).toHaveText('Talent Evaluation System')
+
+    // Row 2 navigation: button, neighbor photo, keyboard, and center photo modal open
+    await expect(creativeRow.locator('.cs-title')).toHaveText('Hanasui Cosmetics')
+    await expect(creativeRow.locator('.cs-cnt')).toHaveText('1 / 6')
+
+    await creativeRow.locator('button.cs-btn.cs-nx').click()
+    await expect(creativeRow.locator('.cs-title')).toHaveText('Flame-Grilled Burger')
+    await expect(creativeRow.locator('.cs-cnt')).toHaveText('2 / 6')
+
+    await creativeRow.locator('button.cs-btn.cs-pl').click()
+    await expect(creativeRow.locator('.cs-title')).toHaveText('Hanasui Cosmetics')
+    await expect(creativeRow.locator('.cs-cnt')).toHaveText('1 / 6')
+
+    await creativeRow.locator('button.cs-c.cs-side.cs-nx').click({ position: { x: 75, y: 20 } })
+    await expect(creativeRow.locator('.cs-title')).toHaveText('Flame-Grilled Burger')
+
+    await creativeRow.focus()
+    await page.keyboard.press('ArrowLeft')
+    await expect(creativeRow.locator('.cs-title')).toHaveText('Hanasui Cosmetics')
+
+    // Clicking active center photo on row 2 opens creative modal
+    await creativeRow.locator('button.cs-c.cs-mid').click()
+    const dialog = page.locator('#creative-work [role="dialog"]')
+    await expect(dialog).toBeVisible()
+    await expect(dialog).toContainText('Hanasui Cosmetics')
+    await page.keyboard.press('Escape')
+    await expect(dialog).toHaveCount(0)
+  })
+
+  test('focus and blur at 1440px: center photo is sharp (opacity 1, filter none) and side photos are blurred & dimmed', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto('/')
+
+    for (const rowTestId of ['curve-row-digital', 'curve-row-creative']) {
+      const row = page.getByTestId(rowTestId)
+      const midStyle = await row.locator('.cs-c.cs-mid').evaluate((el) => {
+        const s = window.getComputedStyle(el)
+        return { opacity: s.opacity, filter: s.filter }
+      })
+      expect(midStyle.opacity).toBe('1')
+      expect(midStyle.filter).toBe('none')
+
+      for (const sideSelector of ['.cs-c.cs-side.cs-pl', '.cs-c.cs-side.cs-nx']) {
+        const sideStyle = await row.locator(sideSelector).evaluate((el) => {
+          const s = window.getComputedStyle(el)
+          return { opacity: parseFloat(s.opacity), filter: s.filter }
+        })
+        expect(sideStyle.opacity).toBeLessThan(0.7)
+        expect(sideStyle.filter).toContain('blur')
+      }
     }
   })
 
-  test('labels every project as a self-initiated reference build', async ({ page }) => {
+  test('zero button overlap with center photo and >=44px tap targets at 1440px and 390px', async ({
+    page,
+  }) => {
+    for (const viewport of [
+      { width: 1440, height: 900 },
+      { width: 390, height: 844 },
+    ]) {
+      await page.setViewportSize(viewport)
+      await page.goto('/')
+
+      const hasOverflow = await page.evaluate(
+        () => document.documentElement.scrollWidth > window.innerWidth,
+      )
+      expect(hasOverflow).toBe(false)
+
+      for (const rowTestId of ['curve-row-digital', 'curve-row-creative']) {
+        const row = page.getByTestId(rowTestId)
+        await row.scrollIntoViewIfNeeded()
+
+        const midBox = await row.locator('.cs-c.cs-mid').boundingBox()
+        const plBtnBox = await row.locator('.cs-btn.cs-pl').boundingBox()
+        const nxBtnBox = await row.locator('.cs-btn.cs-nx').boundingBox()
+
+        expect(midBox).not.toBeNull()
+        expect(plBtnBox).not.toBeNull()
+        expect(nxBtnBox).not.toBeNull()
+
+        expect(plBtnBox!.width).toBeGreaterThanOrEqual(44)
+        expect(plBtnBox!.height).toBeGreaterThanOrEqual(44)
+        expect(nxBtnBox!.width).toBeGreaterThanOrEqual(44)
+        expect(nxBtnBox!.height).toBeGreaterThanOrEqual(44)
+
+        const intersects = (
+          a: NonNullable<typeof midBox>,
+          b: NonNullable<typeof midBox>,
+        ) =>
+          a.x < b.x + b.width &&
+          a.x + a.width > b.x &&
+          a.y < b.y + b.height &&
+          a.y + a.height > b.y
+
+        expect(intersects(plBtnBox!, midBox!)).toBe(false)
+        expect(intersects(nxBtnBox!, midBox!)).toBe(false)
+      }
+    }
+  })
+
+  test('phone layout (390px): side photos are at least 60px visible inside card, buttons sit in lower half of stage, and .cs-ln is never cut off in EN or ID', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
     await page.goto('/')
+
+    const cardBox = await page.getByTestId('curve-showcase-card').boundingBox()
+    expect(cardBox).not.toBeNull()
+
+    for (const rowTestId of ['curve-row-digital', 'curve-row-creative']) {
+      const row = page.getByTestId(rowTestId)
+      const stageBox = await row.locator('.cs-stage').boundingBox()
+      const plSideBox = await row.locator('.cs-c.cs-side.cs-pl').boundingBox()
+      const nxSideBox = await row.locator('.cs-c.cs-side.cs-nx').boundingBox()
+      const plBtnBox = await row.locator('.cs-btn.cs-pl').boundingBox()
+      const nxBtnBox = await row.locator('.cs-btn.cs-nx').boundingBox()
+
+      expect(stageBox).not.toBeNull()
+      expect(plSideBox).not.toBeNull()
+      expect(nxSideBox).not.toBeNull()
+      expect(plBtnBox).not.toBeNull()
+      expect(nxBtnBox).not.toBeNull()
+
+      const visibleWidthInsideCard = (box: NonNullable<typeof plSideBox>) => {
+        const left = Math.max(box.x, cardBox!.x)
+        const right = Math.min(box.x + box.width, cardBox!.x + cardBox!.width)
+        return Math.max(0, right - left)
+      }
+
+      expect(visibleWidthInsideCard(plSideBox!)).toBeGreaterThanOrEqual(60)
+      expect(visibleWidthInsideCard(nxSideBox!)).toBeGreaterThanOrEqual(60)
+
+      const stageMidY = stageBox!.y + stageBox!.height / 2
+      expect(plBtnBox!.y + plBtnBox!.height / 2).toBeGreaterThan(stageMidY)
+      expect(nxBtnBox!.y + nxBtnBox!.height / 2).toBeGreaterThan(stageMidY)
+    }
+
+    const assertNoCutOffLines = async () => {
+      const lines = page.locator('#work .cs-ln')
+      const count = await lines.count()
+      expect(count).toBe(2)
+      for (let i = 0; i < count; i++) {
+        const metrics = await lines.nth(i).evaluate((el) => {
+          const s = window.getComputedStyle(el)
+          return {
+            scrollWidth: el.scrollWidth,
+            clientWidth: el.clientWidth,
+            scrollHeight: el.scrollHeight,
+            clientHeight: el.clientHeight,
+            textOverflow: s.textOverflow,
+            whiteSpace: s.whiteSpace,
+          }
+        })
+        expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.clientWidth + 1)
+        expect(metrics.scrollHeight).toBeLessThanOrEqual(metrics.clientHeight + 1)
+        expect(
+          metrics.textOverflow === 'ellipsis' && metrics.whiteSpace === 'nowrap',
+        ).toBe(false)
+      }
+    }
+
+    await assertNoCutOffLines()
+    await page
+      .locator('header button[aria-label="Switch language to Indonesian"]')
+      .first()
+      .click()
+    await assertNoCutOffLines()
+  })
+
+  test('labels every project and concept piece honestly in EN and ID and loads zero <video> on initial load', async ({
+    page,
+  }) => {
+    await page.goto('/')
+    await expect(page.locator('video')).toHaveCount(0)
+
     const work = page.locator('#work')
-    await expect(work.getByText('Self-initiated reference build · Live demo').first()).toBeVisible()
+    const digitalBadge = work.getByTestId('curve-row-digital').locator('.cs-badge')
+    const creativeBadge = work.getByTestId('curve-row-creative').locator('.cs-badge')
+
+    await expect(digitalBadge).toHaveText('Self-initiated reference build · Live demo')
+    await expect(creativeBadge).toHaveText(
+      'Concept work · not commissioned by the brand',
+    )
     await expect(work.getByText('Verified Live Product')).toHaveCount(0)
+
+    await page
+      .locator('header button[aria-label="Switch language to Indonesian"]')
+      .first()
+      .click()
+
+    await expect(digitalBadge).toHaveText('Proyek referensi mandiri · Demo langsung')
+    await expect(creativeBadge).toHaveText('Karya konsep · bukan pesanan resmi brand')
   })
 
   test('never renders TODO(yoga) placeholders', async ({ page }) => {
@@ -109,18 +337,45 @@ test.describe('Digital Work', () => {
     await expect(page.getByText('TODO(yoga)')).toHaveCount(0)
   })
 
-  test('every project folder links to a live deployment', async ({ page }) => {
+  test('every project in the showcase links to a live deployment in #work-panel', async ({
+    page,
+  }) => {
     await page.goto('/')
     const work = page.locator('#work')
-    const tabs = work.locator('[role="tab"]')
-    const count = await tabs.count()
+    const nextBtn = work.getByTestId('curve-row-digital').locator('button.cs-btn.cs-nx')
 
-    for (let i = 0; i < count; i++) {
-      await tabs.nth(i).click()
-      const link = work.locator('a.link-sweep')
+    for (let i = 0; i < 4; i++) {
+      const link = work.locator('#work-panel a.link-sweep')
       await expect(link).toHaveCount(1)
       await expect(link).toHaveAttribute('href', /^https:\/\//)
+      await nextBtn.click()
     }
+  })
+
+  test('clicking Digital Work and Creative Work nav links scrolls to #work and #creative-work', async ({
+    page,
+    isMobile,
+  }) => {
+    test.skip(isMobile, 'desktop primary nav link check')
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto('/')
+    const nav = page.locator('header nav[aria-label="Primary"]')
+
+    await nav.locator('a[href="#work"]').click()
+    await expect
+      .poll(async () => {
+        const box = await page.locator('#work').boundingBox()
+        return box ? Math.abs(box.y) : 9999
+      })
+      .toBeLessThan(200)
+
+    await nav.locator('a[href="#creative-work"]').click()
+    await expect
+      .poll(async () => {
+        const box = await page.locator('#creative-work').boundingBox()
+        return box ? Math.abs(box.y) : 9999
+      })
+      .toBeLessThan(200)
   })
 })
 
