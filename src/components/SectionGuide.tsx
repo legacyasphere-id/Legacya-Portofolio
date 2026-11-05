@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
+import { useRoute } from '../core/router'
 import { useT } from '../i18n/context'
+import { Link } from './Link'
 
 const SECTION_IDS = [
   'hero',
   'about',
   'services',
   'work',
-  'creative-work',
   'process',
   'ai-workflow',
   'why-legacya',
@@ -15,9 +16,11 @@ const SECTION_IDS = [
 
 export function SectionGuide() {
   const { t } = useT()
+  const { route } = useRoute()
   const [active, setActive] = useState<string>('hero')
 
   useEffect(() => {
+    if (route === '/work') return
     const targets = SECTION_IDS.map((id) => document.getElementById(id)).filter(
       (el): el is HTMLElement => el !== null,
     )
@@ -34,7 +37,9 @@ export function SectionGuide() {
 
     targets.forEach((el) => observer.observe(el))
     return () => observer.disconnect()
-  }, [])
+  }, [route])
+
+  if (route === '/work') return null
 
   return (
     <nav
@@ -44,14 +49,8 @@ export function SectionGuide() {
       {SECTION_IDS.map((id) => {
         const isActive = active === id
         const label = t.sectionGuide.sections[id]
-        return (
-          <a
-            key={id}
-            href={`#${id}`}
-            aria-label={label}
-            aria-current={isActive ? 'true' : undefined}
-            className="group flex items-center justify-end gap-2.5"
-          >
+        const dotContent = (
+          <>
             <span
               className="pointer-events-none rounded-md border border-border/70 bg-surface/95 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-blue-deep opacity-0 shadow-sm backdrop-blur transition-opacity duration-200 group-hover:opacity-100 whitespace-nowrap"
             >
@@ -64,6 +63,31 @@ export function SectionGuide() {
                   : 'bg-surface/80 ring-dim/60 group-hover:ring-blue-deep'
               }`}
             />
+          </>
+        )
+
+        if (id === 'work') {
+          return (
+            <Link
+              key={id}
+              to="/work"
+              aria-label={label}
+              className="group flex items-center justify-end gap-2.5"
+            >
+              {dotContent}
+            </Link>
+          )
+        }
+
+        return (
+          <a
+            key={id}
+            href={`#${id}`}
+            aria-label={label}
+            aria-current={isActive ? 'true' : undefined}
+            className="group flex items-center justify-end gap-2.5"
+          >
+            {dotContent}
           </a>
         )
       })}
