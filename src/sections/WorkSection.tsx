@@ -72,6 +72,10 @@ export function WorkSection() {
               }),
             )
           }}
+          copy={{
+            ...t.showcase,
+            conceptBadge: t.creativeWork.conceptBadge,
+          }}
         />
 
         {/* Active Project Card: Image + Title + One Line + Actions */}
