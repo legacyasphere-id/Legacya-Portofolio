@@ -114,7 +114,8 @@ Legacya-Portofolio/
 │   ├── logo.png                  # Circular emblem (navbar, footer)
 │   ├── img-04.webp               # Founder portrait, also the Open Graph image
 │   ├── img-15.webp               # Full brand mark
-│   └── img-16..23.webp           # Reference build screenshots
+│   ├── img-16..23.webp           # Reference build screenshots
+│   └── brightpath-*.webp         # BrightPath Clinic screenshots (new names so the year-long cache refreshes)
 ├── src/
 │   ├── core/
 │   │   ├── identity.ts           # Studio identity, contact channels, feature flags, navigation events

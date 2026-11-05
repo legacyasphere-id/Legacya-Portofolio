@@ -56,9 +56,9 @@ const PROJECT_BASES: ProjectBase[] = [
       live: 'https://brightpath-dental.vercel.app',
     },
     screenshotSrcs: [
-      asset('img-21.webp'),
-      asset('img-22.webp'),
-      asset('img-23.webp'),
+      asset('brightpath-01.webp'),
+      asset('brightpath-02.webp'),
+      asset('brightpath-04.webp'),
     ],
   },
   {
