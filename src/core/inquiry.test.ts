@@ -179,6 +179,7 @@ test('All customer-facing sections and portfolio data contain zero developer jar
     'src/sections/CTASection.tsx',
     'src/components/SiteNav.tsx',
     'src/components/SectionGuide.tsx',
+    'src/components/CurveShowcaseCard.tsx',
     'src/components/Footer.tsx',
   ]
 

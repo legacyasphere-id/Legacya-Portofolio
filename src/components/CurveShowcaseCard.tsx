@@ -144,11 +144,13 @@ export function CurveShowcaseCard({
 
       {/* ── ROW 1: Digital Projects ── */}
       <div
+        data-testid="curve-row-digital"
         role="region"
+        tabIndex={0}
         aria-label={copy.digitalCaption}
         onFocusCapture={() => setActiveRow('digital')}
         onClickCapture={() => setActiveRow('digital')}
-        className="cs-row"
+        className="cs-row focus:outline-none"
       >
         <p className="cs-cap">{copy.digitalCaption}</p>
 
@@ -241,11 +243,13 @@ export function CurveShowcaseCard({
 
       {/* ── ROW 2: Creative Campaign Items ── */}
       <div
+        data-testid="curve-row-creative"
         role="region"
+        tabIndex={0}
         aria-label={copy.creativeCaption}
         onFocusCapture={() => setActiveRow('creative')}
         onClickCapture={() => setActiveRow('creative')}
-        className="cs-row"
+        className="cs-row focus:outline-none"
       >
         <p className="cs-cap">{copy.creativeCaption}</p>
 
