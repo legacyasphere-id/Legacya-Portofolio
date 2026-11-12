@@ -225,7 +225,7 @@ export const id: typeof en = {
     preparingTitle: 'Reel animasi motion & studi interaktif',
     preparingBody:
       'Saya membuat animasi berulang, peragaan produk bergerak, dan rangkaian gerak untuk website. File sumber interaktif untuk bagian ini sedang disiapkan. Kamu sudah bisa memesan pembuatan animasi motion untuk brand atau websitemu di bawah ini.',
-    mountLabel: 'Wadah sumber animasi · siap untuk pemutaran gerak',
+    mountLabel: 'Studi animasi segera hadir',
     requestMotionCta: 'Pesan Animasi Motion',
   },
   process: {

@@ -629,7 +629,7 @@ test.describe('Motion Work', () => {
 
     // Switch back to English and trigger "Request Motion Animation"
     await page
-      .locator('header button[aria-label="Ganti bahasa ke Inggris"]')
+      .locator('header button[aria-label="Ganti bahasa ke Bahasa Inggris"]')
       .first()
       .click()
     await motion.getByRole('button', { name: 'Request Motion Animation' }).click()

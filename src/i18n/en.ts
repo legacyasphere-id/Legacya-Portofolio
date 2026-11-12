@@ -223,7 +223,7 @@ export const en = {
     preparingTitle: 'Motion animation reel & interactive studies',
     preparingBody:
       'I build motion loops, animated product walkthroughs and web sequences. Interactive source files for this section are being prepared. You can already request custom motion work for your brand or website below.',
-    mountLabel: 'Motion source mount · ready for animation playback',
+    mountLabel: 'Motion studies coming soon',
     requestMotionCta: 'Request Motion Animation',
   },
   process: {
