@@ -73,3 +73,20 @@ export interface CreativeWorkItem {
     caption: string
   }[]
 }
+
+export interface MotionWorkItem {
+  id: string
+  title: string
+  subtitle: string
+  format: string
+  category: 'Motion Animation'
+  /** 'concept' = self-initiated study, not commissioned by a client. */
+  engagement: 'commissioned' | 'concept'
+  aspectRatio: '16:9' | '4:3' | '9:16'
+  /** Populated when the animation source (video, canvas, or Lottie) is attached. */
+  sourceUrl?: string
+  posterImage?: string
+  deliverables: string[]
+  notes: string
+}
+
