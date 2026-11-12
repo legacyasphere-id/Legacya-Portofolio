@@ -106,7 +106,7 @@ export const en = {
   },
   services: {
     eyebrow: 'What I Do',
-    heading: 'Three ways I help your business run and sell',
+    heading: 'Four ways I help your business run and sell',
     primaryCta: 'Start a Project',
     secondaryCta: 'See My Work',
     pricingPrefix: 'Starting from Rp',
@@ -143,6 +143,17 @@ export const en = {
           'Short product films',
           '9:16 social ad reels',
           'Launch storyboards',
+        ],
+      },
+      'motion-animation': {
+        title: 'Motion Animation',
+        subtitle: 'UI Motion · Brand Loops',
+        problemAddressed:
+          'Smooth motion graphics and interactive animations for launches and web.',
+        deliverables: [
+          'Brand & logo motion loops',
+          'Product & UI walkthrough animations',
+          'Animated social & web sequences',
         ],
       },
     },
@@ -201,6 +212,19 @@ export const en = {
     creativeDirectionHeading: 'Creative Direction & Brand Impact',
     intendedValueLabel: 'Intended Value:',
     requestSimilar: 'Request Similar Work',
+  },
+  motionWork: {
+    eyebrow: 'Selected Work · Motion Animation',
+    heading: 'Motion graphics and interactive animation studies',
+    subline:
+      'Short motion loops, UI walkthrough animations and kinetic brand sequences.',
+    conceptBadge: 'Concept work · not commissioned by the brand',
+    preparingBadge: 'Motion studies · source files being prepared',
+    preparingTitle: 'Motion animation reel & interactive studies',
+    preparingBody:
+      'I build motion loops, animated product walkthroughs and web sequences. Interactive source files for this section are being prepared. You can already request custom motion work for your brand or website below.',
+    mountLabel: 'Motion source mount · ready for animation playback',
+    requestMotionCta: 'Request Motion Animation',
   },
   process: {
     eyebrow: 'How I Work',
@@ -387,6 +411,18 @@ export const en = {
           'Explore visual storyboards and motion concepts for a campaign',
         ],
       },
+      'motion-animation': {
+        label: 'Motion Animation',
+        shortLabel: 'Motion Animation',
+        summary:
+          'Motion graphics, animated product walkthroughs and kinetic brand loops.',
+        objectives: [
+          'Create motion graphics or animated sequences for a product launch',
+          'Produce UI walkthrough animations for a website or software product',
+          'Build looping brand animations and kinetic visuals for social feeds',
+          'Add custom interactive motion to a landing page or campaign',
+        ],
+      },
       'combined-engagement': {
         label: 'Combined Brand, Creative & Digital Engagement',
         shortLabel: 'Combined Studio Partnership',
@@ -443,6 +479,7 @@ export const en = {
       digital: 'Digital Experiences & Business Systems',
       advertising: 'Advertising & Campaign Assets',
       video: 'Cinematic Video & Visual Production',
+      motion: 'Motion Animation',
       startProject: 'Start a Project',
     },
     directContactHeading: 'Direct Contact',

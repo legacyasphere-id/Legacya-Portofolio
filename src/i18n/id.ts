@@ -108,7 +108,7 @@ export const id: typeof en = {
   },
   services: {
     eyebrow: 'Layanan Saya',
-    heading: 'Tiga cara saya membantu bisnismu beroperasi dan menjual',
+    heading: 'Empat cara saya membantu bisnismu beroperasi dan menjual',
     primaryCta: 'Mulai Proyek',
     secondaryCta: 'Lihat Karya Saya',
     pricingPrefix: 'Mulai dari Rp',
@@ -145,6 +145,17 @@ export const id: typeof en = {
           'Film promosi produk pendek',
           'Video iklan vertikal 9:16',
           'Storyboard kampanye peluncuran',
+        ],
+      },
+      'motion-animation': {
+        title: 'Animasi Motion',
+        subtitle: 'Gerak UI · Animasi Brand',
+        problemAddressed:
+          'Animasi gerak halus dan visual interaktif untuk peluncuran produk serta website.',
+        deliverables: [
+          'Animasi logo & identitas brand',
+          'Animasi tampilan produk & alur UI',
+          'Rangkaian animasi web & media sosial',
         ],
       },
     },
@@ -203,6 +214,19 @@ export const id: typeof en = {
     creativeDirectionHeading: 'Arahan Kreatif & Dampak Brand',
     intendedValueLabel: 'Manfaat Utama:',
     requestSimilar: 'Pesan Karya Serupa',
+  },
+  motionWork: {
+    eyebrow: 'Karya Pilihan · Animasi Motion',
+    heading: 'Studi gerak visual dan animasi interaktif',
+    subline:
+      'Animasi pendek berulang, peragaan gerak antarmuka, dan rangkaian visual brand dinamis.',
+    conceptBadge: 'Karya konsep · bukan pesanan resmi brand',
+    preparingBadge: 'Studi animasi · file sumber sedang disiapkan',
+    preparingTitle: 'Reel animasi motion & studi interaktif',
+    preparingBody:
+      'Saya membuat animasi berulang, peragaan produk bergerak, dan rangkaian gerak untuk website. File sumber interaktif untuk bagian ini sedang disiapkan. Kamu sudah bisa memesan pembuatan animasi motion untuk brand atau websitemu di bawah ini.',
+    mountLabel: 'Wadah sumber animasi · siap untuk pemutaran gerak',
+    requestMotionCta: 'Pesan Animasi Motion',
   },
   process: {
     eyebrow: 'Cara Saya Bekerja',
@@ -390,6 +414,18 @@ export const id: typeof en = {
           'Menyusun storyboard visual dan konsep gerak untuk kampanye baru',
         ],
       },
+      'motion-animation': {
+        label: 'Animasi Motion',
+        shortLabel: 'Animasi Motion',
+        summary:
+          'Grafis gerak, animasi peragaan produk, dan visual brand dinamis.',
+        objectives: [
+          'Membuat grafis gerak atau rangkaian animasi untuk peluncuran produk',
+          'Memproduksi animasi peragaan antarmuka untuk website atau aplikasi bisnis',
+          'Membangun animasi brand berulang dan visual dinamis untuk media sosial',
+          'Menambahkan animasi interaktif khusus pada halaman website atau kampanye',
+        ],
+      },
       'combined-engagement': {
         label: 'Paket Terpadu Brand, Kreatif & Sistem Digital',
         shortLabel: 'Paket Studio Terpadu',
@@ -446,6 +482,7 @@ export const id: typeof en = {
       digital: 'Pengalaman Digital & Sistem Bisnis',
       advertising: 'Materi Iklan & Visual Kampanye',
       video: 'Produksi Video Sinematik & Visual',
+      motion: 'Animasi Motion',
       startProject: 'Mulai Proyek',
     },
     directContactHeading: 'Kontak Langsung',
