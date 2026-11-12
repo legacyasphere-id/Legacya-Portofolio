@@ -85,7 +85,7 @@ export function SolutionsSection() {
         </div>
 
         {/* 4 Service Categories */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2">
           {SERVICE_PILLARS.map((meta, idx) => {
             const copy = t.services.pillars[meta.id]
             return (
