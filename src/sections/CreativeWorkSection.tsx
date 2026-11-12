@@ -65,6 +65,7 @@ function SmartPreviewVideo({
       setShouldLoadVideo(true)
       return
     }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -80,6 +81,7 @@ function SmartPreviewVideo({
       },
       { rootMargin: '160px 0px', threshold: 0.15 },
     )
+
     observer.observe(el)
     return () => observer.disconnect()
   }, [lowBandwidth])
