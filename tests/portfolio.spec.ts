@@ -92,30 +92,59 @@ test.describe('Hero', () => {
 // ── Services / What I Do ─────────────────────────────────────────────────────
 
 test.describe('What I Do', () => {
-  test('renders the three core service categories', async ({ page }) => {
+  test('renders the four core service categories in exact order (01 Digital, 02 Ads, 03 Motion, 04 Cinematic) and routes to the right /work target', async ({
+    page,
+  }) => {
     await page.goto('/')
     const services = page.locator('#services')
+    const headings = services.locator('article h3')
+    await expect(headings).toHaveText([
+      'Digital Experiences & Business Systems',
+      'Advertising & Campaign Assets',
+      'Motion Animation',
+      'Cinematic Video & Visual Production',
+    ])
+
+    const indices = services.locator('article').locator('span', { hasText: /^0[1-4]\.$/ })
+    await expect(indices).toHaveText(['01.', '02.', '03.', '04.'])
+
+    // Card 02 (Ads) goes to /work?creative=Advertising... and selects the Advertising tab
+    await services.locator('article').nth(1).getByRole('button', { name: 'See My Work' }).click()
+    await expect(page).toHaveURL(/\/work\?creative=Advertising/)
     await expect(
-      services.getByRole('heading', { name: 'Digital Experiences & Business Systems' }),
-    ).toBeVisible()
+      page
+        .locator('#creative-work')
+        .getByRole('button', { name: 'Advertising & Campaign Assets' }),
+    ).toHaveClass(/bg-blue-deep/)
+
+    // Card 03 (Motion) goes to /work#motion-work (third row of the showcase card)
+    await page.goto('/')
+    await services.locator('article').nth(2).getByRole('button', { name: 'See My Work' }).click()
+    await expect(page).toHaveURL(/\/work#motion-work$/)
+    await expect(page.locator('#motion-work')).toBeVisible()
+
+    // Card 04 (Cinematic) goes to /work?creative=Cinematic... and selects the Cinematic tab
+    await page.goto('/')
+    await services.locator('article').nth(3).getByRole('button', { name: 'See My Work' }).click()
+    await expect(page).toHaveURL(/\/work\?creative=Cinematic/)
     await expect(
-      services.getByRole('heading', { name: 'Advertising & Campaign Assets' }),
-    ).toBeVisible()
-    await expect(
-      services.getByRole('heading', { name: 'Cinematic Video & Visual Production' }),
-    ).toBeVisible()
+      page
+        .locator('#creative-work')
+        .getByRole('button', { name: 'Cinematic Video & Visual Production' }),
+    ).toHaveClass(/bg-blue-deep/)
   })
 })
 
 // ── Home Preview & Dedicated /work Page Routing ──────────────────────────────
 
 test.describe('Work Preview & /work Routing', () => {
-  test('clicking "See all work" on the home page navigates to /work, focuses h1, and shows #work-panel and Creative cards (which are absent on /)', async ({
+  test('clicking "See all work" on the home page navigates to /work, focuses h1, and shows #work-panel and #creative-work (which are absent on /)', async ({
     page,
   }) => {
     await page.goto('/')
     await expect(page.locator('#work-panel')).toHaveCount(0)
     await expect(page.locator('#creative-work')).toHaveCount(0)
+    await expect(page.locator('#motion-work')).toBeVisible()
 
     const seeAllBtn = page.locator('#work a.btn-primary', { hasText: 'See all work' })
     await expect(seeAllBtn).toBeVisible()
@@ -128,6 +157,7 @@ test.describe('Work Preview & /work Routing', () => {
     await expect(h1).toBeFocused()
     await expect(page.locator('#work-panel')).toBeVisible()
     await expect(page.locator('#creative-work article')).toHaveCount(3)
+    await expect(page.locator('#motion-work')).toBeVisible()
     await expect(
       page.locator('header nav[aria-label="Primary"] a[href="/work"]'),
     ).toHaveAttribute('aria-current', 'page')
@@ -559,15 +589,17 @@ test.describe('Digital Work & Curve Showcase on /work', () => {
   })
 })
 
-// ── Creative work on /work ───────────────────────────────────────────────────
+// ── Creative Work on /work ───────────────────────────────────────────────────
 
 test.describe('Creative Work', () => {
-  test('shows campaign visuals by default and only loads video ads when Cinematic Video tab is clicked on /work', async ({ page }) => {
+  test('renders category filter tabs on /work, loads zero <video> on initial load, and mounts video only after clicking Cinematic tab', async ({
+    page,
+  }) => {
     await page.goto('/work')
     const creative = page.locator('#creative-work')
     const cards = creative.locator('article')
     await expect(cards).toHaveCount(3)
-    await expect(creative.locator('video')).toHaveCount(0)
+    await expect(page.locator('video')).toHaveCount(0)
     await expect(
       creative.getByText('Concept work · not commissioned by the brand'),
     ).toHaveCount(3)
@@ -582,6 +614,129 @@ test.describe('Creative Work', () => {
     await expect(
       creative.getByText('Concept work · not commissioned by the brand'),
     ).toHaveCount(3)
+  })
+
+  test('deep links ?creative=<id> open the right modal and select the matching tab in #creative-work', async ({
+    page,
+  }) => {
+    await page.goto('/work?creative=artisan-burger-campaign')
+    const creative = page.locator('#creative-work')
+    await expect(
+      creative.getByRole('button', { name: 'Advertising & Campaign Assets' }),
+    ).toHaveClass(/bg-blue-deep/)
+    const adDialog = creative.locator('[role="dialog"]')
+    await expect(adDialog).toBeVisible()
+    await expect(adDialog).toContainText('Flame-Grilled Burger')
+    await page.keyboard.press('Escape')
+    await expect(adDialog).toHaveCount(0)
+
+    await page.goto('/work?creative=artisan-burger-commercial-video')
+    await expect(
+      creative.getByRole('button', { name: 'Cinematic Video & Visual Production' }),
+    ).toHaveClass(/bg-blue-deep/)
+    const filmDialog = creative.locator('[role="dialog"]')
+    await expect(filmDialog).toBeVisible()
+    await expect(filmDialog).toContainText('Artisanal Cheeseburger')
+    await expect(filmDialog.locator('video')).toHaveCount(1)
+  })
+})
+
+// ── Motion Animation Row in CurveShowcaseCard ────────────────────────────────
+
+test.describe('Motion Work', () => {
+  test('showcase card renders 3 non-overlapping rows with >=44px tap target at 1440px and 390px in EN and ID, keyboard next on empty motion row is a safe no-op, and Request Motion Animation preselects Motion Animation in inquiry form', async ({
+    page,
+  }) => {
+    for (const viewport of [
+      { width: 1440, height: 900 },
+      { width: 390, height: 844 },
+    ]) {
+      await page.setViewportSize(viewport)
+      await page.goto('/')
+
+      const hasOverflowEn = await page.evaluate(
+        () => document.documentElement.scrollWidth > window.innerWidth,
+      )
+      expect(hasOverflowEn).toBe(false)
+
+      const rowDigital = page.getByTestId('curve-row-digital')
+      const rowCreative = page.getByTestId('curve-row-creative')
+      const rowMotion = page.getByTestId('curve-row-motion')
+
+      await expect(rowDigital).toBeVisible()
+      await expect(rowCreative).toBeVisible()
+      await expect(rowMotion).toBeVisible()
+      await expect(rowMotion).toHaveAttribute('id', 'motion-work')
+      await expect(rowMotion.locator('.cs-cap')).toHaveText('My motion animation studies')
+      await expect(rowMotion.getByTestId('motion-source-mount')).toHaveText(
+        'Motion studies coming soon',
+      )
+      await expect(rowMotion.locator('.cs-badge')).toHaveText(
+        'Motion studies · source files being prepared',
+      )
+      // Empty state has no fake side photos or prev/next buttons
+      await expect(rowMotion.locator('.cs-side')).toHaveCount(0)
+      await expect(rowMotion.locator('.cs-btn')).toHaveCount(0)
+
+      // Check rectangles & non-overlapping vertical order of the 3 rows
+      const box1 = await rowDigital.boundingBox()
+      const box2 = await rowCreative.boundingBox()
+      const box3 = await rowMotion.boundingBox()
+      expect(box1).not.toBeNull()
+      expect(box2).not.toBeNull()
+      expect(box3).not.toBeNull()
+      expect(box1!.y + box1!.height).toBeLessThanOrEqual(box2!.y + 1)
+      expect(box2!.y + box2!.height).toBeLessThanOrEqual(box3!.y + 1)
+
+      // Request Motion Animation button tap target >= 44px
+      const ctaBtn = rowMotion.getByRole('button', { name: 'Request Motion Animation' })
+      const ctaBox = await ctaBtn.boundingBox()
+      expect(ctaBox).not.toBeNull()
+      expect(ctaBox!.height).toBeGreaterThanOrEqual(44)
+    }
+
+    // Pressing ArrowRight / ArrowLeft while motion row is focused does not break anything or alter row 1 / row 2
+    await page.goto('/work')
+    const rowDigital = page.getByTestId('curve-row-digital')
+    const rowCreative = page.getByTestId('curve-row-creative')
+    const rowMotion = page.getByTestId('curve-row-motion')
+    await expect(rowDigital.locator('.cs-title')).toHaveText('InventoryOS')
+    await expect(rowCreative.locator('.cs-title')).toHaveText('Hanasui Cosmetics')
+
+    await rowMotion.focus()
+    await page.keyboard.press('ArrowRight')
+    await page.keyboard.press('ArrowLeft')
+    await expect(rowDigital.locator('.cs-title')).toHaveText('InventoryOS')
+    await expect(rowCreative.locator('.cs-title')).toHaveText('Hanasui Cosmetics')
+    await expect(rowMotion.getByTestId('motion-source-mount')).toHaveText(
+      'Motion studies coming soon',
+    )
+
+    // Switch language to Indonesian and verify copy & no horizontal overflow
+    await page
+      .locator('header button[aria-label="Switch language to Indonesian"]')
+      .first()
+      .click()
+    await expect(rowMotion.locator('.cs-cap')).toHaveText('Studi animasi motion saya')
+    await expect(rowMotion.getByTestId('motion-source-mount')).toHaveText(
+      'Studi animasi segera hadir',
+    )
+    await expect(rowMotion.locator('.cs-badge')).toHaveText(
+      'Studi animasi · file sumber sedang disiapkan',
+    )
+    const hasOverflowId = await page.evaluate(
+      () => document.documentElement.scrollWidth > window.innerWidth,
+    )
+    expect(hasOverflowId).toBe(false)
+
+    // Switch back to English and click Request Motion Animation -> preselects Motion Animation in #contact
+    await page
+      .locator('header button[aria-label="Ganti bahasa ke Bahasa Inggris"]')
+      .first()
+      .click()
+    await rowMotion.getByRole('button', { name: 'Request Motion Animation' }).click()
+    await expect(page).toHaveURL(/\/#contact$/)
+    await expect(page.locator('#contact')).toContainText('Motion Animation')
   })
 })
 

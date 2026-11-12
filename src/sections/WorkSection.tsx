@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import { getProjects } from '../data/projects'
 import { getCreativeWorkItems } from '../data/creativeWork'
+import { getMotionWorkItems } from '../data/motionWork'
 import { triggerProjectScope } from '../core/identity'
 import { navigate, useRoute } from '../core/router'
 import { useT } from '../i18n/context'
@@ -18,6 +19,7 @@ export function WorkSection() {
   const { lang, t } = useT()
   const projects = getProjects(lang)
   const creativeItems = getCreativeWorkItems(lang)
+  const motionItems = getMotionWorkItems(lang)
   const [activeId, setActiveId] = useState(projects[0]?.id ?? 'inventory-os')
 
   const active = projects.find((p) => p.id === activeId) ?? projects[0]
@@ -50,9 +52,17 @@ export function WorkSection() {
           onOpenCreativeItem={(itemId) => {
             navigate(`/work?creative=${encodeURIComponent(itemId)}`)
           }}
+          motionItems={motionItems}
+          onOpenMotionItem={(motionId) => {
+            // TODO(yoga): Open motion study details on /work once motion items are added
+            navigate(`/work?motion=${encodeURIComponent(motionId)}#motion-work`)
+          }}
           copy={{
             ...t.showcase,
             conceptBadge: t.creativeWork.conceptBadge,
+            motionPreparingBadge: t.motionWork.preparingBadge,
+            motionMountLabel: t.motionWork.mountLabel,
+            requestMotionCta: t.motionWork.requestMotionCta,
           }}
         />
 
@@ -80,9 +90,11 @@ export function WorkPage() {
   const { search } = useRoute()
   const projects = getProjects(lang)
   const creativeItems = getCreativeWorkItems(lang)
+  const motionItems = getMotionWorkItems(lang)
 
   const initialProjectParam = new URLSearchParams(search).get('project')
   const initialCreativeParam = new URLSearchParams(search).get('creative') ?? undefined
+  const initialMotionParam = new URLSearchParams(search).get('motion') ?? undefined
 
   const [activeId, setActiveId] = useState(() => {
     if (initialProjectParam && projects.some((p) => p.id === initialProjectParam)) {
@@ -173,9 +185,22 @@ export function WorkPage() {
                 }),
               )
             }}
+            motionItems={motionItems}
+            initialMotionId={initialMotionParam}
+            onOpenMotionItem={(motionId) => {
+              // TODO(yoga): Open motion study detail modal once motion items are added
+              window.dispatchEvent(
+                new CustomEvent('legacya:open-motion-item', {
+                  detail: motionId,
+                }),
+              )
+            }}
             copy={{
               ...t.showcase,
               conceptBadge: t.creativeWork.conceptBadge,
+              motionPreparingBadge: t.motionWork.preparingBadge,
+              motionMountLabel: t.motionWork.mountLabel,
+              requestMotionCta: t.motionWork.requestMotionCta,
             }}
           />
 

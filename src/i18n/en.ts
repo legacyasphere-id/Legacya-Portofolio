@@ -106,7 +106,7 @@ export const en = {
   },
   services: {
     eyebrow: 'What I Do',
-    heading: 'Three ways I help your business run and sell',
+    heading: 'Four ways I help your business run and sell',
     primaryCta: 'Start a Project',
     secondaryCta: 'See My Work',
     pricingPrefix: 'Starting from Rp',
@@ -134,6 +134,17 @@ export const en = {
           'Feed & story ad sets',
         ],
       },
+      'motion-animation': {
+        title: 'Motion Animation',
+        subtitle: 'UI Motion · Brand Loops',
+        problemAddressed:
+          'Smooth motion graphics and interactive animations for launches and web.',
+        deliverables: [
+          'Brand & logo motion loops',
+          'Product & UI walkthrough animations',
+          'Animated social & web sequences',
+        ],
+      },
       'cinematic-video': {
         title: 'Cinematic Video & Visual Production',
         subtitle: 'Product Films · 9:16 Reels',
@@ -150,6 +161,7 @@ export const en = {
   showcase: {
     digitalCaption: 'My live websites and business systems',
     creativeCaption: 'My campaign visuals and product films',
+    motionCaption: 'My motion animation studies',
     prevProjectAria: 'Previous project',
     nextProjectAria: 'Next project',
     previousLabel: 'Previous',
@@ -158,6 +170,8 @@ export const en = {
     selectProjectAriaPrefix: 'Select project',
     openCreativeAriaPrefix: 'Open campaign study for',
     selectCreativeAriaPrefix: 'Select campaign study',
+    openMotionAriaPrefix: 'Open motion study for',
+    selectMotionAriaPrefix: 'Select motion study',
     seeAllWork: 'See all work',
   },
   workPage: {
@@ -186,7 +200,7 @@ export const en = {
     openLiveDemo: 'Open Live Demo',
   },
   creativeWork: {
-    filterAria: 'Filter creative work by service category',
+    filterAria: 'Filter creative work by category',
     tabs: {
       'Advertising & Campaign Assets': 'Advertising & Campaign Assets',
       'Cinematic Video & Visual Production': 'Cinematic Video & Visual Production',
@@ -201,6 +215,11 @@ export const en = {
     creativeDirectionHeading: 'Creative Direction & Brand Impact',
     intendedValueLabel: 'Intended Value:',
     requestSimilar: 'Request Similar Work',
+  },
+  motionWork: {
+    preparingBadge: 'Motion studies · source files being prepared',
+    mountLabel: 'Motion studies coming soon',
+    requestMotionCta: 'Request Motion Animation',
   },
   process: {
     eyebrow: 'How I Work',
@@ -375,6 +394,18 @@ export const en = {
           'Establish visual direction and campaign materials to grow brand awareness',
         ],
       },
+      'motion-animation': {
+        label: 'Motion Animation',
+        shortLabel: 'Motion Animation',
+        summary:
+          'Motion graphics, animated product walkthroughs and kinetic brand loops.',
+        objectives: [
+          'Create motion graphics or animated sequences for a product launch',
+          'Produce UI walkthrough animations for a website or software product',
+          'Build looping brand animations and kinetic visuals for social feeds',
+          'Add custom interactive motion to a landing page or campaign',
+        ],
+      },
       'cinematic-video': {
         label: 'Cinematic Video & Visual Production',
         shortLabel: 'Cinematic Video & Production',
@@ -442,6 +473,7 @@ export const en = {
     capabilityLinks: {
       digital: 'Digital Experiences & Business Systems',
       advertising: 'Advertising & Campaign Assets',
+      motion: 'Motion Animation',
       video: 'Cinematic Video & Visual Production',
       startProject: 'Start a Project',
     },

@@ -28,6 +28,10 @@ export function Footer() {
       serviceCategory: 'advertising-assets',
     },
     {
+      label: t.footer.capabilityLinks.motion,
+      serviceCategory: 'motion-animation',
+    },
+    {
       label: t.footer.capabilityLinks.video,
       serviceCategory: 'cinematic-video',
     },

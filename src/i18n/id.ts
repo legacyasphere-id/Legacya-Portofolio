@@ -108,7 +108,7 @@ export const id: typeof en = {
   },
   services: {
     eyebrow: 'Layanan Saya',
-    heading: 'Tiga cara saya membantu bisnismu beroperasi dan menjual',
+    heading: 'Empat cara saya membantu bisnismu beroperasi dan menjual',
     primaryCta: 'Mulai Proyek',
     secondaryCta: 'Lihat Karya Saya',
     pricingPrefix: 'Mulai dari Rp',
@@ -136,6 +136,17 @@ export const id: typeof en = {
           'Rangkaian iklan feed & story',
         ],
       },
+      'motion-animation': {
+        title: 'Animasi Motion',
+        subtitle: 'Gerak UI · Animasi Brand',
+        problemAddressed:
+          'Animasi gerak halus dan visual interaktif untuk peluncuran produk serta website.',
+        deliverables: [
+          'Animasi logo & identitas brand',
+          'Animasi tampilan produk & alur UI',
+          'Rangkaian animasi web & media sosial',
+        ],
+      },
       'cinematic-video': {
         title: 'Produksi Video Sinematik & Visual',
         subtitle: 'Film Produk · Reels 9:16',
@@ -152,6 +163,7 @@ export const id: typeof en = {
   showcase: {
     digitalCaption: 'Website dan sistem bisnis yang saya bangun',
     creativeCaption: 'Visual kampanye dan film produk karya saya',
+    motionCaption: 'Studi animasi motion saya',
     prevProjectAria: 'Proyek sebelumnya',
     nextProjectAria: 'Proyek berikutnya',
     previousLabel: 'Sebelumnya',
@@ -160,6 +172,8 @@ export const id: typeof en = {
     selectProjectAriaPrefix: 'Pilih proyek',
     openCreativeAriaPrefix: 'Buka studi kampanye',
     selectCreativeAriaPrefix: 'Pilih studi kampanye',
+    openMotionAriaPrefix: 'Buka studi animasi',
+    selectMotionAriaPrefix: 'Pilih studi animasi',
     seeAllWork: 'Lihat semua karya',
   },
   workPage: {
@@ -188,7 +202,7 @@ export const id: typeof en = {
     openLiveDemo: 'Buka Demo Langsung',
   },
   creativeWork: {
-    filterAria: 'Saring karya kreatif berdasarkan kategori layanan',
+    filterAria: 'Saring karya kreatif berdasarkan kategori',
     tabs: {
       'Advertising & Campaign Assets': 'Materi Iklan & Visual Kampanye',
       'Cinematic Video & Visual Production': 'Produksi Video Sinematik & Visual',
@@ -203,6 +217,11 @@ export const id: typeof en = {
     creativeDirectionHeading: 'Arahan Kreatif & Dampak Brand',
     intendedValueLabel: 'Manfaat Utama:',
     requestSimilar: 'Pesan Karya Serupa',
+  },
+  motionWork: {
+    preparingBadge: 'Studi animasi · file sumber sedang disiapkan',
+    mountLabel: 'Studi animasi segera hadir',
+    requestMotionCta: 'Pesan Animasi Motion',
   },
   process: {
     eyebrow: 'Cara Saya Bekerja',
@@ -378,6 +397,18 @@ export const id: typeof en = {
           'Membangun arahan visual dan materi kampanye untuk meningkatkan daya tarik brand',
         ],
       },
+      'motion-animation': {
+        label: 'Animasi Motion',
+        shortLabel: 'Animasi Motion',
+        summary:
+          'Grafis gerak, animasi peragaan produk, dan visual brand dinamis.',
+        objectives: [
+          'Membuat grafis gerak atau rangkaian animasi untuk peluncuran produk',
+          'Memproduksi animasi peragaan antarmuka untuk website atau aplikasi bisnis',
+          'Membangun animasi brand berulang dan visual dinamis untuk media sosial',
+          'Menambahkan animasi interaktif khusus pada halaman website atau kampanye',
+        ],
+      },
       'cinematic-video': {
         label: 'Produksi Video Sinematik & Visual',
         shortLabel: 'Video Sinematik & Produksi',
@@ -445,6 +476,7 @@ export const id: typeof en = {
     capabilityLinks: {
       digital: 'Pengalaman Digital & Sistem Bisnis',
       advertising: 'Materi Iklan & Visual Kampanye',
+      motion: 'Animasi Motion',
       video: 'Produksi Video Sinematik & Visual',
       startProject: 'Mulai Proyek',
     },

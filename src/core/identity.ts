@@ -58,10 +58,24 @@ export function triggerCreativeInspect(categoryOrId?: string) {
   navigate('/work#creative-work')
 }
 
+export function triggerMotionInspect(motionId?: string) {
+  if (motionId) {
+    window.dispatchEvent(new CustomEvent<string>('legacya:select-motion', { detail: motionId }))
+    navigate(`/work?motion=${encodeURIComponent(motionId)}#motion-work`)
+    return
+  }
+  navigate('/work#motion-work')
+}
+
 // ── Feature flags ────────────────────────────────────────────────────────
 // Stays false until the TODO(yoga) prices it gates are real and approved.
 // Nothing behind it renders while it is false.
 export const SHOW_PRICING = false
+
+// Stays false until the motion animation source files in src/data/motionWork.ts
+// are attached and approved. While false, #motion-work renders an honest
+// preparation state and mount slot without any placeholder project claims.
+export const SHOW_MOTION_WORK = false
 
 export const identity = {
   // ── Core studio identity ───────────────────────────────────────────────
@@ -79,6 +93,7 @@ export const identity = {
   pillars: [
     'Digital Experiences & Business Systems',
     'Advertising & Campaign Assets',
+    'Motion Animation',
     'Cinematic Video & Visual Production',
   ] as const,
 
