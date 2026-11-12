@@ -50,12 +50,16 @@ export function triggerProjectInspect(projectId: string) {
 }
 
 export function triggerCreativeInspect(categoryOrId?: string) {
-  if (categoryOrId) {
-    window.dispatchEvent(new CustomEvent<string>('legacya:select-creative', { detail: categoryOrId }))
-    navigate(`/work?creative=${encodeURIComponent(categoryOrId)}`)
+  if (categoryOrId === 'Cinematic Video & Visual Production') {
+    navigate('/work#cinematic-work')
     return
   }
-  navigate('/work#creative-work')
+  if (categoryOrId === 'Advertising & Campaign Assets' || !categoryOrId) {
+    navigate('/work#creative-work')
+    return
+  }
+  window.dispatchEvent(new CustomEvent<string>('legacya:open-creative-item', { detail: categoryOrId }))
+  navigate(`/work?creative=${encodeURIComponent(categoryOrId)}`)
 }
 
 export function triggerMotionInspect(motionId?: string) {
@@ -93,8 +97,8 @@ export const identity = {
   pillars: [
     'Digital Experiences & Business Systems',
     'Advertising & Campaign Assets',
-    'Cinematic Video & Visual Production',
     'Motion Animation',
+    'Cinematic Video & Visual Production',
   ] as const,
 
   // ── Personal / Founder ────────────────────────────────────────────────

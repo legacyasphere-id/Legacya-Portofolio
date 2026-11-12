@@ -5,15 +5,15 @@ import type { Lang } from '../i18n/context.tsx'
 export type ServiceCategoryId =
   | 'digital-systems'
   | 'advertising-assets'
-  | 'cinematic-video'
   | 'motion-animation'
+  | 'cinematic-video'
   | 'combined-engagement'
 
 export const SERVICE_CATEGORY_IDS: ServiceCategoryId[] = [
   'digital-systems',
   'advertising-assets',
-  'cinematic-video',
   'motion-animation',
+  'cinematic-video',
   'combined-engagement',
 ]
 

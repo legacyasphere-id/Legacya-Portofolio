@@ -17,12 +17,15 @@ import {
 import { en } from '../i18n/en.ts'
 import { id } from '../i18n/id.ts'
 
-test('SERVICE_OPTIONS includes all four core studio capabilities plus combined engagement', () => {
+test('SERVICE_OPTIONS includes all four core studio capabilities in exact order plus combined engagement', () => {
   const labels = SERVICE_OPTIONS.map((s) => s.label)
-  assert.ok(labels.includes('Digital Experiences & Business Systems'))
-  assert.ok(labels.includes('Advertising & Campaign Assets'))
-  assert.ok(labels.includes('Cinematic Video & Visual Production'))
-  assert.ok(labels.includes('Motion Animation'))
+  assert.deepEqual(labels, [
+    'Digital Experiences & Business Systems',
+    'Advertising & Campaign Assets',
+    'Motion Animation',
+    'Cinematic Video & Visual Production',
+    'Combined Brand, Creative & Digital Engagement',
+  ])
   assert.equal(SERVICE_OPTIONS.length, 5)
 })
 

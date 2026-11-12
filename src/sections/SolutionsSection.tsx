@@ -12,11 +12,11 @@ interface ServicePillarMeta {
   id:
     | 'digital-systems'
     | 'advertising-assets'
-    | 'cinematic-video'
     | 'motion-animation'
+    | 'cinematic-video'
   /** Rendered only when SHOW_PRICING is true in identity.ts. */
   startingPrice?: { idr: string; usd: string }
-  workTarget: 'digital' | 'creative-ads' | 'creative-video' | 'motion'
+  workTarget: 'digital' | 'creative-ads' | 'motion' | 'creative-video'
 }
 
 const SERVICE_PILLARS: ServicePillarMeta[] = [
@@ -36,17 +36,17 @@ const SERVICE_PILLARS: ServicePillarMeta[] = [
   },
   {
     index: '03.',
-    id: 'cinematic-video',
-    // TODO(yoga): real starting price for video production
-    startingPrice: { idr: 'TODO(yoga)', usd: 'TODO(yoga)' },
-    workTarget: 'creative-video',
-  },
-  {
-    index: '04.',
     id: 'motion-animation',
     // TODO(yoga): real starting price for motion animation
     startingPrice: { idr: 'TODO(yoga)', usd: 'TODO(yoga)' },
     workTarget: 'motion',
+  },
+  {
+    index: '04.',
+    id: 'cinematic-video',
+    // TODO(yoga): real starting price for video production
+    startingPrice: { idr: 'TODO(yoga)', usd: 'TODO(yoga)' },
+    workTarget: 'creative-video',
   },
 ]
 

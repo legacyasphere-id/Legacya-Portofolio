@@ -136,17 +136,6 @@ export const id: typeof en = {
           'Rangkaian iklan feed & story',
         ],
       },
-      'cinematic-video': {
-        title: 'Produksi Video Sinematik & Visual',
-        subtitle: 'Film Produk · Reels 9:16',
-        problemAddressed:
-          'Film produk pendek dan video vertikal dengan gerak serta tata suara sinematik.',
-        deliverables: [
-          'Film promosi produk pendek',
-          'Video iklan vertikal 9:16',
-          'Storyboard kampanye peluncuran',
-        ],
-      },
       'motion-animation': {
         title: 'Animasi Motion',
         subtitle: 'Gerak UI · Animasi Brand',
@@ -156,6 +145,17 @@ export const id: typeof en = {
           'Animasi logo & identitas brand',
           'Animasi tampilan produk & alur UI',
           'Rangkaian animasi web & media sosial',
+        ],
+      },
+      'cinematic-video': {
+        title: 'Produksi Video Sinematik & Visual',
+        subtitle: 'Film Produk · Reels 9:16',
+        problemAddressed:
+          'Film produk pendek dan video vertikal dengan gerak serta tata suara sinematik.',
+        deliverables: [
+          'Film promosi produk pendek',
+          'Video iklan vertikal 9:16',
+          'Storyboard kampanye peluncuran',
         ],
       },
     },
@@ -199,11 +199,6 @@ export const id: typeof en = {
     openLiveDemo: 'Buka Demo Langsung',
   },
   creativeWork: {
-    filterAria: 'Saring karya kreatif berdasarkan kategori layanan',
-    tabs: {
-      'Advertising & Campaign Assets': 'Materi Iklan & Visual Kampanye',
-      'Cinematic Video & Visual Production': 'Produksi Video Sinematik & Visual',
-    },
     conceptBadge: 'Karya konsep · bukan pesanan resmi brand',
     watchFilmBadge: 'Tonton Video +',
     fullVisualBadge: 'Lihat Visual +',
@@ -402,18 +397,6 @@ export const id: typeof en = {
           'Membangun arahan visual dan materi kampanye untuk meningkatkan daya tarik brand',
         ],
       },
-      'cinematic-video': {
-        label: 'Produksi Video Sinematik & Visual',
-        shortLabel: 'Video Sinematik & Produksi',
-        summary:
-          'Film produk pendek, video vertikal 9:16, dan storyboard gerak.',
-        objectives: [
-          'Memproduksi video iklan sinematik atau film promosi produk',
-          'Membuat video kampanye berdurasi pendek dan reels media sosial sinematik',
-          'Mengembangkan cerita visual brand atau film peluncuran produk',
-          'Menyusun storyboard visual dan konsep gerak untuk kampanye baru',
-        ],
-      },
       'motion-animation': {
         label: 'Animasi Motion',
         shortLabel: 'Animasi Motion',
@@ -424,6 +407,18 @@ export const id: typeof en = {
           'Memproduksi animasi peragaan antarmuka untuk website atau aplikasi bisnis',
           'Membangun animasi brand berulang dan visual dinamis untuk media sosial',
           'Menambahkan animasi interaktif khusus pada halaman website atau kampanye',
+        ],
+      },
+      'cinematic-video': {
+        label: 'Produksi Video Sinematik & Visual',
+        shortLabel: 'Video Sinematik & Produksi',
+        summary:
+          'Film produk pendek, video vertikal 9:16, dan storyboard gerak.',
+        objectives: [
+          'Memproduksi video iklan sinematik atau film promosi produk',
+          'Membuat video kampanye berdurasi pendek dan reels media sosial sinematik',
+          'Mengembangkan cerita visual brand atau film peluncuran produk',
+          'Menyusun storyboard visual dan konsep gerak untuk kampanye baru',
         ],
       },
       'combined-engagement': {
@@ -481,8 +476,8 @@ export const id: typeof en = {
     capabilityLinks: {
       digital: 'Pengalaman Digital & Sistem Bisnis',
       advertising: 'Materi Iklan & Visual Kampanye',
-      video: 'Produksi Video Sinematik & Visual',
       motion: 'Animasi Motion',
+      video: 'Produksi Video Sinematik & Visual',
       startProject: 'Mulai Proyek',
     },
     directContactHeading: 'Kontak Langsung',

@@ -92,33 +92,47 @@ test.describe('Hero', () => {
 // ── Services / What I Do ─────────────────────────────────────────────────────
 
 test.describe('What I Do', () => {
-  test('renders the four core service categories', async ({ page }) => {
+  test('renders the four core service categories in exact order (01 Digital, 02 Ads, 03 Motion, 04 Cinematic) and scrolls to the right /work section', async ({
+    page,
+  }) => {
     await page.goto('/')
     const services = page.locator('#services')
-    await expect(
-      services.getByRole('heading', { name: 'Digital Experiences & Business Systems' }),
-    ).toBeVisible()
-    await expect(
-      services.getByRole('heading', { name: 'Advertising & Campaign Assets' }),
-    ).toBeVisible()
-    await expect(
-      services.getByRole('heading', { name: 'Cinematic Video & Visual Production' }),
-    ).toBeVisible()
-    await expect(
-      services.getByRole('heading', { name: 'Motion Animation' }),
-    ).toBeVisible()
+    const headings = services.locator('article h3')
+    await expect(headings).toHaveText([
+      'Digital Experiences & Business Systems',
+      'Advertising & Campaign Assets',
+      'Motion Animation',
+      'Cinematic Video & Visual Production',
+    ])
+
+    const indices = services.locator('article').locator('span', { hasText: /^0[1-4]\.$/ })
+    await expect(indices).toHaveText(['01.', '02.', '03.', '04.'])
+
+    // Verify "See My Work" on card 02 (Ads), 03 (Motion), and 04 (Cinematic) land on the right section anchor
+    await services.locator('article').nth(1).getByRole('button', { name: 'See My Work' }).click()
+    await expect(page).toHaveURL(/\/work#creative-work$/)
+
+    await page.goto('/')
+    await services.locator('article').nth(2).getByRole('button', { name: 'See My Work' }).click()
+    await expect(page).toHaveURL(/\/work#motion-work$/)
+
+    await page.goto('/')
+    await services.locator('article').nth(3).getByRole('button', { name: 'See My Work' }).click()
+    await expect(page).toHaveURL(/\/work#cinematic-work$/)
   })
 })
 
 // ── Home Preview & Dedicated /work Page Routing ──────────────────────────────
 
 test.describe('Work Preview & /work Routing', () => {
-  test('clicking "See all work" on the home page navigates to /work, focuses h1, and shows #work-panel and Creative cards (which are absent on /)', async ({
+  test('clicking "See all work" on the home page navigates to /work, focuses h1, and shows #work-panel, #creative-work, #motion-work, and #cinematic-work (which are absent on /)', async ({
     page,
   }) => {
     await page.goto('/')
     await expect(page.locator('#work-panel')).toHaveCount(0)
     await expect(page.locator('#creative-work')).toHaveCount(0)
+    await expect(page.locator('#motion-work')).toHaveCount(0)
+    await expect(page.locator('#cinematic-work')).toHaveCount(0)
 
     const seeAllBtn = page.locator('#work a.btn-primary', { hasText: 'See all work' })
     await expect(seeAllBtn).toBeVisible()
@@ -131,6 +145,8 @@ test.describe('Work Preview & /work Routing', () => {
     await expect(h1).toBeFocused()
     await expect(page.locator('#work-panel')).toBeVisible()
     await expect(page.locator('#creative-work article')).toHaveCount(3)
+    await expect(page.locator('#motion-work')).toBeVisible()
+    await expect(page.locator('#cinematic-work article')).toHaveCount(3)
     await expect(
       page.locator('header nav[aria-label="Primary"] a[href="/work"]'),
     ).toHaveAttribute('aria-current', 'page')
@@ -562,36 +578,78 @@ test.describe('Digital Work & Curve Showcase on /work', () => {
   })
 })
 
-// ── Creative work on /work ───────────────────────────────────────────────────
+// ── Creative, Motion, and Cinematic work on /work ───────────────────────────
 
 test.describe('Creative Work', () => {
-  test('shows campaign visuals by default and only loads video ads when Cinematic Video tab is clicked on /work', async ({ page }) => {
+  test('renders standalone Advertising (#creative-work), Motion (#motion-work), and Cinematic (#cinematic-work) sections in order, loads zero <video> on initial load, and mounts video inside modal when a cinematic card is clicked', async ({
+    page,
+  }) => {
     await page.goto('/work')
     const creative = page.locator('#creative-work')
-    const cards = creative.locator('article')
-    await expect(cards).toHaveCount(3)
-    await expect(creative.locator('video')).toHaveCount(0)
+    const motion = page.locator('#motion-work')
+    const cinematic = page.locator('#cinematic-work')
+
+    await expect(
+      creative.getByRole('heading', { name: 'Advertising & Campaign Assets' }),
+    ).toBeVisible()
+    await expect(creative.locator('article')).toHaveCount(3)
     await expect(
       creative.getByText('Concept work · not commissioned by the brand'),
     ).toHaveCount(3)
 
-    await creative
-      .getByRole('button', { name: 'Cinematic Video & Visual Production' })
-      .click()
-    await expect(cards).toHaveCount(3)
-    await cards.first().scrollIntoViewIfNeeded()
-    await expect(creative.locator('video').first()).toBeAttached()
-    expect(await creative.locator('video').count()).toBeGreaterThan(0)
     await expect(
-      creative.getByText('Concept work · not commissioned by the brand'),
+      cinematic.getByRole('heading', { name: 'Cinematic Video & Visual Production' }),
+    ).toBeVisible()
+    await expect(cinematic.locator('article')).toHaveCount(3)
+    await expect(
+      cinematic.getByText('Concept work · not commissioned by the brand'),
     ).toHaveCount(3)
+
+    // Verify section order on /work: Advertising (#creative-work) < Motion (#motion-work) < Cinematic (#cinematic-work)
+    const creativeBox = await creative.boundingBox()
+    const motionBox = await motion.boundingBox()
+    const cinematicBox = await cinematic.boundingBox()
+    expect(creativeBox).not.toBeNull()
+    expect(motionBox).not.toBeNull()
+    expect(cinematicBox).not.toBeNull()
+    expect(creativeBox!.y).toBeLessThan(motionBox!.y)
+    expect(motionBox!.y).toBeLessThan(cinematicBox!.y)
+
+    // Zero <video> elements on initial load across the entire /work page (cinematic cards show poster images only)
+    await expect(page.locator('video')).toHaveCount(0)
+
+    // Clicking a card in #cinematic-work opens the modal and starts the film (<video> mounts inside modal)
+    await cinematic.locator('article').first().click()
+    const dialog = cinematic.locator('[role="dialog"]')
+    await expect(dialog).toBeVisible()
+    await expect(dialog.locator('video')).toHaveCount(1)
+    await page.keyboard.press('Escape')
+    await expect(dialog).toHaveCount(0)
+    await expect(page.locator('video')).toHaveCount(0)
+  })
+
+  test('deep links ?creative=<id> open the right modal in #creative-work or #cinematic-work and scroll to that section', async ({
+    page,
+  }) => {
+    await page.goto('/work?creative=artisan-burger-campaign')
+    const adDialog = page.locator('#creative-work [role="dialog"]')
+    await expect(adDialog).toBeVisible()
+    await expect(adDialog).toContainText('Flame-Grilled Burger')
+    await expect(page.locator('#cinematic-work [role="dialog"]')).toHaveCount(0)
+
+    await page.goto('/work?creative=artisan-burger-commercial-video')
+    const filmDialog = page.locator('#cinematic-work [role="dialog"]')
+    await expect(filmDialog).toBeVisible()
+    await expect(filmDialog).toContainText('Artisanal Cheeseburger')
+    await expect(filmDialog.locator('video')).toHaveCount(1)
+    await expect(page.locator('#creative-work [role="dialog"]')).toHaveCount(0)
   })
 })
 
 // ── Motion Animation on /work ────────────────────────────────────────────────
 
 test.describe('Motion Work', () => {
-  test('renders #motion-work below #creative-work on /work with source mount, switches to Indonesian, and preselects Motion Animation in inquiry form', async ({
+  test('renders #motion-work between #creative-work and #cinematic-work on /work with source mount, switches to Indonesian, and preselects Motion Animation in inquiry form', async ({
     page,
   }) => {
     await page.goto('/')
@@ -600,22 +658,27 @@ test.describe('Motion Work', () => {
     await page.goto('/work')
     const creative = page.locator('#creative-work')
     const motion = page.locator('#motion-work')
+    const cinematic = page.locator('#cinematic-work')
     await expect(motion).toBeVisible()
     await expect(motion.getByRole('heading', { name: 'Motion Animation' })).toBeVisible()
     await expect(
       motion.getByText('Motion studies · source files being prepared'),
     ).toBeVisible()
+    await expect(motion.getByText('Motion studies coming soon')).toBeVisible()
     await expect(motion.getByTestId('motion-source-mount')).toHaveAttribute(
       'data-motion-mount',
       'primary',
     )
 
-    // Verify #motion-work sits below #creative-work
+    // Verify #motion-work sits below #creative-work and above #cinematic-work
     const creativeBox = await creative.boundingBox()
     const motionBox = await motion.boundingBox()
+    const cinematicBox = await cinematic.boundingBox()
     expect(creativeBox).not.toBeNull()
     expect(motionBox).not.toBeNull()
+    expect(cinematicBox).not.toBeNull()
     expect(motionBox!.y).toBeGreaterThan(creativeBox!.y)
+    expect(cinematicBox!.y).toBeGreaterThan(motionBox!.y)
 
     // Switch language to Indonesian and verify copy
     await page
@@ -626,6 +689,7 @@ test.describe('Motion Work', () => {
     await expect(
       motion.getByText('Studi animasi · file sumber sedang disiapkan'),
     ).toBeVisible()
+    await expect(motion.getByText('Studi animasi segera hadir')).toBeVisible()
 
     // Switch back to English and trigger "Request Motion Animation"
     await page

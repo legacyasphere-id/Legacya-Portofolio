@@ -134,17 +134,6 @@ export const en = {
           'Feed & story ad sets',
         ],
       },
-      'cinematic-video': {
-        title: 'Cinematic Video & Visual Production',
-        subtitle: 'Product Films · 9:16 Reels',
-        problemAddressed:
-          'Short product films and vertical reels with motion and sound.',
-        deliverables: [
-          'Short product films',
-          '9:16 social ad reels',
-          'Launch storyboards',
-        ],
-      },
       'motion-animation': {
         title: 'Motion Animation',
         subtitle: 'UI Motion · Brand Loops',
@@ -154,6 +143,17 @@ export const en = {
           'Brand & logo motion loops',
           'Product & UI walkthrough animations',
           'Animated social & web sequences',
+        ],
+      },
+      'cinematic-video': {
+        title: 'Cinematic Video & Visual Production',
+        subtitle: 'Product Films · 9:16 Reels',
+        problemAddressed:
+          'Short product films and vertical reels with motion and sound.',
+        deliverables: [
+          'Short product films',
+          '9:16 social ad reels',
+          'Launch storyboards',
         ],
       },
     },
@@ -197,11 +197,6 @@ export const en = {
     openLiveDemo: 'Open Live Demo',
   },
   creativeWork: {
-    filterAria: 'Filter creative work by service category',
-    tabs: {
-      'Advertising & Campaign Assets': 'Advertising & Campaign Assets',
-      'Cinematic Video & Visual Production': 'Cinematic Video & Visual Production',
-    },
     conceptBadge: 'Concept work · not commissioned by the brand',
     watchFilmBadge: 'Watch Film +',
     fullVisualBadge: 'Full Visual +',
@@ -399,18 +394,6 @@ export const en = {
           'Establish visual direction and campaign materials to grow brand awareness',
         ],
       },
-      'cinematic-video': {
-        label: 'Cinematic Video & Visual Production',
-        shortLabel: 'Cinematic Video & Production',
-        summary:
-          'Short product films, vertical reels and motion storyboards.',
-        objectives: [
-          'Produce a cinematic advertising video or product promotional film',
-          'Create short-form campaign videos and cinematic social media reels',
-          'Develop a visual brand story or launch film for a product',
-          'Explore visual storyboards and motion concepts for a campaign',
-        ],
-      },
       'motion-animation': {
         label: 'Motion Animation',
         shortLabel: 'Motion Animation',
@@ -421,6 +404,18 @@ export const en = {
           'Produce UI walkthrough animations for a website or software product',
           'Build looping brand animations and kinetic visuals for social feeds',
           'Add custom interactive motion to a landing page or campaign',
+        ],
+      },
+      'cinematic-video': {
+        label: 'Cinematic Video & Visual Production',
+        shortLabel: 'Cinematic Video & Production',
+        summary:
+          'Short product films, vertical reels and motion storyboards.',
+        objectives: [
+          'Produce a cinematic advertising video or product promotional film',
+          'Create short-form campaign videos and cinematic social media reels',
+          'Develop a visual brand story or launch film for a product',
+          'Explore visual storyboards and motion concepts for a campaign',
         ],
       },
       'combined-engagement': {
@@ -478,8 +473,8 @@ export const en = {
     capabilityLinks: {
       digital: 'Digital Experiences & Business Systems',
       advertising: 'Advertising & Campaign Assets',
-      video: 'Cinematic Video & Visual Production',
       motion: 'Motion Animation',
+      video: 'Cinematic Video & Visual Production',
       startProject: 'Start a Project',
     },
     directContactHeading: 'Direct Contact',
