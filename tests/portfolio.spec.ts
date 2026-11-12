@@ -92,7 +92,7 @@ test.describe('Hero', () => {
 // ── Services / What I Do ─────────────────────────────────────────────────────
 
 test.describe('What I Do', () => {
-  test('renders the three core service categories', async ({ page }) => {
+  test('renders the four core service categories', async ({ page }) => {
     await page.goto('/')
     const services = page.locator('#services')
     await expect(
@@ -103,6 +103,9 @@ test.describe('What I Do', () => {
     ).toBeVisible()
     await expect(
       services.getByRole('heading', { name: 'Cinematic Video & Visual Production' }),
+    ).toBeVisible()
+    await expect(
+      services.getByRole('heading', { name: 'Motion Animation' }),
     ).toBeVisible()
   })
 })
@@ -582,6 +585,58 @@ test.describe('Creative Work', () => {
     await expect(
       creative.getByText('Concept work · not commissioned by the brand'),
     ).toHaveCount(3)
+  })
+})
+
+// ── Motion Animation on /work ────────────────────────────────────────────────
+
+test.describe('Motion Work', () => {
+  test('renders #motion-work below #creative-work on /work with source mount, switches to Indonesian, and preselects Motion Animation in inquiry form', async ({
+    page,
+  }) => {
+    await page.goto('/')
+    await expect(page.locator('#motion-work')).toHaveCount(0)
+
+    await page.goto('/work')
+    const creative = page.locator('#creative-work')
+    const motion = page.locator('#motion-work')
+    await expect(motion).toBeVisible()
+    await expect(motion.getByRole('heading', { name: 'Motion Animation' })).toBeVisible()
+    await expect(
+      motion.getByText('Motion studies · source files being prepared'),
+    ).toBeVisible()
+    await expect(motion.getByTestId('motion-source-mount')).toHaveAttribute(
+      'data-motion-mount',
+      'primary',
+    )
+
+    // Verify #motion-work sits below #creative-work
+    const creativeBox = await creative.boundingBox()
+    const motionBox = await motion.boundingBox()
+    expect(creativeBox).not.toBeNull()
+    expect(motionBox).not.toBeNull()
+    expect(motionBox!.y).toBeGreaterThan(creativeBox!.y)
+
+    // Switch language to Indonesian and verify copy
+    await page
+      .locator('header button[aria-label="Switch language to Indonesian"]')
+      .first()
+      .click()
+    await expect(motion.getByRole('heading', { name: 'Animasi Motion' })).toBeVisible()
+    await expect(
+      motion.getByText('Studi animasi · file sumber sedang disiapkan'),
+    ).toBeVisible()
+
+    // Switch back to English and trigger "Request Motion Animation"
+    await page
+      .locator('header button[aria-label="Ganti bahasa ke Inggris"]')
+      .first()
+      .click()
+    await motion.getByRole('button', { name: 'Request Motion Animation' }).click()
+
+    await expect(page).toHaveURL(/\/#contact$/)
+    const cta = page.locator('#contact')
+    await expect(cta).toContainText('Motion Animation')
   })
 })
 

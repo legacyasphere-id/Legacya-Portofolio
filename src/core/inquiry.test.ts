@@ -17,12 +17,13 @@ import {
 import { en } from '../i18n/en.ts'
 import { id } from '../i18n/id.ts'
 
-test('SERVICE_OPTIONS includes all three core studio capabilities plus combined engagement', () => {
+test('SERVICE_OPTIONS includes all four core studio capabilities plus combined engagement', () => {
   const labels = SERVICE_OPTIONS.map((s) => s.label)
   assert.ok(labels.includes('Digital Experiences & Business Systems'))
   assert.ok(labels.includes('Advertising & Campaign Assets'))
   assert.ok(labels.includes('Cinematic Video & Visual Production'))
-  assert.equal(SERVICE_OPTIONS.length, 4)
+  assert.ok(labels.includes('Motion Animation'))
+  assert.equal(SERVICE_OPTIONS.length, 5)
 })
 
 test('getObjectivesForService returns tailored objectives for each service category', () => {
@@ -34,6 +35,10 @@ test('getObjectivesForService returns tailored objectives for each service categ
   assert.ok(videoObjectives.length >= 3)
   assert.ok(videoObjectives.some((o) => o.toLowerCase().includes('cinematic')))
 
+  const motionObjectives = getObjectivesForService('motion-animation')
+  assert.ok(motionObjectives.length >= 3)
+  assert.ok(motionObjectives.some((o) => o.toLowerCase().includes('motion') || o.toLowerCase().includes('animate')))
+
   const digitalObjectives = getObjectivesForService('Digital Experiences & Business Systems')
   assert.ok(digitalObjectives.length >= 3)
   assert.ok(digitalObjectives.some((o) => o.toLowerCase().includes('website')))
@@ -42,6 +47,8 @@ test('getObjectivesForService returns tailored objectives for each service categ
 test('resolveServiceLabel normalizes IDs and short labels to canonical service titles', () => {
   assert.equal(resolveServiceLabel('advertising-assets'), 'Advertising & Campaign Assets')
   assert.equal(resolveServiceLabel('cinematic-video'), 'Cinematic Video & Visual Production')
+  assert.equal(resolveServiceLabel('motion-animation'), 'Motion Animation')
+  assert.equal(resolveServiceLabel('motion-animation', 'id'), 'Animasi Motion')
   assert.equal(resolveServiceLabel('digital-systems'), 'Digital Experiences & Business Systems')
   assert.equal(resolveServiceLabel('unknown-id'), 'Digital Experiences & Business Systems')
 })
@@ -200,11 +207,13 @@ test('All customer-facing sections and portfolio data contain zero developer jar
     'src/core/router.ts',
     'src/data/projects.ts',
     'src/data/creativeWork.ts',
+    'src/data/motionWork.ts',
     'src/sections/HeroSection.tsx',
     'src/sections/StudioIntroSection.tsx',
     'src/sections/SolutionsSection.tsx',
     'src/sections/WorkSection.tsx',
     'src/sections/CreativeWorkSection.tsx',
+    'src/sections/MotionWorkSection.tsx',
     'src/sections/ProcessSection.tsx',
     'src/sections/WhyLegacyaSection.tsx',
     'src/sections/FounderSection.tsx',
