@@ -1,22 +1,117 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { getCreativeWorkItems } from '../data/creativeWork'
 import type { CreativeWorkItem } from '../types/project'
 import { triggerProjectScope } from '../core/identity'
 import { useRoute } from '../core/router'
 import { useT } from '../i18n/context'
 
-export type CreativeCategory =
+type CreativeFilter =
   | 'Advertising & Campaign Assets'
   | 'Cinematic Video & Visual Production'
 
-function resolveCreativeSelection(
+const FILTER_TABS: CreativeFilter[] = [
+  'Advertising & Campaign Assets',
+  'Cinematic Video & Visual Production',
+]
+
+function resolveCreativeQuery(
   search: string,
-  sectionItems: CreativeWorkItem[],
-): string | null {
+  items: CreativeWorkItem[],
+): { filter: CreativeFilter; selectedItemId: string | null } {
   const param = new URLSearchParams(search).get('creative')
-  if (!param) return null
-  const matched = sectionItems.find((c) => c.id === param)
-  return matched ? matched.id : null
+  if (param) {
+    const matched = items.find((c) => c.id === param)
+    if (matched) {
+      return { filter: matched.category, selectedItemId: matched.id }
+    }
+    if (param === 'Cinematic Video & Visual Production') {
+      return { filter: 'Cinematic Video & Visual Production', selectedItemId: null }
+    }
+  }
+  return { filter: 'Advertising & Campaign Assets', selectedItemId: null }
+}
+
+interface NetworkInformationLike {
+  saveData?: boolean
+  effectiveType?: string
+}
+
+function isLowBandwidthConnection(): boolean {
+  if (typeof navigator === 'undefined') return false
+  const conn = (navigator as Navigator & { connection?: NetworkInformationLike }).connection
+  if (!conn) return false
+  if (conn.saveData) return true
+  return conn.effectiveType === 'slow-2g' || conn.effectiveType === '2g' || conn.effectiveType === '3g'
+}
+
+function SmartPreviewVideo({
+  videoUrl,
+  posterUrl,
+  title,
+}: {
+  videoUrl: string
+  posterUrl?: string
+  title: string
+}) {
+  const containerRef = useRef<HTMLDivElement | null>(null)
+  const videoRef = useRef<HTMLVideoElement | null>(null)
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false)
+  const [lowBandwidth] = useState(() => isLowBandwidthConnection())
+
+  useEffect(() => {
+    if (lowBandwidth) return
+    const el = containerRef.current
+    if (!el || typeof IntersectionObserver === 'undefined') {
+      setShouldLoadVideo(true)
+      return
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setShouldLoadVideo(true)
+            videoRef.current?.play().catch(() => {
+              // Autoplay fallback stays on poster cleanly
+            })
+          } else {
+            videoRef.current?.pause()
+          }
+        })
+      },
+      { rootMargin: '160px 0px', threshold: 0.15 },
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [lowBandwidth])
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative h-full w-full overflow-hidden bg-black"
+    >
+      {shouldLoadVideo && !lowBandwidth ? (
+        <video
+          ref={videoRef}
+          src={videoUrl}
+          poster={posterUrl}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="none"
+          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+        />
+      ) : (
+        <img
+          src={posterUrl}
+          alt={title}
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+        />
+      )}
+    </div>
+  )
 }
 
 function CreativeVisualPreview({
@@ -35,13 +130,21 @@ function CreativeVisualPreview({
         background: `linear-gradient(135deg, ${item.palette.primary} 0%, #141821 70%, ${item.palette.accent} 100%)`,
       }}
     >
-      <img
-        src={item.previewImage}
-        alt={item.title}
-        loading="lazy"
-        decoding="async"
-        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-      />
+      {item.videoUrl ? (
+        <SmartPreviewVideo
+          videoUrl={item.videoUrl}
+          posterUrl={item.previewImage}
+          title={item.title}
+        />
+      ) : (
+        <img
+          src={item.previewImage}
+          alt={item.title}
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+        />
+      )}
 
       <span className="pointer-events-none absolute bottom-2.5 right-2.5 rounded-md bg-black/75 px-2 py-0.5 font-mono text-[10px] font-medium text-white backdrop-blur-sm">
         {item.videoUrl ? watchFilmBadge : fullVisualBadge}
@@ -50,50 +153,52 @@ function CreativeVisualPreview({
   )
 }
 
-interface CreativeWorkSectionProps {
-  id?: 'creative-work' | 'cinematic-work'
-  category?: CreativeCategory
-}
-
-export function CreativeWorkSection({
-  id = 'creative-work',
-  category = 'Advertising & Campaign Assets',
-}: CreativeWorkSectionProps = {}) {
+export function CreativeWorkSection() {
   const { lang, t } = useT()
   const { search } = useRoute()
   const creativeItems = getCreativeWorkItems(lang)
-  const sectionItems = creativeItems.filter((item) => item.category === category)
-  const pillarKey =
-    category === 'Cinematic Video & Visual Production'
-      ? 'cinematic-video'
-      : 'advertising-assets'
-  const pillarCopy = t.services.pillars[pillarKey]
-
-  const [selectedItemId, setSelectedItemId] = useState<string | null>(() =>
-    resolveCreativeSelection(search, sectionItems),
+  const initialQuery = resolveCreativeQuery(search, creativeItems)
+  const [filter, setFilter] = useState<CreativeFilter>(initialQuery.filter)
+  const [selectedItemId, setSelectedItemId] = useState<string | null>(
+    initialQuery.selectedItemId,
   )
   const selectedItem =
-    sectionItems.find((item) => item.id === selectedItemId) ?? null
+    creativeItems.find((item) => item.id === selectedItemId) ?? null
 
   useEffect(() => {
+    const next = resolveCreativeQuery(search, creativeItems)
     if (new URLSearchParams(search).has('creative')) {
-      setSelectedItemId(resolveCreativeSelection(search, sectionItems))
+      setFilter(next.filter)
+      setSelectedItemId(next.selectedItemId)
     }
-  }, [search, lang])
+  }, [search])
 
   useEffect(() => {
+    const onSelectCreative = (e: Event) => {
+      const custom = e as CustomEvent<string>
+      if (custom.detail === 'Cinematic Video & Visual Production') {
+        setFilter('Cinematic Video & Visual Production')
+      } else {
+        setFilter('Advertising & Campaign Assets')
+      }
+    }
     const onOpenCreativeItem = (e: Event) => {
       const custom = e as CustomEvent<string>
       if (custom.detail) {
-        const matched = sectionItems.find((c) => c.id === custom.detail)
-        setSelectedItemId(matched ? matched.id : null)
+        const matched = creativeItems.find((c) => c.id === custom.detail)
+        if (matched) {
+          setFilter(matched.category)
+          setSelectedItemId(matched.id)
+        }
       }
     }
+    window.addEventListener('legacya:select-creative', onSelectCreative)
     window.addEventListener('legacya:open-creative-item', onOpenCreativeItem)
     return () => {
+      window.removeEventListener('legacya:select-creative', onSelectCreative)
       window.removeEventListener('legacya:open-creative-item', onOpenCreativeItem)
     }
-  }, [sectionItems])
+  }, [creativeItems])
 
   useEffect(() => {
     if (!selectedItemId) return
@@ -104,31 +209,47 @@ export function CreativeWorkSection({
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [selectedItemId])
 
+  const filteredItems = creativeItems.filter((item) => item.category === filter)
+
   return (
     <section
-      id={id}
+      id="creative-work"
       className="scroll-mt-20 border-t border-border bg-bg/95 px-5 py-12 md:px-10 md:py-20"
     >
       <div className="mx-auto max-w-[1180px]">
-        {/* Section Header */}
+        {/* Filter Bar */}
         <div
-          className="mb-8 flex flex-col justify-between gap-3 lg:flex-row lg:items-end"
+          className="mb-6 flex flex-wrap items-center justify-between gap-3"
           data-animate
         >
-          <div className="max-w-[640px]">
-            <p className="eyebrow mb-2.5">{pillarCopy.subtitle}</p>
-            <h2 className="display text-[clamp(1.85rem,3.4vw,2.75rem)] leading-[1.08] text-text [text-wrap:balance]">
-              {pillarCopy.title}
-            </h2>
+          <div
+            role="group"
+            aria-label={t.creativeWork.filterAria}
+            className="inline-flex flex-wrap gap-1 rounded-xl border border-border bg-surface p-1"
+          >
+            {FILTER_TABS.map((tab) => {
+              const active = filter === tab
+              return (
+                <button
+                  key={tab}
+                  type="button"
+                  onClick={() => setFilter(tab)}
+                  className={`min-h-[44px] rounded-lg px-3.5 py-2 text-[13px] font-medium transition-colors whitespace-nowrap cursor-pointer ${
+                    active
+                      ? 'bg-blue-deep text-white shadow-sm'
+                      : 'text-muted hover:text-text'
+                  }`}
+                >
+                  {t.creativeWork.tabs[tab]}
+                </button>
+              )
+            })}
           </div>
-          <p className="max-w-[44ch] text-[15.5px] leading-relaxed text-muted">
-            {pillarCopy.problemAddressed}
-          </p>
         </div>
 
         {/* Compact Work Cards Grid: Image + Badge + Title + One Line */}
         <div className="grid grid-cols-2 gap-3.5 sm:gap-5 lg:grid-cols-3">
-          {sectionItems.map((item) => {
+          {filteredItems.map((item) => {
             const shortTitle = item.title.split(':')[0] ?? item.title
             const oneLine = item.storyboardFrames[0]?.title ?? item.format
             return (
@@ -194,7 +315,7 @@ export function CreativeWorkSection({
             <div className="flex items-center justify-between border-b border-white/10 px-6 py-4">
               <div>
                 <p className="font-mono text-[11px] text-white/70">
-                  {pillarCopy.title} · {selectedItem.brandOrConcept}
+                  {t.creativeWork.tabs[selectedItem.category]} · {selectedItem.brandOrConcept}
                 </p>
                 <h3 className="mt-0.5 text-[1.2rem] font-semibold text-white">
                   {selectedItem.title}
@@ -311,14 +432,5 @@ export function CreativeWorkSection({
         </div>
       )}
     </section>
-  )
-}
-
-export function CinematicWorkSection() {
-  return (
-    <CreativeWorkSection
-      id="cinematic-work"
-      category="Cinematic Video & Visual Production"
-    />
   )
 }

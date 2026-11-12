@@ -216,7 +216,6 @@ test('All customer-facing sections and portfolio data contain zero developer jar
     'src/sections/SolutionsSection.tsx',
     'src/sections/WorkSection.tsx',
     'src/sections/CreativeWorkSection.tsx',
-    'src/sections/MotionWorkSection.tsx',
     'src/sections/ProcessSection.tsx',
     'src/sections/WhyLegacyaSection.tsx',
     'src/sections/FounderSection.tsx',

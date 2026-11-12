@@ -50,16 +50,12 @@ export function triggerProjectInspect(projectId: string) {
 }
 
 export function triggerCreativeInspect(categoryOrId?: string) {
-  if (categoryOrId === 'Cinematic Video & Visual Production') {
-    navigate('/work#cinematic-work')
+  if (categoryOrId) {
+    window.dispatchEvent(new CustomEvent<string>('legacya:select-creative', { detail: categoryOrId }))
+    navigate(`/work?creative=${encodeURIComponent(categoryOrId)}`)
     return
   }
-  if (categoryOrId === 'Advertising & Campaign Assets' || !categoryOrId) {
-    navigate('/work#creative-work')
-    return
-  }
-  window.dispatchEvent(new CustomEvent<string>('legacya:open-creative-item', { detail: categoryOrId }))
-  navigate(`/work?creative=${encodeURIComponent(categoryOrId)}`)
+  navigate('/work#creative-work')
 }
 
 export function triggerMotionInspect(motionId?: string) {

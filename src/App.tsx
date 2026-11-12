@@ -14,7 +14,6 @@ import { Footer } from './components/Footer'
 import { useScrollReveal } from './hooks/useScrollReveal'
 import { useRoute } from './core/router'
 import { useT } from './i18n/context'
-import { getCreativeWorkItems } from './data/creativeWork'
 
 export default function App() {
   const routeState = useRoute()
@@ -89,18 +88,9 @@ export default function App() {
           ?.scrollIntoView({ behavior: scrollBehavior, block: 'start' })
         return
       }
-      const creativeParam = params.get('creative')
-      if (creativeParam) {
-        const matched = getCreativeWorkItems(lang).find(
-          (c) => c.id === creativeParam,
-        )
-        const targetSectionId =
-          matched?.category === 'Cinematic Video & Visual Production' ||
-          creativeParam === 'Cinematic Video & Visual Production'
-            ? 'cinematic-work'
-            : 'creative-work'
+      if (params.get('creative')) {
         document
-          .getElementById(targetSectionId)
+          .getElementById('creative-work')
           ?.scrollIntoView({ behavior: scrollBehavior, block: 'start' })
         return
       }

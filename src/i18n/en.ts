@@ -161,6 +161,7 @@ export const en = {
   showcase: {
     digitalCaption: 'My live websites and business systems',
     creativeCaption: 'My campaign visuals and product films',
+    motionCaption: 'My motion animation studies',
     prevProjectAria: 'Previous project',
     nextProjectAria: 'Next project',
     previousLabel: 'Previous',
@@ -169,6 +170,8 @@ export const en = {
     selectProjectAriaPrefix: 'Select project',
     openCreativeAriaPrefix: 'Open campaign study for',
     selectCreativeAriaPrefix: 'Select campaign study',
+    openMotionAriaPrefix: 'Open motion study for',
+    selectMotionAriaPrefix: 'Select motion study',
     seeAllWork: 'See all work',
   },
   workPage: {
@@ -197,6 +200,11 @@ export const en = {
     openLiveDemo: 'Open Live Demo',
   },
   creativeWork: {
+    filterAria: 'Filter creative work by category',
+    tabs: {
+      'Advertising & Campaign Assets': 'Advertising & Campaign Assets',
+      'Cinematic Video & Visual Production': 'Cinematic Video & Visual Production',
+    },
     conceptBadge: 'Concept work · not commissioned by the brand',
     watchFilmBadge: 'Watch Film +',
     fullVisualBadge: 'Full Visual +',
@@ -209,15 +217,7 @@ export const en = {
     requestSimilar: 'Request Similar Work',
   },
   motionWork: {
-    eyebrow: 'Selected Work · Motion Animation',
-    heading: 'Motion graphics and interactive animation studies',
-    subline:
-      'Short motion loops, UI walkthrough animations and kinetic brand sequences.',
-    conceptBadge: 'Concept work · not commissioned by the brand',
     preparingBadge: 'Motion studies · source files being prepared',
-    preparingTitle: 'Motion animation reel & interactive studies',
-    preparingBody:
-      'I build motion loops, animated product walkthroughs and web sequences. Interactive source files for this section are being prepared. You can already request custom motion work for your brand or website below.',
     mountLabel: 'Motion studies coming soon',
     requestMotionCta: 'Request Motion Animation',
   },

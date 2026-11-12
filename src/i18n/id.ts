@@ -163,6 +163,7 @@ export const id: typeof en = {
   showcase: {
     digitalCaption: 'Website dan sistem bisnis yang saya bangun',
     creativeCaption: 'Visual kampanye dan film produk karya saya',
+    motionCaption: 'Studi animasi motion saya',
     prevProjectAria: 'Proyek sebelumnya',
     nextProjectAria: 'Proyek berikutnya',
     previousLabel: 'Sebelumnya',
@@ -171,6 +172,8 @@ export const id: typeof en = {
     selectProjectAriaPrefix: 'Pilih proyek',
     openCreativeAriaPrefix: 'Buka studi kampanye',
     selectCreativeAriaPrefix: 'Pilih studi kampanye',
+    openMotionAriaPrefix: 'Buka studi animasi',
+    selectMotionAriaPrefix: 'Pilih studi animasi',
     seeAllWork: 'Lihat semua karya',
   },
   workPage: {
@@ -199,6 +202,11 @@ export const id: typeof en = {
     openLiveDemo: 'Buka Demo Langsung',
   },
   creativeWork: {
+    filterAria: 'Saring karya kreatif berdasarkan kategori',
+    tabs: {
+      'Advertising & Campaign Assets': 'Materi Iklan & Visual Kampanye',
+      'Cinematic Video & Visual Production': 'Produksi Video Sinematik & Visual',
+    },
     conceptBadge: 'Karya konsep · bukan pesanan resmi brand',
     watchFilmBadge: 'Tonton Video +',
     fullVisualBadge: 'Lihat Visual +',
@@ -211,15 +219,7 @@ export const id: typeof en = {
     requestSimilar: 'Pesan Karya Serupa',
   },
   motionWork: {
-    eyebrow: 'Karya Pilihan · Animasi Motion',
-    heading: 'Studi gerak visual dan animasi interaktif',
-    subline:
-      'Animasi pendek berulang, peragaan gerak antarmuka, dan rangkaian visual brand dinamis.',
-    conceptBadge: 'Karya konsep · bukan pesanan resmi brand',
     preparingBadge: 'Studi animasi · file sumber sedang disiapkan',
-    preparingTitle: 'Reel animasi motion & studi interaktif',
-    preparingBody:
-      'Saya membuat animasi berulang, peragaan produk bergerak, dan rangkaian gerak untuk website. File sumber interaktif untuk bagian ini sedang disiapkan. Kamu sudah bisa memesan pembuatan animasi motion untuk brand atau websitemu di bawah ini.',
     mountLabel: 'Studi animasi segera hadir',
     requestMotionCta: 'Pesan Animasi Motion',
   },
