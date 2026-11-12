@@ -8,6 +8,7 @@ import { useT } from '../i18n/context'
 import { CurveShowcaseCard } from '../components/CurveShowcaseCard'
 import { Link } from '../components/Link'
 import { CreativeWorkSection } from './CreativeWorkSection'
+import { MotionWorkSection } from './MotionWorkSection'
 
 /**
  * Home page preview section (`#work`):
@@ -442,6 +443,8 @@ export function WorkPage() {
       </section>
 
       <CreativeWorkSection />
+
+      <MotionWorkSection />
 
       <section className="border-t border-border bg-surface/85 px-5 py-14 md:px-10 md:py-20">
         <div className="mx-auto flex max-w-[1180px] flex-col items-center justify-center gap-5 text-center">

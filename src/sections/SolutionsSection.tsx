@@ -1,6 +1,7 @@
 import {
   SHOW_PRICING,
   triggerCreativeInspect,
+  triggerMotionInspect,
   triggerProjectInspect,
   triggerProjectScope,
 } from '../core/identity'
@@ -8,10 +9,14 @@ import { useT } from '../i18n/context'
 
 interface ServicePillarMeta {
   index: string
-  id: 'digital-systems' | 'advertising-assets' | 'cinematic-video'
+  id:
+    | 'digital-systems'
+    | 'advertising-assets'
+    | 'cinematic-video'
+    | 'motion-animation'
   /** Rendered only when SHOW_PRICING is true in identity.ts. */
   startingPrice?: { idr: string; usd: string }
-  workTarget: 'digital' | 'creative-ads' | 'creative-video'
+  workTarget: 'digital' | 'creative-ads' | 'creative-video' | 'motion'
 }
 
 const SERVICE_PILLARS: ServicePillarMeta[] = [
@@ -36,6 +41,13 @@ const SERVICE_PILLARS: ServicePillarMeta[] = [
     startingPrice: { idr: 'TODO(yoga)', usd: 'TODO(yoga)' },
     workTarget: 'creative-video',
   },
+  {
+    index: '04.',
+    id: 'motion-animation',
+    // TODO(yoga): real starting price for motion animation
+    startingPrice: { idr: 'TODO(yoga)', usd: 'TODO(yoga)' },
+    workTarget: 'motion',
+  },
 ]
 
 export function SolutionsSection() {
@@ -46,8 +58,10 @@ export function SolutionsSection() {
       triggerProjectInspect('inventory-os')
     } else if (target === 'creative-ads') {
       triggerCreativeInspect('Advertising & Campaign Assets')
-    } else {
+    } else if (target === 'creative-video') {
       triggerCreativeInspect('Cinematic Video & Visual Production')
+    } else {
+      triggerMotionInspect()
     }
   }
 
@@ -70,8 +84,8 @@ export function SolutionsSection() {
           </div>
         </div>
 
-        {/* 3 Service Categories */}
-        <div className="grid gap-4 lg:grid-cols-3">
+        {/* 4 Service Categories */}
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {SERVICE_PILLARS.map((meta, idx) => {
             const copy = t.services.pillars[meta.id]
             return (

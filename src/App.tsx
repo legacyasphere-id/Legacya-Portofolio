@@ -94,6 +94,12 @@ export default function App() {
           ?.scrollIntoView({ behavior: scrollBehavior, block: 'start' })
         return
       }
+      if (params.get('motion')) {
+        document
+          .getElementById('motion-work')
+          ?.scrollIntoView({ behavior: scrollBehavior, block: 'start' })
+        return
+      }
     }
 
     if (routeState.navType !== 'initial') {

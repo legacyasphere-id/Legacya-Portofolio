@@ -32,6 +32,10 @@ export function Footer() {
       serviceCategory: 'cinematic-video',
     },
     {
+      label: t.footer.capabilityLinks.motion,
+      serviceCategory: 'motion-animation',
+    },
+    {
       label: t.footer.capabilityLinks.startProject,
       serviceCategory: 'combined-engagement',
     },
