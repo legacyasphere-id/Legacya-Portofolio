@@ -206,6 +206,107 @@ test.describe('Work Preview & /work Routing', () => {
       .toBeLessThan(150)
   })
 
+  test('/work renders "Back to main page" in EN and ID in both the header and closing section', async ({
+    page,
+  }) => {
+    await page.goto('/work')
+
+    const backLinksEn = page.locator('main a', { hasText: 'Back to main page' })
+    await expect(backLinksEn).toHaveCount(2)
+    await expect(backLinksEn.nth(0)).toBeVisible()
+    await expect(backLinksEn.nth(1)).toBeVisible()
+
+    await page
+      .locator('header button[aria-label="Switch language to Indonesian"]')
+      .first()
+      .click()
+    const backLinksId = page.locator('main a', { hasText: 'Kembali ke beranda' })
+    await expect(backLinksId).toHaveCount(2)
+    await expect(backLinksId.nth(0)).toBeVisible()
+    await expect(backLinksId.nth(1)).toBeVisible()
+  })
+
+  test('/work "Back to main page" buttons meet the 44px minimum tap target on mobile (375px)', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 375, height: 812 })
+    await page.goto('/work')
+
+    const backLinks = page.locator('main a', { hasText: 'Back to main page' })
+    await expect(backLinks).toHaveCount(2)
+
+    const topBox = await backLinks.nth(0).boundingBox()
+    expect(topBox).not.toBeNull()
+    expect(topBox!.height).toBeGreaterThanOrEqual(44)
+
+    await backLinks.nth(1).scrollIntoViewIfNeeded()
+    const bottomBox = await backLinks.nth(1).boundingBox()
+    expect(bottomBox).not.toBeNull()
+    expect(bottomBox!.height).toBeGreaterThanOrEqual(44)
+  })
+
+  test('clicking "Back to main page" on /work navigates client-side to "/#process" without page reload and shows the Process heading below the fixed nav', async ({
+    page,
+  }) => {
+    await page.goto('/work')
+    await page.evaluate(() => {
+      ;(window as unknown as { __spaMarker?: boolean }).__spaMarker = true
+    })
+
+    const backLinks = page.locator('main a', { hasText: 'Back to main page' })
+    await backLinks.first().click()
+
+    await expect(page).toHaveURL(/\/#process$/)
+    expect(
+      await page.evaluate(
+        () => (window as unknown as { __spaMarker?: boolean }).__spaMarker === true,
+      ),
+    ).toBe(true)
+
+    const processHeading = page.locator('#process h2', {
+      hasText: 'Five clear steps from brief to launch',
+    })
+    await expect(processHeading).toBeVisible()
+
+    // Ensure the Process heading sits below the fixed top navigation bar
+    await expect
+      .poll(async () => {
+        return await page.evaluate(() => {
+          const navBottom =
+            document.querySelector('header')?.getBoundingClientRect().bottom ?? 0
+          const headingTop =
+            document.querySelector('#process h2')?.getBoundingClientRect().top ?? 0
+          return headingTop - navBottom
+        })
+      })
+      .toBeGreaterThanOrEqual(0)
+  })
+
+  test('browser Back after clicking "Back to main page" returns to /work and restores its scroll position', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto('/work')
+
+    await page.evaluate(() => {
+      window.scrollTo({ top: 60, left: 0, behavior: 'instant' as ScrollBehavior })
+    })
+    const workScrollBefore = await page.evaluate(() => window.scrollY)
+    expect(workScrollBefore).toBe(60)
+
+    await page.locator('main a', { hasText: 'Back to main page' }).first().click()
+    await expect(page).toHaveURL(/\/#process$/)
+
+    await page.goBack()
+    await expect(page).toHaveURL(/\/work$/)
+    await expect
+      .poll(async () => {
+        const y = await page.evaluate(() => window.scrollY)
+        return Math.abs(y - workScrollBefore)
+      })
+      .toBeLessThan(20)
+  })
+
   test('clicking the active photo in the home showcase (both rows) opens /work with that exact project or opens that creative item modal', async ({
     page,
   }) => {

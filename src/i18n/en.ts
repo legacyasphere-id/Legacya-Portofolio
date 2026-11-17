@@ -175,6 +175,7 @@ export const en = {
     seeAllWork: 'See all work',
   },
   workPage: {
+    backToHome: 'Back to main page',
     eyebrow: 'Work',
     heading: 'Selected work',
     subline:

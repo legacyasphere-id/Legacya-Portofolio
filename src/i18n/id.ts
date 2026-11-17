@@ -177,6 +177,7 @@ export const id: typeof en = {
     seeAllWork: 'Lihat semua karya',
   },
   workPage: {
+    backToHome: 'Kembali ke beranda',
     eyebrow: 'Karya',
     heading: 'Karya pilihan',
     subline:
