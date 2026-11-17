@@ -6,7 +6,7 @@ export function ProcessSection() {
   return (
     <section
       id="process"
-      className="grid-blueprint border-t border-border bg-surface/85 px-5 py-10 backdrop-blur-sm md:px-10 md:py-16"
+      className="grid-blueprint scroll-mt-20 border-t border-border bg-surface/85 px-5 py-10 backdrop-blur-sm md:px-10 md:py-16"
     >
       <div className="mx-auto max-w-[1180px]">
         <div

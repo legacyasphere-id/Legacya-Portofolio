@@ -147,19 +147,6 @@ export function WorkPage() {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [lightboxOpen, active.screenshots.length])
 
-  const handleBackToMain = () => {
-    window.requestAnimationFrame(() => {
-      const el = document.getElementById('process')
-      if (!el) return
-      const top = el.getBoundingClientRect().top + window.scrollY - 76
-      window.scrollTo({
-        top: Math.max(0, top),
-        left: 0,
-        behavior: 'instant' as ScrollBehavior,
-      })
-    })
-  }
-
   return (
     <>
       <section
@@ -170,8 +157,7 @@ export function WorkPage() {
           <div className="mb-8 max-w-[680px]" data-animate>
             <Link
               to="/#process"
-              onClick={handleBackToMain}
-              className="group mb-4 inline-flex min-h-[44px] items-center gap-2 rounded-full border border-border bg-surface/80 px-4 py-2 text-[13.5px] font-medium text-muted transition-colors hover:border-blue-deep/35 hover:bg-surface hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-deep whitespace-nowrap"
+              className="group mb-4 inline-flex min-h-[44px] items-center gap-2 rounded-full border border-blue-deep/25 bg-surface px-4 py-2 text-[13.5px] font-medium text-text shadow-2xs transition-colors hover:border-blue-deep/50 hover:bg-raised/60 hover:text-blue-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-deep whitespace-nowrap"
             >
               <ArrowLeft
                 className="h-4 w-4 shrink-0 motion-safe:transition-transform motion-safe:duration-200 motion-safe:group-hover:-translate-x-0.5"
@@ -497,11 +483,10 @@ export function WorkPage() {
           <p className="display text-[clamp(1.75rem,3vw,2.45rem)] leading-[1.12] text-text">
             {t.workPage.closingLine}
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-3.5">
             <Link
               to="/#process"
-              onClick={handleBackToMain}
-              className="group inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[10px] border border-border bg-surface/80 px-3.5 py-2.5 text-[13.5px] font-medium text-muted transition-all duration-200 hover:border-blue-deep/35 hover:bg-surface hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-deep sm:px-5 sm:py-3 sm:text-[14px] whitespace-nowrap"
+              className="group inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[10px] border border-blue-deep/25 bg-surface px-4 py-2.5 text-[13.5px] font-medium text-text transition-colors duration-200 hover:border-blue-deep/50 hover:bg-raised/60 hover:text-blue-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-deep sm:px-5 sm:py-3 sm:text-[14px] whitespace-nowrap"
             >
               <ArrowLeft
                 className="h-4 w-4 shrink-0 motion-safe:transition-transform motion-safe:duration-200 motion-safe:group-hover:-translate-x-0.5"

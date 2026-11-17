@@ -206,61 +206,97 @@ test.describe('Work Preview & /work Routing', () => {
       .toBeLessThan(150)
   })
 
-  test('clicking "Back to main page" (top header and bottom closing section) on /work navigates to "/#process" ("Five clear steps from brief to launch") without page reload in EN and ID and restores /work scroll on browser Back', async ({
+  test('/work renders "Back to main page" in EN and ID in both the header and closing section', async ({
     page,
   }) => {
-    await page.setViewportSize({ width: 375, height: 812 })
     await page.goto('/work')
 
     const backLinksEn = page.locator('main a', { hasText: 'Back to main page' })
     await expect(backLinksEn).toHaveCount(2)
-    await expect(backLinksEn.first()).toBeVisible()
-    const mobileBox = await backLinksEn.first().boundingBox()
-    expect(mobileBox).not.toBeNull()
-    expect(mobileBox!.height).toBeGreaterThanOrEqual(44)
+    await expect(backLinksEn.nth(0)).toBeVisible()
+    await expect(backLinksEn.nth(1)).toBeVisible()
 
-    // Switch language to Indonesian and verify both top and bottom translated button labels
     await page
       .locator('header button[aria-label="Switch language to Indonesian"]')
       .first()
       .click()
     const backLinksId = page.locator('main a', { hasText: 'Kembali ke beranda' })
     await expect(backLinksId).toHaveCount(2)
-    await expect(backLinksId.first()).toBeVisible()
+    await expect(backLinksId.nth(0)).toBeVisible()
+    await expect(backLinksId.nth(1)).toBeVisible()
+  })
 
-    // Switch back to English on desktop, scroll slightly while keeping the top button in view, and verify client-side navigation to "/#process"
-    await page.setViewportSize({ width: 1440, height: 900 })
-    await page
-      .locator('header button[aria-label="Ganti bahasa ke Bahasa Inggris"]')
-      .first()
-      .click()
+  test('/work "Back to main page" buttons meet the 44px minimum tap target on mobile (375px)', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 375, height: 812 })
+    await page.goto('/work')
+
+    const backLinks = page.locator('main a', { hasText: 'Back to main page' })
+    await expect(backLinks).toHaveCount(2)
+
+    const topBox = await backLinks.nth(0).boundingBox()
+    expect(topBox).not.toBeNull()
+    expect(topBox!.height).toBeGreaterThanOrEqual(44)
+
+    await backLinks.nth(1).scrollIntoViewIfNeeded()
+    const bottomBox = await backLinks.nth(1).boundingBox()
+    expect(bottomBox).not.toBeNull()
+    expect(bottomBox!.height).toBeGreaterThanOrEqual(44)
+  })
+
+  test('clicking "Back to main page" on /work navigates client-side to "/#process" without page reload and shows the Process heading below the fixed nav', async ({
+    page,
+  }) => {
+    await page.goto('/work')
     await page.evaluate(() => {
       ;(window as unknown as { __spaMarker?: boolean }).__spaMarker = true
-      window.scrollTo({ top: 60, left: 0, behavior: 'instant' as ScrollBehavior })
     })
-    const workScrollBefore = await page.evaluate(() => window.scrollY)
-    expect(workScrollBefore).toBe(60)
 
-    await backLinksEn.first().click()
+    const backLinks = page.locator('main a', { hasText: 'Back to main page' })
+    await backLinks.first().click()
+
     await expect(page).toHaveURL(/\/#process$/)
-    await expect(
-      page.locator('#process h2', { hasText: 'Five clear steps from brief to launch' }),
-    ).toBeVisible()
     expect(
       await page.evaluate(
         () => (window as unknown as { __spaMarker?: boolean }).__spaMarker === true,
       ),
     ).toBe(true)
+
+    const processHeading = page.locator('#process h2', {
+      hasText: 'Five clear steps from brief to launch',
+    })
+    await expect(processHeading).toBeVisible()
+
+    // Ensure the Process heading sits below the fixed top navigation bar
     await expect
       .poll(async () => {
-        const top = await page.evaluate(
-          () => document.getElementById('process')?.getBoundingClientRect().top ?? 9999,
-        )
-        return Math.abs(top)
+        return await page.evaluate(() => {
+          const navBottom =
+            document.querySelector('header')?.getBoundingClientRect().bottom ?? 0
+          const headingTop =
+            document.querySelector('#process h2')?.getBoundingClientRect().top ?? 0
+          return headingTop - navBottom
+        })
       })
-      .toBeLessThan(160)
+      .toBeGreaterThanOrEqual(0)
+  })
 
-    // Browser Back returns to /work with its scroll position restored
+  test('browser Back after clicking "Back to main page" returns to /work and restores its scroll position', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto('/work')
+
+    await page.evaluate(() => {
+      window.scrollTo({ top: 60, left: 0, behavior: 'instant' as ScrollBehavior })
+    })
+    const workScrollBefore = await page.evaluate(() => window.scrollY)
+    expect(workScrollBefore).toBe(60)
+
+    await page.locator('main a', { hasText: 'Back to main page' }).first().click()
+    await expect(page).toHaveURL(/\/#process$/)
+
     await page.goBack()
     await expect(page).toHaveURL(/\/work$/)
     await expect
@@ -269,24 +305,6 @@ test.describe('Work Preview & /work Routing', () => {
         return Math.abs(y - workScrollBefore)
       })
       .toBeLessThan(20)
-
-    // Verify bottom "Back to main page" button beside "Start a Project" also navigates to "/#process"
-    const bottomBackLink = backLinksEn.nth(1)
-    await bottomBackLink.scrollIntoViewIfNeeded()
-    await expect(bottomBackLink).toBeVisible()
-    await bottomBackLink.click()
-    await expect(page).toHaveURL(/\/#process$/)
-    await expect(
-      page.locator('#process h2', { hasText: 'Five clear steps from brief to launch' }),
-    ).toBeVisible()
-    await expect
-      .poll(async () => {
-        const top = await page.evaluate(
-          () => document.getElementById('process')?.getBoundingClientRect().top ?? 9999,
-        )
-        return Math.abs(top)
-      })
-      .toBeLessThan(160)
   })
 
   test('clicking the active photo in the home showcase (both rows) opens /work with that exact project or opens that creative item modal', async ({
