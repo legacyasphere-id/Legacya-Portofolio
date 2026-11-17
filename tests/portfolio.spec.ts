@@ -206,6 +206,89 @@ test.describe('Work Preview & /work Routing', () => {
       .toBeLessThan(150)
   })
 
+  test('clicking "Back to main page" (top header and bottom closing section) on /work navigates to "/#process" ("Five clear steps from brief to launch") without page reload in EN and ID and restores /work scroll on browser Back', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 375, height: 812 })
+    await page.goto('/work')
+
+    const backLinksEn = page.locator('main a', { hasText: 'Back to main page' })
+    await expect(backLinksEn).toHaveCount(2)
+    await expect(backLinksEn.first()).toBeVisible()
+    const mobileBox = await backLinksEn.first().boundingBox()
+    expect(mobileBox).not.toBeNull()
+    expect(mobileBox!.height).toBeGreaterThanOrEqual(44)
+
+    // Switch language to Indonesian and verify both top and bottom translated button labels
+    await page
+      .locator('header button[aria-label="Switch language to Indonesian"]')
+      .first()
+      .click()
+    const backLinksId = page.locator('main a', { hasText: 'Kembali ke beranda' })
+    await expect(backLinksId).toHaveCount(2)
+    await expect(backLinksId.first()).toBeVisible()
+
+    // Switch back to English on desktop, scroll slightly while keeping the top button in view, and verify client-side navigation to "/#process"
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page
+      .locator('header button[aria-label="Ganti bahasa ke Bahasa Inggris"]')
+      .first()
+      .click()
+    await page.evaluate(() => {
+      ;(window as unknown as { __spaMarker?: boolean }).__spaMarker = true
+      window.scrollTo({ top: 60, left: 0, behavior: 'instant' as ScrollBehavior })
+    })
+    const workScrollBefore = await page.evaluate(() => window.scrollY)
+    expect(workScrollBefore).toBe(60)
+
+    await backLinksEn.first().click()
+    await expect(page).toHaveURL(/\/#process$/)
+    await expect(
+      page.locator('#process h2', { hasText: 'Five clear steps from brief to launch' }),
+    ).toBeVisible()
+    expect(
+      await page.evaluate(
+        () => (window as unknown as { __spaMarker?: boolean }).__spaMarker === true,
+      ),
+    ).toBe(true)
+    await expect
+      .poll(async () => {
+        const top = await page.evaluate(
+          () => document.getElementById('process')?.getBoundingClientRect().top ?? 9999,
+        )
+        return Math.abs(top)
+      })
+      .toBeLessThan(160)
+
+    // Browser Back returns to /work with its scroll position restored
+    await page.goBack()
+    await expect(page).toHaveURL(/\/work$/)
+    await expect
+      .poll(async () => {
+        const y = await page.evaluate(() => window.scrollY)
+        return Math.abs(y - workScrollBefore)
+      })
+      .toBeLessThan(20)
+
+    // Verify bottom "Back to main page" button beside "Start a Project" also navigates to "/#process"
+    const bottomBackLink = backLinksEn.nth(1)
+    await bottomBackLink.scrollIntoViewIfNeeded()
+    await expect(bottomBackLink).toBeVisible()
+    await bottomBackLink.click()
+    await expect(page).toHaveURL(/\/#process$/)
+    await expect(
+      page.locator('#process h2', { hasText: 'Five clear steps from brief to launch' }),
+    ).toBeVisible()
+    await expect
+      .poll(async () => {
+        const top = await page.evaluate(
+          () => document.getElementById('process')?.getBoundingClientRect().top ?? 9999,
+        )
+        return Math.abs(top)
+      })
+      .toBeLessThan(160)
+  })
+
   test('clicking the active photo in the home showcase (both rows) opens /work with that exact project or opens that creative item modal', async ({
     page,
   }) => {
