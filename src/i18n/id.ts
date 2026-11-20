@@ -164,6 +164,11 @@ export const id: typeof en = {
     digitalCaption: 'Website dan sistem bisnis yang saya bangun',
     creativeCaption: 'Visual kampanye dan film produk karya saya',
     motionCaption: 'Studi animasi motion saya',
+    systemsCaption: 'Sistem dan Website',
+    rawVisualsCaption: 'Pembuatan Aset Iklan: Visual mentah',
+    postReadyCaption: 'Pembuatan Aset Iklan: Konten siap tayang',
+    filmsCaption: 'Film Sinematik',
+    motionHomeCaption: 'Animasi Motion (sedang dikembangkan)',
     prevProjectAria: 'Proyek sebelumnya',
     nextProjectAria: 'Proyek berikutnya',
     previousLabel: 'Sebelumnya',
@@ -172,6 +177,8 @@ export const id: typeof en = {
     selectProjectAriaPrefix: 'Pilih proyek',
     openCreativeAriaPrefix: 'Buka studi kampanye',
     selectCreativeAriaPrefix: 'Pilih studi kampanye',
+    openPostReadyAriaPrefix: 'Lihat konsep siap tayang',
+    selectPostReadyAriaPrefix: 'Pilih konsep siap tayang',
     openMotionAriaPrefix: 'Buka studi animasi',
     selectMotionAriaPrefix: 'Pilih studi animasi',
     seeAllWork: 'Lihat semua karya',
@@ -221,7 +228,7 @@ export const id: typeof en = {
   },
   motionWork: {
     preparingBadge: 'Studi animasi · file sumber sedang disiapkan',
-    mountLabel: 'Studi animasi segera hadir',
+    mountLabel: 'Sedang dikembangkan',
     requestMotionCta: 'Pesan Animasi Motion',
   },
   process: {
@@ -521,7 +528,7 @@ export const id: typeof en = {
       ],
     },
     'ai-cv-screening': {
-      name: 'Talent Evaluation System',
+      name: 'Allure',
       tagline: 'Konsep penyaringan rekrutmen yang dirancang mengikuti alur kerja HR nyata',
       type: 'Sistem Bisnis Khusus & Otomasi Alur Kerja',
       industry: 'SDM & Rekrutmen',
@@ -545,8 +552,8 @@ export const id: typeof en = {
         'Grafik perbandingan visual berdampingan serta ekspor ringkasan satu klik untuk rapat evaluasi tim',
       ],
       screenshotAlts: [
-        'Dasbor Talent Evaluation System yang menampilkan ringkasan pelamar dan grafik perbandingan 3 kandidat teratas',
-        'Pengaturan kriteria lowongan dan rincian evaluasi kandidat transparan pada Talent Evaluation System',
+        'Dasbor Allure yang menampilkan ringkasan pelamar dan grafik perbandingan 3 kandidat teratas',
+        'Pengaturan kriteria lowongan dan rincian evaluasi kandidat transparan pada Allure',
       ],
     },
     'brightpath-dental': {

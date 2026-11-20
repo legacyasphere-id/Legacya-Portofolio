@@ -162,6 +162,11 @@ export const en = {
     digitalCaption: 'My live websites and business systems',
     creativeCaption: 'My campaign visuals and product films',
     motionCaption: 'My motion animation studies',
+    systemsCaption: 'Systems and Websites',
+    rawVisualsCaption: 'Ad Asset Creation: Raw visuals',
+    postReadyCaption: 'Ad Asset Creation: Post-ready posts',
+    filmsCaption: 'Cinematic Films',
+    motionHomeCaption: 'Motion Animation (in development)',
     prevProjectAria: 'Previous project',
     nextProjectAria: 'Next project',
     previousLabel: 'Previous',
@@ -170,6 +175,8 @@ export const en = {
     selectProjectAriaPrefix: 'Select project',
     openCreativeAriaPrefix: 'Open campaign study for',
     selectCreativeAriaPrefix: 'Select campaign study',
+    openPostReadyAriaPrefix: 'Inspect post-ready concept for',
+    selectPostReadyAriaPrefix: 'Select post-ready concept',
     openMotionAriaPrefix: 'Open motion study for',
     selectMotionAriaPrefix: 'Select motion study',
     seeAllWork: 'See all work',
@@ -219,7 +226,7 @@ export const en = {
   },
   motionWork: {
     preparingBadge: 'Motion studies · source files being prepared',
-    mountLabel: 'Motion studies coming soon',
+    mountLabel: 'In development',
     requestMotionCta: 'Request Motion Animation',
   },
   process: {
@@ -518,7 +525,7 @@ export const en = {
       ],
     },
     'ai-cv-screening': {
-      name: 'Talent Evaluation System',
+      name: 'Allure',
       tagline: 'Recruitment screening concept built around a real hiring workflow',
       type: 'Custom Business Tool & Workflow Automation',
       industry: 'Human Resources & Recruitment',
@@ -542,8 +549,8 @@ export const en = {
         'Side-by-side visual comparison charts and one-click summary exports for hiring reviews',
       ],
       screenshotAlts: [
-        'Talent Evaluation System dashboard showing applicant summaries and top-3 candidate comparison chart',
-        'Talent Evaluation System job criteria setup and transparent candidate evaluation breakdown',
+        'Allure dashboard showing applicant summaries and top-3 candidate comparison chart',
+        'Allure job criteria setup and transparent candidate evaluation breakdown',
       ],
     },
     'brightpath-dental': {

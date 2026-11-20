@@ -651,6 +651,113 @@ body::after {
   }
 }
 
+/* ── Home 5-line showcase compact spacing & uncropped overview support ───── */
+.cs-c--contain img {
+  object-fit: contain;
+}
+
+.cs-card--home {
+  padding: 24px 0 28px;
+}
+
+.cs-card--home .cs-cap {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.cs-card--home .cs-row + .cs-row {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border);
+}
+
+.cs-card--home .cs-stage {
+  height: 288px;
+}
+
+.cs-card--home .cs-mid {
+  width: 410px;
+  height: 244px;
+}
+
+.cs-card--home .cs-side {
+  width: 248px;
+  height: 154px;
+}
+
+.cs-card--home .cs-side.cs-pl,
+.cs-card--home .cs-btn.cs-pl,
+.cs-card--home .cs-hint.cs-pl {
+  left: calc(50% - 350px);
+}
+
+.cs-card--home .cs-side.cs-nx,
+.cs-card--home .cs-btn.cs-nx,
+.cs-card--home .cs-hint.cs-nx {
+  left: calc(50% + 350px);
+}
+
+.cs-card--home .cs-stage--compact {
+  height: 176px;
+}
+
+.cs-card--home .cs-stage--compact .cs-mid {
+  height: 146px;
+}
+
+.cs-card--home .cs-badge {
+  margin-top: 7px;
+}
+
+.cs-card--home .cs-cnt {
+  margin-top: 5px;
+}
+
+@media (max-width: 700px) {
+  .cs-card--home {
+    padding: 20px 0 24px;
+  }
+  .cs-card--home .cs-row + .cs-row {
+    margin-top: 16px;
+    padding-top: 16px;
+  }
+  .cs-card--home .cs-stage {
+    height: 198px;
+  }
+  .cs-card--home .cs-mid {
+    width: 196px;
+    height: 124px;
+  }
+  .cs-card--home .cs-side {
+    width: 150px;
+    height: 96px;
+  }
+  .cs-card--home .cs-side.cs-pl {
+    left: calc(50% - 140px);
+  }
+  .cs-card--home .cs-side.cs-nx {
+    left: calc(50% + 140px);
+  }
+  .cs-card--home .cs-btn.cs-pl {
+    left: calc(50% - 132px);
+  }
+  .cs-card--home .cs-btn.cs-nx {
+    left: calc(50% + 132px);
+  }
+  .cs-card--home .cs-title {
+    padding: 0 20px;
+  }
+  .cs-card--home .cs-badge {
+    max-width: calc(100% - 32px);
+  }
+  .cs-card--home .cs-stage--compact {
+    height: 148px;
+  }
+  .cs-card--home .cs-stage--compact .cs-mid {
+    height: 118px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .cs-mid,
   .cs-side,
@@ -658,4 +765,5 @@ body::after {
     transition: none;
   }
 }
+
 

@@ -90,3 +90,14 @@ export interface MotionWorkItem {
   notes: string
 }
 
+export interface PostReadyWorkItem {
+  id: string
+  brand: string
+  title: string
+  alt: string
+  image: string
+  /** 'concept' = self-initiated brand concept, not commissioned by a client. */
+  engagement: 'concept'
+}
+
+
