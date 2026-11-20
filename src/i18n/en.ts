@@ -135,7 +135,7 @@ export const en = {
       },
       postReady: {
         eyebrow: '03 · Ad asset creation',
-        heading: 'Post-ready posts',
+        heading: 'Post-ready assets',
         description: 'Finished carousels with copy and layout.',
       },
       films: {
