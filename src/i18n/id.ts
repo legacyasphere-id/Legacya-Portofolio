@@ -87,24 +87,6 @@ export const id: typeof en = {
       'Vendor web jarang peduli pada tampilan brand, sementara agensi kreatif tidak membangun perangkat lunak. Saya mengerjakan keduanya secara langsung dengan alur kerja berbantuan AI, sehingga sistem dan visual bisnismu siap diluncurkan bersama dalam hitungan minggu.',
     primaryCta: 'Mulai Proyek',
     secondaryCta: 'Lihat Karya Saya',
-    cardTitle: 'Masalah yang Saya Selesaikan',
-    segments: [
-      {
-        index: '01.',
-        title: 'Spreadsheet menghambat operasional harian',
-        detail: 'Satu dasbor terpadu untuk stok, penjualan, atau jadwal pesanan.',
-      },
-      {
-        index: '02.',
-        title: 'Website lama menurunkan kepercayaan calon pelanggan',
-        detail: 'Website cepat dan nyaman di ponsel yang mengubah pengunjung menjadi pertanyaan bisnis.',
-      },
-      {
-        index: '03.',
-        title: 'Peluncuran produk belum punya materi visual',
-        detail: 'Visual utama, materi iklan sosial, dan video produk pendek yang siap tayang.',
-      },
-    ],
   },
   services: {
     eyebrow: 'Layanan Saya',
