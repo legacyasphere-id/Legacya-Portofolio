@@ -164,11 +164,33 @@ export const id: typeof en = {
     digitalCaption: 'Website dan sistem bisnis yang saya bangun',
     creativeCaption: 'Visual kampanye dan film produk karya saya',
     motionCaption: 'Studi animasi motion saya',
-    systemsCaption: 'Sistem dan Website',
-    rawVisualsCaption: 'Pembuatan Aset Iklan: Visual mentah',
-    postReadyCaption: 'Pembuatan Aset Iklan: Konten siap tayang',
-    filmsCaption: 'Film Sinematik',
-    motionHomeCaption: 'Animasi Motion (sedang dikembangkan)',
+    homeLines: {
+      systems: {
+        eyebrow: '01',
+        heading: 'Sistem dan Website',
+        description: 'Website dan sistem bisnis yang saya bangun.',
+      },
+      rawVisuals: {
+        eyebrow: '02 · Aset iklan',
+        heading: 'Visual mentah',
+        description: 'Visual bersih, sebelum teks dan layout.',
+      },
+      postReady: {
+        eyebrow: '03 · Aset iklan',
+        heading: 'Siap posting',
+        description: 'Carousel jadi dengan teks dan layout.',
+      },
+      films: {
+        eyebrow: '04',
+        heading: 'Film sinematik',
+        description: 'Film produk pendek.',
+      },
+      motion: {
+        eyebrow: '05',
+        heading: 'Animasi motion',
+        description: 'Studi sedang dikerjakan.',
+      },
+    },
     prevProjectAria: 'Proyek sebelumnya',
     nextProjectAria: 'Proyek berikutnya',
     previousLabel: 'Sebelumnya',

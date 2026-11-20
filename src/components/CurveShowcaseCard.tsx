@@ -8,15 +8,23 @@ import type {
 } from '../types/project'
 import { triggerProjectScope } from '../core/identity'
 
+export interface HomeLineHeaderCopy {
+  eyebrow: string
+  heading: string
+  description: string
+}
+
 export interface CurveShowcaseCopy {
   digitalCaption: string
   creativeCaption: string
   motionCaption: string
-  systemsCaption: string
-  rawVisualsCaption: string
-  postReadyCaption: string
-  filmsCaption: string
-  motionHomeCaption: string
+  homeLines: {
+    systems: HomeLineHeaderCopy
+    rawVisuals: HomeLineHeaderCopy
+    postReady: HomeLineHeaderCopy
+    films: HomeLineHeaderCopy
+    motion: HomeLineHeaderCopy
+  }
   prevProjectAria: string
   nextProjectAria: string
   previousLabel: string
@@ -39,11 +47,33 @@ const DEFAULT_EN_COPY: CurveShowcaseCopy = {
   digitalCaption: 'My live websites and business systems',
   creativeCaption: 'My campaign visuals and product films',
   motionCaption: 'My motion animation studies',
-  systemsCaption: 'Systems and Websites',
-  rawVisualsCaption: 'Ad Asset Creation: Raw visuals',
-  postReadyCaption: 'Ad Asset Creation: Post-ready posts',
-  filmsCaption: 'Cinematic Films',
-  motionHomeCaption: 'Motion Animation (in development)',
+  homeLines: {
+    systems: {
+      eyebrow: '01',
+      heading: 'Systems and Websites',
+      description: 'Websites and business systems I built.',
+    },
+    rawVisuals: {
+      eyebrow: '02 · Ad asset creation',
+      heading: 'Raw visuals',
+      description: 'Clean visuals, before copy and layout.',
+    },
+    postReady: {
+      eyebrow: '03 · Ad asset creation',
+      heading: 'Post-ready posts',
+      description: 'Finished carousels with copy and layout.',
+    },
+    films: {
+      eyebrow: '04',
+      heading: 'Cinematic films',
+      description: 'Short product films.',
+    },
+    motion: {
+      eyebrow: '05',
+      heading: 'Motion animation',
+      description: 'Studies in progress.',
+    },
+  },
   prevProjectAria: 'Previous project',
   nextProjectAria: 'Next project',
   previousLabel: 'Previous',
@@ -60,6 +90,13 @@ const DEFAULT_EN_COPY: CurveShowcaseCopy = {
   selectPostReadyAriaPrefix: 'Select post-ready concept',
   openMotionAriaPrefix: 'Open motion study for',
   selectMotionAriaPrefix: 'Select motion study',
+}
+
+function formatHomeRowAriaLabel(header: HomeLineHeaderCopy): string {
+  const category = header.eyebrow.includes('·')
+    ? header.eyebrow.split('·').slice(1).join('·').trim()
+    : ''
+  return category ? `${category}: ${header.heading}` : header.heading
 }
 
 type ActiveRowId =
@@ -117,6 +154,7 @@ interface CurveRowProps {
   id?: string
   testId: string
   caption: string
+  homeHeader?: HomeLineHeaderCopy
   slides: CurveSlide[]
   activeIndex: number
   onStep: (delta: number) => void
@@ -131,6 +169,7 @@ function CurveRow({
   id,
   testId,
   caption,
+  homeHeader,
   slides,
   activeIndex,
   onStep,
@@ -149,6 +188,7 @@ function CurveRow({
   const hasMultiple = total > 1
   const prev = hasMultiple ? slides[(safeIdx - 1 + total) % total] : undefined
   const next = hasMultiple ? slides[(safeIdx + 1) % total] : undefined
+  const regionLabel = homeHeader ? formatHomeRowAriaLabel(homeHeader) : caption
 
   const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
     if (!hasMultiple || e.touches.length !== 1) return
@@ -175,12 +215,20 @@ function CurveRow({
       data-testid={testId}
       role="region"
       tabIndex={0}
-      aria-label={caption}
+      aria-label={regionLabel}
       onFocusCapture={onActivateRow}
       onClickCapture={onActivateRow}
       className={`cs-row focus:outline-none ${className}`.trim()}
     >
-      <p className="cs-cap">{caption}</p>
+      {homeHeader ? (
+        <div className="cs-head">
+          <p className="eyebrow cs-head-eyebrow">{homeHeader.eyebrow}</p>
+          <p className="cs-head-title">{homeHeader.heading}</p>
+          <p className="cs-head-desc">{homeHeader.description}</p>
+        </div>
+      ) : (
+        <p className="cs-cap">{caption}</p>
+      )}
 
       <div
         className="cs-stage"
@@ -498,7 +546,9 @@ export function CurveShowcaseCard({
       ? motionSlides[((motionIdx % motionSlides.length) + motionSlides.length) % motionSlides.length]
       : undefined
 
-  const motionCaption = isHome ? copy.motionHomeCaption : copy.motionCaption
+  const motionRegionLabel = isHome
+    ? formatHomeRowAriaLabel(copy.homeLines.motion)
+    : copy.motionCaption
 
   return (
     <div
@@ -521,7 +571,8 @@ export function CurveShowcaseCard({
       {/* ── ROW 1: Digital Projects / Systems and Websites ── */}
       <CurveRow
         testId="curve-row-digital"
-        caption={isHome ? copy.systemsCaption : copy.digitalCaption}
+        caption={copy.digitalCaption}
+        homeHeader={isHome ? copy.homeLines.systems : undefined}
         slides={projectSlides}
         activeIndex={projectIdx}
         onStep={stepProject}
@@ -533,10 +584,11 @@ export function CurveShowcaseCard({
 
       {isHome ? (
         <>
-          {/* ── ROW 2 (Home): Ad Asset Creation: Raw visuals ── */}
+          {/* ── ROW 2 (Home): Ad asset creation · Raw visuals ── */}
           <CurveRow
             testId="curve-row-raw-visuals"
-            caption={copy.rawVisualsCaption}
+            caption={copy.homeLines.rawVisuals.heading}
+            homeHeader={copy.homeLines.rawVisuals}
             slides={rawVisualSlides}
             activeIndex={rawVisualIdx}
             onStep={stepRawVisual}
@@ -545,10 +597,11 @@ export function CurveShowcaseCard({
             copy={copy}
           />
 
-          {/* ── ROW 3 (Home): Ad Asset Creation: Post-ready posts ── */}
+          {/* ── ROW 3 (Home): Ad asset creation · Post-ready posts ── */}
           <CurveRow
             testId="curve-row-post-ready"
-            caption={copy.postReadyCaption}
+            caption={copy.homeLines.postReady.heading}
+            homeHeader={copy.homeLines.postReady}
             slides={postReadySlides}
             activeIndex={postReadyIdx}
             onStep={stepPostReady}
@@ -557,10 +610,11 @@ export function CurveShowcaseCard({
             copy={copy}
           />
 
-          {/* ── ROW 4 (Home): Cinematic Films (0 <video> mounted until clicked) ── */}
+          {/* ── ROW 4 (Home): Cinematic films (0 <video> mounted until clicked) ── */}
           <CurveRow
             testId="curve-row-films"
-            caption={copy.filmsCaption}
+            caption={copy.homeLines.films.heading}
+            homeHeader={copy.homeLines.films}
             slides={filmSlides}
             activeIndex={filmIdx}
             onStep={stepFilm}
@@ -588,7 +642,8 @@ export function CurveShowcaseCard({
         <CurveRow
           id="motion-work"
           testId="curve-row-motion"
-          caption={motionCaption}
+          caption={copy.motionCaption}
+          homeHeader={isHome ? copy.homeLines.motion : undefined}
           slides={motionSlides}
           activeIndex={motionIdx}
           onStep={stepMotion}
@@ -606,12 +661,20 @@ export function CurveShowcaseCard({
           data-testid="curve-row-motion"
           role="region"
           tabIndex={0}
-          aria-label={motionCaption}
+          aria-label={motionRegionLabel}
           onFocusCapture={() => setActiveRow('motion')}
           onClickCapture={() => setActiveRow('motion')}
           className="cs-row scroll-mt-24 focus:outline-none"
         >
-          <p className="cs-cap">{motionCaption}</p>
+          {isHome ? (
+            <div className="cs-head">
+              <p className="eyebrow cs-head-eyebrow">{copy.homeLines.motion.eyebrow}</p>
+              <p className="cs-head-title">{copy.homeLines.motion.heading}</p>
+              <p className="cs-head-desc">{copy.homeLines.motion.description}</p>
+            </div>
+          ) : (
+            <p className="cs-cap">{copy.motionCaption}</p>
+          )}
 
           <div className={`cs-stage ${isHome ? 'cs-stage--compact' : ''}`.trim()}>
             <div
@@ -632,7 +695,7 @@ export function CurveShowcaseCard({
           </div>
 
           <div className="cs-info">
-            <span className="cs-badge">{copy.motionPreparingBadge}</span>
+            {!isHome && <span className="cs-badge">{copy.motionPreparingBadge}</span>}
             <div className="mt-3 flex justify-center">
               <button
                 type="button"

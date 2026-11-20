@@ -162,11 +162,33 @@ export const en = {
     digitalCaption: 'My live websites and business systems',
     creativeCaption: 'My campaign visuals and product films',
     motionCaption: 'My motion animation studies',
-    systemsCaption: 'Systems and Websites',
-    rawVisualsCaption: 'Ad Asset Creation: Raw visuals',
-    postReadyCaption: 'Ad Asset Creation: Post-ready posts',
-    filmsCaption: 'Cinematic Films',
-    motionHomeCaption: 'Motion Animation (in development)',
+    homeLines: {
+      systems: {
+        eyebrow: '01',
+        heading: 'Systems and Websites',
+        description: 'Websites and business systems I built.',
+      },
+      rawVisuals: {
+        eyebrow: '02 · Ad asset creation',
+        heading: 'Raw visuals',
+        description: 'Clean visuals, before copy and layout.',
+      },
+      postReady: {
+        eyebrow: '03 · Ad asset creation',
+        heading: 'Post-ready posts',
+        description: 'Finished carousels with copy and layout.',
+      },
+      films: {
+        eyebrow: '04',
+        heading: 'Cinematic films',
+        description: 'Short product films.',
+      },
+      motion: {
+        eyebrow: '05',
+        heading: 'Motion animation',
+        description: 'Studies in progress.',
+      },
+    },
     prevProjectAria: 'Previous project',
     nextProjectAria: 'Next project',
     previousLabel: 'Previous',

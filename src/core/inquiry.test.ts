@@ -246,7 +246,10 @@ test('post-ready concept entries stay one-entry bilingual and resolve to WebP as
   const idItems = getPostReadyWorkItems('id')
   assert.equal(enItems.length, POST_READY_ENTRIES.length)
   assert.equal(idItems.length, POST_READY_ENTRIES.length)
-  assert.ok(enItems.length >= 2)
+  assert.deepEqual(
+    enItems.map((item) => item.id),
+    ['halyard-coastal', 'lanai-motion', 'marea-watch', 'vela'],
+  )
 
   for (let i = 0; i < enItems.length; i++) {
     assert.equal(enItems[i].id, idItems[i].id)

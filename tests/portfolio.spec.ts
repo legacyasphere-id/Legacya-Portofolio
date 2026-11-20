@@ -341,19 +341,25 @@ test.describe('Work Preview & /work Routing', () => {
     await expect(dialog).toBeVisible()
     await expect(dialog).toContainText('LATE Black Cold Brew')
 
-    // Return home, step Post-ready row between Lanai Motion and Marea Watch, and open overview dialog
+    // Return home, cycle Post-ready row across Halyard -> Lanai -> Marea -> Vela, and open overview dialog
     await page.goto('/')
     const postReadyRow = page.getByTestId('curve-row-post-ready')
+    await expect(postReadyRow.locator('.cs-title')).toHaveText('Halyard Coastal')
+    await expect(postReadyRow.locator('.cs-cnt')).toHaveText('1 / 4')
+    await postReadyRow.locator('button.cs-btn.cs-nx').click()
     await expect(postReadyRow.locator('.cs-title')).toHaveText('Lanai Motion')
-    await expect(postReadyRow.locator('.cs-cnt')).toHaveText('1 / 2')
+    await expect(postReadyRow.locator('.cs-cnt')).toHaveText('2 / 4')
     await postReadyRow.locator('button.cs-btn.cs-nx').click()
     await expect(postReadyRow.locator('.cs-title')).toHaveText('Marea Watch')
-    await expect(postReadyRow.locator('.cs-cnt')).toHaveText('2 / 2')
+    await expect(postReadyRow.locator('.cs-cnt')).toHaveText('3 / 4')
+    await postReadyRow.locator('button.cs-btn.cs-nx').click()
+    await expect(postReadyRow.locator('.cs-title')).toHaveText('Vela')
+    await expect(postReadyRow.locator('.cs-cnt')).toHaveText('4 / 4')
     await postReadyRow.locator('button.cs-c.cs-mid').click()
 
     const postReadyDialog = page.locator('#work [role="dialog"]')
     await expect(postReadyDialog).toBeVisible()
-    await expect(postReadyDialog).toContainText('Marea Watch')
+    await expect(postReadyDialog).toContainText('Vela')
     await page.keyboard.press('Escape')
     await expect(postReadyDialog).toHaveCount(0)
 
@@ -812,21 +818,32 @@ test.describe('Home 5-Line Showcase & Motion Work', () => {
       const rowFilms = page.getByTestId('curve-row-films')
       const rowMotion = page.getByTestId('curve-row-motion')
 
-      await expect(rowDigital.locator('.cs-cap')).toHaveText('Systems and Websites')
-      await expect(rowRaw.locator('.cs-cap')).toHaveText('Ad Asset Creation: Raw visuals')
-      await expect(rowPostReady.locator('.cs-cap')).toHaveText(
-        'Ad Asset Creation: Post-ready posts',
+      await expect(rowDigital.locator('.cs-head-eyebrow')).toHaveText('01')
+      await expect(rowDigital.locator('.cs-head-title')).toHaveText('Systems and Websites')
+      await expect(rowDigital.locator('.cs-head-desc')).toHaveText(
+        'Websites and business systems I built.',
       )
-      await expect(rowFilms.locator('.cs-cap')).toHaveText('Cinematic Films')
-      await expect(rowMotion.locator('.cs-cap')).toHaveText(
-        'Motion Animation (in development)',
+      await expect(rowRaw.locator('.cs-head-eyebrow')).toHaveText('02 · Ad asset creation')
+      await expect(rowRaw.locator('.cs-head-title')).toHaveText('Raw visuals')
+      await expect(rowRaw.locator('.cs-head-desc')).toHaveText(
+        'Clean visuals, before copy and layout.',
       )
+      await expect(rowPostReady.locator('.cs-head-eyebrow')).toHaveText('03 · Ad asset creation')
+      await expect(rowPostReady.locator('.cs-head-title')).toHaveText('Post-ready posts')
+      await expect(rowPostReady.locator('.cs-head-desc')).toHaveText(
+        'Finished carousels with copy and layout.',
+      )
+      await expect(rowFilms.locator('.cs-head-eyebrow')).toHaveText('04')
+      await expect(rowFilms.locator('.cs-head-title')).toHaveText('Cinematic films')
+      await expect(rowFilms.locator('.cs-head-desc')).toHaveText('Short product films.')
+      await expect(rowMotion.locator('.cs-head-eyebrow')).toHaveText('05')
+      await expect(rowMotion.locator('.cs-head-title')).toHaveText('Motion animation')
+      await expect(rowMotion.locator('.cs-head-desc')).toHaveText('Studies in progress.')
 
       await expect(rowMotion).toHaveAttribute('id', 'motion-work')
       await expect(rowMotion.getByTestId('motion-source-mount')).toHaveText('In development')
-      await expect(rowMotion.locator('.cs-badge')).toHaveText(
-        'Motion studies · source files being prepared',
-      )
+      // Home motion row omits the redundant developer-note badge while keeping the tile & CTA
+      await expect(rowMotion.locator('.cs-badge')).toHaveCount(0)
       // Empty state has no fake side photos or prev/next buttons
       await expect(rowMotion.locator('.cs-side')).toHaveCount(0)
       await expect(rowMotion.locator('.cs-btn')).toHaveCount(0)
@@ -853,29 +870,46 @@ test.describe('Home 5-Line Showcase & Motion Work', () => {
       expect(ctaBox!.height).toBeGreaterThanOrEqual(44)
     }
 
-    // Verify Indonesian headings on home page
-    await page.setViewportSize({ width: 390, height: 844 })
+    // Verify Indonesian headings on home page at 375px with zero horizontal overflow
+    await page.setViewportSize({ width: 375, height: 812 })
     await page.goto('/')
     await page
       .locator('header button[aria-label="Switch language to Indonesian"]')
       .first()
       .click()
-    await expect(page.getByTestId('curve-row-digital').locator('.cs-cap')).toHaveText(
+    await expect(page.getByTestId('curve-row-digital').locator('.cs-head-title')).toHaveText(
       'Sistem dan Website',
     )
-    await expect(page.getByTestId('curve-row-raw-visuals').locator('.cs-cap')).toHaveText(
-      'Pembuatan Aset Iklan: Visual mentah',
+    await expect(page.getByTestId('curve-row-digital').locator('.cs-head-desc')).toHaveText(
+      'Website dan sistem bisnis yang saya bangun.',
     )
-    await expect(page.getByTestId('curve-row-post-ready').locator('.cs-cap')).toHaveText(
-      'Pembuatan Aset Iklan: Konten siap tayang',
+    await expect(page.getByTestId('curve-row-raw-visuals').locator('.cs-head-eyebrow')).toHaveText(
+      '02 · Aset iklan',
     )
-    await expect(page.getByTestId('curve-row-films').locator('.cs-cap')).toHaveText(
-      'Film Sinematik',
+    await expect(page.getByTestId('curve-row-raw-visuals').locator('.cs-head-title')).toHaveText(
+      'Visual mentah',
     )
-    await expect(page.getByTestId('curve-row-motion').locator('.cs-cap')).toHaveText(
-      'Animasi Motion (sedang dikembangkan)',
+    await expect(page.getByTestId('curve-row-post-ready').locator('.cs-head-eyebrow')).toHaveText(
+      '03 · Aset iklan',
+    )
+    await expect(page.getByTestId('curve-row-post-ready').locator('.cs-head-title')).toHaveText(
+      'Siap posting',
+    )
+    await expect(page.getByTestId('curve-row-films').locator('.cs-head-title')).toHaveText(
+      'Film sinematik',
+    )
+    await expect(page.getByTestId('curve-row-motion').locator('.cs-head-title')).toHaveText(
+      'Animasi motion',
+    )
+    await expect(page.getByTestId('curve-row-motion').locator('.cs-head-desc')).toHaveText(
+      'Studi sedang dikerjakan.',
     )
     await expect(page.getByTestId('motion-source-mount')).toHaveText('Sedang dikembangkan')
+    await expect(page.getByTestId('curve-row-motion').locator('.cs-badge')).toHaveCount(0)
+    const hasOverflow375Id = await page.evaluate(
+      () => document.documentElement.scrollWidth > window.innerWidth,
+    )
+    expect(hasOverflow375Id).toBe(false)
   })
 
   test('/work keeps the 3-row showcase layout, keyboard next on empty motion row is a safe no-op, and Request Motion Animation preselects Motion Animation in inquiry form', async ({

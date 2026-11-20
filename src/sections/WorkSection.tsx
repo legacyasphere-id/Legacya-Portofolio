@@ -168,7 +168,7 @@ export function WorkSection() {
 
             <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/10 px-5 py-3.5">
               <span className="font-mono text-[11.5px] text-white/65">
-                {t.showcase.postReadyCaption}
+                {`${t.showcase.homeLines.postReady.eyebrow.replace(/^\d+\s*·\s*/, '')} · ${t.showcase.homeLines.postReady.heading}`}
               </span>
               <button
                 type="button"

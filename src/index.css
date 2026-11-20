@@ -651,92 +651,123 @@ body::after {
   }
 }
 
-/* ── Home 5-line showcase compact spacing & uncropped overview support ───── */
+/* ── Home 5-line showcase headers, dividers & uncropped overview support ──── */
 .cs-c--contain img {
   object-fit: contain;
 }
 
 .cs-card--home {
-  padding: 24px 0 28px;
+  padding: 28px 0 28px;
 }
 
-.cs-card--home .cs-cap {
-  font-weight: 600;
-  margin-bottom: 4px;
+.cs-card--home .cs-head {
+  padding: 0 32px;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.cs-card--home .cs-head-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  color: var(--color-text);
+  margin-top: 4px;
+}
+
+.cs-card--home .cs-head-desc {
+  font-size: 14.5px;
+  line-height: 1.375;
+  color: var(--color-muted);
+  margin-top: 4px;
 }
 
 .cs-card--home .cs-row + .cs-row {
-  margin-top: 20px;
-  padding-top: 20px;
+  margin-top: 28px;
+  padding-top: 28px;
   border-top: 1px solid var(--color-border);
 }
 
 .cs-card--home .cs-stage {
-  height: 288px;
-}
-
-.cs-card--home .cs-mid {
-  width: 410px;
   height: 244px;
 }
 
+.cs-card--home .cs-mid {
+  width: 396px;
+  height: 228px;
+}
+
 .cs-card--home .cs-side {
-  width: 248px;
-  height: 154px;
+  width: 244px;
+  height: 150px;
 }
 
 .cs-card--home .cs-side.cs-pl,
 .cs-card--home .cs-btn.cs-pl,
 .cs-card--home .cs-hint.cs-pl {
-  left: calc(50% - 350px);
+  left: calc(50% - 342px);
 }
 
 .cs-card--home .cs-side.cs-nx,
 .cs-card--home .cs-btn.cs-nx,
 .cs-card--home .cs-hint.cs-nx {
-  left: calc(50% + 350px);
+  left: calc(50% + 342px);
 }
 
 .cs-card--home .cs-stage--compact {
-  height: 176px;
+  height: 136px;
 }
 
 .cs-card--home .cs-stage--compact .cs-mid {
-  height: 146px;
+  height: 122px;
+}
+
+.cs-card--home .cs-info {
+  margin-top: 8px;
 }
 
 .cs-card--home .cs-badge {
-  margin-top: 7px;
+  margin-top: 6px;
 }
 
 .cs-card--home .cs-cnt {
-  margin-top: 5px;
+  margin-top: 4px;
 }
 
 @media (max-width: 700px) {
   .cs-card--home {
-    padding: 20px 0 24px;
+    padding: 24px 0 24px;
+  }
+  .cs-card--home .cs-head {
+    padding: 0 24px;
+    margin-bottom: 16px;
   }
   .cs-card--home .cs-row + .cs-row {
-    margin-top: 16px;
-    padding-top: 16px;
+    margin-top: 28px;
+    padding-top: 28px;
   }
   .cs-card--home .cs-stage {
-    height: 198px;
+    height: 168px;
   }
   .cs-card--home .cs-mid {
+    top: 44%;
     width: 196px;
-    height: 124px;
+    height: 120px;
   }
   .cs-card--home .cs-side {
+    top: 44%;
     width: 150px;
-    height: 96px;
+    height: 94px;
   }
   .cs-card--home .cs-side.cs-pl {
     left: calc(50% - 140px);
   }
   .cs-card--home .cs-side.cs-nx {
     left: calc(50% + 140px);
+  }
+  .cs-card--home .cs-btn {
+    top: 78%;
   }
   .cs-card--home .cs-btn.cs-pl {
     left: calc(50% - 132px);
@@ -745,16 +776,17 @@ body::after {
     left: calc(50% + 132px);
   }
   .cs-card--home .cs-title {
-    padding: 0 20px;
+    padding: 0 24px;
   }
   .cs-card--home .cs-badge {
-    max-width: calc(100% - 32px);
+    max-width: calc(100% - 48px);
   }
   .cs-card--home .cs-stage--compact {
-    height: 148px;
+    height: 128px;
   }
   .cs-card--home .cs-stage--compact .cs-mid {
-    height: 118px;
+    top: 50%;
+    height: 112px;
   }
 }
 
