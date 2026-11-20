@@ -54,28 +54,6 @@ export const en = {
     primaryCta: 'Start a Project',
     secondaryCta: 'See My Work',
     locationLine: 'Founder-led · Bekasi, Indonesia',
-    pillars: [
-      {
-        index: '01.',
-        unit: 'Systems',
-        detail: 'Websites, portals and tools that replace spreadsheets.',
-      },
-      {
-        index: '02.',
-        unit: 'Automation & AI',
-        detail: 'Workflows that cut repetitive manual tasks.',
-      },
-      {
-        index: '03.',
-        unit: 'Campaign visuals',
-        detail: 'Key visuals and product imagery for launches.',
-      },
-      {
-        index: '04.',
-        unit: 'Short-form video',
-        detail: 'Product films and vertical reels for ads.',
-      },
-    ],
   },
   about: {
     eyebrow: 'About',
@@ -85,24 +63,6 @@ export const en = {
       'Web vendors rarely care about brand look, and creative agencies do not build software. I do both directly with an AI-assisted workflow, so your system and your visuals ship together in weeks.',
     primaryCta: 'Start a Project',
     secondaryCta: 'See My Work',
-    cardTitle: 'Problems I Solve',
-    segments: [
-      {
-        index: '01.',
-        title: 'Spreadsheets slowing daily operations',
-        detail: 'One live dashboard for stock, sales or bookings.',
-      },
-      {
-        index: '02.',
-        title: 'Outdated website losing buyer trust',
-        detail: 'A fast, mobile-first site that turns visitors into inquiries.',
-      },
-      {
-        index: '03.',
-        title: 'Product launch without visuals',
-        detail: 'Key visuals, social ads and short product films ready for ads.',
-      },
-    ],
   },
   services: {
     eyebrow: 'What I Do',
