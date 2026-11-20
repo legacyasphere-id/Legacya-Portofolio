@@ -54,28 +54,6 @@ export const en = {
     primaryCta: 'Start a Project',
     secondaryCta: 'See My Work',
     locationLine: 'Founder-led · Bekasi, Indonesia',
-    pillars: [
-      {
-        index: '01.',
-        unit: 'Systems',
-        detail: 'Websites, portals and tools that replace spreadsheets.',
-      },
-      {
-        index: '02.',
-        unit: 'Automation & AI',
-        detail: 'Workflows that cut repetitive manual tasks.',
-      },
-      {
-        index: '03.',
-        unit: 'Campaign visuals',
-        detail: 'Key visuals and product imagery for launches.',
-      },
-      {
-        index: '04.',
-        unit: 'Short-form video',
-        detail: 'Product films and vertical reels for ads.',
-      },
-    ],
   },
   about: {
     eyebrow: 'About',

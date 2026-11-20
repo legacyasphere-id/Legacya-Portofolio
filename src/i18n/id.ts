@@ -56,28 +56,6 @@ export const id: typeof en = {
     primaryCta: 'Mulai Proyek',
     secondaryCta: 'Lihat Karya Saya',
     locationLine: 'Dipimpin langsung oleh founder · Bekasi, Indonesia',
-    pillars: [
-      {
-        index: '01.',
-        unit: 'Sistem',
-        detail: 'Website, portal, dan sistem kerja pengganti spreadsheet.',
-      },
-      {
-        index: '02.',
-        unit: 'Otomasi & AI',
-        detail: 'Alur kerja otomatis yang memangkas tugas manual berulang.',
-      },
-      {
-        index: '03.',
-        unit: 'Visual kampanye',
-        detail: 'Visual utama dan foto produk untuk peluncuran brand.',
-      },
-      {
-        index: '04.',
-        unit: 'Video pendek',
-        detail: 'Film produk dan video vertikal 9:16 untuk iklan.',
-      },
-    ],
   },
   about: {
     eyebrow: 'Tentang',

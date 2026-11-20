@@ -31,7 +31,7 @@ export function HeroSection() {
   return (
     <section
       id="hero"
-      className="grad-hero relative flex min-h-screen w-full flex-col justify-between overflow-hidden px-5 pb-12 pt-24 sm:pt-28 md:px-10 md:pb-20 md:pt-32"
+      className="grad-hero relative flex min-h-screen w-full flex-col justify-center overflow-hidden px-5 pb-14 pt-24 sm:pb-16 sm:pt-28 md:px-10 md:pb-20 md:pt-32"
     >
       {/* Editorial reading veil so dark ink and slate copy maintain WCAG AA contrast
           against the continuous background artwork without hiding the art. */}
@@ -119,36 +119,6 @@ export function HeroSection() {
               {t.hero.locationLine}
             </p>
           </div>
-        </div>
-      </div>
-
-      {/* Full-Width 4-Column Studio Capability Strip below the Hero Split */}
-      <div
-        className="relative z-10 mx-auto mt-6 w-full max-w-[1180px]"
-        data-animate
-        data-delay="400"
-      >
-        <div className="grid w-full grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border lg:grid-cols-4">
-          {t.hero.pillars.map((item) => (
-            <div
-              key={item.index}
-              className="flex flex-col justify-between bg-surface/95 p-4 sm:p-5 text-left backdrop-blur-md"
-            >
-              <div>
-                <div className="flex items-baseline gap-1.5">
-                  <span className="display font-mono text-[13px] font-bold tracking-tight text-blue-deep tabular-nums">
-                    {item.index}
-                  </span>
-                  <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.06em] text-text">
-                    {item.unit}
-                  </span>
-                </div>
-                <p className="mt-1.5 text-[12.5px] sm:text-[13px] leading-snug text-muted">
-                  {item.detail}
-                </p>
-              </div>
-            </div>
-          ))}
         </div>
       </div>
     </section>
