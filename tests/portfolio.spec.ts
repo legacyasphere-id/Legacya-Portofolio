@@ -307,33 +307,69 @@ test.describe('Work Preview & /work Routing', () => {
       .toBeLessThan(20)
   })
 
-  test('clicking the active photo in the home showcase (both rows) opens /work with that exact project or opens that creative item modal', async ({
+  test('clicking the active photo in the home showcase (systems, raw visuals, films) opens /work with that exact item and post-ready opens its overview dialog', async ({
     page,
   }) => {
     await page.goto('/')
     const digitalRow = page.getByTestId('curve-row-digital')
 
-    // Step to Talent Evaluation System on home page and click center photo
+    // Home Systems row starts on BrightPath, steps to Allure (2 / 3), and omits InventoryOS
+    await expect(digitalRow.locator('.cs-title')).toHaveText(
+      'BrightPath Clinic Website & Patient Portal',
+    )
+    await expect(digitalRow.locator('.cs-cnt')).toHaveText('1 / 3')
     await digitalRow.locator('button.cs-btn.cs-nx').click()
-    await expect(digitalRow.locator('.cs-title')).toHaveText('Talent Evaluation System')
+    await expect(digitalRow.locator('.cs-title')).toHaveText('Allure')
+    await expect(digitalRow.locator('.cs-cnt')).toHaveText('2 / 3')
     await digitalRow.locator('button.cs-c.cs-mid').click()
 
     await expect(page).toHaveURL(/\/work\?project=ai-cv-screening$/)
-    await expect(
-      page.locator('#work-panel h3', { hasText: 'Talent Evaluation System' }),
-    ).toBeVisible()
+    await expect(page.locator('#work-panel h3', { hasText: 'Allure' })).toBeVisible()
 
-    // Return home, step creative row to Flame-Grilled Burger, and click center photo
+    // Return home, step Raw visuals row to LATE Black Cold Brew (2 / 2), and click center photo
     await page.goto('/')
-    const creativeRow = page.getByTestId('curve-row-creative')
-    await creativeRow.locator('button.cs-btn.cs-nx').click()
-    await expect(creativeRow.locator('.cs-title')).toHaveText('Flame-Grilled Burger')
-    await creativeRow.locator('button.cs-c.cs-mid').click()
+    const rawRow = page.getByTestId('curve-row-raw-visuals')
+    await expect(rawRow.locator('.cs-title')).toHaveText('Hanasui Cosmetics')
+    await expect(rawRow.locator('.cs-cnt')).toHaveText('1 / 2')
+    await rawRow.locator('button.cs-btn.cs-nx').click()
+    await expect(rawRow.locator('.cs-title')).toHaveText('LATE Black Cold Brew')
+    await expect(rawRow.locator('.cs-cnt')).toHaveText('2 / 2')
+    await rawRow.locator('button.cs-c.cs-mid').click()
 
-    await expect(page).toHaveURL(/\/work\?creative=artisan-burger-campaign$/)
+    await expect(page).toHaveURL(/\/work\?creative=late-cold-brew-campaign$/)
     const dialog = page.locator('#creative-work [role="dialog"]')
     await expect(dialog).toBeVisible()
-    await expect(dialog).toContainText('Flame-Grilled Burger')
+    await expect(dialog).toContainText('LATE Black Cold Brew')
+
+    // Return home, cycle Post-ready row across Halyard -> Lanai -> Marea -> Vela, and open overview dialog
+    await page.goto('/')
+    const postReadyRow = page.getByTestId('curve-row-post-ready')
+    await expect(postReadyRow.locator('.cs-title')).toHaveText('Halyard Coastal')
+    await expect(postReadyRow.locator('.cs-cnt')).toHaveText('1 / 4')
+    await postReadyRow.locator('button.cs-btn.cs-nx').click()
+    await expect(postReadyRow.locator('.cs-title')).toHaveText('Lanai Motion')
+    await expect(postReadyRow.locator('.cs-cnt')).toHaveText('2 / 4')
+    await postReadyRow.locator('button.cs-btn.cs-nx').click()
+    await expect(postReadyRow.locator('.cs-title')).toHaveText('Marea Watch')
+    await expect(postReadyRow.locator('.cs-cnt')).toHaveText('3 / 4')
+    await postReadyRow.locator('button.cs-btn.cs-nx').click()
+    await expect(postReadyRow.locator('.cs-title')).toHaveText('Vela')
+    await expect(postReadyRow.locator('.cs-cnt')).toHaveText('4 / 4')
+    await postReadyRow.locator('button.cs-c.cs-mid').click()
+
+    const postReadyDialog = page.locator('#work [role="dialog"]')
+    await expect(postReadyDialog).toBeVisible()
+    await expect(postReadyDialog).toContainText('Vela')
+    await page.keyboard.press('Escape')
+    await expect(postReadyDialog).toHaveCount(0)
+
+    // Cinematic Films row opens /work?creative=<id> with 0 <video> mounted on home
+    const filmsRow = page.getByTestId('curve-row-films')
+    await expect(filmsRow.locator('.cs-cnt')).toHaveText('1 / 3')
+    await expect(page.locator('video')).toHaveCount(0)
+    await filmsRow.locator('button.cs-c.cs-mid').click()
+    await expect(page).toHaveURL(/\/work\?creative=hanasui-cosmetic-commercial-video$/)
+    await expect(page.locator('#creative-work [role="dialog"]')).toBeVisible()
   })
 
   test('from /work, nav links to About, Services, and Contact land on the right home section', async ({
@@ -410,7 +446,7 @@ test.describe('Digital Work & Curve Showcase on /work', () => {
     await expect(panel.locator('h3', { hasText: 'InventoryOS' })).toBeVisible()
 
     const expectedSequence: [string, string][] = [
-      ['Talent Evaluation System', '2 / 4'],
+      ['Allure', '2 / 4'],
       ['BrightPath Clinic Website & Patient Portal', '3 / 4'],
       ['Legacya Restaurant & Kitchen System', '4 / 4'],
     ]
@@ -428,7 +464,7 @@ test.describe('Digital Work & Curve Showcase on /work', () => {
     await expect(digitalRow.locator('.cs-cnt')).toHaveText('1 / 4')
 
     await nextBtn.click()
-    await expect(digitalRow.locator('.cs-title')).toHaveText('Talent Evaluation System')
+    await expect(digitalRow.locator('.cs-title')).toHaveText('Allure')
     await prevBtn.click()
     await expect(digitalRow.locator('.cs-title')).toHaveText('InventoryOS')
   })
@@ -442,7 +478,7 @@ test.describe('Digital Work & Curve Showcase on /work', () => {
 
     // Click right neighbor photo on row 1 (top-left of side card, outside the centered round button)
     await digitalRow.locator('button.cs-c.cs-side.cs-nx').click({ position: { x: 75, y: 20 } })
-    await expect(digitalRow.locator('.cs-title')).toHaveText('Talent Evaluation System')
+    await expect(digitalRow.locator('.cs-title')).toHaveText('Allure')
     await expect(digitalRow.locator('.cs-cnt')).toHaveText('2 / 4')
 
     // Keyboard ArrowRight / ArrowLeft on row 1
@@ -452,7 +488,7 @@ test.describe('Digital Work & Curve Showcase on /work', () => {
       'BrightPath Clinic Website & Patient Portal',
     )
     await page.keyboard.press('ArrowLeft')
-    await expect(digitalRow.locator('.cs-title')).toHaveText('Talent Evaluation System')
+    await expect(digitalRow.locator('.cs-title')).toHaveText('Allure')
 
     // Row 2 navigation: button, neighbor photo, keyboard, and center photo modal open
     await expect(creativeRow.locator('.cs-title')).toHaveText('Hanasui Cosmetics')
@@ -488,7 +524,12 @@ test.describe('Digital Work & Curve Showcase on /work', () => {
     await page.setViewportSize({ width: 1440, height: 900 })
     await page.goto('/')
 
-    for (const rowTestId of ['curve-row-digital', 'curve-row-creative']) {
+    for (const rowTestId of [
+      'curve-row-digital',
+      'curve-row-raw-visuals',
+      'curve-row-post-ready',
+      'curve-row-films',
+    ]) {
       const row = page.getByTestId(rowTestId)
       const midStyle = await row.locator('.cs-c.cs-mid').evaluate((el) => {
         const s = window.getComputedStyle(el)
@@ -508,12 +549,13 @@ test.describe('Digital Work & Curve Showcase on /work', () => {
     }
   })
 
-  test('zero button overlap with center photo and >=44px tap targets at 1440px and 390px', async ({
+  test('zero button overlap with center photo and >=44px tap targets at 1440px, 390px, and 375px', async ({
     page,
   }) => {
     for (const viewport of [
       { width: 1440, height: 900 },
       { width: 390, height: 844 },
+      { width: 375, height: 812 },
     ]) {
       await page.setViewportSize(viewport)
       await page.goto('/')
@@ -523,7 +565,12 @@ test.describe('Digital Work & Curve Showcase on /work', () => {
       )
       expect(hasOverflow).toBe(false)
 
-      for (const rowTestId of ['curve-row-digital', 'curve-row-creative']) {
+      for (const rowTestId of [
+        'curve-row-digital',
+        'curve-row-raw-visuals',
+        'curve-row-post-ready',
+        'curve-row-films',
+      ]) {
         const row = page.getByTestId(rowTestId)
         await row.scrollIntoViewIfNeeded()
 
@@ -564,7 +611,12 @@ test.describe('Digital Work & Curve Showcase on /work', () => {
     const cardBox = await page.getByTestId('curve-showcase-card').boundingBox()
     expect(cardBox).not.toBeNull()
 
-    for (const rowTestId of ['curve-row-digital', 'curve-row-creative']) {
+    for (const rowTestId of [
+      'curve-row-digital',
+      'curve-row-raw-visuals',
+      'curve-row-post-ready',
+      'curve-row-films',
+    ]) {
       const row = page.getByTestId(rowTestId)
       const stageBox = await row.locator('.cs-stage').boundingBox()
       const plSideBox = await row.locator('.cs-c.cs-side.cs-pl').boundingBox()
@@ -595,7 +647,7 @@ test.describe('Digital Work & Curve Showcase on /work', () => {
     const assertNoCutOffLines = async () => {
       const lines = page.locator('#work .cs-ln')
       const count = await lines.count()
-      expect(count).toBe(2)
+      expect(count).toBe(4)
       for (let i = 0; i < count; i++) {
         const metrics = await lines.nth(i).evaluate((el) => {
           const s = window.getComputedStyle(el)
@@ -744,8 +796,8 @@ test.describe('Creative Work', () => {
 
 // ── Motion Animation Row in CurveShowcaseCard ────────────────────────────────
 
-test.describe('Motion Work', () => {
-  test('showcase card renders 3 non-overlapping rows with >=44px tap target at 1440px and 390px in EN and ID, keyboard next on empty motion row is a safe no-op, and Request Motion Animation preselects Motion Animation in inquiry form', async ({
+test.describe('Home 5-Line Showcase & Motion Work', () => {
+  test('home showcase renders 5 non-overlapping labelled lines in EN and ID with >=44px motion CTA tap target at 1440px and 390px', async ({
     page,
   }) => {
     for (const viewport of [
@@ -761,33 +813,55 @@ test.describe('Motion Work', () => {
       expect(hasOverflowEn).toBe(false)
 
       const rowDigital = page.getByTestId('curve-row-digital')
-      const rowCreative = page.getByTestId('curve-row-creative')
+      const rowRaw = page.getByTestId('curve-row-raw-visuals')
+      const rowPostReady = page.getByTestId('curve-row-post-ready')
+      const rowFilms = page.getByTestId('curve-row-films')
       const rowMotion = page.getByTestId('curve-row-motion')
 
-      await expect(rowDigital).toBeVisible()
-      await expect(rowCreative).toBeVisible()
-      await expect(rowMotion).toBeVisible()
+      await expect(rowDigital.locator('.cs-head-eyebrow')).toHaveText('01')
+      await expect(rowDigital.locator('.cs-head-title')).toHaveText('Systems and Websites')
+      await expect(rowDigital.locator('.cs-head-desc')).toHaveText(
+        'Websites and business systems I built.',
+      )
+      await expect(rowRaw.locator('.cs-head-eyebrow')).toHaveText('02 · Ad asset creation')
+      await expect(rowRaw.locator('.cs-head-title')).toHaveText('Raw visuals')
+      await expect(rowRaw.locator('.cs-head-desc')).toHaveText(
+        'Clean visuals, before copy and layout.',
+      )
+      await expect(rowPostReady.locator('.cs-head-eyebrow')).toHaveText('03 · Ad asset creation')
+      await expect(rowPostReady.locator('.cs-head-title')).toHaveText('Post-ready posts')
+      await expect(rowPostReady.locator('.cs-head-desc')).toHaveText(
+        'Finished carousels with copy and layout.',
+      )
+      await expect(rowFilms.locator('.cs-head-eyebrow')).toHaveText('04')
+      await expect(rowFilms.locator('.cs-head-title')).toHaveText('Cinematic films')
+      await expect(rowFilms.locator('.cs-head-desc')).toHaveText('Short product films.')
+      await expect(rowMotion.locator('.cs-head-eyebrow')).toHaveText('05')
+      await expect(rowMotion.locator('.cs-head-title')).toHaveText('Motion animation')
+      await expect(rowMotion.locator('.cs-head-desc')).toHaveText('Studies in progress.')
+
       await expect(rowMotion).toHaveAttribute('id', 'motion-work')
-      await expect(rowMotion.locator('.cs-cap')).toHaveText('My motion animation studies')
-      await expect(rowMotion.getByTestId('motion-source-mount')).toHaveText(
-        'Motion studies coming soon',
-      )
-      await expect(rowMotion.locator('.cs-badge')).toHaveText(
-        'Motion studies · source files being prepared',
-      )
+      await expect(rowMotion.getByTestId('motion-source-mount')).toHaveText('In development')
+      // Home motion row omits the redundant developer-note badge while keeping the tile & CTA
+      await expect(rowMotion.locator('.cs-badge')).toHaveCount(0)
       // Empty state has no fake side photos or prev/next buttons
       await expect(rowMotion.locator('.cs-side')).toHaveCount(0)
       await expect(rowMotion.locator('.cs-btn')).toHaveCount(0)
 
-      // Check rectangles & non-overlapping vertical order of the 3 rows
-      const box1 = await rowDigital.boundingBox()
-      const box2 = await rowCreative.boundingBox()
-      const box3 = await rowMotion.boundingBox()
-      expect(box1).not.toBeNull()
-      expect(box2).not.toBeNull()
-      expect(box3).not.toBeNull()
-      expect(box1!.y + box1!.height).toBeLessThanOrEqual(box2!.y + 1)
-      expect(box2!.y + box2!.height).toBeLessThanOrEqual(box3!.y + 1)
+      // Check non-overlapping vertical order of all 5 rows
+      const boxes = await Promise.all([
+        rowDigital.boundingBox(),
+        rowRaw.boundingBox(),
+        rowPostReady.boundingBox(),
+        rowFilms.boundingBox(),
+        rowMotion.boundingBox(),
+      ])
+      for (const box of boxes) {
+        expect(box).not.toBeNull()
+      }
+      for (let i = 0; i < boxes.length - 1; i++) {
+        expect(boxes[i]!.y + boxes[i]!.height).toBeLessThanOrEqual(boxes[i + 1]!.y + 1)
+      }
 
       // Request Motion Animation button tap target >= 44px
       const ctaBtn = rowMotion.getByRole('button', { name: 'Request Motion Animation' })
@@ -796,7 +870,51 @@ test.describe('Motion Work', () => {
       expect(ctaBox!.height).toBeGreaterThanOrEqual(44)
     }
 
-    // Pressing ArrowRight / ArrowLeft while motion row is focused does not break anything or alter row 1 / row 2
+    // Verify Indonesian headings on home page at 375px with zero horizontal overflow
+    await page.setViewportSize({ width: 375, height: 812 })
+    await page.goto('/')
+    await page
+      .locator('header button[aria-label="Switch language to Indonesian"]')
+      .first()
+      .click()
+    await expect(page.getByTestId('curve-row-digital').locator('.cs-head-title')).toHaveText(
+      'Sistem dan Website',
+    )
+    await expect(page.getByTestId('curve-row-digital').locator('.cs-head-desc')).toHaveText(
+      'Website dan sistem bisnis yang saya bangun.',
+    )
+    await expect(page.getByTestId('curve-row-raw-visuals').locator('.cs-head-eyebrow')).toHaveText(
+      '02 · Aset iklan',
+    )
+    await expect(page.getByTestId('curve-row-raw-visuals').locator('.cs-head-title')).toHaveText(
+      'Visual mentah',
+    )
+    await expect(page.getByTestId('curve-row-post-ready').locator('.cs-head-eyebrow')).toHaveText(
+      '03 · Aset iklan',
+    )
+    await expect(page.getByTestId('curve-row-post-ready').locator('.cs-head-title')).toHaveText(
+      'Siap posting',
+    )
+    await expect(page.getByTestId('curve-row-films').locator('.cs-head-title')).toHaveText(
+      'Film sinematik',
+    )
+    await expect(page.getByTestId('curve-row-motion').locator('.cs-head-title')).toHaveText(
+      'Animasi motion',
+    )
+    await expect(page.getByTestId('curve-row-motion').locator('.cs-head-desc')).toHaveText(
+      'Studi sedang dikerjakan.',
+    )
+    await expect(page.getByTestId('motion-source-mount')).toHaveText('Sedang dikembangkan')
+    await expect(page.getByTestId('curve-row-motion').locator('.cs-badge')).toHaveCount(0)
+    const hasOverflow375Id = await page.evaluate(
+      () => document.documentElement.scrollWidth > window.innerWidth,
+    )
+    expect(hasOverflow375Id).toBe(false)
+  })
+
+  test('/work keeps the 3-row showcase layout, keyboard next on empty motion row is a safe no-op, and Request Motion Animation preselects Motion Animation in inquiry form', async ({
+    page,
+  }) => {
     await page.goto('/work')
     const rowDigital = page.getByTestId('curve-row-digital')
     const rowCreative = page.getByTestId('curve-row-creative')
@@ -809,9 +927,7 @@ test.describe('Motion Work', () => {
     await page.keyboard.press('ArrowLeft')
     await expect(rowDigital.locator('.cs-title')).toHaveText('InventoryOS')
     await expect(rowCreative.locator('.cs-title')).toHaveText('Hanasui Cosmetics')
-    await expect(rowMotion.getByTestId('motion-source-mount')).toHaveText(
-      'Motion studies coming soon',
-    )
+    await expect(rowMotion.getByTestId('motion-source-mount')).toHaveText('In development')
 
     // Switch language to Indonesian and verify copy & no horizontal overflow
     await page
@@ -820,7 +936,7 @@ test.describe('Motion Work', () => {
       .click()
     await expect(rowMotion.locator('.cs-cap')).toHaveText('Studi animasi motion saya')
     await expect(rowMotion.getByTestId('motion-source-mount')).toHaveText(
-      'Studi animasi segera hadir',
+      'Sedang dikembangkan',
     )
     await expect(rowMotion.locator('.cs-badge')).toHaveText(
       'Studi animasi · file sumber sedang disiapkan',

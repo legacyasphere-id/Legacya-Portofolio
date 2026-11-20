@@ -16,6 +16,7 @@ import {
 } from './router.ts'
 import { en } from '../i18n/en.ts'
 import { id } from '../i18n/id.ts'
+import { getPostReadyWorkItems, POST_READY_ENTRIES } from '../data/postReadyWork.ts'
 
 test('SERVICE_OPTIONS includes all four core studio capabilities in exact order plus combined engagement', () => {
   const labels = SERVICE_OPTIONS.map((s) => s.label)
@@ -210,6 +211,7 @@ test('All customer-facing sections and portfolio data contain zero developer jar
     'src/core/router.ts',
     'src/data/projects.ts',
     'src/data/creativeWork.ts',
+    'src/data/postReadyWork.ts',
     'src/data/motionWork.ts',
     'src/sections/HeroSection.tsx',
     'src/sections/StudioIntroSection.tsx',
@@ -236,5 +238,28 @@ test('All customer-facing sections and portfolio data contain zero developer jar
         `File ${relPath} should not contain "${term}"`,
       )
     }
+  }
+})
+
+test('post-ready concept entries stay one-entry bilingual and resolve to WebP assets', () => {
+  const enItems = getPostReadyWorkItems('en')
+  const idItems = getPostReadyWorkItems('id')
+  assert.equal(enItems.length, POST_READY_ENTRIES.length)
+  assert.equal(idItems.length, POST_READY_ENTRIES.length)
+  assert.deepEqual(
+    enItems.map((item) => item.id),
+    ['halyard-coastal', 'lanai-motion', 'marea-watch', 'vela'],
+  )
+
+  for (let i = 0; i < enItems.length; i++) {
+    assert.equal(enItems[i].id, idItems[i].id)
+    assert.equal(enItems[i].brand, idItems[i].brand)
+    assert.equal(enItems[i].engagement, 'concept')
+    assert.equal(idItems[i].engagement, 'concept')
+    assert.ok(enItems[i].title.trim().length > 0)
+    assert.ok(idItems[i].title.trim().length > 0)
+    assert.ok(enItems[i].alt.trim().length > 0)
+    assert.ok(idItems[i].alt.trim().length > 0)
+    assert.ok(enItems[i].image.endsWith('.webp'))
   }
 })

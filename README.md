@@ -115,7 +115,7 @@ Composed in order by `src/App.tsx`:
 |---|------|-----------|-------------|
 | 1 | **Page header** | `WorkPage` | Small label "Work", the one `<h1>` "Selected work", and a short sub line |
 | 2 | **Showcase card** | `CurveShowcaseCard` | Two rows: four digital projects and six campaign studies. The center photo is sharp, the previous and next photos are blurred, and round buttons (or the side photos, or the arrow keys) change the active item |
-| 3 | **Digital Work detail panel** | `WorkPage` (`#work-panel`) | The four self-initiated reference builds (InventoryOS, Talent Evaluation System, BrightPath Clinic, Legacya Restaurant & Kitchen System) with screenshots, build notes and live demo links |
+| 3 | **Digital Work detail panel** | `WorkPage` (`#work-panel`) | The four self-initiated reference builds (InventoryOS, Allure, BrightPath Clinic, Legacya Restaurant & Kitchen System) with screenshots, build notes and live demo links |
 | 4 | **Creative Work** | `CreativeWorkSection` (`#creative-work`) | Six concept campaign studies. It opens on the images; the films load only after the "Cinematic Video & Visual Production" tab is clicked, so no video loads on first visit |
 | 5 | **Closing line** | `WorkPage` | "Tell me about your business." and a button to the contact form on the home page |
 

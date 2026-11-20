@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { ArrowLeft, ArrowUpRight } from 'lucide-react'
 import { getProjects } from '../data/projects'
 import { getCreativeWorkItems } from '../data/creativeWork'
+import { getPostReadyWorkItems } from '../data/postReadyWork'
 import { getMotionWorkItems } from '../data/motionWork'
 import { triggerProjectScope } from '../core/identity'
 import { navigate, useRoute } from '../core/router'
@@ -11,29 +12,72 @@ import { Link } from '../components/Link'
 import { CreativeWorkSection } from './CreativeWorkSection'
 
 /**
+ * Home page digital showcase order: BrightPath | Allure | Legacya POS.
+ * InventoryOS stays fully available on /work.
+ * TODO(yoga): Confirm whether Legacya POS should keep "Legacya Restaurant & Kitchen System"
+ * or adopt a shorter label ("POS UI" was shorthand in the brief and is not confirmed).
+ */
+const HOME_SYSTEM_IDS = ['brightpath-dental', 'ai-cv-screening', 'legacya-pos'] as const
+
+/**
+ * Text-free raw visual studies for the home showcase.
+ * artisan-burger-campaign is intentionally omitted here because burger-campaign.webp
+ * has baked-in ad copy at the top; it remains available on /work.
+ */
+const HOME_RAW_VISUAL_IDS = [
+  'hanasui-cosmetic-campaign',
+  'late-cold-brew-campaign',
+] as const
+
+/**
  * Home page preview section (`#work`):
- * Renders the interactive `CurveShowcaseCard` and a "See all work" button.
- * Clicking the active photo in either row opens `/work` with that item selected.
+ * Renders the 5-line `CurveShowcaseCard` and a "See all work" button.
+ * Clicking an active system, raw visual, or film opens `/work` with that item selected;
+ * clicking an active post-ready concept opens an uncropped full-size preview dialog.
  */
 export function WorkSection() {
   const { lang, t } = useT()
-  const projects = getProjects(lang)
-  const creativeItems = getCreativeWorkItems(lang)
-  const motionItems = getMotionWorkItems(lang)
-  const [activeId, setActiveId] = useState(projects[0]?.id ?? 'inventory-os')
+  const allProjects = getProjects(lang)
+  const homeProjects = HOME_SYSTEM_IDS.map((id) =>
+    allProjects.find((p) => p.id === id),
+  ).filter((p): p is (typeof allProjects)[number] => Boolean(p))
 
-  const active = projects.find((p) => p.id === activeId) ?? projects[0]
+  const creativeItems = getCreativeWorkItems(lang)
+  const rawVisualItems = HOME_RAW_VISUAL_IDS.map((id) =>
+    creativeItems.find((item) => item.id === id),
+  ).filter((item): item is (typeof creativeItems)[number] => Boolean(item))
+  const postReadyItems = getPostReadyWorkItems(lang)
+  const filmItems = creativeItems.filter(
+    (item) => item.category === 'Cinematic Video & Visual Production',
+  )
+  const motionItems = getMotionWorkItems(lang)
+
+  const [activeId, setActiveId] = useState(homeProjects[0]?.id ?? 'brightpath-dental')
+  const [selectedPostReadyId, setSelectedPostReadyId] = useState<string | null>(null)
+
+  const active = homeProjects.find((p) => p.id === activeId) ?? homeProjects[0]
+  const selectedPostReady =
+    postReadyItems.find((item) => item.id === selectedPostReadyId) ?? null
 
   useEffect(() => {
     const onSelectProject = (e: Event) => {
       const custom = e as CustomEvent<string>
-      if (custom.detail && projects.some((p) => p.id === custom.detail)) {
+      if (custom.detail && homeProjects.some((p) => p.id === custom.detail)) {
         setActiveId(custom.detail)
       }
     }
     window.addEventListener('legacya:select-project', onSelectProject)
     return () => window.removeEventListener('legacya:select-project', onSelectProject)
-  }, [projects])
+  }, [homeProjects])
+
+  useEffect(() => {
+    if (!selectedPostReadyId) return
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSelectedPostReadyId(null)
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [selectedPostReadyId])
 
   return (
     <section
@@ -42,13 +86,18 @@ export function WorkSection() {
     >
       <div className="mx-auto max-w-[1180px]">
         <CurveShowcaseCard
-          projects={projects}
+          layout="home"
+          projects={homeProjects}
           activeProjectId={active.id}
           onSelectProject={setActiveId}
           onInspectActiveProject={(projectId) => {
             navigate(`/work?project=${encodeURIComponent(projectId)}`)
           }}
           creativeItems={creativeItems}
+          rawVisualItems={rawVisualItems}
+          postReadyItems={postReadyItems}
+          onOpenPostReadyItem={setSelectedPostReadyId}
+          filmItems={filmItems}
           onOpenCreativeItem={(itemId) => {
             navigate(`/work?creative=${encodeURIComponent(itemId)}`)
           }}
@@ -75,6 +124,70 @@ export function WorkSection() {
           </Link>
         </div>
       </div>
+
+      {selectedPostReady && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${selectedPostReady.brand} ${t.creativeWork.modalAriaSuffix}`}
+          className="fixed inset-0 z-[200] flex items-center justify-center bg-black/85 p-4 backdrop-blur-md md:p-10"
+          onClick={() => setSelectedPostReadyId(null)}
+        >
+          <div
+            className="relative flex max-h-[92vh] w-full max-w-[1040px] flex-col overflow-hidden rounded-2xl border border-white/15 bg-text text-white shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between gap-4 border-b border-white/10 px-5 py-3.5">
+              <div>
+                <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-white/65">
+                  {t.creativeWork.conceptBadge}
+                </p>
+                <h3 className="mt-0.5 text-[1.15rem] font-semibold text-white">
+                  {selectedPostReady.brand}
+                </h3>
+                <p className="text-[13px] text-white/75">{selectedPostReady.title}</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setSelectedPostReadyId(null)}
+                className="min-h-[44px] shrink-0 rounded-lg border border-white/15 bg-white/10 px-3 py-1.5 text-[12px] font-medium text-white hover:bg-white/20 cursor-pointer"
+              >
+                {t.creativeWork.closeEsc} &times;
+              </button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto p-4 sm:p-6">
+              <div className="flex items-center justify-center overflow-hidden rounded-xl border border-white/15 bg-black p-2 sm:p-4">
+                <img
+                  src={selectedPostReady.image}
+                  alt={selectedPostReady.alt}
+                  className="max-h-[66vh] w-auto rounded-lg object-contain"
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/10 px-5 py-3.5">
+              <span className="font-mono text-[11.5px] text-white/65">
+                {`${t.showcase.homeLines.postReady.eyebrow.replace(/^\d+\s*·\s*/, '')} · ${t.showcase.homeLines.postReady.heading}`}
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  const brand = selectedPostReady.brand
+                  setSelectedPostReadyId(null)
+                  triggerProjectScope({
+                    serviceCategory: 'advertising-assets',
+                    projectReference: brand,
+                  })
+                }}
+                className="btn-primary px-5 py-2 text-[13px] whitespace-nowrap"
+              >
+                {t.creativeWork.requestSimilar}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
