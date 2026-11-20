@@ -137,7 +137,7 @@ export const id: typeof en = {
       },
       postReady: {
         eyebrow: '03 · Aset iklan',
-        heading: 'Siap posting',
+        heading: 'Aset siap posting',
         description: 'Carousel jadi dengan teks dan layout.',
       },
       films: {

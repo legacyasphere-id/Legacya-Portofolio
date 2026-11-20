@@ -60,7 +60,7 @@ const DEFAULT_EN_COPY: CurveShowcaseCopy = {
     },
     postReady: {
       eyebrow: '03 · Ad asset creation',
-      heading: 'Post-ready posts',
+      heading: 'Post-ready assets',
       description: 'Finished carousels with copy and layout.',
     },
     films: {
@@ -597,7 +597,7 @@ export function CurveShowcaseCard({
             copy={copy}
           />
 
-          {/* ── ROW 3 (Home): Ad asset creation · Post-ready posts ── */}
+          {/* ── ROW 3 (Home): Ad asset creation · Post-ready assets ── */}
           <CurveRow
             testId="curve-row-post-ready"
             caption={copy.homeLines.postReady.heading}

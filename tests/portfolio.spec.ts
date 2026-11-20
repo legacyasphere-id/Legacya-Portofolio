@@ -829,7 +829,7 @@ test.describe('Home 5-Line Showcase & Motion Work', () => {
         'Clean visuals, before copy and layout.',
       )
       await expect(rowPostReady.locator('.cs-head-eyebrow')).toHaveText('03 · Ad asset creation')
-      await expect(rowPostReady.locator('.cs-head-title')).toHaveText('Post-ready posts')
+      await expect(rowPostReady.locator('.cs-head-title')).toHaveText('Post-ready assets')
       await expect(rowPostReady.locator('.cs-head-desc')).toHaveText(
         'Finished carousels with copy and layout.',
       )
@@ -893,7 +893,7 @@ test.describe('Home 5-Line Showcase & Motion Work', () => {
       '03 · Aset iklan',
     )
     await expect(page.getByTestId('curve-row-post-ready').locator('.cs-head-title')).toHaveText(
-      'Siap posting',
+      'Aset siap posting',
     )
     await expect(page.getByTestId('curve-row-films').locator('.cs-head-title')).toHaveText(
       'Film sinematik',
