@@ -67,15 +67,15 @@ export const POST_READY_ENTRIES: PostReadyEntry[] = [
   },
   {
     id: 'vela',
-    imagePath: 'creative-work/vela-bottle-carousel-v1.webp',
+    imagePath: 'creative-work/vela-padel-carousel-v2.webp',
     brand: 'Vela',
     en: {
-      title: 'Six-slide matte black bottle carousel',
-      alt: 'Vela six-slide carousel showing a matte black bottle with a steel cap and carry loop across sunlit concrete, condensation macro, court-side still life and athletic lifestyle frames',
+      title: 'Six-slide padel bottle carousel',
+      alt: 'Vela Padel Edition six-slide carousel showing a matte black steel bottle with labelled carry loop, steel cap and grip sleeve on a padel court, a macro close-up, and a woman in white tennis wear carrying and drinking from the bottle, with a scoreboard-style slide counter',
     },
     idCopy: {
-      title: 'Carousel botol hitam matte enam slide',
-      alt: 'Carousel enam slide Vela yang menampilkan botol hitam matte bertutup baja dengan tali jinjing dalam bidikan beton pagi, detail embun makro, sisi lapangan dan potret olahraga',
+      title: 'Carousel botol padel enam slide',
+      alt: 'Carousel enam slide Vela Padel Edition yang menampilkan botol baja hitam matte dengan label tali jinjing, tutup baja dan sleeve genggam di lapangan padel, detail makro, serta perempuan berpakaian tenis putih yang membawa dan meminum dari botol, dengan penghitung slide bergaya papan skor',
     },
   },
 ]
